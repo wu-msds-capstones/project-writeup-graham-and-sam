@@ -1,1 +1,3 @@
 # Introduction
+
+Diet is known to impact LDL cholesterol levels and other chronic disease risk factors [Peng K, Li X, Wang Z, Li M, Yang Y...]. However, with the slew of information available about how to diet, which foods are healthier than others, and overall practices, it can be difficult to decide what to believe. Should someone follow a ketogenic diet, which emphasizes high-fat intake and low-carbohydrate consumption; a carnivore diet, which consists almost exclusively of meat and animal products; or another dietary approach better suited to maintaining long-term health? This project details which nutrient factors are associated with reduced chronic diseases, with an emphasis on the associated risks of LDL cholesterol.
