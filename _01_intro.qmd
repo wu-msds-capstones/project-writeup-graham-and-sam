@@ -1,3 +1,23 @@
 # Introduction
 
-Diet is known to impact LDL cholesterol levels and other chronic disease risk factors [Peng K, Li X, Wang Z, Li M, Yang Y...]. However, with the slew of information available about how to diet, which foods are healthier than others, and overall practices, it can be difficult to decide what to believe. Should someone follow a ketogenic diet, which emphasizes high-fat intake and low-carbohydrate consumption; a carnivore diet, which consists almost exclusively of meat and animal products; or another dietary approach better suited to maintaining long-term health? This project details which nutrient factors are associated with reduced chronic diseases, with an emphasis on the associated risks of LDL cholesterol.
+Elevated levels of low density lipoprotein ( LDL) cholesterol are associated with increased risk of cardiovascular disease and all cause mortality[Peng, 2022]. 
+
+Diet is known to impact LDL levels and other chronic disease risk factors[Schoeneck, 2021].  
+
+Everyone wants to boost their longevity and wellbeing, but with the modern-day cornucopia of information and misinformation about food and health, it can be difficult to know what healthy eating really is.
+
+In the context of this report, a "healthy" dietary pattern is one that is associated with reduced risk of chronic disease.  
+
+
+
+
+
+
+
+
+
+
+
+How to diet, which foods are healthier than others, and overall practices, it can be difficult to decide what to believe. 
+
+Should someone follow a ketogenic diet, which emphasizes high-fat intake and low-carbohydrate consumption; a carnivore diet, which consists almost exclusively of meat and animal products; or another dietary approach better suited to maintaining long-term health? This project details which nutrient factors are associated with reduced chronic diseases, with an emphasis on the associated risks of LDL cholesterol.
