@@ -1,2 +1,4 @@
 /.quarto/
 /_output/
+*_files/
+.quarto/
