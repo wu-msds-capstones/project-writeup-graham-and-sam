@@ -1,4 +1,7 @@
 # References
 
 :::{#refs}
+Peng K, Li X, Wang Z, Li M, Yang Y. Association of low-density lipoprotein cholesterol levels with the risk of mortality and cardiovascular events: A meta-analysis of cohort studies with 1,232,694 participants. Medicine (Baltimore). 2022 Dec 2;101(48):e32003. doi: 10.1097/MD.0000000000032003. PMID: 36482567; PMCID: PMC9726298.
+
+
 :::
