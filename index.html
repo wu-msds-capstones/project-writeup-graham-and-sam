@@ -54,9 +54,9 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-81267100e462c21b3d6c0d5bf76a3417.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-b15df86742554840d07b04d0f56a07e9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-81267100e462c21b3d6c0d5bf76a3417.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-1c59215f878e034bd7426c637fa661ac.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -274,9 +274,10 @@ div.csl-indent {
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">Background</a></li>
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a>
   <ul class="collapse">
-  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis"># Analysis</a></li>
+  <li><a href="#this-is-the-start-of-the-r-chunks-with-the-statistical-work-and-checks" id="toc-this-is-the-start-of-the-r-chunks-with-the-statistical-work-and-checks" class="nav-link" data-scroll-target="#this-is-the-start-of-the-r-chunks-with-the-statistical-work-and-checks">this is the start of the r chunks with the statistical work and checks</a></li>
   </ul></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
   <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
@@ -304,24 +305,23 @@ div.csl-indent {
 <p>This study examines the population of the United Kingdom (UK), drawing on diet diary data from a representative sample of UK households from 1974 to 2000, and disease risk factor rates (especially high LDL cholesterol) 1990 to 2023.</p>
 <p>Ultimately, this study identifies a statistically significant inverse correlation between year-on-year changes in relatively-plant-based diet patterns and risk of high LDL cholesterol, at a five-year-time lag.</p>
 <p>This is to say, eat more plants now, have lower LDL cholesterol five years later.</p>
+<p>How to diet, which foods are healthier than others, and overall practices, it can be difficult to decide what to believe.</p>
+<p>Should someone follow a ketogenic diet, which emphasizes high-fat intake and low-carbohydrate consumption; a carnivore diet, which consists almost exclusively of meat and animal products; or another dietary approach better suited to maintaining long-term health? This project details which nutrient factors are associated with reduced chronic diseases, with an emphasis on the associated risks of LDL cholesterol.</p>
 </section>
 <section id="background" class="level1">
 <h1>Background</h1>
 </section>
 <section id="data" class="level1">
 <h1>Data</h1>
-<p>Sources:</p>
-<p>Diet data from UK Data Service National Food Survey (1974 to 2000) ~ 7,000 households per year, ~190,000 households total One week journal of every food purchase Includes nutrient conversion information</p>
-<p>Disease data from Institute for Health Metrics Evaluation (IHME) Global Burden of Disease (GBD) study (1990 to 2023) Summary Exposure Value risk rates Pre-aggregated to all population per location</p>
-<p>Pipeline: National Food Survey data aggregated by household by year, aggregated years vertically unioned into time series data, disease data joined on region and year.</p>
-<p>Units: Food group rates normalized as proportion of daily calories. Nutrient rates normalized as quantity per daily calories Disease risk rates are summary exposure value (SEV), relative to total possible risk.</p>
-<p>Ethics &amp; responsible use: The data is used under a non-commercial educational license and comes anonymized and/or aggregated by the service providers to ensure confidentiality. Responsible use stems from upholding the listed terms of service provided from the UK Data Service.</p>
-<section id="analysis" class="level2">
-<h2 class="anchored" data-anchor-id="analysis"># Analysis</h2>
-<p>execute: echo: false</p>
-<hr>
+<p>Sources The primary explanatory data, the National Food Survey (NFS), was sourced from the UK Data Service. It spans 1974-2000, where it sampled ~7,000 households per year for a total of around 190,000 households. The survey looked into the “diet diary” during a 7-day period for each household. In the diary, the corresponding household would record their food purchasing information. Alongside the diary, the NFS collected the nutrient conversion information for each of the foods purchased. Meaning, there was a quantity value and nutrient unit respective to each food. The demographics included in this report were, age, sex, and household composition. This was split into child/adult/eldery and male/female groups. These variables were used to create metrics allowing for per-person comparisons of the nutrients. These metrics weighted children as 0.5, adult women as 0.8 and elderly as 0.85 of a male adult in terms of their caloric consumption. The primary response variable data was acquired from the Institute for Health Metrics and Evaluation (IHME) looking at the Global Burden of Disease (GBD) study ranging from(1990 to 2023). The data was specifically selected from an open API to find the summary exposure value risk rates: LDL Cholesterol, Body Mass Index, Fasting Plasma Glucose Systolic Blood Pressure, Kidney Dysfunction, Low Bone Mineral Density, and Metabolic Risks. These rates were preaggregated with the API ingestion by year, government region in the UK and to population per region.</p>
+<p>Pipeline The NFS datasets were aggregated by household per year where they were vertically joined to create a continuous span from 1974-2000. The disease risk rates were horizontally joined on government region and year.</p>
+<p>Units Food groups rates were normalized as a proportion of total calories consumed. The nutrient groups were normalized as quantity per daily calories. The disease rates were summary exposure values (SEV) which are relative to the total possible risk.</p>
+<p>Ethics and Responsible Use The data is used under a non-commercial educational license, and comes both anonymized and pre-aggregated by the service providers to remove personally identifiable information (PII) and ensure confidentiality.</p>
+</section>
+<section id="analysis" class="level1">
+<h1>Analysis</h1>
 <p>One long script to start this off…</p>
-<div id="3a2d3c0a" class="cell" data-execution_count="1">
+<div id="ccdc8042" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-stdout">
 <pre><code>[0.11007904 0.19859595 0.28332889 0.35902528 0.42809577 0.49323692
  0.55641101 0.61801429 0.67778314 0.73651946 0.79424741 0.85139522
@@ -368,33 +368,33 @@ Name: hhno, dtype: int64
 14 components hit 95% variance
 [t-SNE] Computing 91 nearest neighbors...
 [t-SNE] Indexed 2000 samples in 0.000s...
-[t-SNE] Computed neighbors for 2000 samples in 0.014s...
+[t-SNE] Computed neighbors for 2000 samples in 0.106s...
 [t-SNE] Computed conditional probabilities for sample 1000 / 2000
 [t-SNE] Computed conditional probabilities for sample 2000 / 2000
 [t-SNE] Mean sigma: 0.353623
-[t-SNE] Computed conditional probabilities in 0.016s
-[t-SNE] Iteration 50: error = 70.6018066, gradient norm = 0.0164817 (50 iterations in 0.129s)
-[t-SNE] Iteration 100: error = 68.0690842, gradient norm = 0.0058016 (50 iterations in 0.111s)
-[t-SNE] Iteration 150: error = 67.6404266, gradient norm = 0.0029446 (50 iterations in 0.144s)
-[t-SNE] Iteration 200: error = 67.4684601, gradient norm = 0.0019960 (50 iterations in 0.147s)
-[t-SNE] Iteration 250: error = 67.3767014, gradient norm = 0.0015325 (50 iterations in 0.154s)
-[t-SNE] KL divergence after 250 iterations with early exaggeration: 67.376701
-[t-SNE] Iteration 300: error = 1.5830562, gradient norm = 0.0216188 (50 iterations in 0.123s)
-[t-SNE] Iteration 350: error = 1.2512859, gradient norm = 0.0165446 (50 iterations in 0.117s)
-[t-SNE] Iteration 400: error = 1.1276748, gradient norm = 0.0138749 (50 iterations in 0.096s)
-[t-SNE] Iteration 450: error = 1.0650791, gradient norm = 0.0112285 (50 iterations in 0.096s)
-[t-SNE] Iteration 500: error = 1.0301322, gradient norm = 0.0114719 (50 iterations in 0.095s)
-[t-SNE] Iteration 550: error = 1.0071917, gradient norm = 0.0091233 (50 iterations in 0.103s)
-[t-SNE] Iteration 600: error = 0.9910866, gradient norm = 0.0079329 (50 iterations in 0.100s)
-[t-SNE] Iteration 650: error = 0.9794502, gradient norm = 0.0074759 (50 iterations in 0.097s)
-[t-SNE] Iteration 700: error = 0.9702867, gradient norm = 0.0067071 (50 iterations in 0.099s)
-[t-SNE] Iteration 750: error = 0.9636722, gradient norm = 0.0062448 (50 iterations in 0.100s)
-[t-SNE] Iteration 800: error = 0.9587231, gradient norm = 0.0049812 (50 iterations in 0.103s)
-[t-SNE] Iteration 850: error = 0.9551790, gradient norm = 0.0045186 (50 iterations in 0.101s)
-[t-SNE] Iteration 900: error = 0.9523256, gradient norm = 0.0040512 (50 iterations in 0.101s)
-[t-SNE] Iteration 950: error = 0.9499541, gradient norm = 0.0037376 (50 iterations in 0.103s)
-[t-SNE] Iteration 1000: error = 0.9478523, gradient norm = 0.0035299 (50 iterations in 0.122s)
-[t-SNE] KL divergence after 1000 iterations: 0.947852</code></pre>
+[t-SNE] Computed conditional probabilities in 0.058s
+[t-SNE] Iteration 50: error = 70.5958252, gradient norm = 0.0169060 (50 iterations in 0.296s)
+[t-SNE] Iteration 100: error = 68.0704269, gradient norm = 0.0057091 (50 iterations in 0.240s)
+[t-SNE] Iteration 150: error = 67.6404724, gradient norm = 0.0029647 (50 iterations in 0.317s)
+[t-SNE] Iteration 200: error = 67.4699402, gradient norm = 0.0018959 (50 iterations in 0.283s)
+[t-SNE] Iteration 250: error = 67.3768234, gradient norm = 0.0014176 (50 iterations in 0.268s)
+[t-SNE] KL divergence after 250 iterations with early exaggeration: 67.376823
+[t-SNE] Iteration 300: error = 1.5832437, gradient norm = 0.0216134 (50 iterations in 0.226s)
+[t-SNE] Iteration 350: error = 1.2514609, gradient norm = 0.0165354 (50 iterations in 0.241s)
+[t-SNE] Iteration 400: error = 1.1278194, gradient norm = 0.0138620 (50 iterations in 0.235s)
+[t-SNE] Iteration 450: error = 1.0651662, gradient norm = 0.0112520 (50 iterations in 0.224s)
+[t-SNE] Iteration 500: error = 1.0301614, gradient norm = 0.0099343 (50 iterations in 0.225s)
+[t-SNE] Iteration 550: error = 1.0073087, gradient norm = 0.0091648 (50 iterations in 0.215s)
+[t-SNE] Iteration 600: error = 0.9911340, gradient norm = 0.0080186 (50 iterations in 0.240s)
+[t-SNE] Iteration 650: error = 0.9793795, gradient norm = 0.0074521 (50 iterations in 0.249s)
+[t-SNE] Iteration 700: error = 0.9701776, gradient norm = 0.0068076 (50 iterations in 0.295s)
+[t-SNE] Iteration 750: error = 0.9636957, gradient norm = 0.0061733 (50 iterations in 0.272s)
+[t-SNE] Iteration 800: error = 0.9588227, gradient norm = 0.0050452 (50 iterations in 0.265s)
+[t-SNE] Iteration 850: error = 0.9551184, gradient norm = 0.0046982 (50 iterations in 0.241s)
+[t-SNE] Iteration 900: error = 0.9521945, gradient norm = 0.0040966 (50 iterations in 0.231s)
+[t-SNE] Iteration 950: error = 0.9496986, gradient norm = 0.0038915 (50 iterations in 0.234s)
+[t-SNE] Iteration 1000: error = 0.9476033, gradient norm = 0.0036843 (50 iterations in 0.243s)
+[t-SNE] KL divergence after 1000 iterations: 0.947603</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -466,34 +466,52 @@ cluster
 Name: hhno, dtype: int64
 11 components hit 95% variance
 [t-SNE] Computing 91 nearest neighbors...
-[t-SNE] Indexed 2000 samples in 0.000s...
-[t-SNE] Computed neighbors for 2000 samples in 0.012s...
-[t-SNE] Computed conditional probabilities for sample 1000 / 2000
-[t-SNE] Computed conditional probabilities for sample 2000 / 2000
-[t-SNE] Mean sigma: 0.608552
-[t-SNE] Computed conditional probabilities in 0.016s
-[t-SNE] Iteration 50: error = 67.8162079, gradient norm = 0.0201547 (50 iterations in 0.103s)
-[t-SNE] Iteration 100: error = 65.2882690, gradient norm = 0.0055045 (50 iterations in 0.088s)
-[t-SNE] Iteration 150: error = 64.8774261, gradient norm = 0.0033670 (50 iterations in 0.092s)
-[t-SNE] Iteration 200: error = 64.7075500, gradient norm = 0.0027213 (50 iterations in 0.095s)
-[t-SNE] Iteration 250: error = 64.6134338, gradient norm = 0.0020874 (50 iterations in 0.095s)
-[t-SNE] KL divergence after 250 iterations with early exaggeration: 64.613434
-[t-SNE] Iteration 300: error = 1.5102842, gradient norm = 0.0217511 (50 iterations in 0.091s)
-[t-SNE] Iteration 350: error = 1.1634134, gradient norm = 0.0168700 (50 iterations in 0.094s)
-[t-SNE] Iteration 400: error = 1.0334342, gradient norm = 0.0142690 (50 iterations in 0.092s)
-[t-SNE] Iteration 450: error = 0.9667745, gradient norm = 0.0121208 (50 iterations in 0.086s)
-[t-SNE] Iteration 500: error = 0.9282973, gradient norm = 0.0106308 (50 iterations in 0.087s)
-[t-SNE] Iteration 550: error = 0.9034703, gradient norm = 0.0097365 (50 iterations in 0.088s)
-[t-SNE] Iteration 600: error = 0.8858312, gradient norm = 0.0083829 (50 iterations in 0.086s)
-[t-SNE] Iteration 650: error = 0.8742228, gradient norm = 0.0072158 (50 iterations in 0.087s)
-[t-SNE] Iteration 700: error = 0.8659347, gradient norm = 0.0060491 (50 iterations in 0.083s)
-[t-SNE] Iteration 750: error = 0.8603271, gradient norm = 0.0052038 (50 iterations in 0.086s)
-[t-SNE] Iteration 800: error = 0.8556044, gradient norm = 0.0044740 (50 iterations in 0.090s)
-[t-SNE] Iteration 850: error = 0.8521683, gradient norm = 0.0035057 (50 iterations in 0.087s)
-[t-SNE] Iteration 900: error = 0.8492518, gradient norm = 0.0034709 (50 iterations in 0.085s)
-[t-SNE] Iteration 950: error = 0.8463571, gradient norm = 0.0030477 (50 iterations in 0.093s)
-[t-SNE] Iteration 1000: error = 0.8443744, gradient norm = 0.0024557 (50 iterations in 0.094s)
-[t-SNE] KL divergence after 1000 iterations: 0.844374</code></pre>
+[t-SNE] Indexed 20000 samples in 0.000s...
+[t-SNE] Computed neighbors for 20000 samples in 0.472s...
+[t-SNE] Computed conditional probabilities for sample 1000 / 20000
+[t-SNE] Computed conditional probabilities for sample 2000 / 20000
+[t-SNE] Computed conditional probabilities for sample 3000 / 20000
+[t-SNE] Computed conditional probabilities for sample 4000 / 20000
+[t-SNE] Computed conditional probabilities for sample 5000 / 20000
+[t-SNE] Computed conditional probabilities for sample 6000 / 20000
+[t-SNE] Computed conditional probabilities for sample 7000 / 20000
+[t-SNE] Computed conditional probabilities for sample 8000 / 20000
+[t-SNE] Computed conditional probabilities for sample 9000 / 20000
+[t-SNE] Computed conditional probabilities for sample 10000 / 20000
+[t-SNE] Computed conditional probabilities for sample 11000 / 20000
+[t-SNE] Computed conditional probabilities for sample 12000 / 20000
+[t-SNE] Computed conditional probabilities for sample 13000 / 20000
+[t-SNE] Computed conditional probabilities for sample 14000 / 20000
+[t-SNE] Computed conditional probabilities for sample 15000 / 20000
+[t-SNE] Computed conditional probabilities for sample 16000 / 20000
+[t-SNE] Computed conditional probabilities for sample 17000 / 20000
+[t-SNE] Computed conditional probabilities for sample 18000 / 20000
+[t-SNE] Computed conditional probabilities for sample 19000 / 20000
+[t-SNE] Computed conditional probabilities for sample 20000 / 20000
+[t-SNE] Mean sigma: 0.312555
+[t-SNE] Computed conditional probabilities in 0.451s
+[t-SNE] Iteration 50: error = 92.0930023, gradient norm = 0.0155847 (50 iterations in 3.151s)
+[t-SNE] Iteration 100: error = 85.9448776, gradient norm = 0.0048526 (50 iterations in 2.688s)
+[t-SNE] Iteration 150: error = 84.4191437, gradient norm = 0.0028231 (50 iterations in 2.775s)
+[t-SNE] Iteration 200: error = 83.7176437, gradient norm = 0.0020674 (50 iterations in 2.875s)
+[t-SNE] Iteration 250: error = 83.3009491, gradient norm = 0.0016828 (50 iterations in 2.802s)
+[t-SNE] KL divergence after 250 iterations with early exaggeration: 83.300949
+[t-SNE] Iteration 300: error = 3.2627678, gradient norm = 0.0087058 (50 iterations in 2.937s)
+[t-SNE] Iteration 350: error = 2.6817071, gradient norm = 0.0087116 (50 iterations in 2.734s)
+[t-SNE] Iteration 400: error = 2.3688889, gradient norm = 0.0080202 (50 iterations in 2.710s)
+[t-SNE] Iteration 450: error = 2.1775336, gradient norm = 0.0075231 (50 iterations in 2.740s)
+[t-SNE] Iteration 500: error = 2.0479100, gradient norm = 0.0070054 (50 iterations in 2.705s)
+[t-SNE] Iteration 550: error = 1.9548584, gradient norm = 0.0065955 (50 iterations in 2.711s)
+[t-SNE] Iteration 600: error = 1.8851467, gradient norm = 0.0062238 (50 iterations in 2.901s)
+[t-SNE] Iteration 650: error = 1.8313427, gradient norm = 0.0058822 (50 iterations in 2.771s)
+[t-SNE] Iteration 700: error = 1.7889931, gradient norm = 0.0054960 (50 iterations in 2.766s)
+[t-SNE] Iteration 750: error = 1.7550038, gradient norm = 0.0051478 (50 iterations in 2.690s)
+[t-SNE] Iteration 800: error = 1.7275314, gradient norm = 0.0047633 (50 iterations in 2.677s)
+[t-SNE] Iteration 850: error = 1.7049766, gradient norm = 0.0044544 (50 iterations in 2.749s)
+[t-SNE] Iteration 900: error = 1.6865479, gradient norm = 0.0040284 (50 iterations in 2.757s)
+[t-SNE] Iteration 950: error = 1.6714922, gradient norm = 0.0036424 (50 iterations in 2.682s)
+[t-SNE] Iteration 1000: error = 1.6590079, gradient norm = 0.0032829 (50 iterations in 2.725s)
+[t-SNE] KL divergence after 1000 iterations: 1.659008</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -505,7 +523,7 @@ Name: hhno, dtype: int64
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/cell-2-output-13.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="capstone_files/figure-html/cell-2-output-13.png" width="767" height="612" class="figure-img"></a></p>
+<p><a href="capstone_files/figure-html/cell-2-output-13.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="capstone_files/figure-html/cell-2-output-13.png" width="776" height="612" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -597,6 +615,8 @@ Name: hhno, dtype: int64
 </div>
 </div>
 </div>
+<section id="this-is-the-start-of-the-r-chunks-with-the-statistical-work-and-checks" class="level2">
+<h2 class="anchored" data-anchor-id="this-is-the-start-of-the-r-chunks-with-the-statistical-work-and-checks">this is the start of the r chunks with the statistical work and checks</h2>
 </section>
 </section>
 <section id="results" class="level1">

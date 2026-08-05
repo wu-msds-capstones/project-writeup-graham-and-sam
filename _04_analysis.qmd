@@ -1,8 +1,5 @@
 # Analysis
----
-execute:
-  echo: false
----
+
 One long script to start this off...
 
 ```{python}
@@ -149,7 +146,7 @@ os.makedirs(run_folder, exist_ok=True)
 ####################################################
 ############
 # Build the read in file path name as an f-string
-parquet_filepath = f'shared_data/POSTER_NFS_all_years_household_foodgroup17_aggs_v2_no_alcohol_NI_mlso.parquet'
+parquet_filepath = f'shared_data/POSTER_NFS_all_years_{household_or_region}_{foodgroup17_foodgroup55_or_nutrient}_aggs_v2_no_alcohol_NI_mlso.parquet'
 
 
 
@@ -899,7 +896,7 @@ os.makedirs(run_folder, exist_ok=True)
 ####################################################
 ############
 # Build the read in file path name as an f-string
-parquet_filepath = f'shared_data/POSTER_NFS_all_years_household_nutrient_aggs_v2_no_alcohol_NI_mlso.parquet'
+parquet_filepath = f'shared_data/POSTER_NFS_all_years_{household_or_region}_{foodgroup17_foodgroup55_or_nutrient}_aggs_v2_no_alcohol_NI_mlso.parquet'
 
 
 
@@ -1016,7 +1013,7 @@ pca_loadings = pd.DataFrame(
 )
 
 
-pca_loadings.to_parquet(f"{run_folder}/pca_loadings_{run_name}.parquet")
+#pca_loadings.to_parquet(f"{run_folder}/pca_loadings_{run_name}.parquet")
 
 pca_loadings_folder = f"{run_folder}/pca_loadings_by_PC"
 os.makedirs(pca_loadings_folder, exist_ok=True)
@@ -1025,7 +1022,7 @@ pcX_order_list=[]
 for pc in pca_loadings.columns:
     tbl = pca_loadings[pc].sort_values().reset_index()
     tbl.columns = [group_17_or_group_55_or_Nutrient_name, pc]
-    tbl.to_parquet(f"{pca_loadings_folder}/pca_loadings_{pc}_{run_name}.parquet", index=False)
+    #tbl.to_parquet(f"{pca_loadings_folder}/pca_loadings_{pc}_{run_name}.parquet", index=False)
     pcX_order_list.append(tbl)
 
 for i, j in combinations(range(number_PCs_to_plot), 2):
@@ -1439,7 +1436,7 @@ pcs_2 = pca_2.fit_transform(pcs_95)
 # tsne = TSNE(n_components=2, random_state=42, init='pca', verbose=2)
 # embedding_tsne = tsne.fit_transform(pcs_2)
 
-sample_df = wide_df.sample(n=2000, random_state=42)
+sample_df = wide_df.sample(n=20000, random_state=42)
 embedding_tsne = TSNE(n_components=2, init ='pca' , verbose=2).fit_transform(sample_df)
 
 fig, ax = plt.subplots(figsize=(8, 7))
@@ -1520,3 +1517,5 @@ for cid in sorted(cluster_colors.keys()) if len(cluster_colors) == 5 else range(
     plot_single_heatmap(heat_map_2, cid)  # PC2 order
 ```
 
+
+## this is the start of the r chunks with the statistical work and checks
