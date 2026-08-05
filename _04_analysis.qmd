@@ -1822,9 +1822,6 @@ df_lag_trimmed = df_merged_lag_no_NaN[['styr', 'location', cluster_column,'propo
 df_lag_trimmed.to_parquet(file_name_for_export)
 
 
-
-
-
 ```
 
 
@@ -1835,12 +1832,11 @@ df_lag_trimmed.to_parquet(file_name_for_export)
 Rates of LDL cholesterol went down in the 1990s.
 
 
-
 ```{python}
 ############
 #### Read in a disease raw data file...
 df_metabolic_risk = pd.read_csv('shared_data/IHME-GBD_SEV_metabolic_regions.csv')
-df_metabolic_risk
+#df_metabolic_risk
 #df_metabolic_risk.head()
 
 
