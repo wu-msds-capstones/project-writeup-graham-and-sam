@@ -1,8 +1,10 @@
 ---
-title: "Untitled"
 format: html
 editor: visual
-echo: false
+execute:
+  echo: false
+  warning: false
+  message: false
 ---
 
 ```{r}
@@ -63,7 +65,7 @@ region_col    = "ihme_gor"  # part of the uk # needed for by region plots
 
 ```
 
-#### composition clusters with bar graphs and line plots
+### composition clusters with bar graphs and line plots
 
 ```{r}
 ## Composition fg 17, then nute, the corresponding dataset will need to be switched
@@ -112,10 +114,9 @@ p_trend = ggplot(
   theme(legend.position = "top", axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
 
 print(p_trend)
-ggsave(
-  file.path(save_dir, paste0(label_name, "_", tolower(analysis_type), "_stacked_bar.png")),
-  p_trend, width = 9, height = 5.5, dpi = 150
-)
+#ggsave(
+ # file.path(save_dir, paste0(label_name, "_", tolower(analysis_type), "_stacked_bar.png")),
+  #p_trend, width = 9, height = 5.5, dpi = 150)
 
 # -------------------------------------------------------------------
 # 3. Line plot — cluster proportion trends over time
@@ -137,14 +138,13 @@ p_trend_line = ggplot(
   theme(legend.position = "top")
 
 print(p_trend_line)
-ggsave(
-  file.path(save_dir, paste0(label_name, "_", tolower(analysis_type), "_trend_line.png")),
-  p_trend_line, width = 9, height = 5.5, dpi = 150
-)
+#ggsave(
+ # file.path(save_dir, paste0(label_name, "_", tolower(analysis_type), "_trend_line.png")),
+  #p_trend_line, width = 9, height = 5.5, dpi = 150)
 
 ```
 
-#### ridge and boxplot for per year of pc1
+### ridge and boxplot for per year of pc1
 
 ```{r}
 ## qual pca box and ridge map for fg17. fg55, nute pc1 values
@@ -198,10 +198,9 @@ for (value_col in value_cols) {
     theme(legend.position = "none")
 
   print(p_ridge)
-  ggsave(
-    file.path(save_dir, paste0(label_name, "_", value_col, "_", tolower(analysis_type), "_ridge_by_year.png")),
-    p_ridge, width = 9, height = 6, dpi = 150
-  )
+  #ggsave(
+   # file.path(save_dir, paste0(label_name, "_", value_col, "_", tolower(analysis_type), "_ridge_by_year.png")),
+    #p_ridge, width = 9, height = 6, dpi = 150)
 
   # ---- Box plot ----
   p_box = ggplot(plot_data, aes(x = factor(.data[[year_col]]), y = .data[[value_col]], fill = factor(.data[[year_col]]))) +
@@ -215,10 +214,9 @@ for (value_col in value_cols) {
     theme(legend.position = "none", axis.text.x = element_text(angle = 45, hjust = 1))
 
   print(p_box)
-  ggsave(
-    file.path(save_dir, paste0(label_name, "_", value_col, "_", tolower(analysis_type), "_box_by_year.png")),
-    p_box, width = 9, height = 6, dpi = 150
-  )
+  #ggsave(
+   # file.path(save_dir, paste0(label_name, "_", value_col, "_", tolower(analysis_type), "_box_by_year.png")),
+    #p_box, width = 9, height = 6, dpi = 150)
 }
 
 # -------------------------------------------------------------------
@@ -230,7 +228,7 @@ for (value_col in value_cols) {
 
 ```
 
-##### the awesome gif for change overtime <!--#  -->
+##### 
 
 ```{r}
 ## GIF of by year nute cluster proportion sizes
@@ -325,9 +323,9 @@ for (value_col in value_cols) {
 # anim
 ```
 
-## stats for proportions confirming the significance of changing clusters over time
+### stats for proportions confirming the significance of changing clusters over time
 
-## last output is easy to read stats on long term changes, others are per year with general changes showing its not noise
+last output is easy to read, stats on long term changes, others are per year with general changes showing its not noise
 
 ```{r}
 data_source = qual_pca_nute    # your dataset
@@ -335,8 +333,8 @@ cluster_col = "cluster"        # categorical cluster membership (0:4)
 year_col    = "styr"
 label_name  = "nute"           # used in output labeling/filenames
 
-save_dir = "output_plots"
-dir.create(save_dir, showWarnings = FALSE, recursive = TRUE)
+##save_dir = "output_plots"
+#dir.create(save_dir, showWarnings = FALSE, recursive = TRUE)
 
 # -------------------------------------------------------------------
 # 1. Prep data — counts and proportions per cluster per year
@@ -373,11 +371,11 @@ for (clust in clusters) {
     row_prev = cluster_props %>% filter(.data[[year_col]] == yr_prev, .data[[cluster_col]] == clust)
     row_curr = cluster_props %>% filter(.data[[year_col]] == yr_curr, .data[[cluster_col]] == clust)
 
-    # Skip if cluster didn't appear at all in one of the two years
+     #Skip if cluster didn't appear at all in one of the two years
     if (nrow(row_prev) == 0 || nrow(row_curr) == 0) next
 
     n_success = c(row_prev$n, row_curr$n)
-    n_total   = c(row_prev$total, row_curr$total)
+   n_total   = c(row_prev$total, row_curr$total)
 
     ptest = prop.test(n_success, n_total)
 
@@ -391,9 +389,7 @@ for (clust in clusters) {
       chi_sq         = unname(ptest$statistic),
       p_value        = ptest$p.value,
       significant    = ifelse(ptest$p.value < 0.05, "Yes", "No")
-    )
-  }
-}
+    )}}
 
 pairwise_table = bind_rows(pairwise_results) %>% arrange(cluster, year_prev)
 
@@ -436,32 +432,29 @@ print(kable(trend_table, digits = 4))
 
 ```
 
-#### not too sure on this one, maybe? looks very positive!!
-
 ```{r}
 
 # Multinomial model: cluster membership ~ year
 
-model_data = data_source %>%
-  select(hhno, all_of(year_col), all_of(cluster_col)) %>%
-  filter(!is.na(.data[[cluster_col]])) %>%
-  mutate(
-    cluster_fct = relevel(factor(.data[[cluster_col]]), ref = "0"),  # set reference cluster
-    year_num = as.numeric(.data[[year_col]])
-  )
+#model_data = data_source %>%
+ # select(hhno, all_of(year_col), all_of(cluster_col)) %>%
+ # filter(!is.na(.data[[cluster_col]])) %>%
+ # mutate(
+  #  cluster_fct = relevel(factor(.data[[cluster_col]]), ref = "0"),  # set reference cluster
+  #  year_num = as.numeric(.data[[year_col]]))
 
 # Fit model: does year predict cluster membership?
-mod_full = multinom(cluster_fct ~ year_num, data = model_data, trace = FALSE)
-mod_null = multinom(cluster_fct ~ 1, data = model_data, trace = FALSE)
+#mod_full = multinom(cluster_fct ~ year_num, data = model_data, trace = FALSE)
+#mod_null = multinom(cluster_fct ~ 1, data = model_data, trace = FALSE)
 
 # Likelihood ratio test: is year a significant predictor overall?
-lr_test = anova(mod_null, mod_full)
-print(lr_test)
+#lr_test = anova(mod_null, mod_full)
+#print(lr_test)
 
 # Per-cluster coefficients: direction/magnitude of each cluster's trend
 # relative to the reference cluster (cluster 0)
-tidy(mod_full, conf.int = TRUE) %>%
-  filter(term == "year_num") %>%
-  select(y.level, estimate, std.error, conf.low, conf.high, p.value) %>%
-  print()
+#tidy(mod_full, conf.int = TRUE) %>%
+  #filter(term == "year_num") %>%
+  #select(y.level, estimate, std.error, conf.low, conf.high, p.value) %>%
+  #print()
 ```
