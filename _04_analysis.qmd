@@ -1517,3 +1517,5 @@ for cid in sorted(cluster_colors.keys()) if len(cluster_colors) == 5 else range(
     plot_single_heatmap(heat_map_2, cid)  # PC2 order
 ```
 
+
+## this is the start of the r chunks with the statistical work and checks
