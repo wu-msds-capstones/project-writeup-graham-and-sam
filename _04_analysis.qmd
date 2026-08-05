@@ -10,13 +10,11 @@ execute:
 
 # Analysis
 
-Intro blub about how the analysis starts here
+Aggregations by food group and aggregations by nutrient were assessed with principle component analysis (PCA) and k-means clustering.
 
+The entire set of ~190,000 household were analyzed for PCA and k-means clustering, but t-SNE visual renderings use a smaller sample size to enable more rapid report iteration.
 
-
-
-
-### Analysis was conducted on household food group profiles. 
+## All years UK households by food group profile
 ```{python}
 
 import pandas as pd
@@ -234,6 +232,12 @@ scaled_df = pd.DataFrame(
 # so naming a single cluster count would be misleading. Reports the range instead.
 # sweep_title = f"{foodgroup17_foodgroup55_or_nutrient} by {household_or_region} \nk tested {k_range.start}–{k_range.stop - 1} over {number_of_initializations} Kmeans initializations \n pruned at {calorie_prune_threshold} daily calories \n clustered value = {value_aggregation_to_cluster}"
 
+```
+
+### PCA (principal component analysis)
+
+```{python}
+
 
 #######
 ### PCA TIME!
@@ -323,6 +327,14 @@ pcs_95 = pca_full.fit_transform(scaled_df)
 n_components_95 = pca_full.n_components_
 print(f"PCA required {n_components_95} components to cumulatively explain 95% variance")
 
+```
+
+The most explanatory component (PC 1) accounted for about 11% of variance in the food group aggregations. 
+
+The other components only explained ~5% variance, leading to 14 components required to cumulatively explain 95% of variance.
+
+```{python}
+
 
 ##############
 # This is the "what does PC1 mean figure"
@@ -358,6 +370,16 @@ plt.tight_layout()
 fig.savefig(f"{run_folder}/pc2_loadings_barh_{run_name}.png", dpi=300, bbox_inches='tight')
 plt.show()
 
+```
+The axis of greatest variance, PC 1, orients to a more plant-based pole, and a more meat and refined food based-pole. PC 2 appears to orient to a more processed and refined foods pole, and a whole foods pole.
+
+### k-means clustering
+
+In k-means clustering, data points are categorized into k number of clusters.
+
+The best, most stable k for the aggregated household diet data was determined by a cross validation proces where subsamples of the data were iteratively clustered in comparable pairs, outputing an Adjusted Rand Index (ARI) score, which rated that pairing of clusters by assessing cluster label overlap (1.0 is perfect overlap, a decent number of clusters should have ARI score as close to 1.0 as possble).  The k number of clusters with the highest ARI score was then selected as the "best" k number of clusters for k-means clustering.  For food group aggregated data, the best k number of clusters was consistently found to be 2.
+
+```{python}
 
 #   |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\
 #  /-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\
@@ -718,6 +740,13 @@ n_components_95 = pca_full.n_components_
 # Step 2: PCA down to 2 from that
 pca_2 = PCA(n_components=2, random_state=42)
 pcs_2 = pca_2.fit_transform(pcs_95)
+```
+
+The principal components that were required to explain 95% variance in the aggregated foodgroup data were fed into an additional round of PCA to produce two derivative principal compenents, which were in turn fed into a t-distributed stochastic neighbor emedding (t-SNE) visualization. The t-SNE plot projects 20 dimensional nutrient space in 2 dimensions, enabling visualization of the k-means cluster assignments for each household.
+
+```{python}
+
+
 
 # Step 3: t-SNE on the 2D PCA output
 ################################
@@ -756,6 +785,15 @@ ax.set_title(f'{title_name}\nPCA(12) → t-SNE, colored by k-means cluster')
 
 fig.savefig(f"{run_folder}/tsne_cluster_{run_name}.png", dpi=300, bbox_inches='tight')
 plt.show()
+
+```
+
+
+This heatmap combines information from PCA and k-means clustering.  The two columns represent the two clusters that were assigned in k-means clustering.  The axis of the heatmap is oriented along PC 1 for food group aggregations.  Cell color indicates cluster centroid similarity to each dimension of PC 1. Gray cells are dissimilar, white cells are nuetral, colorful cells are more similar. 
+
+
+```{python}
+
 
 
 ###########
@@ -820,7 +858,47 @@ ax_heat.set_xticklabels(['0', '1'])
 ```
 
 
-### The analysis was repeated on household nutrients profiles
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## All years UK households by nutrient profile
 
 
 ```{python}
@@ -1016,7 +1094,11 @@ scaled_df = pd.DataFrame(
 # Separate title for the k-SWEEP plots (ARI table, elbow) — these test a RANGE of k,
 # so naming a single cluster count would be misleading. Reports the range instead.
 # sweep_title = f"{foodgroup17_foodgroup55_or_nutrient} by {household_or_region} \nk tested {k_range.start}–{k_range.stop - 1} over {number_of_initializations} Kmeans initializations \n pruned at {calorie_prune_threshold} daily calories \n clustered value = {value_aggregation_to_cluster}"
+```
 
+### PCA for nutrient profiles
+
+```{python}
 
 #######
 ### PCA TIME!
@@ -1109,7 +1191,11 @@ pcs_95 = pca_full.fit_transform(scaled_df)
 n_components_95 = pca_full.n_components_
 print(f"PCA required {n_components_95} components to cumulatively explain 95% variance")
 
+```
 
+For household nutrient profiles, PC 1 and PC 2 each explain over 20% of variance, and 11 components are required to cumulatively explain 95% of variance.
+
+```{python}
 ##############
 # This is the "what does PC1 mean figure"
 loadings_df = pd.DataFrame({
@@ -1143,6 +1229,13 @@ ax.set_title('PC2 Orientation — Nutrients')
 plt.tight_layout()
 fig.savefig(f"{run_folder}/pc2_loadings_barh_{run_name}.png", dpi=300, bbox_inches='tight')
 plt.show()
+
+```
+
+PC 1 for household nutrient profiles has a fat (saturated and unsaturated) pole and a "plant-food" pole (vegetable protein and carbohydrates and vitamins).  PC 2 for household nutrient profiles has a high carbohydrate pole juxtaposed against a high animal protein pole.
+
+```{python}
+
 
 #   |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\
 #  /-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\
@@ -1544,6 +1637,11 @@ plt.show()
 #print('Heatmaps coming up')
 
 ```
+
+For household nutrient profiles, best k number of clusters was consistently found to be 5.  Notably, one of the five clusters has only about 5,000 household throughout the dataset.  This small cluster turns out to be households that consumed a lot of organ meat.  
+
+
+
 ```{python}
 
 heat_map_data = df_clustered.set_index('Cluster')[feature_cols].T
@@ -1592,7 +1690,12 @@ fig1 = plot_all_heatmaps_faceted(heat_by_cluster_pc1, cluster_ids, "PC1 order")
 fig2 = plot_all_heatmaps_faceted(heat_by_cluster_pc2, cluster_ids, "PC2 order")
 
 ```
+Assessed against PC 1, cluster 0 is closer to the high fat pole, while cluster 2 is closely associated with the plant-like pole. 
 
+
+## LDL cholesterol and chronic disease data
+
+### Rates of metabolic syndrom related chronic disease symptoms in the UK from 1990 to 2020
 
 
 ```{python}
@@ -1795,6 +1898,12 @@ df_plot = df_metabolic_5yr[
 ax = sns.lineplot(df_plot, x='year', y='val', hue='rei', palette=disease_colors)
 ax.xaxis.set_major_locator(plt.MaxNLocator(integer=True))
 ax.legend(bbox_to_anchor=(1.02, 1), loc='upper left', borderaxespad=0)
+```
+
+Looking at the UK as a whole, SEV risk rates for high LDL cholesterol and high systolic blood pressure both show a downtrend from 1990 to 2000, althgouh high systolic blood pressure rates do start to climb again after that.  Metabolic risk overall continues to increase throughout the timespane, along with high body mass index (BMI). 
+```{python}
+
+
 
 g = sns.relplot(
     data=df_plot,
@@ -1807,3 +1916,4 @@ g = sns.relplot(
 plt.show()
 ```
 
+There is some regional variation in SEV risk rates over time for these chronic disease symptoms, but the only notable anomaly is the rate of high BMI in Wales compared to other regions. Wales has about 50% high BMI SEV risk for the whole dataset, whereas other regions do not approach that level of risk until later years, if at all.
