@@ -264,63 +264,63 @@ print(kable(cluster_props, digits = 3))
 # 2. Static bar plot per year (loop, non-animated reference frames)
 # -------------------------------------------------------------------
 
-years = sort(unique(cluster_props[[year_col]]))
-y_max = max(cluster_props$proportion, na.rm = TRUE)
-
-for (y in years) {
-
-  year_data = cluster_props %>% filter(.data[[year_col]] == y)
-
-  p_year = ggplot(year_data, aes(x = factor(.data[[cluster_col]]), y = proportion, fill = factor(.data[[cluster_col]]))) +
-    geom_col(color = "white", alpha = 0.85) +
-    geom_text(aes(label = scales::percent(proportion, accuracy = 0.1)), vjust = -0.5, size = 3.5) +
-    coord_cartesian(ylim = c(0, y_max * 1.1)) +
-    scale_fill_viridis_d(option = "D") +
-    labs(
-      title = paste0(label_name, " Cluster Proportions (", analysis_type, ") — ", y),
-      x = paste0(label_name, " Cluster"), y = "Proportion of Households", fill = paste0(label_name, " Cluster")
-    ) +
-    theme_minimal(base_size = 12) +
-    theme(legend.position = "none")
-
-  print(p_year)
-
-  ggsave(
-    file.path(save_dir, paste0(label_name, "_", tolower(analysis_type), "_proportions_", y, ".png")),
-    p_year, width = 7, height = 5, dpi = 150
-  )
-}
-
-# -------------------------------------------------------------------
-# 3. Animated bar plot — cycles through years
-# -------------------------------------------------------------------
-
-p_anim = ggplot(cluster_props, aes(x = factor(.data[[cluster_col]]), y = proportion, fill = factor(.data[[cluster_col]]))) +
-  geom_col(color = "white", alpha = 0.85) +
-  geom_text(aes(label = scales::percent(proportion, accuracy = 0.1)), vjust = -0.5, size = 4) +
-  coord_cartesian(ylim = c(0, y_max * 1.1)) +
-  scale_fill_viridis_d(option = "D") +
-  labs(
-    title = paste0(label_name, " Cluster Proportions (", analysis_type, ") — Year: {closest_state}"),
-    x = paste0(label_name, " Cluster"), y = "Proportion of Households", fill = paste0(label_name, " Cluster")
-  ) +
-  theme_minimal(base_size = 13) +
-  theme(legend.position = "none") +
-  transition_states(.data[[year_col]], transition_length = 2, state_length = 1) +
-  ease_aes("cubic-in-out")
-
-anim = animate(
-  p_anim,
-  nframes = 100,
-  fps = 10,
-  width = 800, height = 600,
-  renderer = gifski_renderer()
-)
-
-anim_save(
-  file.path(save_dir, paste0(label_name, "_", tolower(analysis_type), "_proportions_animated.gif")),
-  animation = anim
-)
+# years = sort(unique(cluster_props[[year_col]]))
+# y_max = max(cluster_props$proportion, na.rm = TRUE)
+# 
+# for (y in years) {
+# 
+#   year_data = cluster_props %>% filter(.data[[year_col]] == y)
+# 
+#   p_year = ggplot(year_data, aes(x = factor(.data[[cluster_col]]), y = proportion, fill = factor(.data[[cluster_col]]))) +
+#     geom_col(color = "white", alpha = 0.85) +
+#     geom_text(aes(label = scales::percent(proportion, accuracy = 0.1)), vjust = -0.5, size = 3.5) +
+#     coord_cartesian(ylim = c(0, y_max * 1.1)) +
+#     scale_fill_viridis_d(option = "D") +
+#     labs(
+#       title = paste0(label_name, " Cluster Proportions (", analysis_type, ") — ", y),
+#       x = paste0(label_name, " Cluster"), y = "Proportion of Households", fill = paste0(label_name, " Cluster")
+#     ) +
+#     theme_minimal(base_size = 12) +
+#     theme(legend.position = "none")
+# 
+#   print(p_year)
+# 
+#   ggsave(
+#     file.path(save_dir, paste0(label_name, "_", tolower(analysis_type), "_proportions_", y, ".png")),
+#     p_year, width = 7, height = 5, dpi = 150
+#   )
+# }
+# 
+# # -------------------------------------------------------------------
+# # 3. Animated bar plot — cycles through years
+# # -------------------------------------------------------------------
+# 
+# p_anim = ggplot(cluster_props, aes(x = factor(.data[[cluster_col]]), y = proportion, fill = factor(.data[[cluster_col]]))) +
+#   geom_col(color = "white", alpha = 0.85) +
+#   geom_text(aes(label = scales::percent(proportion, accuracy = 0.1)), vjust = -0.5, size = 4) +
+#   coord_cartesian(ylim = c(0, y_max * 1.1)) +
+#   scale_fill_viridis_d(option = "D") +
+#   labs(
+#     title = paste0(label_name, " Cluster Proportions (", analysis_type, ") — Year: {closest_state}"),
+#     x = paste0(label_name, " Cluster"), y = "Proportion of Households", fill = paste0(label_name, " Cluster")
+#   ) +
+#   theme_minimal(base_size = 13) +
+#   theme(legend.position = "none") +
+#   transition_states(.data[[year_col]], transition_length = 2, state_length = 1) +
+#   ease_aes("cubic-in-out")
+# 
+# anim = animate(
+#   p_anim,
+#   nframes = 100,
+#   fps = 10,
+#   width = 800, height = 600,
+#   renderer = gifski_renderer()
+# )
+# 
+# anim_save(
+#   file.path(save_dir, paste0(label_name, "_", tolower(analysis_type), "_proportions_animated.gif")),
+#   animation = anim
+# )
 
 #anim
 ```
