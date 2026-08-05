@@ -4,4 +4,11 @@
 Peng K, Li X, Wang Z, Li M, Yang Y. Association of low-density lipoprotein cholesterol levels with the risk of mortality and cardiovascular events: A meta-analysis of cohort studies with 1,232,694 participants. Medicine (Baltimore). 2022 Dec 2;101(48):e32003. doi: 10.1097/MD.0000000000032003. PMID: 36482567; PMCID: PMC9726298.
 
 
-:::
+:::{refs}
+National Library of Medicine. (2025, June 22). Metabolic disorders. MedlinePlus. https://medlineplus.gov/metabolicdisorders.html 
+
+Carel W le Roux, Niels V Hartvig, Christiane Lundegaard Haase, Rikke Baastrup Nordsborg, Anne Helene Olsen, Altynai Satylganova, Obesity, cardiovascular risk and healthcare resource utilization in the UK, European Journal of Preventive Cardiology, Volume 28, Issue 11, November 2021, Pages 1235–1241, https://doi.org/10.1177/2047487320925639
+
+A. Kumar, D. S. Thorat, S. Yadav, et al., “ Reconsidering the impact of saturated fat intake on metabolic health: A critical review of evidence and controversies,” Food Biomacromolecules (2026): 1–20, https://doi.org/10.1002/fob2.70078.
+
+Kahleova, H., Levin, S., & Barnard, N. (2017). Cardio-Metabolic Benefits of Plant-Based Diets. Nutrients, 9(8), 848. https://doi.org/10.3390/nu9080848
