@@ -276,10 +276,18 @@ div.csl-indent {
   <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">Background</a></li>
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a>
   <ul class="collapse">
-  <li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources">Sources</a></li>
+  <li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources">Sources</a>
+  <ul class="collapse">
+  <li><a href="#diet-data" id="toc-diet-data" class="nav-link" data-scroll-target="#diet-data">Diet data</a></li>
+  <li><a href="#disease-data" id="toc-disease-data" class="nav-link" data-scroll-target="#disease-data">Disease data</a></li>
+  </ul></li>
   <li><a href="#pipeline" id="toc-pipeline" class="nav-link" data-scroll-target="#pipeline">Pipeline</a></li>
   <li><a href="#units" id="toc-units" class="nav-link" data-scroll-target="#units">Units</a></li>
-  <li><a href="#ethics-and-responsible-use" id="toc-ethics-and-responsible-use" class="nav-link" data-scroll-target="#ethics-and-responsible-use">Ethics and Responsible Use</a></li>
+  <li><a href="#ethics-and-responsible-use" id="toc-ethics-and-responsible-use" class="nav-link" data-scroll-target="#ethics-and-responsible-use">Ethics and Responsible Use</a>
+  <ul class="collapse">
+  <li><a href="#anonymization" id="toc-anonymization" class="nav-link" data-scroll-target="#anonymization">Anonymization</a></li>
+  <li><a href="#public-health" id="toc-public-health" class="nav-link" data-scroll-target="#public-health">Public health</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a>
   <ul class="collapse">
@@ -346,21 +354,40 @@ div.csl-indent {
 <h1>Data</h1>
 <section id="sources" class="level2">
 <h2 class="anchored" data-anchor-id="sources">Sources</h2>
-<p>The primary explanatory data, the National Food Survey (NFS), was sourced from the UK Data Service. It spans 1974-2000, where it sampled ~7,000 households per year for a total of around 190,000 households. The survey looked into the “diet diary” during a 7-day period for each household. In the diary, the corresponding household would record their food purchasing information. Alongside the diary, the NFS collected the nutrient conversion information for each of the foods purchased. Meaning, there was a quantity value and nutrient unit respective to each food.</p>
+<section id="diet-data" class="level3">
+<h3 class="anchored" data-anchor-id="diet-data">Diet data</h3>
+<p>The primary explanatory data, the National Food Survey (NFS), was sourced from the UK Data Service. Access required institutional credentials. The data was pre-anonymized.</p>
+<p>It spans 1974-2000, where it sampled ~7,000 households per year for a total of around 190,000 households. The survey looked into the “diet diary” during a 7-day period for each household. In the diary, the corresponding household would record their food purchasing information. Alongside the diary, the NFS collected the nutrient conversion information for each of the foods purchased. Meaning, there was a quantity value and nutrient unit respective to each food.</p>
 <p>The demographics included in this report were, age, sex, and household composition. This was split into child/adult/eldery and male/female groups. These variables were used to create metrics allowing for per-person comparisons of the nutrients. These metrics weighted children as 0.5, adult women as 0.8 and elderly as 0.85 of a male adult in terms of their caloric consumption.</p>
-<p>The primary response variable data was acquired from the Institute for Health Metrics and Evaluation (IHME) looking at the Global Burden of Disease (GBD) study ranging from(1990 to 2023). The data was specifically selected from an open API to find the summary exposure value risk rates: LDL Cholesterol, Body Mass Index, Fasting Plasma Glucose Systolic Blood Pressure, Kidney Dysfunction, Low Bone Mineral Density, and Metabolic Risks. These rates were preaggregated with the API ingestion by year, government region in the UK and to population per region.</p>
+</section>
+<section id="disease-data" class="level3">
+<h3 class="anchored" data-anchor-id="disease-data">Disease data</h3>
+<p>The primary response variable data was acquired from the Institute for Health Metrics and Evaluation (IHME) looking at the Global Burden of Disease (GBD) study ranging from 1990 to 2023. The data was specifically selected from an open API to find the summary exposure value risk rates: LDL Cholesterol, Body Mass Index, Fasting Plasma Glucose Systolic Blood Pressure, Kidney Dysfunction, Low Bone Mineral Density, and Metabolic Risks. These rates were preaggregated with the API ingestion by year, government region in the UK and to population per region.</p>
+</section>
 </section>
 <section id="pipeline" class="level2">
 <h2 class="anchored" data-anchor-id="pipeline">Pipeline</h2>
-<p>The NFS datasets were aggregated by household per year where they were vertically joined to create a continuous span from 1974-2000. The disease risk rates were horizontally joined on government region and year.</p>
+<p>NFS data was downloaded as zip, with nested folders for every year from 1974 to 2000. Each yearly folder had space separeted .txt files, and all years shared reference tables. Year by year, diet diary data was joined to household data (to extract number of people in the household and location within the UK), and then joined with provided nutrient composition information for each food (minfd -&gt;majfd explain ?). Food entries in the diary were from an initial ~180 options, which were sorted into 16 food groups. From there, data was aggregated on a household by household basis according to nutrient profile, and according to food group profile.</p>
+<p>Aggregated data was exposed to the machine learning pipeline described in the Analysis section, resulting in nutrient profile and food group profile cluster assignments for each household throughout the timespan of the data.</p>
+<p>Proportional distribution of these clusters was joined with the disease data on year and region. Disease data from the IHME was obtained in a preprocessed, preaggreagted .csv file.</p>
 </section>
 <section id="units" class="level2">
 <h2 class="anchored" data-anchor-id="units">Units</h2>
-<p>Food groups rates were normalized as a proportion of total calories consumed. The nutrient groups were normalized as quantity per daily calories. The disease rates were summary exposure values (SEV) which are relative to the total possible risk.</p>
+<p>Food groups rates were normalized as a proportion of total daily calories consumed. Each food has an empirically established amount of calories per mass coefficient, and for each household, the quantity in appropriate mass units for each food entry was multiplied by that coefficent and then divided by the total calories for that household.</p>
+<p>The nutrient groups were normalized as quantity per daily calories. There are a variety of appropriate units on a nutrient by nutrient basis, so each nutrient was calculated by that unit divided by calories.</p>
+<p>Food group and nurtient normalized ratios were z-scored before analysis, with the mean being set to zero and a single standard deviation being set to one, resulting in a more coherent vector space for machine learning.</p>
+<p>The disease rates from the preaggregated IHME data are summary exposure values (SEV) risk rates.</p>
 </section>
 <section id="ethics-and-responsible-use" class="level2">
 <h2 class="anchored" data-anchor-id="ethics-and-responsible-use">Ethics and Responsible Use</h2>
+<section id="anonymization" class="level3">
+<h3 class="anchored" data-anchor-id="anonymization">Anonymization</h3>
 <p>The data is used under a non-commercial educational license, and comes both anonymized and pre-aggregated by the service providers to remove personally identifiable information (PII) and ensure confidentiality.</p>
+</section>
+<section id="public-health" class="level3">
+<h3 class="anchored" data-anchor-id="public-health">Public health</h3>
+<p>Public health messaging should be data driven, and must be compelling presented to be consistently adpoted. Additionally, beyond communication, it is crucial that policy makers support food access infrastructure.</p>
+</section>
 </section>
 </section>
 <section id="analysis" class="level1">
@@ -381,14 +408,6 @@ div.csl-indent {
 <p><a href="capstone_files/figure-html/unnamed-chunk-2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="capstone_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt;matplotlib.colorbar.Colorbar object at 0x32f7f8440&gt;
-Text(0.5, 0, 'PC1')
-Text(0, 0.5, 'PC2')
-Text(0.5, 1.0, 'no_alcohol_foodgroup17 by household \n value = calorie_ratio\nPC1 vs PC2')
-(-6.635632218620666, 6.635632218620694)
-(-5.950358253697342, 5.950358253697143)</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>PCA required 14 components to cumulatively explain 95% variance</code></pre>
@@ -485,14 +504,6 @@ Name: count, dtype: int64</code></pre>
 <p><a href="capstone_files/figure-html/unnamed-chunk-8-11.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="capstone_files/figure-html/unnamed-chunk-8-11.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt;matplotlib.colorbar.Colorbar object at 0x33402d090&gt;
-Text(0.5, 0, 'PC1')
-Text(0, 0.5, 'PC2')
-Text(0.5, 1.0, 'no_alcohol_nutrient by household \n value = nutrient_per_total_cal\nPC1 vs PC2')
-(-11.219611455417125, 11.219611455417125)
-(-10.505951714802944, 10.50595171480295)</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>PCA required 11 components to cumulatively explain 95% variance</code></pre>
@@ -1243,34 +1254,34 @@ Response: cluster_fct
 <p>In comparison to nutrient cluster 2, the other nutrient clusters fail to correlate with high LDL cholesterol.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[&lt;matplotlib.lines.Line2D object at 0x3683fb390&gt;]
-&lt;matplotlib.lines.Line2D object at 0x3683fb4d0&gt;
-&lt;matplotlib.lines.Line2D object at 0x3683fb610&gt;
-&lt;matplotlib.lines.Line2D object at 0x3683fb750&gt;
+<pre><code>[&lt;matplotlib.lines.Line2D object at 0x373eef390&gt;]
+&lt;matplotlib.lines.Line2D object at 0x373eef4d0&gt;
+&lt;matplotlib.lines.Line2D object at 0x373eef610&gt;
+&lt;matplotlib.lines.Line2D object at 0x373eef750&gt;
 Text(0.5, 1.0, 'nute_cluster_0')
 Text(0.5, 0, 'lag')
-[&lt;matplotlib.lines.Line2D object at 0x3683fb890&gt;]
-&lt;matplotlib.lines.Line2D object at 0x3683fb9d0&gt;
-&lt;matplotlib.lines.Line2D object at 0x3683fbb10&gt;
-&lt;matplotlib.lines.Line2D object at 0x3683fbc50&gt;
+[&lt;matplotlib.lines.Line2D object at 0x373eef890&gt;]
+&lt;matplotlib.lines.Line2D object at 0x373eef9d0&gt;
+&lt;matplotlib.lines.Line2D object at 0x373eefb10&gt;
+&lt;matplotlib.lines.Line2D object at 0x373eefc50&gt;
 Text(0.5, 1.0, 'nute_cluster_1')
 Text(0.5, 0, 'lag')
-[&lt;matplotlib.lines.Line2D object at 0x3683fbd90&gt;]
-&lt;matplotlib.lines.Line2D object at 0x3683fbed0&gt;
-&lt;matplotlib.lines.Line2D object at 0x36843c050&gt;
-&lt;matplotlib.lines.Line2D object at 0x36843c190&gt;
+[&lt;matplotlib.lines.Line2D object at 0x373eefd90&gt;]
+&lt;matplotlib.lines.Line2D object at 0x373eefed0&gt;
+&lt;matplotlib.lines.Line2D object at 0x373f30050&gt;
+&lt;matplotlib.lines.Line2D object at 0x373f30190&gt;
 Text(0.5, 1.0, 'nute_cluster_2')
 Text(0.5, 0, 'lag')
-[&lt;matplotlib.lines.Line2D object at 0x36843c2d0&gt;]
-&lt;matplotlib.lines.Line2D object at 0x36843c410&gt;
-&lt;matplotlib.lines.Line2D object at 0x36843c550&gt;
-&lt;matplotlib.lines.Line2D object at 0x36843c690&gt;
+[&lt;matplotlib.lines.Line2D object at 0x373f302d0&gt;]
+&lt;matplotlib.lines.Line2D object at 0x373f30410&gt;
+&lt;matplotlib.lines.Line2D object at 0x373f30550&gt;
+&lt;matplotlib.lines.Line2D object at 0x373f30690&gt;
 Text(0.5, 1.0, 'nute_cluster_3')
 Text(0.5, 0, 'lag')
-[&lt;matplotlib.lines.Line2D object at 0x36843c7d0&gt;]
-&lt;matplotlib.lines.Line2D object at 0x36843c910&gt;
-&lt;matplotlib.lines.Line2D object at 0x36843ca50&gt;
-&lt;matplotlib.lines.Line2D object at 0x36843cb90&gt;
+[&lt;matplotlib.lines.Line2D object at 0x373f307d0&gt;]
+&lt;matplotlib.lines.Line2D object at 0x373f30910&gt;
+&lt;matplotlib.lines.Line2D object at 0x373f30a50&gt;
+&lt;matplotlib.lines.Line2D object at 0x373f30b90&gt;
 Text(0.5, 1.0, 'nute_cluster_4')
 Text(0.5, 0, 'lag')</code></pre>
 </div>

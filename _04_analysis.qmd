@@ -276,7 +276,7 @@ fig.savefig(f"{run_folder}/scree_{run_name}.png",  dpi=300, bbox_inches='tight')
 #print(evr_table)
 ##   # renders the table in the Quarto output
 plt.show()
-plt.close()
+plt.close();
 
 pca_loadings = pd.DataFrame(
     pca.components_.T,                     # transpose: rows = food groups
@@ -320,8 +320,7 @@ for i, j in combinations(range(number_PCs_to_plot), 2):
 
    # fig.savefig(f"{run_folder}/PC{i+1}v{j+1}_{run_name}.png",  dpi=300, bbox_inches='tight')
    # plt.show()
-    plt.close(fig)
-
+    plt.close(fig);
 
 pca_full = PCA(n_components=0.95, random_state=42)  # 0.95 = auto-pick n for 95% variance
 pcs_95 = pca_full.fit_transform(scaled_df)
@@ -353,8 +352,8 @@ ax.set_xlabel('PC1 Orientation')
 ax.set_title('PC1 Orientation — Food groups')
 plt.tight_layout()
 fig.savefig(f"{run_folder}/pc1_loadings_barh_{run_name}.png", dpi=300, bbox_inches='tight')
-plt.show();
-plt.close(fig)
+plt.show()
+plt.close(fig);
 
 loadings_df = pd.DataFrame({
     'feature': scaled_df.columns,
@@ -842,7 +841,8 @@ ax_heat.set_yticklabels(heat_map_data_ordered.index)
 
 ax_heat.set_xticks([0, 1])
 ax_heat.set_xticklabels(['0', '1'])
-
+plt.show()
+plt.close(fig);
 #############################################################################
 #######################################
 #############################################################################
@@ -1185,7 +1185,7 @@ for i, j in combinations(range(number_PCs_to_plot), 2):
 
     #fig.savefig(f"{run_folder}/PC{i+1}v{j+1}_{run_name}.png",  dpi=300, bbox_inches='tight')
     #plt.show()
-    plt.close(fig)
+    plt.close(fig);
 
 
 pca_full = PCA(n_components=0.95, random_state=42)  # 0.95 = auto-pick n for 95% variance

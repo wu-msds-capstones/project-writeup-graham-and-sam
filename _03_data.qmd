@@ -1,21 +1,51 @@
+---
+title: "UK Diet and Disease Data"
+format: html
+jupyter: python3
+execute:
+  echo: false
+---
+
+
+
 # Data
 
 ## Sources
 
-The primary explanatory data, the National Food Survey (NFS), was sourced from the UK Data Service. It spans 1974-2000, where it sampled ~7,000 households per year for a total of around 190,000 households. The survey looked into the “diet diary” during a 7-day period for each household. In the diary, the corresponding household would record their food purchasing information. Alongside the diary, the NFS collected the nutrient conversion information for each of the foods purchased. Meaning, there was a quantity value and nutrient unit respective to each food. 
+### Diet data
+The primary explanatory data, the National Food Survey (NFS), was sourced from the UK Data Service. Access required institutional credentials.  The data was pre-anonymized. 
+
+ It spans 1974-2000, where it sampled ~7,000 households per year for a total of around 190,000 households. The survey looked into the “diet diary” during a 7-day period for each household. In the diary, the corresponding household would record their food purchasing information. Alongside the diary, the NFS collected the nutrient conversion information for each of the foods purchased. Meaning, there was a quantity value and nutrient unit respective to each food. 
 
 The demographics included in this report were, age, sex, and household composition. This was split into child/adult/eldery and male/female groups. These variables were used to create metrics allowing for per-person comparisons of the nutrients. These metrics weighted children as 0.5, adult women as 0.8 and elderly as 0.85 of a male adult in terms of their caloric consumption.
 
-The primary response variable data was acquired from the Institute for Health Metrics and Evaluation (IHME) looking at the Global Burden of Disease (GBD) study ranging from(1990 to 2023). The data was specifically selected from an open API to find the summary exposure value risk rates: LDL Cholesterol, Body Mass Index, Fasting Plasma Glucose Systolic Blood Pressure, Kidney Dysfunction, Low Bone Mineral Density, and Metabolic Risks. These rates were preaggregated with the API ingestion by year, government region in the UK and to population per region.
+### Disease data
+
+The primary response variable data was acquired from the Institute for Health Metrics and Evaluation (IHME) looking at the Global Burden of Disease (GBD) study ranging from 1990 to 2023. The data was specifically selected from an open API to find the summary exposure value risk rates: LDL Cholesterol, Body Mass Index, Fasting Plasma Glucose Systolic Blood Pressure, Kidney Dysfunction, Low Bone Mineral Density, and Metabolic Risks. These rates were preaggregated with the API ingestion by year, government region in the UK and to population per region.
 
 ## Pipeline
 
-The NFS datasets were aggregated by household per year where they were vertically joined to create a continuous span from 1974-2000. The disease risk rates were horizontally joined on government region and year.
+NFS data was downloaded as zip, with nested folders for every year from 1974 to 2000.  Each yearly folder had space separeted .txt files, and all years shared reference tables.  Year by year, diet diary data was joined to household data (to extract number of people in the household and location within the UK), and then joined with provided nutrient composition information for each food (minfd ->majfd explain ?). Food entries in the diary were from an initial ~180 options, which were sorted into 16 food groups.  From there, data was aggregated on a household by household basis according to nutrient profile, and according to food group profile. 
+
+Aggregated data was exposed to the machine learning pipeline described in the Analysis section, resulting in nutrient profile and food group profile cluster assignments for each household throughout the timespan of the data.
+
+Proportional distribution of these clusters was joined with the disease data on year and region.  Disease data from the IHME was obtained in a preprocessed, preaggreagted .csv file. 
 
 ## Units
 
-Food groups rates were normalized as a proportion of total calories consumed. The nutrient groups were normalized as quantity per daily calories. The disease rates were summary exposure values (SEV) which are relative to the total possible risk.
+Food groups rates were normalized as a proportion of total daily calories consumed.  Each food has an empirically established amount of calories per mass coefficient, and for each household, the quantity in appropriate mass units for each food entry was multiplied by that coefficent and then divided by the total calories for that household.
+
+The nutrient groups were normalized as quantity per daily calories.  There are a variety of appropriate units on a nutrient by nutrient basis, so each nutrient was calculated by that unit divided by calories.
+
+Food group and nurtient normalized ratios were z-scored before analysis, with the mean being set to zero and a single standard deviation being set to one, resulting in a more coherent vector space for machine learning.
+ 
+
+The disease rates from the preaggregated IHME data are summary exposure values (SEV) risk rates. 
 
 ## Ethics and Responsible Use
 
+### Anonymization
 The data is used under a non-commercial educational license, and comes both anonymized and pre-aggregated by the service providers to remove personally identifiable information (PII) and ensure confidentiality. 
+
+### Public health
+Public health messaging should be data driven, and must be compelling presented to be consistently adpoted. Additionally, beyond communication, it is crucial that policy makers support food access infrastructure. 
