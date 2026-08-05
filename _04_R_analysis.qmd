@@ -440,28 +440,28 @@ print(kable(cluster_props, digits = 3))
 
 ```{r}
 
-# Multinomial model: cluster membership ~ year
-
-model_data = data_source %>%
-  select(hhno, all_of(year_col), all_of(cluster_col)) %>%
-  filter(!is.na(.data[[cluster_col]])) %>%
-  mutate(
-    cluster_fct = relevel(factor(.data[[cluster_col]]), ref = "0"),  # set reference cluster
-    year_num = as.numeric(.data[[year_col]])
-  )
-
-# Fit model: does year predict cluster membership?
-mod_full = multinom(cluster_fct ~ year_num, data = model_data, trace = FALSE)
-mod_null = multinom(cluster_fct ~ 1, data = model_data, trace = FALSE)
-
-# Likelihood ratio test: is year a significant predictor overall?
-lr_test = anova(mod_null, mod_full)
-print(lr_test)
-
-# Per-cluster coefficients: direction/magnitude of each cluster's trend
-# relative to the reference cluster (cluster 0)
-tidy(mod_full, conf.int = TRUE) %>%
-  filter(term == "year_num") %>%
-  select(y.level, estimate, std.error, conf.low, conf.high, p.value) %>%
-  print()
+# # Multinomial model: cluster membership ~ year
+# 
+# model_data = data_source %>%
+#   select(hhno, all_of(year_col), all_of(cluster_col)) %>%
+#   filter(!is.na(.data[[cluster_col]])) %>%
+#   mutate(
+#     cluster_fct = relevel(factor(.data[[cluster_col]]), ref = "0"),  # set reference cluster
+#     year_num = as.numeric(.data[[year_col]])
+#   )
+# 
+# # Fit model: does year predict cluster membership?
+# mod_full = multinom(cluster_fct ~ year_num, data = model_data, trace = FALSE)
+# mod_null = multinom(cluster_fct ~ 1, data = model_data, trace = FALSE)
+# 
+# # Likelihood ratio test: is year a significant predictor overall?
+# lr_test = anova(mod_null, mod_full)
+# print(lr_test)
+# 
+# # Per-cluster coefficients: direction/magnitude of each cluster's trend
+# # relative to the reference cluster (cluster 0)
+# tidy(mod_full, conf.int = TRUE) %>%
+#   filter(term == "year_num") %>%
+#   select(y.level, estimate, std.error, conf.low, conf.high, p.value) %>%
+#   print()
 ```
