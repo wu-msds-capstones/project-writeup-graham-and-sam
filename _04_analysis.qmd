@@ -1,4 +1,11 @@
 
+---
+title: "UK Diet and Disease Analysis"
+format: html
+jupyter: python3
+execute:
+  echo: false
+---
 
 
 # Analysis
@@ -1590,7 +1597,7 @@ for yr in range (0,50):
 df_lag_ranges.info() 
 
 df_diet_lags=df_diet.merge(df_lag_ranges, how= 'left', on='styr')
-df_diet_lags.head(1000)
+#df_diet_lags.head(1000)
 
 # Now the diet data has joinable columns for disease data a all possible lag intervals
 #########
@@ -1600,7 +1607,7 @@ df_diet_lags.head(1000)
 #### Read in a disease raw data file...
 df_metabolic_risk = pd.read_csv('shared_data/IHME-GBD_SEV_metabolic_regions.csv')
 df_metabolic_risk
-df_metabolic_risk.head()
+#df_metabolic_risk.head()
 
 
 
@@ -1610,14 +1617,14 @@ for lag in range(0, 50):
     lag_string = [f'{lag}_year_lag', 'location']
     df_merged = df_diet_lags.merge(df_metabolic_risk, how='left', left_on=lag_string, right_on=['year', 'location'])
     df_merged['lag'] = lag
-    print(df_merged.head())
+    #print(df_merged.head())
     merged_list.append(df_merged)
 df_merged_list_lags = pd.concat(merged_list)
 
 
-df_merged_list_lags.head(10000)
+#df_merged_list_lags.head(10000)
 
-df_merged_list_lags.info()
+#df_merged_list_lags.info()
 
 #########
 ## This next step drops rows where there is no disease data, looking for null in the 'val' column that the IHME brings in
@@ -1625,7 +1632,7 @@ df_merged_list_lags.info()
 
 df_merged_lag_no_NaN = df_merged_list_lags.dropna(subset=['val'])
 
-df_merged_lag_no_NaN.head(100000)
+#df_merged_lag_no_NaN.head(100000)
 
 
 
@@ -1692,7 +1699,7 @@ for col in ['val', 'upper', 'lower']:
         df_metabolic_5yr.groupby(['location', 'rei'])[col]
           .transform(lambda s: s.rolling(window=5, center=True, min_periods=3).mean())
     )
-df_metabolic_5yr.head(1000)
+#df_metabolic_5yr.head(1000)
 
 
 
@@ -1737,6 +1744,8 @@ g = sns.relplot(
     col='location', col_wrap=4,
     kind='line',
     palette=disease_colors
+
 )
+plt.show()
 ```
 
