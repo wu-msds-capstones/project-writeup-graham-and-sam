@@ -353,7 +353,8 @@ ax.set_xlabel('PC1 Orientation')
 ax.set_title('PC1 Orientation — Food groups')
 plt.tight_layout()
 fig.savefig(f"{run_folder}/pc1_loadings_barh_{run_name}.png", dpi=300, bbox_inches='tight')
-plt.show()
+plt.show();
+plt.close(fig)
 
 loadings_df = pd.DataFrame({
     'feature': scaled_df.columns,
