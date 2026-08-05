@@ -283,7 +283,7 @@ region_name_map = {
 
 gdf_uk['location'] = gdf_uk['EER13NM'].map(region_name_map)
 gdf_merged = gdf_uk.merge(df_region_lag5, on='location', how='left')
-gdf_merged[['location', 'r']]
+#gdf_merged[['location', 'r']]
 
 
 
@@ -297,7 +297,7 @@ os.makedirs('../_scratch/EDA_maps', exist_ok=True)
 
 plt.savefig(f'{save_dir}/choropleth_lag5_{diet_label}_vs_{disease_label.replace(" ", "_")}_cluster_{cluster_number}.png', dpi=150, bbox_inches='tight')
 plt.show()
-plt.close(fig);
+plt.close();
 ```
 
 
@@ -412,7 +412,7 @@ region_name_map = {
 
 gdf_uk['location'] = gdf_uk['EER13NM'].map(region_name_map)
 gdf_merged = gdf_uk.merge(df_region_lag5, on='location', how='left')
-gdf_merged[['location', 'r']]
+#gdf_merged[['location', 'r']]
 
 
 
