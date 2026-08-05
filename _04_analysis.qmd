@@ -320,7 +320,7 @@ for i, j in combinations(range(number_PCs_to_plot), 2):
 
    # fig.savefig(f"{run_folder}/PC{i+1}v{j+1}_{run_name}.png",  dpi=300, bbox_inches='tight')
    # plt.show()
-    plt.close(fig);
+    plt.close();
 
 pca_full = PCA(n_components=0.95, random_state=42)  # 0.95 = auto-pick n for 95% variance
 pcs_95 = pca_full.fit_transform(scaled_df)
@@ -353,7 +353,7 @@ ax.set_title('PC1 Orientation — Food groups')
 plt.tight_layout()
 fig.savefig(f"{run_folder}/pc1_loadings_barh_{run_name}.png", dpi=300, bbox_inches='tight')
 plt.show()
-plt.close(fig);
+plt.close();
 
 loadings_df = pd.DataFrame({
     'feature': scaled_df.columns,
@@ -828,7 +828,7 @@ def col_to_rgb(colname):
 
 rgb_image = np.stack([col_to_rgb(0), col_to_rgb(1)], axis=1)  # (n_rows, 2, 3)
 
-fig, ax_heat = plt.subplots(figsize=(4, heat_map_data_ordered.shape[0]))
+fig, ax_heat = plt.subplots(figsize=(2, heat_map_data_ordered.shape[0]))
 ax_heat.imshow(rgb_image, aspect='auto')
 
 for i, cid in enumerate([0, 1]):
@@ -842,8 +842,9 @@ ax_heat.yaxis.tick_right()
 
 ax_heat.set_xticks([0, 1])
 ax_heat.set_xticklabels(['0', '1'])
+fig.subplots_adjust(right=0.5) 
 plt.show()
-plt.close(fig);
+plt.close();
 #############################################################################
 #######################################
 #############################################################################
@@ -1187,7 +1188,7 @@ for i, j in combinations(range(number_PCs_to_plot), 2):
 
     #fig.savefig(f"{run_folder}/PC{i+1}v{j+1}_{run_name}.png",  dpi=300, bbox_inches='tight')
     #plt.show()
-    plt.close(fig);
+    plt.close();
 
 
 pca_full = PCA(n_components=0.95, random_state=42)  # 0.95 = auto-pick n for 95% variance
