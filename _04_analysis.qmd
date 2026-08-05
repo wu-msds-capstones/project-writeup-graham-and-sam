@@ -838,6 +838,7 @@ for i, cid in enumerate([0, 1]):
 
 ax_heat.set_yticks(range(len(heat_map_data_ordered.index)))
 ax_heat.set_yticklabels(heat_map_data_ordered.index)
+ax.yaxis.tick_right()
 
 ax_heat.set_xticks([0, 1])
 ax_heat.set_xticklabels(['0', '1'])
@@ -1139,8 +1140,9 @@ ax.set_title(f'{title_name}\nScree plot')
 fig.savefig(f"{run_folder}/scree_{run_name}.png",  dpi=300, bbox_inches='tight')
 
 #print(evr_table)
-evr_table   # renders the table in the Quarto output
+#evr_table   # renders the table in the Quarto output
 plt.show()
+plt.close();
 
 
 pca_loadings = pd.DataFrame(
