@@ -54,24 +54,6 @@ value_to_analyze = 'calorie_ratio' # this one is for food groups quality
 seed = 53 # Change to any random integer to seed downstream random number generator.
 #value_aggregation_to_cluster = 'nutrient_per_total_cal' # different options for household and region
 number_of_initializations = 101  # This is how many times the k-means algorithm will start over to see if it gets the same(ish) results.
-# k_means_samples = all the samples, this one is not actually a variable.
-
-# Value aggregation to cluster options
- #      NUTRIENT
- # 16  nute_per_adulteq_sexsplit_per_diem  float64
- # 17  calories_per_cap_per_day            float64
- # 18  nutrient_per_total_cal              float64
-
-#       Food Group 17 and Food Group 55
-#  10  calorie_ratio                           float64
-#  11  quantity_per_total_cal                  float64
-#  12  quantity_per_adulteq_per_diem           float64
-#  13  calories_per_adulteq_per_diem           float64
-#  14  quantity_per_adulteq_sexsplit_per_diem  float64
-#  15  calories_per_adulteq_sexsplit_per_diem  float64
-
-##########################################################
-########################################
 ####################
 # PCA (Principle Component Analysis) specific variables.  
 ##########
@@ -81,9 +63,6 @@ number_PCA_components = 15
 number_PCs_to_plot = 2  # will generate this 2x this many plots                    
 color_PC_plots_by = 'styr'
 ##################################################
-
-##############################
-########################################
 ##################################################
 # k-means specific variables
 ##########
@@ -249,20 +228,20 @@ evr_table = pd.DataFrame({
 })
 evr_table.to_parquet(f"{run_folder}/evr_{run_name}.parquet", index=False)
 
-# scree plot
+#scree plot
 fig, ax = plt.subplots(figsize=(8,5))
 ax.plot(range(1, len(evr)+1), evr, marker='o')
 ax.set_ylim(0, 0.30)
 ax.set_xlabel('Principal Component')
 ax.set_ylabel('Explained variance ratio')
 ax.set_title(f'{title_name}\nScree plot')
-fig.savefig(f"{run_folder}/scree_{run_name}.png",  dpi=300, bbox_inches='tight')
-
+# fig.savefig(f"{run_folder}/scree_{run_name}.png",  dpi=300, bbox_inches='tight')
+plt.show()
 #print(evr_table)
-evr_table   # renders the table in the Quarto output
+#evr_table   # renders the table in the Quarto output
 
 pca_loadings = pd.DataFrame(
-    pca.components_.T,                     # transpose: rows = food groups
+    -pca.components_.T,                     # transpose: rows = food groups
     index=scaled_df.columns,
     columns=[f'PC{i+1}' for i in range(pca.n_components_)]
 )
@@ -280,30 +259,30 @@ for pc in pca_loadings.columns:
     tbl.to_parquet(f"{pca_loadings_folder}/pca_loadings_{pc}_{run_name}.parquet", index=False)
     pcX_order_list.append(tbl)
 
-for i, j in combinations(range(number_PCs_to_plot), 2):
-    fig, ax = plt.subplots(figsize=(8, 7))
+# for i, j in combinations(range(number_PCs_to_plot), 2):
+#     fig, ax = plt.subplots(figsize=(8, 7))
 
-    if color_PC_plots_by is not None:
-        c = scaled_df.index.get_level_values(color_PC_plots_by)
-        sc = ax.scatter(pca_coords[:, i], pca_coords[:, j],
-                        c=c, s=4, alpha=0.1, cmap='viridis')
-        fig.colorbar(sc, label=color_PC_plots_by)
-    else:
-        ax.scatter(pca_coords[:, i], pca_coords[:, j],
-                   s=4, alpha=0.1, color='steelblue')
+#     if color_PC_plots_by is not None:
+#         c = scaled_df.index.get_level_values(color_PC_plots_by)
+#         sc = ax.scatter(pca_coords[:, i], pca_coords[:, j],
+#                         c=c, s=4, alpha=0.1, cmap='viridis')
+#         fig.colorbar(sc, label=color_PC_plots_by)
+#     else:
+#         ax.scatter(pca_coords[:, i], pca_coords[:, j],
+#                    s=4, alpha=0.1, color='steelblue')
 
-    ax.set_xlabel(f'PC{i+1}')
-    ax.set_ylabel(f'PC{j+1}')
-    ax.set_title(f'{title_name}\nPC{i+1} vs PC{j+1}')
+#     ax.set_xlabel(f'PC{i+1}')
+#     ax.set_ylabel(f'PC{j+1}')
+#     ax.set_title(f'{title_name}\nPC{i+1} vs PC{j+1}')
 
-    ax.set_xlim(pca_coords[:, i].mean() - 5*pca_coords[:, i].std(),
-                pca_coords[:, i].mean() + 5*pca_coords[:, i].std())
-    ax.set_ylim(pca_coords[:, j].mean() - 5*pca_coords[:, j].std(),
-                pca_coords[:, j].mean() + 5*pca_coords[:, j].std())
+#     ax.set_xlim(pca_coords[:, i].mean() - 5*pca_coords[:, i].std(),
+#                 pca_coords[:, i].mean() + 5*pca_coords[:, i].std())
+#     ax.set_ylim(pca_coords[:, j].mean() - 5*pca_coords[:, j].std(),
+#                 pca_coords[:, j].mean() + 5*pca_coords[:, j].std())
 
-    fig.savefig(f"{run_folder}/PC{i+1}v{j+1}_{run_name}.png",  dpi=300, bbox_inches='tight')
-    plt.show()
-    plt.close(fig)
+#     fig.savefig(f"{run_folder}/PC{i+1}v{j+1}_{run_name}.png",  dpi=300, bbox_inches='tight')
+#     plt.show()
+#     plt.close(fig)
 
 
 
@@ -1018,7 +997,7 @@ fig.savefig(f"{run_folder}/scree_{run_name}.png",  dpi=300, bbox_inches='tight')
 evr_table   # renders the table in the Quarto output
 
 pca_loadings = pd.DataFrame(
-    pca.components_.T,                     # transpose: rows = food groups
+    -pca.components_.T,                     # transpose: rows = food groups
     index=scaled_df.columns,
     columns=[f'PC{i+1}' for i in range(pca.n_components_)]
 )
@@ -1036,30 +1015,30 @@ for pc in pca_loadings.columns:
     tbl.to_parquet(f"{pca_loadings_folder}/pca_loadings_{pc}_{run_name}.parquet", index=False)
     pcX_order_list.append(tbl)
 
-for i, j in combinations(range(number_PCs_to_plot), 2):
-    fig, ax = plt.subplots(figsize=(8, 7))
+# for i, j in combinations(range(number_PCs_to_plot), 2):
+#     fig, ax = plt.subplots(figsize=(8, 7))
 
-    if color_PC_plots_by is not None:
-        c = scaled_df.index.get_level_values(color_PC_plots_by)
-        sc = ax.scatter(pca_coords[:, i], pca_coords[:, j],
-                        c=c, s=4, alpha=0.1, cmap='viridis')
-        fig.colorbar(sc, label=color_PC_plots_by)
-    else:
-        ax.scatter(pca_coords[:, i], pca_coords[:, j],
-                   s=4, alpha=0.1, color='steelblue')
+#     if color_PC_plots_by is not None:
+#         c = scaled_df.index.get_level_values(color_PC_plots_by)
+#         sc = ax.scatter(pca_coords[:, i], pca_coords[:, j],
+#                         c=c, s=4, alpha=0.1, cmap='viridis')
+#         fig.colorbar(sc, label=color_PC_plots_by)
+#     else:
+#         ax.scatter(pca_coords[:, i], pca_coords[:, j],
+#                    s=4, alpha=0.1, color='steelblue')
 
-    ax.set_xlabel(f'PC{i+1}')
-    ax.set_ylabel(f'PC{j+1}')
-    ax.set_title(f'{title_name}\nPC{i+1} vs PC{j+1}')
+#     ax.set_xlabel(f'PC{i+1}')
+#     ax.set_ylabel(f'PC{j+1}')
+#     ax.set_title(f'{title_name}\nPC{i+1} vs PC{j+1}')
 
-    ax.set_xlim(pca_coords[:, i].mean() - 5*pca_coords[:, i].std(),
-                pca_coords[:, i].mean() + 5*pca_coords[:, i].std())
-    ax.set_ylim(pca_coords[:, j].mean() - 5*pca_coords[:, j].std(),
-                pca_coords[:, j].mean() + 5*pca_coords[:, j].std())
+#     ax.set_xlim(pca_coords[:, i].mean() - 5*pca_coords[:, i].std(),
+#                 pca_coords[:, i].mean() + 5*pca_coords[:, i].std())
+#     ax.set_ylim(pca_coords[:, j].mean() - 5*pca_coords[:, j].std(),
+#                 pca_coords[:, j].mean() + 5*pca_coords[:, j].std())
 
-    fig.savefig(f"{run_folder}/PC{i+1}v{j+1}_{run_name}.png",  dpi=300, bbox_inches='tight')
-    plt.show()
-    plt.close(fig)
+#     fig.savefig(f"{run_folder}/PC{i+1}v{j+1}_{run_name}.png",  dpi=300, bbox_inches='tight')
+#     plt.show()
+#     plt.close(fig)
 
 
 
