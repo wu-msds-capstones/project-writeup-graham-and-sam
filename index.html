@@ -283,8 +283,19 @@ div.csl-indent {
   </ul></li>
   <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a>
   <ul class="collapse">
-  <li><a href="#analysis-was-conducted-on-household-food-group-profiles." id="toc-analysis-was-conducted-on-household-food-group-profiles." class="nav-link" data-scroll-target="#analysis-was-conducted-on-household-food-group-profiles.">Analysis was conducted on household food group profiles.</a></li>
-  <li><a href="#the-analysis-was-repeated-on-household-nutrients-profiles" id="toc-the-analysis-was-repeated-on-household-nutrients-profiles" class="nav-link" data-scroll-target="#the-analysis-was-repeated-on-household-nutrients-profiles">The analysis was repeated on household nutrients profiles</a></li>
+  <li><a href="#all-years-uk-households-by-food-group-profile" id="toc-all-years-uk-households-by-food-group-profile" class="nav-link" data-scroll-target="#all-years-uk-households-by-food-group-profile">All years UK households by food group profile</a>
+  <ul class="collapse">
+  <li><a href="#pca-principal-component-analysis" id="toc-pca-principal-component-analysis" class="nav-link" data-scroll-target="#pca-principal-component-analysis">PCA (principal component analysis)</a></li>
+  <li><a href="#k-means-clustering" id="toc-k-means-clustering" class="nav-link" data-scroll-target="#k-means-clustering">k-means clustering</a></li>
+  </ul></li>
+  <li><a href="#all-years-uk-households-by-nutrient-profile" id="toc-all-years-uk-households-by-nutrient-profile" class="nav-link" data-scroll-target="#all-years-uk-households-by-nutrient-profile">All years UK households by nutrient profile</a>
+  <ul class="collapse">
+  <li><a href="#pca-for-nutrient-profiles" id="toc-pca-for-nutrient-profiles" class="nav-link" data-scroll-target="#pca-for-nutrient-profiles">PCA for nutrient profiles</a></li>
+  </ul></li>
+  <li><a href="#ldl-cholesterol-and-chronic-disease-data" id="toc-ldl-cholesterol-and-chronic-disease-data" class="nav-link" data-scroll-target="#ldl-cholesterol-and-chronic-disease-data">LDL cholesterol and chronic disease data</a>
+  <ul class="collapse">
+  <li><a href="#rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020" id="toc-rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020" class="nav-link" data-scroll-target="#rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020">Rates of metabolic syndrom related chronic disease symptoms in the UK from 1990 to 2020</a></li>
+  </ul></li>
   <li><a href="#stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" id="toc-stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" class="nav-link" data-scroll-target="#stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time">stats for proportions confirming the significance of changing clusters over time</a></li>
   <li><a href="#last-output-is-easy-to-read-stats-on-long-term-changes-others-are-per-year-with-general-changes-showing-its-not-noise" id="toc-last-output-is-easy-to-read-stats-on-long-term-changes-others-are-per-year-with-general-changes-showing-its-not-noise" class="nav-link" data-scroll-target="#last-output-is-easy-to-read-stats-on-long-term-changes-others-are-per-year-with-general-changes-showing-its-not-noise">last output is easy to read stats on long term changes, others are per year with general changes showing its not noise</a></li>
   </ul></li>
@@ -345,9 +356,12 @@ div.csl-indent {
 </section>
 <section id="analysis" class="level1">
 <h1>Analysis</h1>
-<p>Intro blub about how the analysis starts here</p>
-<section id="analysis-was-conducted-on-household-food-group-profiles." class="level3">
-<h3 class="anchored" data-anchor-id="analysis-was-conducted-on-household-food-group-profiles.">Analysis was conducted on household food group profiles.</h3>
+<p>Aggregations by food group and aggregations by nutrient were assessed with principle component analysis (PCA) and k-means clustering.</p>
+<p>The entire set of ~190,000 household were analyzed for PCA and k-means clustering, but t-SNE visual renderings use a smaller sample size to enable more rapid report iteration.</p>
+<section id="all-years-uk-households-by-food-group-profile" class="level2">
+<h2 class="anchored" data-anchor-id="all-years-uk-households-by-food-group-profile">All years UK households by food group profile</h2>
+<section id="pca-principal-component-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="pca-principal-component-analysis">PCA (principal component analysis)</h3>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>(0.0, 0.3)</code></pre>
@@ -355,12 +369,12 @@ div.csl-indent {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-1-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="capstone_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="capstone_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;matplotlib.colorbar.Colorbar object at 0x3593e0440&gt;
+<pre><code>&lt;matplotlib.colorbar.Colorbar object at 0x32fb80440&gt;
 Text(0.5, 0, 'PC1')
 Text(0, 0.5, 'PC2')
 Text(0.5, 1.0, 'no_alcohol_foodgroup17 by household \n value = calorie_ratio\nPC1 vs PC2')
@@ -370,20 +384,33 @@ Text(0.5, 1.0, 'no_alcohol_foodgroup17 by household \n value = calorie_ratio\nPC
 <div class="cell-output cell-output-stdout">
 <pre><code>PCA required 14 components to cumulatively explain 95% variance</code></pre>
 </div>
+</div>
+<p>The most explanatory component (PC 1) accounted for about 11% of variance in the food group aggregations.</p>
+<p>The other components only explained ~5% variance, leading to 14 components required to cumulatively explain 95% of variance.</p>
+<div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-1-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="capstone_files/figure-html/unnamed-chunk-1-2.png" class="img-fluid figure-img" width="576"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-3-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="capstone_files/figure-html/unnamed-chunk-3-3.png" class="img-fluid figure-img" width="576"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-1-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="capstone_files/figure-html/unnamed-chunk-1-3.png" class="img-fluid figure-img" width="576"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-3-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="capstone_files/figure-html/unnamed-chunk-3-4.png" class="img-fluid figure-img" width="576"></a></p>
 </figure>
 </div>
 </div>
+</div>
+<p>The axis of greatest variance, PC 1, orients to a more plant-based pole, and a more meat and refined food based-pole. PC 2 appears to orient to a more processed and refined foods pole, and a whole foods pole.</p>
+</section>
+<section id="k-means-clustering" class="level3">
+<h3 class="anchored" data-anchor-id="k-means-clustering">k-means clustering</h3>
+<p>In k-means clustering, data points are categorized into k number of clusters.</p>
+<p>The best, most stable k for the aggregated household diet data was determined by a cross validation proces where subsamples of the data were iteratively clustered in comparable pairs, outputing an Adjusted Rand Index (ARI) score, which rated that pairing of clusters by assessing cluster label overlap (1.0 is perfect overlap, a decent number of clusters should have ARI score as close to 1.0 as possble). The k number of clusters with the highest ARI score was then selected as the “best” k number of clusters for k-means clustering. For food group aggregated data, the best k number of clusters was consistently found to be 2.</p>
+<p>The principal components that were required to explain 95% variance in the aggregated foodgroup data were fed into an additional round of PCA to produce two derivative principal compenents, which were in turn fed into a t-distributed stochastic neighbor emedding (t-SNE) visualization. The t-SNE plot projects 20 dimensional nutrient space in 2 dimensions, enabling visualization of the k-means cluster assignments for each household.</p>
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Number of households per cluster</code></pre>
 </div>
@@ -400,21 +427,27 @@ Name: count, dtype: int64</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-1-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="capstone_files/figure-html/unnamed-chunk-1-4.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-5-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="capstone_files/figure-html/unnamed-chunk-5-7.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
+</div>
+<p>This heatmap combines information from PCA and k-means clustering. The two columns represent the two clusters that were assigned in k-means clustering. The axis of the heatmap is oriented along PC 1 for food group aggregations. Cell color indicates cluster centroid similarity to each dimension of PC 1. Gray cells are dissimilar, white cells are nuetral, colorful cells are more similar.</p>
+<div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-1-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="capstone_files/figure-html/unnamed-chunk-1-5.png" class="img-fluid figure-img" width="192"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-6-9.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="capstone_files/figure-html/unnamed-chunk-6-9.png" class="img-fluid figure-img" width="192"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="the-analysis-was-repeated-on-household-nutrients-profiles" class="level3">
-<h3 class="anchored" data-anchor-id="the-analysis-was-repeated-on-household-nutrients-profiles">The analysis was repeated on household nutrients profiles</h3>
+</section>
+<section id="all-years-uk-households-by-nutrient-profile" class="level2">
+<h2 class="anchored" data-anchor-id="all-years-uk-households-by-nutrient-profile">All years UK households by nutrient profile</h2>
+<section id="pca-for-nutrient-profiles" class="level3">
+<h3 class="anchored" data-anchor-id="pca-for-nutrient-profiles">PCA for nutrient profiles</h3>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>(0.0, 0.3)</code></pre>
@@ -440,12 +473,12 @@ Name: count, dtype: int64</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-2-11.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="capstone_files/figure-html/unnamed-chunk-2-11.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-8-11.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="capstone_files/figure-html/unnamed-chunk-8-11.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;matplotlib.colorbar.Colorbar object at 0x35cd9f750&gt;
+<pre><code>&lt;matplotlib.colorbar.Colorbar object at 0x334369090&gt;
 Text(0.5, 0, 'PC1')
 Text(0, 0.5, 'PC2')
 Text(0.5, 1.0, 'no_alcohol_nutrient by household \n value = nutrient_per_total_cal\nPC1 vs PC2')
@@ -455,20 +488,26 @@ Text(0.5, 1.0, 'no_alcohol_nutrient by household \n value = nutrient_per_total_c
 <div class="cell-output cell-output-stdout">
 <pre><code>PCA required 11 components to cumulatively explain 95% variance</code></pre>
 </div>
+</div>
+<p>For household nutrient profiles, PC 1 and PC 2 each explain over 20% of variance, and 11 components are required to cumulatively explain 95% of variance.</p>
+<div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-2-12.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="capstone_files/figure-html/unnamed-chunk-2-12.png" class="img-fluid figure-img" width="576"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-9-13.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="capstone_files/figure-html/unnamed-chunk-9-13.png" class="img-fluid figure-img" width="576"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-2-13.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="capstone_files/figure-html/unnamed-chunk-2-13.png" class="img-fluid figure-img" width="576"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-9-14.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="capstone_files/figure-html/unnamed-chunk-9-14.png" class="img-fluid figure-img" width="576"></a></p>
 </figure>
 </div>
 </div>
+</div>
+<p>PC 1 for household nutrient profiles has a fat (saturated and unsaturated) pole and a “plant-food” pole (vegetable protein and carbohydrates and vitamins). PC 2 for household nutrient profiles has a high carbohydrate pole juxtaposed against a high animal protein pole.</p>
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Households per cluster</code></pre>
 </div>
@@ -488,25 +527,33 @@ Name: count, dtype: int64</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-2-14.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="capstone_files/figure-html/unnamed-chunk-2-14.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-10-17.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="capstone_files/figure-html/unnamed-chunk-10-17.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
 </div>
+<p>For household nutrient profiles, best k number of clusters was consistently found to be 5. Notably, one of the five clusters has only about 5,000 household throughout the dataset. This small cluster turns out to be households that consumed a lot of organ meat.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-3-19.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="capstone_files/figure-html/unnamed-chunk-3-19.png" class="img-fluid figure-img" width="960"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-11-19.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="capstone_files/figure-html/unnamed-chunk-11-19.png" class="img-fluid figure-img" width="960"></a></p>
 </figure>
 </div>
 </div>
 </div>
+<p>Assessed against PC 1, cluster 0 is closer to the high fat pole, while cluster 2 is closely associated with the plant-like pole.</p>
+</section>
+</section>
+<section id="ldl-cholesterol-and-chronic-disease-data" class="level2">
+<h2 class="anchored" data-anchor-id="ldl-cholesterol-and-chronic-disease-data">LDL cholesterol and chronic disease data</h2>
+<section id="rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020" class="level3">
+<h3 class="anchored" data-anchor-id="rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020">Rates of metabolic syndrom related chronic disease symptoms in the UK from 1990 to 2020</h3>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-4-21.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="capstone_files/figure-html/unnamed-chunk-4-21.png" class="img-fluid figure-img" width="960"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-12-21.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="capstone_files/figure-html/unnamed-chunk-12-21.png" class="img-fluid figure-img" width="960"></a></p>
 </figure>
 </div>
 </div>
@@ -541,25 +588,29 @@ Name: count, dtype: int64</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-5-23.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="capstone_files/figure-html/unnamed-chunk-5-23.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-13-23.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="capstone_files/figure-html/unnamed-chunk-13-23.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-5-24.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="capstone_files/figure-html/unnamed-chunk-5-24.png" class="img-fluid figure-img" width="2156"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-13-24.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="capstone_files/figure-html/unnamed-chunk-13-24.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
+</div>
+<p>Looking at the UK as a whole, SEV risk rates for high LDL cholesterol and high systolic blood pressure both show a downtrend from 1990 to 2000, althgouh high systolic blood pressure rates do start to climb again after that. Metabolic risk overall continues to increase throughout the timespane, along with high body mass index (BMI).</p>
+<div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-5-25.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="capstone_files/figure-html/unnamed-chunk-5-25.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-14-27.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="capstone_files/figure-html/unnamed-chunk-14-27.png" class="img-fluid figure-img" width="2156"></a></p>
 </figure>
 </div>
 </div>
 </div>
+<p>There is some regional variation in SEV risk rates over time for these chronic disease symptoms, but the only notable anomaly is the rate of high BMI in Wales compared to other regions. Wales has about 50% high BMI SEV risk for the whole dataset, whereas other regions do not approach that level of risk until later years, if at all.</p>
 <section id="composition-clusters-with-bar-graphs-and-line-plots" class="level4">
 <h4 class="anchored" data-anchor-id="composition-clusters-with-bar-graphs-and-line-plots">composition clusters with bar graphs and line plots</h4>
 <div class="cell">
@@ -707,14 +758,14 @@ Name: count, dtype: int64</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="capstone_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-17-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="capstone_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-8-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="capstone_files/figure-html/unnamed-chunk-8-2.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-17-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="capstone_files/figure-html/unnamed-chunk-17-2.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -762,14 +813,14 @@ Name: count, dtype: int64</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-9-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="capstone_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-18-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="capstone_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-9-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="capstone_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-18-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="capstone_files/figure-html/unnamed-chunk-18-2.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -812,20 +863,21 @@ Name: count, dtype: int64</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-9-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="capstone_files/figure-html/unnamed-chunk-9-3.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-18-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="capstone_files/figure-html/unnamed-chunk-18-3.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-9-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="capstone_files/figure-html/unnamed-chunk-9-4.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-18-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="capstone_files/figure-html/unnamed-chunk-18-4.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <section id="the-awesome-gif-for-change-overtime" class="level5">
 <h5 class="anchored" data-anchor-id="the-awesome-gif-for-change-overtime">the awesome gif for change overtime <!--#  --></h5>
+</section>
 </section>
 </section>
 </section>
@@ -1186,7 +1238,7 @@ Response: cluster_fct
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-14-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="capstone_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="2400"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-23-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="capstone_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="2400"></a></p>
 </figure>
 </div>
 </div>
@@ -1198,7 +1250,7 @@ Response: cluster_fct
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-15-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="capstone_files/figure-html/unnamed-chunk-15-3.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-24-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="capstone_files/figure-html/unnamed-chunk-24-3.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1253,7 +1305,7 @@ Response: cluster_fct
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-16-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-23"><img src="capstone_files/figure-html/unnamed-chunk-16-5.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-25-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-23"><img src="capstone_files/figure-html/unnamed-chunk-25-5.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
@@ -1308,7 +1360,7 @@ Response: cluster_fct
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-17-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-24"><img src="capstone_files/figure-html/unnamed-chunk-17-7.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-26-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-24"><img src="capstone_files/figure-html/unnamed-chunk-26-7.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
