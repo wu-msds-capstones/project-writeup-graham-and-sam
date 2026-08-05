@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Capstone Project</title>
+<title>Untitled</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -236,7 +236,7 @@ div.csl-indent {
 <header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Capstone Project</h1>
+      <h1 class="title">Untitled</h1>
             <p class="subtitle lead">Subtitle</p>
           </div>
 
@@ -285,6 +285,7 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#this-is-the-start-of-the-r-chunks-with-the-statistical-work-and-checks" id="toc-this-is-the-start-of-the-r-chunks-with-the-statistical-work-and-checks" class="nav-link" data-scroll-target="#this-is-the-start-of-the-r-chunks-with-the-statistical-work-and-checks">this is the start of the r chunks with the statistical work and checks</a></li>
   </ul></li>
+  <li><a href="#analysis-in-r" id="toc-analysis-in-r" class="nav-link" data-scroll-target="#analysis-in-r">Analysis in R</a></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
   <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
@@ -339,63 +340,108 @@ div.csl-indent {
 <section id="analysis" class="level1">
 <h1>Analysis</h1>
 <p>Intro blub about how the analysis starts here</p>
-<div id="1f7f6718" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-display">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>(0.0, 0.3)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    PC  explained_variance_ratio  cumulative
+0    1                  0.110079    0.110079
+1    2                  0.088517    0.198596
+2    3                  0.084733    0.283329
+3    4                  0.075696    0.359025
+4    5                  0.069070    0.428096
+5    6                  0.065141    0.493237
+6    7                  0.063174    0.556411
+7    8                  0.061603    0.618014
+8    9                  0.059769    0.677783
+9   10                  0.058736    0.736519
+10  11                  0.057728    0.794247
+11  12                  0.057148    0.851395
+12  13                  0.054616    0.906011
+13  14                  0.049487    0.955498
+14  15                  0.044502    1.000000</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;matplotlib.colorbar.Colorbar object at 0x32dc20440&gt;
+Text(0.5, 0, 'PC1')
+Text(0, 0.5, 'PC2')
+Text(0.5, 1.0, 'no_alcohol_foodgroup17 by household \n value = calorie_ratio\nPC1 vs PC2')
+(-6.635632218620666, 6.635632218620694)
+(-5.950358253697342, 5.950358253697143)</code></pre>
+</div>
+<div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/cell-2-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="capstone_files/figure-html/cell-2-output-1.png" width="672" height="486" class="figure-img"></a></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="capstone_files/figure-html/cell-2-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="capstone_files/figure-html/cell-2-output-2.png" width="660" height="634" class="figure-img"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-1-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="capstone_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Number of households per cluster
-cluster
+<pre><code>Number of households per cluster</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>cluster
 0    123073
 1     63732
-Name: hhno, dtype: int64
-14 components hit 95% variance</code></pre>
+Name: hhno, dtype: int64</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-stdout">
+<pre><code>14 components hit 95% variance</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[]
+[]</code></pre>
+</div>
+<div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/cell-2-output-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="capstone_files/figure-html/cell-2-output-4.png" width="565" height="758" class="figure-img"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-1-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="capstone_files/figure-html/unnamed-chunk-1-2.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/cell-2-output-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="capstone_files/figure-html/cell-2-output-5.png" width="776" height="612" class="figure-img"></a></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="capstone_files/figure-html/cell-2-output-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="capstone_files/figure-html/cell-2-output-6.png" width="348" height="1298" class="figure-img"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-1-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="capstone_files/figure-html/unnamed-chunk-1-3.png" class="img-fluid figure-img" width="192"></a></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="eb406675" class="cell" data-execution_count="2">
-<div class="cell-output cell-output-display">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>(0.0, 0.3)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    PC  explained_variance_ratio  cumulative
+0    1                  0.265010    0.265010
+1    2                  0.232368    0.497378
+2    3                  0.098420    0.595798
+3    4                  0.085982    0.681780
+4    5                  0.063342    0.745122
+5    6                  0.056485    0.801607
+6    7                  0.046264    0.847871
+7    8                  0.040001    0.887872
+8    9                  0.035185    0.923057
+9   10                  0.025881    0.948938
+10  11                  0.017788    0.966726
+11  12                  0.013122    0.979848
+12  13                  0.010209    0.990057
+13  14                  0.004775    0.994832
+14  15                  0.003550    0.998382</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;matplotlib.colorbar.Colorbar object at 0x35f57ccd0&gt;
+Text(0.5, 0, 'PC1')
+Text(0, 0.5, 'PC2')
+Text(0.5, 1.0, 'no_alcohol_nutrient by household \n value = nutrient_per_total_cal\nPC1 vs PC2')
+(-11.219611455417125, 11.219611455417125)
+(-10.505951714802944, 10.50595171480295)</code></pre>
+</div>
+<div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/cell-3-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="capstone_files/figure-html/cell-3-output-1.png" width="672" height="486" class="figure-img"></a></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="capstone_files/figure-html/cell-3-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="capstone_files/figure-html/cell-3-output-2.png" width="681" height="634" class="figure-img"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-2-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="capstone_files/figure-html/unnamed-chunk-2-7.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
@@ -406,36 +452,35 @@ Name: hhno, dtype: int64
 2    30839
 3    41600
 4    71136
-Name: hhno, dtype: int64
-11 components hit 95% variance</code></pre>
+Name: hhno, dtype: int64</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-stdout">
+<pre><code>11 components hit 95% variance</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[]
+[]</code></pre>
+</div>
+<div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/cell-3-output-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="capstone_files/figure-html/cell-3-output-4.png" width="565" height="758" class="figure-img"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-2-8.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="capstone_files/figure-html/unnamed-chunk-2-8.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/cell-3-output-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="capstone_files/figure-html/cell-3-output-5.png" width="767" height="612" class="figure-img"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-2-9.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="capstone_files/figure-html/unnamed-chunk-2-9.png" class="img-fluid figure-img" width="576"></a></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="311611a5" class="cell" data-execution_count="3">
-<div class="cell-output cell-output-display">
+<div class="cell">
+<div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/cell-4-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="capstone_files/figure-html/cell-4-output-1.png" width="949" height="569" class="figure-img"></a></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="capstone_files/figure-html/cell-4-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="capstone_files/figure-html/cell-4-output-2.png" width="949" height="569" class="figure-img"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-3-13.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="capstone_files/figure-html/unnamed-chunk-3-13.png" class="img-fluid figure-img" width="960"></a></p>
 </figure>
 </div>
 </div>
@@ -443,6 +488,269 @@ Name: hhno, dtype: int64
 <section id="this-is-the-start-of-the-r-chunks-with-the-statistical-work-and-checks" class="level2">
 <h2 class="anchored" data-anchor-id="this-is-the-start-of-the-r-chunks-with-the-statistical-work-and-checks">this is the start of the r chunks with the statistical work and checks</h2>
 </section>
+</section>
+<section id="analysis-in-r" class="level1">
+<h1>Analysis in R</h1>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+
+| styr| cluster|    n| total| proportion|
+|----:|-------:|----:|-----:|----------:|
+| 1974|       0| 1847|  7334|      0.252|
+| 1974|       1|   35|  7334|      0.005|
+| 1974|       2|  238|  7334|      0.032|
+| 1974|       3| 1589|  7334|      0.217|
+| 1974|       4| 3625|  7334|      0.494|
+| 1975|       0| 1638|  7322|      0.224|
+| 1975|       1|   89|  7322|      0.012|
+| 1975|       2|  311|  7322|      0.042|
+| 1975|       3| 1818|  7322|      0.248|
+| 1975|       4| 3466|  7322|      0.473|
+| 1976|       0| 1602|  7431|      0.216|
+| 1976|       1|  154|  7431|      0.021|
+| 1976|       2|  289|  7431|      0.039|
+| 1976|       3| 1867|  7431|      0.251|
+| 1976|       4| 3519|  7431|      0.474|
+| 1977|       0| 1496|  7592|      0.197|
+| 1977|       1|  166|  7592|      0.022|
+| 1977|       2|  459|  7592|      0.060|
+| 1977|       3| 1957|  7592|      0.258|
+| 1977|       4| 3514|  7592|      0.463|
+| 1978|       0| 1388|  7095|      0.196|
+| 1978|       1|  174|  7095|      0.025|
+| 1978|       2|  417|  7095|      0.059|
+| 1978|       3| 2000|  7095|      0.282|
+| 1978|       4| 3116|  7095|      0.439|
+| 1979|       0| 1459|  7160|      0.204|
+| 1979|       1|  162|  7160|      0.023|
+| 1979|       2|  446|  7160|      0.062|
+| 1979|       3| 2123|  7160|      0.297|
+| 1979|       4| 2970|  7160|      0.415|
+| 1980|       0| 1710|  7779|      0.220|
+| 1980|       1|  218|  7779|      0.028|
+| 1980|       2|  522|  7779|      0.067|
+| 1980|       3| 2175|  7779|      0.280|
+| 1980|       4| 3154|  7779|      0.405|
+| 1981|       0| 1722|  7514|      0.229|
+| 1981|       1|  200|  7514|      0.027|
+| 1981|       2|  511|  7514|      0.068|
+| 1981|       3| 2030|  7514|      0.270|
+| 1981|       4| 3051|  7514|      0.406|
+| 1982|       0| 1818|  7750|      0.235|
+| 1982|       1|  201|  7750|      0.026|
+| 1982|       2|  552|  7750|      0.071|
+| 1982|       3| 1993|  7750|      0.257|
+| 1982|       4| 3186|  7750|      0.411|
+| 1983|       0| 1708|  7002|      0.244|
+| 1983|       1|  158|  7002|      0.023|
+| 1983|       2|  639|  7002|      0.091|
+| 1983|       3| 1901|  7002|      0.271|
+| 1983|       4| 2596|  7002|      0.371|
+| 1984|       0| 1482|  6851|      0.216|
+| 1984|       1|  241|  6851|      0.035|
+| 1984|       2|  792|  6851|      0.116|
+| 1984|       3| 1869|  6851|      0.273|
+| 1984|       4| 2467|  6851|      0.360|
+| 1985|       0| 1527|  6856|      0.223|
+| 1985|       1|  265|  6856|      0.039|
+| 1985|       2|  941|  6856|      0.137|
+| 1985|       3| 1785|  6856|      0.260|
+| 1985|       4| 2338|  6856|      0.341|
+| 1986|       0| 1491|  6676|      0.223|
+| 1986|       1|  202|  6676|      0.030|
+| 1986|       2| 1091|  6676|      0.163|
+| 1986|       3| 1720|  6676|      0.258|
+| 1986|       4| 2172|  6676|      0.325|
+| 1987|       0| 1556|  6854|      0.227|
+| 1987|       1|  223|  6854|      0.033|
+| 1987|       2| 1147|  6854|      0.167|
+| 1987|       3| 1713|  6854|      0.250|
+| 1987|       4| 2215|  6854|      0.323|
+| 1988|       0| 1514|  6970|      0.217|
+| 1988|       1|  215|  6970|      0.031|
+| 1988|       2| 1326|  6970|      0.190|
+| 1988|       3| 1812|  6970|      0.260|
+| 1988|       4| 2103|  6970|      0.302|
+| 1989|       0| 1517|  7322|      0.207|
+| 1989|       1|  216|  7322|      0.030|
+| 1989|       2| 1423|  7322|      0.194|
+| 1989|       3| 1899|  7322|      0.259|
+| 1989|       4| 2267|  7322|      0.310|
+| 1990|       0| 1466|  6721|      0.218|
+| 1990|       1|  199|  6721|      0.030|
+| 1990|       2| 1459|  6721|      0.217|
+| 1990|       3| 1500|  6721|      0.223|
+| 1990|       4| 2097|  6721|      0.312|
+| 1991|       0| 1338|  6511|      0.205|
+| 1991|       1|  206|  6511|      0.032|
+| 1991|       2| 1366|  6511|      0.210|
+| 1991|       3| 1689|  6511|      0.259|
+| 1991|       4| 1912|  6511|      0.294|
+| 1992|       0| 1553|  7002|      0.222|
+| 1992|       1|  256|  7002|      0.037|
+| 1992|       2| 1388|  7002|      0.198|
+| 1992|       3| 1053|  7002|      0.150|
+| 1992|       4| 2752|  7002|      0.393|
+| 1993|       0| 1602|  7357|      0.218|
+| 1993|       1|  251|  7357|      0.034|
+| 1993|       2| 1584|  7357|      0.215|
+| 1993|       3| 1037|  7357|      0.141|
+| 1993|       4| 2883|  7357|      0.392|
+| 1994|       0| 1357|  7125|      0.190|
+| 1994|       1|  204|  7125|      0.029|
+| 1994|       2| 1776|  7125|      0.249|
+| 1994|       3| 1046|  7125|      0.147|
+| 1994|       4| 2742|  7125|      0.385|
+| 1995|       0| 1319|  7373|      0.179|
+| 1995|       1|  224|  7373|      0.030|
+| 1995|       2| 1971|  7373|      0.267|
+| 1995|       3| 1011|  7373|      0.137|
+| 1995|       4| 2848|  7373|      0.386|
+| 1996|       0| 1329|  7320|      0.182|
+| 1996|       1|   86|  7320|      0.012|
+| 1996|       2| 2144|  7320|      0.293|
+| 1996|       3|  895|  7320|      0.122|
+| 1996|       4| 2866|  7320|      0.392|
+| 1997|       0|  885|  5525|      0.160|
+| 1997|       1|   71|  5525|      0.013|
+| 1997|       2| 1845|  5525|      0.334|
+| 1997|       3|  760|  5525|      0.138|
+| 1997|       4| 1964|  5525|      0.355|
+| 1998|       0|  781|  5382|      0.145|
+| 1998|       1|   58|  5382|      0.011|
+| 1998|       2| 1969|  5382|      0.366|
+| 1998|       3|  799|  5382|      0.148|
+| 1998|       4| 1775|  5382|      0.330|
+| 1999|       0|  763|  5509|      0.139|
+| 1999|       1|   60|  5509|      0.011|
+| 1999|       2| 2048|  5509|      0.372|
+| 1999|       3|  765|  5509|      0.139|
+| 1999|       4| 1873|  5509|      0.340|
+| 2000|       0|  772|  5472|      0.141|
+| 2000|       1|   56|  5472|      0.010|
+| 2000|       2| 2185|  5472|      0.399|
+| 2000|       3|  794|  5472|      0.145|
+| 2000|       4| 1665|  5472|      0.304|</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="capstone_files/figure-html/unnamed-chunk-6-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="capstone_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="capstone_files/figure-html/unnamed-chunk-6-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="capstone_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+
+##########  PC1_score  ##########
+
+
+|variable  | styr|    n|   mean|    sd| median|     min|    max|
+|:---------|----:|----:|------:|-----:|------:|-------:|------:|
+|PC1_score | 1974| 7334|  0.803| 1.582|  0.805| -14.826|  9.875|
+|PC1_score | 1975| 7322|  0.667| 1.728|  0.696| -12.615|  9.914|
+|PC1_score | 1976| 7431|  0.607| 1.743|  0.638| -11.042| 11.344|
+|PC1_score | 1977| 7592|  0.433| 1.864|  0.532| -12.678|  9.753|
+|PC1_score | 1978| 7095|  0.389| 1.834|  0.484|  -9.646|  9.226|
+|PC1_score | 1979| 7160|  0.459| 1.867|  0.560| -10.221|  9.591|
+|PC1_score | 1980| 7779|  0.435| 1.980|  0.509| -10.961| 12.743|
+|PC1_score | 1981| 7514|  0.439| 1.960|  0.525| -12.883| 10.032|
+|PC1_score | 1982| 7750|  0.450| 1.993|  0.531| -12.562| 11.769|
+|PC1_score | 1983| 7002|  0.354| 2.024|  0.435| -17.108| 10.422|
+|PC1_score | 1984| 6851|  0.139| 2.091|  0.229| -12.837| 10.206|
+|PC1_score | 1985| 6856|  0.066| 2.202|  0.164| -18.482|  9.690|
+|PC1_score | 1986| 6676| -0.086| 2.289|  0.006| -19.872| 12.486|
+|PC1_score | 1987| 6854| -0.079| 2.295|  0.002| -13.758|  9.647|
+|PC1_score | 1988| 6970| -0.225| 2.362| -0.141| -13.611| 10.284|
+|PC1_score | 1989| 7322| -0.250| 2.426| -0.171| -13.255| 14.248|
+|PC1_score | 1990| 6721| -0.267| 2.477| -0.203| -12.939| 10.197|
+|PC1_score | 1991| 6511| -0.290| 2.474| -0.256| -13.192| 12.527|
+|PC1_score | 1992| 7002| -0.016| 2.397| -0.009| -12.527| 11.603|
+|PC1_score | 1993| 7357| -0.108| 2.395| -0.033| -17.411| 10.278|
+|PC1_score | 1994| 7125| -0.343| 2.368| -0.312| -14.397| 13.043|
+|PC1_score | 1995| 7373| -0.439| 2.429| -0.400| -15.399| 11.576|
+|PC1_score | 1996| 7320| -0.470| 2.378| -0.421| -12.710| 10.735|
+|PC1_score | 1997| 5525| -0.711| 2.395| -0.735| -14.007| 11.963|
+|PC1_score | 1998| 5382| -0.909| 2.481| -0.875| -15.518| 11.468|
+|PC1_score | 1999| 5509| -1.009| 2.482| -0.977| -16.294| 10.682|
+|PC1_score | 2000| 5472| -1.107| 2.521| -1.022| -14.056| 11.263|</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="capstone_files/figure-html/unnamed-chunk-7-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="capstone_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="capstone_files/figure-html/unnamed-chunk-7-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="capstone_files/figure-html/unnamed-chunk-7-2.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+
+##########  PC2_score  ##########
+
+
+|variable  | styr|    n|   mean|    sd| median|    min|    max|
+|:---------|----:|----:|------:|-----:|------:|------:|------:|
+|PC2_score | 1974| 7334|  0.024| 1.715| -0.160| -7.697| 19.781|
+|PC2_score | 1975| 7322|  0.242| 1.811|  0.006| -6.296| 13.799|
+|PC2_score | 1976| 7431|  0.255| 1.904| -0.009| -6.472| 12.877|
+|PC2_score | 1977| 7592|  0.247| 1.955|  0.035| -7.482| 13.609|
+|PC2_score | 1978| 7095|  0.387| 1.928|  0.114| -9.138| 12.070|
+|PC2_score | 1979| 7160|  0.431| 2.078|  0.183| -7.459| 17.796|
+|PC2_score | 1980| 7779|  0.376| 2.092|  0.163| -7.489| 14.771|
+|PC2_score | 1981| 7514|  0.342| 2.121|  0.100| -7.670| 16.429|
+|PC2_score | 1982| 7750|  0.283| 2.088|  0.047| -7.300| 15.176|
+|PC2_score | 1983| 7002|  0.354| 2.013|  0.149| -7.426| 17.288|
+|PC2_score | 1984| 6851|  0.409| 2.040|  0.198| -7.805| 16.624|
+|PC2_score | 1985| 6856|  0.380| 2.072|  0.167| -7.117| 23.734|
+|PC2_score | 1986| 6676|  0.362| 2.011|  0.167| -8.082| 24.305|
+|PC2_score | 1987| 6854|  0.301| 2.038|  0.094| -8.224| 21.254|
+|PC2_score | 1988| 6970|  0.318| 2.032|  0.152| -9.554| 18.200|
+|PC2_score | 1989| 7322|  0.291| 2.081|  0.112| -7.826| 16.219|
+|PC2_score | 1990| 6721|  0.126| 2.037| -0.014| -8.119| 16.252|
+|PC2_score | 1991| 6511|  0.224| 2.118|  0.095| -8.442| 16.174|
+|PC2_score | 1992| 7002| -0.492| 2.085| -0.654| -7.904| 16.185|
+|PC2_score | 1993| 7357| -0.530| 2.261| -0.740| -8.994| 35.321|
+|PC2_score | 1994| 7125| -0.563| 2.113| -0.750| -8.406| 15.756|
+|PC2_score | 1995| 7373| -0.647| 2.219| -0.865| -7.986| 26.481|
+|PC2_score | 1996| 7320| -0.830| 2.023| -0.987| -8.548| 11.470|
+|PC2_score | 1997| 5525| -0.751| 2.089| -0.905| -9.011| 12.922|
+|PC2_score | 1998| 5382| -0.744| 2.127| -0.899| -9.250| 21.650|
+|PC2_score | 1999| 5509| -0.761| 2.187| -0.930| -8.788| 21.237|
+|PC2_score | 2000| 5472| -0.679| 2.158| -0.841| -8.388| 12.882|</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="capstone_files/figure-html/unnamed-chunk-7-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="capstone_files/figure-html/unnamed-chunk-7-3.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="capstone_files/figure-html/unnamed-chunk-7-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="capstone_files/figure-html/unnamed-chunk-7-4.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>ANIMATION TENDS TO STALL OUT, DOES IT WORK?</p>
 </section>
 <section id="results" class="level1">
 <h1>Results</h1>
