@@ -1744,6 +1744,8 @@ g = sns.relplot(
     col='location', col_wrap=4,
     kind='line',
     palette=disease_colors
+
 )
+plt.show()
 ```
 
