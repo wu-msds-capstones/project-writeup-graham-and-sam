@@ -1,1 +1,15 @@
 # Conclusions
+
+This study set out to explore the relationship between dietary nutrient intake and the corresponding metabolic rates, focusing on LDL cholesterol risk rate. It explored how increased prevalence of plant-based dietary patterns correlates with a decrease in LDL cholesterol risk rates with a 5-year time lag. 
+
+Through unsupervised principal component analysis and k-means clustering on ~190,000 household food purchase records, we identified a nutrient pattern sourced from plant-based diets (Nutrient cluster 2, high in carbohydrates, plant proteins, key vitamins). Adoption of this cluster expanded greatly during the time period of 1974-2000, when it started with a utilization of 10% of households, increasing to 40% by the end of the period. Concurrently, the population summary score exposure values for elevated levels of LDL cholesterol experienced a steady decline. 
+
+Using cross-correlation time lag analysis, we confirmed our hypothesis supporting a statistically significant (p-value < 0.01) inverse relationship between the prevalence of plant-based diets and high levels of LDL cholesterol rates with a 5-year time lag.
+
+To maintain a high confidence level, there was a significant p-value across a 4-year window. During the time lag of 3-7 years, there was a consistent p-value calculated at less than 0.05. Ultimately, the statistical significance peaked at the 5-year time lag, but the expanded ranch further supports the established relationship between specific diet and high LDL cholesterol rate.
+
+Despite statistical significance, scientific caution must be included. There were limiting factors inherently baked into the dataset. The study evaluated population-level aggregation as opposed to a longitudinal study focused on specific cohorts of households. Additionally, it operated under the assumption that the bought food was consumed. This analysis did not explicitly account for shifting populations, socioeconomic status, or hereditary features, which may influence the data over time.
+
+In a time where there are conflicting nutrition claims and diverse diets, this study grounds findings in an empirical, multi-decade observational study determining significant associations. Existing research establishes links between diet and LDL cholesterol levels. This study complements the existing research demonstrating that metabolic benefits can be observed at a macro, population-level scale.
+
+This study works as a springboard for scalable future work. A companion study could be conducted to investigate specific nutrient quantities that decrease subsequent metabolic diseases, beyond a focus on high LDL cholesterol risk. Notable changes would be targeted at the inclusion of additional demographic information to mitigate confounding variables absent from this study.
