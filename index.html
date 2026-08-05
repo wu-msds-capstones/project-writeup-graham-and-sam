@@ -54,9 +54,9 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-1c59215f878e034bd7426c637fa661ac.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-81267100e462c21b3d6c0d5bf76a3417.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-b15df86742554840d07b04d0f56a07e9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-81267100e462c21b3d6c0d5bf76a3417.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -313,304 +313,113 @@ div.csl-indent {
 </section>
 <section id="data" class="level1">
 <h1>Data</h1>
-<p>Sources The primary explanatory data, the National Food Survey (NFS), was sourced from the UK Data Service. It spans 1974-2000, where it sampled ~7,000 households per year for a total of around 190,000 households. The survey looked into the “diet diary” during a 7-day period for each household. In the diary, the corresponding household would record their food purchasing information. Alongside the diary, the NFS collected the nutrient conversion information for each of the foods purchased. Meaning, there was a quantity value and nutrient unit respective to each food. The demographics included in this report were, age, sex, and household composition. This was split into child/adult/eldery and male/female groups. These variables were used to create metrics allowing for per-person comparisons of the nutrients. These metrics weighted children as 0.5, adult women as 0.8 and elderly as 0.85 of a male adult in terms of their caloric consumption. The primary response variable data was acquired from the Institute for Health Metrics and Evaluation (IHME) looking at the Global Burden of Disease (GBD) study ranging from(1990 to 2023). The data was specifically selected from an open API to find the summary exposure value risk rates: LDL Cholesterol, Body Mass Index, Fasting Plasma Glucose Systolic Blood Pressure, Kidney Dysfunction, Low Bone Mineral Density, and Metabolic Risks. These rates were preaggregated with the API ingestion by year, government region in the UK and to population per region.</p>
-<p>Pipeline The NFS datasets were aggregated by household per year where they were vertically joined to create a continuous span from 1974-2000. The disease risk rates were horizontally joined on government region and year.</p>
-<p>Units Food groups rates were normalized as a proportion of total calories consumed. The nutrient groups were normalized as quantity per daily calories. The disease rates were summary exposure values (SEV) which are relative to the total possible risk.</p>
-<p>Ethics and Responsible Use The data is used under a non-commercial educational license, and comes both anonymized and pre-aggregated by the service providers to remove personally identifiable information (PII) and ensure confidentiality.</p>
+<p>Sources:</p>
+<p>Diet data from UK Data Service National Food Survey (1974 to 2000) ~ 7,000 households per year, ~190,000 households total One week journal of every food purchase Includes nutrient conversion information</p>
+<p>Disease data from Institute for Health Metrics Evaluation (IHME) Global Burden of Disease (GBD) study (1990 to 2023) Summary Exposure Value risk rates Pre-aggregated to all population per location</p>
+<p>Pipeline: National Food Survey data aggregated by household by year, aggregated years vertically unioned into time series data, disease data joined on region and year.</p>
+<p>Units: Food group rates normalized as proportion of daily calories. Nutrient rates normalized as quantity per daily calories Disease risk rates are summary exposure value (SEV), relative to total possible risk.</p>
+<p>Ethics &amp; responsible use: The data is used under a non-commercial educational license and comes anonymized and/or aggregated by the service providers to ensure confidentiality. Responsible use stems from upholding the listed terms of service provided from the UK Data Service.</p>
 </section>
 <section id="analysis" class="level1">
 <h1>Analysis</h1>
-<p>One long script to start this off…</p>
-<div id="ccdc8042" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-stdout">
-<pre><code>[0.11007904 0.19859595 0.28332889 0.35902528 0.42809577 0.49323692
- 0.55641101 0.61801429 0.67778314 0.73651946 0.79424741 0.85139522
- 0.90601137 0.95549849 1.        ]
-    PC  explained_variance_ratio  cumulative
-0    1                  0.110079    0.110079
-1    2                  0.088517    0.198596
-2    3                  0.084733    0.283329
-3    4                  0.075696    0.359025
-4    5                  0.069070    0.428096
-5    6                  0.065141    0.493237
-6    7                  0.063174    0.556411
-7    8                  0.061603    0.618014
-8    9                  0.059769    0.677783
-9   10                  0.058736    0.736519
-10  11                  0.057728    0.794247
-11  12                  0.057148    0.851395
-12  13                  0.054616    0.906011
-13  14                  0.049487    0.955498
-14  15                  0.044502    1.000000</code></pre>
-</div>
+<p>Intro blub about how the analysis starts here</p>
+<div id="5533fbc8" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/cell-2-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="capstone_files/figure-html/cell-2-output-2.png" width="672" height="486" class="figure-img"></a></p>
+<p><a href="capstone_files/figure-html/cell-2-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="capstone_files/figure-html/cell-2-output-1.png" width="672" height="486" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/cell-2-output-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="capstone_files/figure-html/cell-2-output-3.png" width="660" height="634" class="figure-img"></a></p>
+<p><a href="capstone_files/figure-html/cell-2-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="capstone_files/figure-html/cell-2-output-2.png" width="660" height="634" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>k-means time
-doing the actual k-means clustering now
-this can take a while...
+<pre><code>Number of households per cluster
 cluster
 0    123073
 1     63732
 Name: hhno, dtype: int64
-14 components hit 95% variance
-[t-SNE] Computing 91 nearest neighbors...
-[t-SNE] Indexed 2000 samples in 0.000s...
-[t-SNE] Computed neighbors for 2000 samples in 0.106s...
-[t-SNE] Computed conditional probabilities for sample 1000 / 2000
-[t-SNE] Computed conditional probabilities for sample 2000 / 2000
-[t-SNE] Mean sigma: 0.353623
-[t-SNE] Computed conditional probabilities in 0.058s
-[t-SNE] Iteration 50: error = 70.5958252, gradient norm = 0.0169060 (50 iterations in 0.296s)
-[t-SNE] Iteration 100: error = 68.0704269, gradient norm = 0.0057091 (50 iterations in 0.240s)
-[t-SNE] Iteration 150: error = 67.6404724, gradient norm = 0.0029647 (50 iterations in 0.317s)
-[t-SNE] Iteration 200: error = 67.4699402, gradient norm = 0.0018959 (50 iterations in 0.283s)
-[t-SNE] Iteration 250: error = 67.3768234, gradient norm = 0.0014176 (50 iterations in 0.268s)
-[t-SNE] KL divergence after 250 iterations with early exaggeration: 67.376823
-[t-SNE] Iteration 300: error = 1.5832437, gradient norm = 0.0216134 (50 iterations in 0.226s)
-[t-SNE] Iteration 350: error = 1.2514609, gradient norm = 0.0165354 (50 iterations in 0.241s)
-[t-SNE] Iteration 400: error = 1.1278194, gradient norm = 0.0138620 (50 iterations in 0.235s)
-[t-SNE] Iteration 450: error = 1.0651662, gradient norm = 0.0112520 (50 iterations in 0.224s)
-[t-SNE] Iteration 500: error = 1.0301614, gradient norm = 0.0099343 (50 iterations in 0.225s)
-[t-SNE] Iteration 550: error = 1.0073087, gradient norm = 0.0091648 (50 iterations in 0.215s)
-[t-SNE] Iteration 600: error = 0.9911340, gradient norm = 0.0080186 (50 iterations in 0.240s)
-[t-SNE] Iteration 650: error = 0.9793795, gradient norm = 0.0074521 (50 iterations in 0.249s)
-[t-SNE] Iteration 700: error = 0.9701776, gradient norm = 0.0068076 (50 iterations in 0.295s)
-[t-SNE] Iteration 750: error = 0.9636957, gradient norm = 0.0061733 (50 iterations in 0.272s)
-[t-SNE] Iteration 800: error = 0.9588227, gradient norm = 0.0050452 (50 iterations in 0.265s)
-[t-SNE] Iteration 850: error = 0.9551184, gradient norm = 0.0046982 (50 iterations in 0.241s)
-[t-SNE] Iteration 900: error = 0.9521945, gradient norm = 0.0040966 (50 iterations in 0.231s)
-[t-SNE] Iteration 950: error = 0.9496986, gradient norm = 0.0038915 (50 iterations in 0.234s)
-[t-SNE] Iteration 1000: error = 0.9476033, gradient norm = 0.0036843 (50 iterations in 0.243s)
-[t-SNE] KL divergence after 1000 iterations: 0.947603</code></pre>
+14 components hit 95% variance</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/cell-2-output-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="capstone_files/figure-html/cell-2-output-5.png" width="565" height="758" class="figure-img"></a></p>
+<p><a href="capstone_files/figure-html/cell-2-output-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="capstone_files/figure-html/cell-2-output-4.png" width="565" height="758" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/cell-2-output-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="capstone_files/figure-html/cell-2-output-6.png" width="776" height="612" class="figure-img"></a></p>
+<p><a href="capstone_files/figure-html/cell-2-output-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="capstone_files/figure-html/cell-2-output-5.png" width="776" height="612" class="figure-img"></a></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="capstone_files/figure-html/cell-2-output-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="capstone_files/figure-html/cell-2-output-6.png" width="348" height="1298" class="figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="d4a0ec72" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="capstone_files/figure-html/cell-3-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="capstone_files/figure-html/cell-3-output-1.png" width="672" height="486" class="figure-img"></a></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="capstone_files/figure-html/cell-3-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="capstone_files/figure-html/cell-3-output-2.png" width="681" height="634" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Heatmaps coming up
-[0.26500986 0.49737832 0.59579796 0.68178012 0.74512224 0.80160709
- 0.84787148 0.88787222 0.92305732 0.94893845 0.96672615 0.97984769
- 0.99005679 0.99483182 0.99838199]
-    PC  explained_variance_ratio  cumulative
-0    1                  0.265010    0.265010
-1    2                  0.232368    0.497378
-2    3                  0.098420    0.595798
-3    4                  0.085982    0.681780
-4    5                  0.063342    0.745122
-5    6                  0.056485    0.801607
-6    7                  0.046264    0.847871
-7    8                  0.040001    0.887872
-8    9                  0.035185    0.923057
-9   10                  0.025881    0.948938
-10  11                  0.017788    0.966726
-11  12                  0.013122    0.979848
-12  13                  0.010209    0.990057
-13  14                  0.004775    0.994832
-14  15                  0.003550    0.998382</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="capstone_files/figure-html/cell-2-output-8.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="capstone_files/figure-html/cell-2-output-8.png" width="348" height="1298" class="figure-img"></a></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="capstone_files/figure-html/cell-2-output-9.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="capstone_files/figure-html/cell-2-output-9.png" width="672" height="486" class="figure-img"></a></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="capstone_files/figure-html/cell-2-output-10.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="capstone_files/figure-html/cell-2-output-10.png" width="681" height="634" class="figure-img"></a></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>k-means time
-doing the actual k-means clustering now
-this can take a while...
-cluster
+<pre><code>cluster
 0    38640
 1     4590
 2    30839
 3    41600
 4    71136
 Name: hhno, dtype: int64
-11 components hit 95% variance
-[t-SNE] Computing 91 nearest neighbors...
-[t-SNE] Indexed 20000 samples in 0.000s...
-[t-SNE] Computed neighbors for 20000 samples in 0.472s...
-[t-SNE] Computed conditional probabilities for sample 1000 / 20000
-[t-SNE] Computed conditional probabilities for sample 2000 / 20000
-[t-SNE] Computed conditional probabilities for sample 3000 / 20000
-[t-SNE] Computed conditional probabilities for sample 4000 / 20000
-[t-SNE] Computed conditional probabilities for sample 5000 / 20000
-[t-SNE] Computed conditional probabilities for sample 6000 / 20000
-[t-SNE] Computed conditional probabilities for sample 7000 / 20000
-[t-SNE] Computed conditional probabilities for sample 8000 / 20000
-[t-SNE] Computed conditional probabilities for sample 9000 / 20000
-[t-SNE] Computed conditional probabilities for sample 10000 / 20000
-[t-SNE] Computed conditional probabilities for sample 11000 / 20000
-[t-SNE] Computed conditional probabilities for sample 12000 / 20000
-[t-SNE] Computed conditional probabilities for sample 13000 / 20000
-[t-SNE] Computed conditional probabilities for sample 14000 / 20000
-[t-SNE] Computed conditional probabilities for sample 15000 / 20000
-[t-SNE] Computed conditional probabilities for sample 16000 / 20000
-[t-SNE] Computed conditional probabilities for sample 17000 / 20000
-[t-SNE] Computed conditional probabilities for sample 18000 / 20000
-[t-SNE] Computed conditional probabilities for sample 19000 / 20000
-[t-SNE] Computed conditional probabilities for sample 20000 / 20000
-[t-SNE] Mean sigma: 0.312555
-[t-SNE] Computed conditional probabilities in 0.451s
-[t-SNE] Iteration 50: error = 92.0930023, gradient norm = 0.0155847 (50 iterations in 3.151s)
-[t-SNE] Iteration 100: error = 85.9448776, gradient norm = 0.0048526 (50 iterations in 2.688s)
-[t-SNE] Iteration 150: error = 84.4191437, gradient norm = 0.0028231 (50 iterations in 2.775s)
-[t-SNE] Iteration 200: error = 83.7176437, gradient norm = 0.0020674 (50 iterations in 2.875s)
-[t-SNE] Iteration 250: error = 83.3009491, gradient norm = 0.0016828 (50 iterations in 2.802s)
-[t-SNE] KL divergence after 250 iterations with early exaggeration: 83.300949
-[t-SNE] Iteration 300: error = 3.2627678, gradient norm = 0.0087058 (50 iterations in 2.937s)
-[t-SNE] Iteration 350: error = 2.6817071, gradient norm = 0.0087116 (50 iterations in 2.734s)
-[t-SNE] Iteration 400: error = 2.3688889, gradient norm = 0.0080202 (50 iterations in 2.710s)
-[t-SNE] Iteration 450: error = 2.1775336, gradient norm = 0.0075231 (50 iterations in 2.740s)
-[t-SNE] Iteration 500: error = 2.0479100, gradient norm = 0.0070054 (50 iterations in 2.705s)
-[t-SNE] Iteration 550: error = 1.9548584, gradient norm = 0.0065955 (50 iterations in 2.711s)
-[t-SNE] Iteration 600: error = 1.8851467, gradient norm = 0.0062238 (50 iterations in 2.901s)
-[t-SNE] Iteration 650: error = 1.8313427, gradient norm = 0.0058822 (50 iterations in 2.771s)
-[t-SNE] Iteration 700: error = 1.7889931, gradient norm = 0.0054960 (50 iterations in 2.766s)
-[t-SNE] Iteration 750: error = 1.7550038, gradient norm = 0.0051478 (50 iterations in 2.690s)
-[t-SNE] Iteration 800: error = 1.7275314, gradient norm = 0.0047633 (50 iterations in 2.677s)
-[t-SNE] Iteration 850: error = 1.7049766, gradient norm = 0.0044544 (50 iterations in 2.749s)
-[t-SNE] Iteration 900: error = 1.6865479, gradient norm = 0.0040284 (50 iterations in 2.757s)
-[t-SNE] Iteration 950: error = 1.6714922, gradient norm = 0.0036424 (50 iterations in 2.682s)
-[t-SNE] Iteration 1000: error = 1.6590079, gradient norm = 0.0032829 (50 iterations in 2.725s)
-[t-SNE] KL divergence after 1000 iterations: 1.659008</code></pre>
+11 components hit 95% variance</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/cell-2-output-12.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="capstone_files/figure-html/cell-2-output-12.png" width="565" height="758" class="figure-img"></a></p>
+<p><a href="capstone_files/figure-html/cell-3-output-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="capstone_files/figure-html/cell-3-output-4.png" width="565" height="758" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/cell-2-output-13.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="capstone_files/figure-html/cell-2-output-13.png" width="776" height="612" class="figure-img"></a></p>
+<p><a href="capstone_files/figure-html/cell-3-output-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="capstone_files/figure-html/cell-3-output-5.png" width="767" height="612" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Heatmaps coming up</code></pre>
 </div>
+<div id="f2acd654" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/cell-2-output-15.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="capstone_files/figure-html/cell-2-output-15.png" width="298" height="1520" class="figure-img"></a></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="capstone_files/figure-html/cell-2-output-16.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="capstone_files/figure-html/cell-2-output-16.png" width="298" height="1520" class="figure-img"></a></p>
+<p><a href="capstone_files/figure-html/cell-4-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="capstone_files/figure-html/cell-4-output-1.png" width="949" height="569" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/cell-2-output-17.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="capstone_files/figure-html/cell-2-output-17.png" width="298" height="1520" class="figure-img"></a></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="capstone_files/figure-html/cell-2-output-18.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="capstone_files/figure-html/cell-2-output-18.png" width="298" height="1520" class="figure-img"></a></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="capstone_files/figure-html/cell-2-output-19.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="capstone_files/figure-html/cell-2-output-19.png" width="298" height="1520" class="figure-img"></a></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="capstone_files/figure-html/cell-2-output-20.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="capstone_files/figure-html/cell-2-output-20.png" width="298" height="1520" class="figure-img"></a></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="capstone_files/figure-html/cell-2-output-21.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="capstone_files/figure-html/cell-2-output-21.png" width="298" height="1520" class="figure-img"></a></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="capstone_files/figure-html/cell-2-output-22.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="capstone_files/figure-html/cell-2-output-22.png" width="298" height="1520" class="figure-img"></a></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="capstone_files/figure-html/cell-2-output-23.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="capstone_files/figure-html/cell-2-output-23.png" width="298" height="1520" class="figure-img"></a></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="capstone_files/figure-html/cell-2-output-24.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="capstone_files/figure-html/cell-2-output-24.png" width="298" height="1520" class="figure-img"></a></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="capstone_files/figure-html/cell-2-output-25.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="capstone_files/figure-html/cell-2-output-25.png" width="298" height="1520" class="figure-img"></a></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="capstone_files/figure-html/cell-2-output-26.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="capstone_files/figure-html/cell-2-output-26.png" width="298" height="1520" class="figure-img"></a></p>
+<p><a href="capstone_files/figure-html/cell-4-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="capstone_files/figure-html/cell-4-output-2.png" width="949" height="569" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
