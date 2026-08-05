@@ -96,6 +96,7 @@ os.makedirs('../_scratch/EDA_correlation', exist_ok=True)
 
 plt.savefig(file_name_for_export, dpi=150, bbox_inches='tight')
 plt.show()
+plt.close()
 ```
 
 A stasticially significant correlation (p <0.05) was noted between 2.5 and 7.5 years, and an even more significant correlation was found at precisely 5 years (p < 0.01). Peak correlation at 5 years was over 0.6.
@@ -171,7 +172,7 @@ axes[0].set_ylabel('r')
 plt.suptitle(f'vs {rei_name}')
 
 file_name_for_export_facet = f'../_scratch/EDA_correlation/facet_{diet_label}_vs_{disease_label.replace(" ", "_")}_ccf.png'
-plt.savefig(file_name_for_export_facet, dpi=150, bbox_inches='tight')
+plt.savefig(file_name_for_export_facet, dpi=20, bbox_inches='tight')
 plt.tight_layout()
 plt.show()
 plt.close()
@@ -298,6 +299,7 @@ os.makedirs('../_scratch/EDA_maps', exist_ok=True)
 
 plt.savefig(f'{save_dir}/choropleth_lag5_{diet_label}_vs_{disease_label.replace(" ", "_")}_cluster_{cluster_number}.png', dpi=150, bbox_inches='tight')
 plt.show()
+plt.close(fig)
 ```
 
 
