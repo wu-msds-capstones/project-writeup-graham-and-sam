@@ -322,7 +322,7 @@ anim_save(
   animation = anim
 )
 
-anim
+#anim
 ```
 
 ## stats for proportions confirming the significance of changing clusters over time
