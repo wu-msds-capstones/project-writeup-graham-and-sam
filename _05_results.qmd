@@ -260,11 +260,11 @@ with open('eer.geojson', 'wb') as f:
     f.write(r.content)
 
 gdf_uk = gpd.read_file('eer.geojson')
-gdf_uk.columns.tolist()
+#gdf_uk.columns.tolist()
 
 
 
-gdf_uk['EER13NM'].tolist()
+#gdf_uk['EER13NM'].tolist()
 
 
 region_name_map = {
