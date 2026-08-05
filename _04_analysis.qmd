@@ -838,7 +838,7 @@ for i, cid in enumerate([0, 1]):
 
 ax_heat.set_yticks(range(len(heat_map_data_ordered.index)))
 ax_heat.set_yticklabels(heat_map_data_ordered.index)
-ax.yaxis.tick_right()
+ax_heat.yaxis.tick_right()
 
 ax_heat.set_xticks([0, 1])
 ax_heat.set_xticklabels(['0', '1'])
