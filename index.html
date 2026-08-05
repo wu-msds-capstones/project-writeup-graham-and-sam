@@ -283,6 +283,8 @@ div.csl-indent {
   </ul></li>
   <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a>
   <ul class="collapse">
+  <li><a href="#analysis-was-conducted-on-household-food-group-profiles." id="toc-analysis-was-conducted-on-household-food-group-profiles." class="nav-link" data-scroll-target="#analysis-was-conducted-on-household-food-group-profiles.">Analysis was conducted on household food group profiles.</a></li>
+  <li><a href="#the-analysis-was-repeated-on-household-nutrients-profiles" id="toc-the-analysis-was-repeated-on-household-nutrients-profiles" class="nav-link" data-scroll-target="#the-analysis-was-repeated-on-household-nutrients-profiles">The analysis was repeated on household nutrients profiles</a></li>
   <li><a href="#stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" id="toc-stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" class="nav-link" data-scroll-target="#stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time">stats for proportions confirming the significance of changing clusters over time</a></li>
   <li><a href="#last-output-is-easy-to-read-stats-on-long-term-changes-others-are-per-year-with-general-changes-showing-its-not-noise" id="toc-last-output-is-easy-to-read-stats-on-long-term-changes-others-are-per-year-with-general-changes-showing-its-not-noise" class="nav-link" data-scroll-target="#last-output-is-easy-to-read-stats-on-long-term-changes-others-are-per-year-with-general-changes-showing-its-not-noise">last output is easy to read stats on long term changes, others are per year with general changes showing its not noise</a></li>
   </ul></li>
@@ -344,45 +346,11 @@ div.csl-indent {
 <section id="analysis" class="level1">
 <h1>Analysis</h1>
 <p>Intro blub about how the analysis starts here</p>
+<section id="analysis-was-conducted-on-household-food-group-profiles." class="level3">
+<h3 class="anchored" data-anchor-id="analysis-was-conducted-on-household-food-group-profiles.">Analysis was conducted on household food group profiles.</h3>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>(0.0, 0.3)</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>    PC  explained_variance_ratio  cumulative
-0    1                  0.110079    0.110079
-1    2                  0.088517    0.198596
-2    3                  0.084733    0.283329
-3    4                  0.075696    0.359025
-4    5                  0.069070    0.428096
-5    6                  0.065141    0.493237
-6    7                  0.063174    0.556411
-7    8                  0.061603    0.618014
-8    9                  0.059769    0.677783
-9   10                  0.058736    0.736519
-10  11                  0.057728    0.794247
-11  12                  0.057148    0.851395
-12  13                  0.054616    0.906011
-13  14                  0.049487    0.955498
-14  15                  0.044502    1.000000</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>    PC  explained_variance_ratio  cumulative
-0    1                  0.110079    0.110079
-1    2                  0.088517    0.198596
-2    3                  0.084733    0.283329
-3    4                  0.075696    0.359025
-4    5                  0.069070    0.428096
-5    6                  0.065141    0.493237
-6    7                  0.063174    0.556411
-7    8                  0.061603    0.618014
-8    9                  0.059769    0.677783
-9   10                  0.058736    0.736519
-10  11                  0.057728    0.794247
-11  12                  0.057148    0.851395
-12  13                  0.054616    0.906011
-13  14                  0.049487    0.955498
-14  15                  0.044502    1.000000</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
@@ -392,12 +360,29 @@ div.csl-indent {
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;matplotlib.colorbar.Colorbar object at 0x32ce28440&gt;
+<pre><code>&lt;matplotlib.colorbar.Colorbar object at 0x3593e0440&gt;
 Text(0.5, 0, 'PC1')
 Text(0, 0.5, 'PC2')
 Text(0.5, 1.0, 'no_alcohol_foodgroup17 by household \n value = calorie_ratio\nPC1 vs PC2')
 (-6.635632218620666, 6.635632218620694)
 (-5.950358253697342, 5.950358253697143)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>PCA required 14 components to cumulatively explain 95% variance</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="capstone_files/figure-html/unnamed-chunk-1-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="capstone_files/figure-html/unnamed-chunk-1-2.png" class="img-fluid figure-img" width="576"></a></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="capstone_files/figure-html/unnamed-chunk-1-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="capstone_files/figure-html/unnamed-chunk-1-3.png" class="img-fluid figure-img" width="576"></a></p>
+</figure>
+</div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Number of households per cluster</code></pre>
@@ -406,10 +391,7 @@ Text(0.5, 1.0, 'no_alcohol_foodgroup17 by household \n value = calorie_ratio\nPC
 <pre><code>cluster
 0    123073
 1     63732
-Name: hhno, dtype: int64</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>14 components hit 95% variance</code></pre>
+Name: count, dtype: int64</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[]
@@ -418,18 +400,21 @@ Name: hhno, dtype: int64</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-1-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="capstone_files/figure-html/unnamed-chunk-1-2.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-1-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="capstone_files/figure-html/unnamed-chunk-1-4.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-1-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="capstone_files/figure-html/unnamed-chunk-1-3.png" class="img-fluid figure-img" width="192"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-1-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="capstone_files/figure-html/unnamed-chunk-1-5.png" class="img-fluid figure-img" width="192"></a></p>
 </figure>
 </div>
 </div>
 </div>
+</section>
+<section id="the-analysis-was-repeated-on-household-nutrients-profiles" class="level3">
+<h3 class="anchored" data-anchor-id="the-analysis-was-repeated-on-household-nutrients-profiles">The analysis was repeated on household nutrients profiles</h3>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>(0.0, 0.3)</code></pre>
@@ -452,33 +437,15 @@ Name: hhno, dtype: int64</code></pre>
 13  14                  0.004775    0.994832
 14  15                  0.003550    0.998382</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>    PC  explained_variance_ratio  cumulative
-0    1                  0.265010    0.265010
-1    2                  0.232368    0.497378
-2    3                  0.098420    0.595798
-3    4                  0.085982    0.681780
-4    5                  0.063342    0.745122
-5    6                  0.056485    0.801607
-6    7                  0.046264    0.847871
-7    8                  0.040001    0.887872
-8    9                  0.035185    0.923057
-9   10                  0.025881    0.948938
-10  11                  0.017788    0.966726
-11  12                  0.013122    0.979848
-12  13                  0.010209    0.990057
-13  14                  0.004775    0.994832
-14  15                  0.003550    0.998382</code></pre>
-</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-2-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="capstone_files/figure-html/unnamed-chunk-2-7.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-2-11.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="capstone_files/figure-html/unnamed-chunk-2-11.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;matplotlib.colorbar.Colorbar object at 0x32b0ff390&gt;
+<pre><code>&lt;matplotlib.colorbar.Colorbar object at 0x35cd9f750&gt;
 Text(0.5, 0, 'PC1')
 Text(0, 0.5, 'PC2')
 Text(0.5, 1.0, 'no_alcohol_nutrient by household \n value = nutrient_per_total_cal\nPC1 vs PC2')
@@ -486,16 +453,33 @@ Text(0.5, 1.0, 'no_alcohol_nutrient by household \n value = nutrient_per_total_c
 (-10.505951714802944, 10.50595171480295)</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>cluster
-0    38640
-1     4590
-2    30839
-3    41600
-4    71136
-Name: hhno, dtype: int64</code></pre>
+<pre><code>PCA required 11 components to cumulatively explain 95% variance</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="capstone_files/figure-html/unnamed-chunk-2-12.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="capstone_files/figure-html/unnamed-chunk-2-12.png" class="img-fluid figure-img" width="576"></a></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="capstone_files/figure-html/unnamed-chunk-2-13.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="capstone_files/figure-html/unnamed-chunk-2-13.png" class="img-fluid figure-img" width="576"></a></p>
+</figure>
+</div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>11 components hit 95% variance</code></pre>
+<pre><code>Households per cluster</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>cluster
+4    71136
+3    41600
+0    38640
+2    30839
+1     4590
+Name: count, dtype: int64</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[]
@@ -504,14 +488,7 @@ Name: hhno, dtype: int64</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-2-8.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="capstone_files/figure-html/unnamed-chunk-2-8.png" class="img-fluid figure-img" width="768"></a></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-2-9.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="capstone_files/figure-html/unnamed-chunk-2-9.png" class="img-fluid figure-img" width="576"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-2-14.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="capstone_files/figure-html/unnamed-chunk-2-14.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
@@ -520,92 +497,16 @@ Name: hhno, dtype: int64</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-3-13.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="capstone_files/figure-html/unnamed-chunk-3-13.png" class="img-fluid figure-img" width="960"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-3-19.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="capstone_files/figure-html/unnamed-chunk-3-19.png" class="img-fluid figure-img" width="960"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
-RangeIndex: 27 entries, 0 to 26
-Data columns (total 51 columns):
- #   Column       Non-Null Count  Dtype
----  ------       --------------  -----
- 0   styr         27 non-null     int64
- 1   0_year_lag   27 non-null     int64
- 2   1_year_lag   27 non-null     int64
- 3   2_year_lag   27 non-null     int64
- 4   3_year_lag   27 non-null     int64
- 5   4_year_lag   27 non-null     int64
- 6   5_year_lag   27 non-null     int64
- 7   6_year_lag   27 non-null     int64
- 8   7_year_lag   27 non-null     int64
- 9   8_year_lag   27 non-null     int64
- 10  9_year_lag   27 non-null     int64
- 11  10_year_lag  27 non-null     int64
- 12  11_year_lag  27 non-null     int64
- 13  12_year_lag  27 non-null     int64
- 14  13_year_lag  27 non-null     int64
- 15  14_year_lag  27 non-null     int64
- 16  15_year_lag  27 non-null     int64
- 17  16_year_lag  27 non-null     int64
- 18  17_year_lag  27 non-null     int64
- 19  18_year_lag  27 non-null     int64
- 20  19_year_lag  27 non-null     int64
- 21  20_year_lag  27 non-null     int64
- 22  21_year_lag  27 non-null     int64
- 23  22_year_lag  27 non-null     int64
- 24  23_year_lag  27 non-null     int64
- 25  24_year_lag  27 non-null     int64
- 26  25_year_lag  27 non-null     int64
- 27  26_year_lag  27 non-null     int64
- 28  27_year_lag  27 non-null     int64
- 29  28_year_lag  27 non-null     int64
- 30  29_year_lag  27 non-null     int64
- 31  30_year_lag  27 non-null     int64
- 32  31_year_lag  27 non-null     int64
- 33  32_year_lag  27 non-null     int64
- 34  33_year_lag  27 non-null     int64
- 35  34_year_lag  27 non-null     int64
- 36  35_year_lag  27 non-null     int64
- 37  36_year_lag  27 non-null     int64
- 38  37_year_lag  27 non-null     int64
- 39  38_year_lag  27 non-null     int64
- 40  39_year_lag  27 non-null     int64
- 41  40_year_lag  27 non-null     int64
- 42  41_year_lag  27 non-null     int64
- 43  42_year_lag  27 non-null     int64
- 44  43_year_lag  27 non-null     int64
- 45  44_year_lag  27 non-null     int64
- 46  45_year_lag  27 non-null     int64
- 47  46_year_lag  27 non-null     int64
- 48  47_year_lag  27 non-null     int64
- 49  48_year_lag  27 non-null     int64
- 50  49_year_lag  27 non-null     int64
-dtypes: int64(51)
-memory usage: 10.9 KB</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     population_group                 measure  ...      upper      lower
-0      All Population  Summary exposure value  ...   5.219344   1.676535
-1      All Population  Summary exposure value  ...  77.334030  58.316582
-2      All Population  Summary exposure value  ...   6.177611   1.971169
-3      All Population  Summary exposure value  ...  78.706067  60.346613
-4      All Population  Summary exposure value  ...  32.295413  23.534806
-...               ...                     ...  ...        ...        ...
-3089   All Population  Summary exposure value  ...  42.913070  13.382209
-3090   All Population  Summary exposure value  ...  35.749636  25.843216
-3091   All Population  Summary exposure value  ...  39.629987  31.288023
-3092   All Population  Summary exposure value  ...  21.036416  10.394431
-3093   All Population  Summary exposure value  ...   5.988702   1.709220
-
-[3094 rows x 11 columns]</code></pre>
-</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-4-15.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="capstone_files/figure-html/unnamed-chunk-4-15.png" class="img-fluid figure-img" width="960"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-4-21.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="capstone_files/figure-html/unnamed-chunk-4-21.png" class="img-fluid figure-img" width="960"></a></p>
 </figure>
 </div>
 </div>
@@ -640,21 +541,21 @@ memory usage: 10.9 KB</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-5-17.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="capstone_files/figure-html/unnamed-chunk-5-17.png" class="img-fluid figure-img" width="2156"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-5-23.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="capstone_files/figure-html/unnamed-chunk-5-23.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-5-18.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="capstone_files/figure-html/unnamed-chunk-5-18.png" class="img-fluid figure-img" width="2156"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-5-24.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="capstone_files/figure-html/unnamed-chunk-5-24.png" class="img-fluid figure-img" width="2156"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-5-19.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="capstone_files/figure-html/unnamed-chunk-5-19.png" class="img-fluid figure-img" width="576"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-5-25.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="capstone_files/figure-html/unnamed-chunk-5-25.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -806,14 +707,14 @@ memory usage: 10.9 KB</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="capstone_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="capstone_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-8-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="capstone_files/figure-html/unnamed-chunk-8-2.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-8-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="capstone_files/figure-html/unnamed-chunk-8-2.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -861,14 +762,14 @@ memory usage: 10.9 KB</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-9-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="capstone_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-9-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="capstone_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-9-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="capstone_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-9-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="capstone_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -911,20 +812,21 @@ memory usage: 10.9 KB</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-9-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="capstone_files/figure-html/unnamed-chunk-9-3.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-9-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="capstone_files/figure-html/unnamed-chunk-9-3.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-9-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="capstone_files/figure-html/unnamed-chunk-9-4.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-9-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="capstone_files/figure-html/unnamed-chunk-9-4.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <section id="the-awesome-gif-for-change-overtime" class="level5">
 <h5 class="anchored" data-anchor-id="the-awesome-gif-for-change-overtime">the awesome gif for change overtime <!--#  --></h5>
+</section>
 </section>
 </section>
 <section id="stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" class="level2">
@@ -1284,7 +1186,7 @@ Response: cluster_fct
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-14-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="capstone_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="2400"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-14-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="capstone_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="2400"></a></p>
 </figure>
 </div>
 </div>
@@ -1296,7 +1198,7 @@ Response: cluster_fct
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-15-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="capstone_files/figure-html/unnamed-chunk-15-3.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-15-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="capstone_files/figure-html/unnamed-chunk-15-3.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1351,7 +1253,7 @@ Response: cluster_fct
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-16-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="capstone_files/figure-html/unnamed-chunk-16-5.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-16-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-23"><img src="capstone_files/figure-html/unnamed-chunk-16-5.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
@@ -1406,7 +1308,7 @@ Response: cluster_fct
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-17-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="capstone_files/figure-html/unnamed-chunk-17-7.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-17-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-24"><img src="capstone_files/figure-html/unnamed-chunk-17-7.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
