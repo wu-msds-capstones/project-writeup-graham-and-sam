@@ -274,7 +274,13 @@ div.csl-indent {
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">Background</a></li>
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a>
+  <ul class="collapse">
+  <li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources">Sources</a></li>
+  <li><a href="#pipeline" id="toc-pipeline" class="nav-link" data-scroll-target="#pipeline">Pipeline</a></li>
+  <li><a href="#units" id="toc-units" class="nav-link" data-scroll-target="#units">Units</a></li>
+  <li><a href="#ethics-and-responsible-use" id="toc-ethics-and-responsible-use" class="nav-link" data-scroll-target="#ethics-and-responsible-use">Ethics and Responsible Use</a></li>
+  </ul></li>
   <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a>
   <ul class="collapse">
   <li><a href="#this-is-the-start-of-the-r-chunks-with-the-statistical-work-and-checks" id="toc-this-is-the-start-of-the-r-chunks-with-the-statistical-work-and-checks" class="nav-link" data-scroll-target="#this-is-the-start-of-the-r-chunks-with-the-statistical-work-and-checks">this is the start of the r chunks with the statistical work and checks</a></li>
@@ -305,25 +311,35 @@ div.csl-indent {
 <p>This study examines the population of the United Kingdom (UK), drawing on diet diary data from a representative sample of UK households from 1974 to 2000, and disease risk factor rates (especially high LDL cholesterol) 1990 to 2023.</p>
 <p>Ultimately, this study identifies a statistically significant inverse correlation between year-on-year changes in relatively-plant-based diet patterns and risk of high LDL cholesterol, at a five-year-time lag.</p>
 <p>This is to say, eat more plants now, have lower LDL cholesterol five years later.</p>
-<p>How to diet, which foods are healthier than others, and overall practices, it can be difficult to decide what to believe.</p>
-<p>Should someone follow a ketogenic diet, which emphasizes high-fat intake and low-carbohydrate consumption; a carnivore diet, which consists almost exclusively of meat and animal products; or another dietary approach better suited to maintaining long-term health? This project details which nutrient factors are associated with reduced chronic diseases, with an emphasis on the associated risks of LDL cholesterol.</p>
 </section>
 <section id="background" class="level1">
 <h1>Background</h1>
 </section>
 <section id="data" class="level1">
 <h1>Data</h1>
-<p>Sources:</p>
-<p>Diet data from UK Data Service National Food Survey (1974 to 2000) ~ 7,000 households per year, ~190,000 households total One week journal of every food purchase Includes nutrient conversion information</p>
-<p>Disease data from Institute for Health Metrics Evaluation (IHME) Global Burden of Disease (GBD) study (1990 to 2023) Summary Exposure Value risk rates Pre-aggregated to all population per location</p>
-<p>Pipeline: National Food Survey data aggregated by household by year, aggregated years vertically unioned into time series data, disease data joined on region and year.</p>
-<p>Units: Food group rates normalized as proportion of daily calories. Nutrient rates normalized as quantity per daily calories Disease risk rates are summary exposure value (SEV), relative to total possible risk.</p>
-<p>Ethics &amp; responsible use: The data is used under a non-commercial educational license and comes anonymized and/or aggregated by the service providers to ensure confidentiality. Responsible use stems from upholding the listed terms of service provided from the UK Data Service.</p>
+<section id="sources" class="level2">
+<h2 class="anchored" data-anchor-id="sources">Sources</h2>
+<p>The primary explanatory data, the National Food Survey (NFS), was sourced from the UK Data Service. It spans 1974-2000, where it sampled ~7,000 households per year for a total of around 190,000 households. The survey looked into the “diet diary” during a 7-day period for each household. In the diary, the corresponding household would record their food purchasing information. Alongside the diary, the NFS collected the nutrient conversion information for each of the foods purchased. Meaning, there was a quantity value and nutrient unit respective to each food.</p>
+<p>The demographics included in this report were, age, sex, and household composition. This was split into child/adult/eldery and male/female groups. These variables were used to create metrics allowing for per-person comparisons of the nutrients. These metrics weighted children as 0.5, adult women as 0.8 and elderly as 0.85 of a male adult in terms of their caloric consumption.</p>
+<p>The primary response variable data was acquired from the Institute for Health Metrics and Evaluation (IHME) looking at the Global Burden of Disease (GBD) study ranging from(1990 to 2023). The data was specifically selected from an open API to find the summary exposure value risk rates: LDL Cholesterol, Body Mass Index, Fasting Plasma Glucose Systolic Blood Pressure, Kidney Dysfunction, Low Bone Mineral Density, and Metabolic Risks. These rates were preaggregated with the API ingestion by year, government region in the UK and to population per region.</p>
+</section>
+<section id="pipeline" class="level2">
+<h2 class="anchored" data-anchor-id="pipeline">Pipeline</h2>
+<p>The NFS datasets were aggregated by household per year where they were vertically joined to create a continuous span from 1974-2000. The disease risk rates were horizontally joined on government region and year.</p>
+</section>
+<section id="units" class="level2">
+<h2 class="anchored" data-anchor-id="units">Units</h2>
+<p>Food groups rates were normalized as a proportion of total calories consumed. The nutrient groups were normalized as quantity per daily calories. The disease rates were summary exposure values (SEV) which are relative to the total possible risk.</p>
+</section>
+<section id="ethics-and-responsible-use" class="level2">
+<h2 class="anchored" data-anchor-id="ethics-and-responsible-use">Ethics and Responsible Use</h2>
+<p>The data is used under a non-commercial educational license, and comes both anonymized and pre-aggregated by the service providers to remove personally identifiable information (PII) and ensure confidentiality.</p>
+</section>
 </section>
 <section id="analysis" class="level1">
 <h1>Analysis</h1>
 <p>Intro blub about how the analysis starts here</p>
-<div id="5533fbc8" class="cell" data-execution_count="1">
+<div id="1f5ec741" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -368,7 +384,7 @@ Name: hhno, dtype: int64
 </div>
 </div>
 </div>
-<div id="d4a0ec72" class="cell" data-execution_count="2">
+<div id="9adfc5ba" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -408,7 +424,7 @@ Name: hhno, dtype: int64
 </div>
 </div>
 </div>
-<div id="f2acd654" class="cell" data-execution_count="3">
+<div id="86a590ef" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
