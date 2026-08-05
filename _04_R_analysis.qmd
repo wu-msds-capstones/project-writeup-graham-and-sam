@@ -65,13 +65,15 @@ region_col    = "ihme_gor"  # part of the uk # needed for by region plots
 
 ```
 
-### composition clusters with bar graphs and line plots
+### Composition Clusters with Bar Graphs and Line Plots
+
+These visualizations detail the change in proportion of each nutrient cluster over time. They demonstrate a slight decrease for cluster 0 from around 25% to 15%. Cluster 1 was relatively stable at around 3%. Cluster 2 showed an increase in proportion from around 3% to 40% with a relatively steep slope. Cluster 3 hobbled around the 20% proportion area, starting a few points above and then ending at a value right around 15%. Lastly, we saw cluster 4 start as the highest proportion, nearly 50% and slowly reduce to 30%. This informs us, as time continued, the trends mapped to cluster 2 becoming more prevalent as 0, 3, and 4 fell. This initial model motivated statistical checks to be ran to ensure the changes in proportion over timer (1974-2000) were statistically significant and not simply attributed to random noise.
 
 ```{r}
 ## Composition fg 17, then nute, the corresponding dataset will need to be switched
 
-save_dir = "output_plots"
-dir.create(save_dir, showWarnings = FALSE, recursive = TRUE)
+#save_dir = "output_plots"
+#dir.create(save_dir, showWarnings = FALSE, recursive = TRUE)
 
 # -------------------------------------------------------------------
 # 1. Prep data
@@ -144,76 +146,74 @@ print(p_trend_line)
 
 ```
 
-### ridge and boxplot for per year of pc1
+### 
 
 ```{r}
 ## qual pca box and ridge map for fg17. fg55, nute pc1 values
 
 
-save_dir = "output_plots"
-dir.create(save_dir, showWarnings = FALSE, recursive = TRUE)
+#save_dir = "output_plots"
+#dir.create(save_dir, showWarnings = FALSE, recursive = TRUE)
 
-all_stats = list()
+#all_stats = list()
 
 # -------------------------------------------------------------------
 # Loop through PC1_score and PC2_score
 # -------------------------------------------------------------------
 
-for (value_col in value_cols) {
+#for (value_col in value_cols) {
 
-  cat("\n\n########## ", value_col, " ##########\n")
+  #cat("\n\n########## ", value_col, " ##########\n")
 
   # ---- Prep data ----
-  plot_data = data_source %>%
-    select(hhno, all_of(year_col), all_of(value_col)) %>%
-    filter(!is.na(.data[[value_col]]))
+  #plot_data = data_source %>%
+    #select(hhno, all_of(year_col), all_of(value_col)) %>%
+    #filter(!is.na(.data[[value_col]]))
 
   # ---- Stat table — summary by year ----
-  var_stats = plot_data %>%
-    group_by(.data[[year_col]]) %>%
-    summarise(
-      n      = n(),
-      mean   = mean(.data[[value_col]], na.rm = TRUE),
-      sd     = sd(.data[[value_col]], na.rm = TRUE),
-      median = median(.data[[value_col]], na.rm = TRUE),
-      min    = min(.data[[value_col]], na.rm = TRUE),
-      max    = max(.data[[value_col]], na.rm = TRUE),
-      .groups = "drop"
-    ) %>%
-    mutate(variable = value_col, .before = 1)
+  #var_stats = plot_data %>%
+    #group_by(.data[[year_col]]) %>%
+    #summarise(
+     # n      = n(),
+      #mean   = mean(.data[[value_col]], na.rm = TRUE),
+      #sd     = sd(.data[[value_col]], na.rm = TRUE),
+      #median = median(.data[[value_col]], na.rm = TRUE),
+      #min    = min(.data[[value_col]], na.rm = TRUE),
+      #max    = max(.data[[value_col]], na.rm = TRUE),
+      #.groups = "drop"
+    #) %>%
+    #mutate(variable = value_col, .before = 1)
 
-  all_stats[[value_col]] = var_stats
+  #all_stats[[value_col]] = var_stats
 
-  print(kable(var_stats, digits = 3))
+  #print(kable(var_stats, digits = 3))
 
   # ---- Ridge plot ----
-  p_ridge = ggplot(plot_data, aes(x = .data[[value_col]], y = factor(.data[[year_col]]), fill = factor(.data[[year_col]]))) +
-    geom_density_ridges(alpha = 0.7, scale = 1.3, color = "white") +
-    scale_fill_viridis_d(option = "D") +
-    labs(
-      title = paste0(label_name, " ", value_col, " (", analysis_type, ") by Year"),
-      x = value_col, y = "Survey Year", fill = "Year"
-    ) +
-    theme_minimal(base_size = 12) +
-    theme(legend.position = "none")
+  #p_ridge = ggplot(plot_data, aes(x = .data[[value_col]], y = factor(.data[[year_col]]), fill = factor(.data[[year_col]]))) +
+   # geom_density_ridges(alpha = 0.7, scale = 1.3, color = "white") +
+    #scale_fill_viridis_d(option = "D") +
+#    labs(
+   #   title = paste0(label_name, " ", value_col, " (", analysis_type, ") by Year"),
+     # x = value_col, y = "Survey Year", fill = "Year" ) +
+  #  theme_minimal(base_size = 12) +
+  #  theme(legend.position = "none")
 
-  print(p_ridge)
+ # print(p_ridge)
   #ggsave(
    # file.path(save_dir, paste0(label_name, "_", value_col, "_", tolower(analysis_type), "_ridge_by_year.png")),
     #p_ridge, width = 9, height = 6, dpi = 150)
 
   # ---- Box plot ----
-  p_box = ggplot(plot_data, aes(x = factor(.data[[year_col]]), y = .data[[value_col]], fill = factor(.data[[year_col]]))) +
-    geom_boxplot(alpha = 0.7, outlier.alpha = 0.3) +
-    scale_fill_viridis_d(option = "D") +
-    labs(
-      title = paste0(label_name, " ", value_col, " (", analysis_type, ") by Year"),
-      x = "Survey Year", y = value_col, fill = "Year"
-    ) +
-    theme_minimal(base_size = 12) +
-    theme(legend.position = "none", axis.text.x = element_text(angle = 45, hjust = 1))
+ # p_box = ggplot(plot_data, aes(x = factor(.data[[year_col]]), y = .data[[value_col]], fill = factor(.data[[year_col]]))) +
+  #  geom_boxplot(alpha = 0.7, outlier.alpha = 0.3) +
+  #  scale_fill_viridis_d(option = "D") +
+  #  labs(
+  #    title = paste0(label_name, " ", value_col, " (", analysis_type, ") by Year"),
+  #    x = "Survey Year", y = value_col, fill = "Year   ) +
+  #  theme_minimal(base_size = 12) +
+  #  theme(legend.position = "none", axis.text.x = element_text(angle = 45, hjust = 1))
 
-  print(p_box)
+ # print(p_box)
   #ggsave(
    # file.path(save_dir, paste0(label_name, "_", value_col, "_", tolower(analysis_type), "_box_by_year.png")),
     #p_box, width = 9, height = 6, dpi = 150)
@@ -228,9 +228,10 @@ for (value_col in value_cols) {
 
 ```
 
-##### 
+### 
 
 ```{r}
+
 ## GIF of by year nute cluster proportion sizes
 
  # save_dir = "output_plots"
@@ -323,9 +324,19 @@ for (value_col in value_cols) {
 # anim
 ```
 
-### stats for proportions confirming the significance of changing clusters over time
+### Stats for Proportions Confirming the Significance of Changing Clusters Over Time
 
-last output is easy to read, stats on long term changes, others are per year with general changes showing its not noise
+A two proportion test was conducted to investigate the year by year trends for each cluster to determine their significance.
+
+Cluster 0 shows multiple statistically significant decline scattered throughout the time span. There are no significant reversals of this trend, so this cluster demonstrates slow, step-wise decline.
+
+Cluster 1 stayed stable. It had few significant shifts and the overall proportion of its diet ownership suggests it has no strong directional trend.
+
+Cluster 2 starts tiny and continuously grows to end with a diet proportion of 40%. It is the most dynamic cluster with string of statistically significant upward changes. It can confidently be said there is a significant strong positive trend in in its dietary proportion represented in households.
+
+Cluster 3 fluctuates around 25-28%, it has volatility in 1990s, but beyond these outliers, it remains generally stable with fewer significant year to year changes.
+
+Cluster 4 has the largest initial share of diet. It consistently has downward trends, when disregarding the shock during 1990-1992. It has a sustained statistically significant downward trend over the time period.
 
 ```{r}
 data_source = qual_pca_nute    # your dataset
@@ -352,7 +363,7 @@ cluster_props = cluster_data %>%
   ungroup() %>%
   arrange(.data[[cluster_col]], .data[[year_col]])
 
-print(kable(cluster_props, digits = 4))
+# print(kable(cluster_props, digits = 4))
 
 clusters = sort(unique(cluster_props[[cluster_col]]))
 years    = sort(unique(cluster_props[[year_col]]))
@@ -397,6 +408,14 @@ cat("\n==== Year-over-Year Cluster Proportion Tests ====\n")
 print(kable(pairwise_table, digits = 4))
 
 
+```
+
+### Cochran-Armitage Test
+
+The Cochran-Armitage trend test was applied separately to each of the five clusters, testing whether that cluster's share of the population trended consistently upward or downward across the ordered sequence of survey years (1974-2000). It binary checked if the change in households was significantly different between the initial and final years to mark long-term trends. It found that all but cluster 1 experience significant change during the time frame. The confirms the listed trends, focusing on cluster 2 are not defined by noise in the data.Together, these results indicate a substantial compositional shift in the population's cluster membership over the 27-year period, with Cluster 2 gaining population share at the expense of Clusters 0, 3, and 4, while Cluster 1 remained a stable, low-prevalence group throughout.
+
+```{r}
+
 # Trend test across ALL years, PER CLUSTER
 # (Cochran-Armitage: is there a consistent up/down trend in this cluster's share across the full time span?)
 
@@ -428,11 +447,6 @@ trend_table = bind_rows(trend_results)
 
 cat("\n==== Overall Trend Test (Cochran-Armitage), Per Cluster ====\n")
 print(kable(trend_table, digits = 4))
-
-
-```
-
-```{r}
 
 # Multinomial model: cluster membership ~ year
 
