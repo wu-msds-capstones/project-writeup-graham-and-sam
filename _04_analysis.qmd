@@ -828,7 +828,7 @@ def col_to_rgb(colname):
 
 rgb_image = np.stack([col_to_rgb(0), col_to_rgb(1)], axis=1)  # (n_rows, 2, 3)
 
-fig, ax_heat = plt.subplots(figsize=(2, heat_map_data_ordered.shape[0]))
+fig, ax_heat = plt.subplots(figsize=(4, heat_map_data_ordered.shape[0]))
 ax_heat.imshow(rgb_image, aspect='auto')
 
 for i, cid in enumerate([0, 1]):
