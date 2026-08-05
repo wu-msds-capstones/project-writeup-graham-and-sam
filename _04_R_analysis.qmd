@@ -90,7 +90,7 @@ cluster_props1 = cluster_data1 %>%
   ungroup() %>%
   arrange(.data[[year_col]], .data[[cluster_col]])
 
-print(kable(cluster_props1, digits = 3))
+#print(kable(cluster_props1, digits = 3))
 
 
 # -------------------------------------------------------------------
@@ -184,7 +184,7 @@ for (value_col in value_cols) {
 
   all_stats[[value_col]] = var_stats
 
-  print(kable(var_stats, digits = 3))
+  #print(kable(var_stats, digits = 3))
 
   # ---- Ridge plot ----
   p_ridge = ggplot(plot_data, aes(x = .data[[value_col]], y = factor(.data[[year_col]]), fill = factor(.data[[year_col]]))) +
@@ -354,7 +354,7 @@ cluster_props = cluster_data %>%
   ungroup() %>%
   arrange(.data[[cluster_col]], .data[[year_col]])
 
-print(kable(cluster_props, digits = 4))
+#print(kable(cluster_props, digits = 4))
 
 clusters = sort(unique(cluster_props[[cluster_col]]))
 years    = sort(unique(cluster_props[[year_col]]))
