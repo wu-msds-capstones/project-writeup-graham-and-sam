@@ -330,108 +330,108 @@ print(kable(cluster_props, digits = 3))
 ## last output is easy to read stats on long term changes, others are per year with general changes showing its not noise
 
 ```{r}
-data_source = qual_pca_nute    # your dataset
-cluster_col = "cluster"        # categorical cluster membership (0:4)
-year_col    = "styr"
-label_name  = "nute"           # used in output labeling/filenames
-
-save_dir = "output_plots"
-dir.create(save_dir, showWarnings = FALSE, recursive = TRUE)
-
-# -------------------------------------------------------------------
-# 1. Prep data — counts and proportions per cluster per year
-# -------------------------------------------------------------------
-
-cluster_data = data_source %>%
-  select(hhno, all_of(year_col), all_of(cluster_col)) %>%
-  filter(!is.na(.data[[cluster_col]]))
-
-cluster_props = cluster_data %>%
-  group_by(.data[[year_col]], .data[[cluster_col]]) %>%
-  summarise(n = n(), .groups = "drop") %>%
-  group_by(.data[[year_col]]) %>%
-  mutate(total = sum(n), proportion = n / total) %>%
-  ungroup() %>%
-  arrange(.data[[cluster_col]], .data[[year_col]])
-
-print(kable(cluster_props, digits = 4))
-
-clusters = sort(unique(cluster_props[[cluster_col]]))
-years    = sort(unique(cluster_props[[year_col]]))
-
-#Consecutive year-over-year proportion tests, PER CLUSTER
-#(two-proportion z-test: is cluster K's share different between year A and year B?)
-
-pairwise_results = list()
-
-for (clust in clusters) {
-  for (i in 2:length(years)) {
-
-    yr_prev = years[i - 1]
-    yr_curr = years[i]
-
-    row_prev = cluster_props %>% filter(.data[[year_col]] == yr_prev, .data[[cluster_col]] == clust)
-    row_curr = cluster_props %>% filter(.data[[year_col]] == yr_curr, .data[[cluster_col]] == clust)
-
-    # Skip if cluster didn't appear at all in one of the two years
-    if (nrow(row_prev) == 0 || nrow(row_curr) == 0) next
-
-    n_success = c(row_prev$n, row_curr$n)
-    n_total   = c(row_prev$total, row_curr$total)
-
-    ptest = prop.test(n_success, n_total)
-
-    pairwise_results[[paste0(clust, "_", yr_prev, "_vs_", yr_curr)]] = tibble(
-      cluster        = clust,
-      year_prev      = yr_prev,
-      year_curr      = yr_curr,
-      prop_prev      = row_prev$proportion,
-      prop_curr      = row_curr$proportion,
-      prop_change    = row_curr$proportion - row_prev$proportion,
-      chi_sq         = unname(ptest$statistic),
-      p_value        = ptest$p.value,
-      significant    = ifelse(ptest$p.value < 0.05, "Yes", "No")
-    )
-  }
-}
-
-pairwise_table = bind_rows(pairwise_results) %>% arrange(cluster, year_prev)
-
-cat("\n==== Year-over-Year Cluster Proportion Tests ====\n")
-print(kable(pairwise_table, digits = 4))
-
-
-# Trend test across ALL years, PER CLUSTER
-# (Cochran-Armitage: is there a consistent up/down trend in this cluster's share across the full time span?)
-
-
-trend_results = list()
-
-for (clust in clusters) {
-
-  clust_data = cluster_props %>% filter(.data[[cluster_col]] == clust) %>% arrange(.data[[year_col]])
-
-  if (nrow(clust_data) < 3) next  # trend test needs several time points
-
-  trend_test = prop.trend.test(clust_data$n, clust_data$total)
-
-  trend_results[[as.character(clust)]] = tibble(
-    cluster       = clust,
-    n_years       = nrow(clust_data),
-    first_year    = min(clust_data[[year_col]]),
-    last_year     = max(clust_data[[year_col]]),
-    prop_first    = clust_data$proportion[which.min(clust_data[[year_col]])],
-    prop_last     = clust_data$proportion[which.max(clust_data[[year_col]])],
-    chi_sq        = unname(trend_test$statistic),
-    p_value       = trend_test$p.value,
-    significant_trend = ifelse(trend_test$p.value < 0.05, "Yes", "No")
-  )
-}
-
-trend_table = bind_rows(trend_results)
-
-cat("\n==== Overall Trend Test (Cochran-Armitage), Per Cluster ====\n")
-print(kable(trend_table, digits = 4))
+# data_source = qual_pca_nute    # your dataset
+# cluster_col = "cluster"        # categorical cluster membership (0:4)
+# year_col    = "styr"
+# label_name  = "nute"           # used in output labeling/filenames
+# 
+# save_dir = "output_plots"
+# dir.create(save_dir, showWarnings = FALSE, recursive = TRUE)
+# 
+# # -------------------------------------------------------------------
+# # 1. Prep data — counts and proportions per cluster per year
+# # -------------------------------------------------------------------
+# 
+# cluster_data = data_source %>%
+#   select(hhno, all_of(year_col), all_of(cluster_col)) %>%
+#   filter(!is.na(.data[[cluster_col]]))
+# 
+# cluster_props = cluster_data %>%
+#   group_by(.data[[year_col]], .data[[cluster_col]]) %>%
+#   summarise(n = n(), .groups = "drop") %>%
+#   group_by(.data[[year_col]]) %>%
+#   mutate(total = sum(n), proportion = n / total) %>%
+#   ungroup() %>%
+#   arrange(.data[[cluster_col]], .data[[year_col]])
+# 
+# print(kable(cluster_props, digits = 4))
+# 
+# clusters = sort(unique(cluster_props[[cluster_col]]))
+# years    = sort(unique(cluster_props[[year_col]]))
+# 
+# #Consecutive year-over-year proportion tests, PER CLUSTER
+# #(two-proportion z-test: is cluster K's share different between year A and year B?)
+# 
+# pairwise_results = list()
+# 
+# for (clust in clusters) {
+#   for (i in 2:length(years)) {
+# 
+#     yr_prev = years[i - 1]
+#     yr_curr = years[i]
+# 
+#     row_prev = cluster_props %>% filter(.data[[year_col]] == yr_prev, .data[[cluster_col]] == clust)
+#     row_curr = cluster_props %>% filter(.data[[year_col]] == yr_curr, .data[[cluster_col]] == clust)
+# 
+#     # Skip if cluster didn't appear at all in one of the two years
+#     if (nrow(row_prev) == 0 || nrow(row_curr) == 0) next
+# 
+#     n_success = c(row_prev$n, row_curr$n)
+#     n_total   = c(row_prev$total, row_curr$total)
+# 
+#     ptest = prop.test(n_success, n_total)
+# 
+#     pairwise_results[[paste0(clust, "_", yr_prev, "_vs_", yr_curr)]] = tibble(
+#       cluster        = clust,
+#       year_prev      = yr_prev,
+#       year_curr      = yr_curr,
+#       prop_prev      = row_prev$proportion,
+#       prop_curr      = row_curr$proportion,
+#       prop_change    = row_curr$proportion - row_prev$proportion,
+#       chi_sq         = unname(ptest$statistic),
+#       p_value        = ptest$p.value,
+#       significant    = ifelse(ptest$p.value < 0.05, "Yes", "No")
+#     )
+#   }
+# }
+# 
+# pairwise_table = bind_rows(pairwise_results) %>% arrange(cluster, year_prev)
+# 
+# cat("\n==== Year-over-Year Cluster Proportion Tests ====\n")
+# print(kable(pairwise_table, digits = 4))
+# 
+# 
+# # Trend test across ALL years, PER CLUSTER
+# # (Cochran-Armitage: is there a consistent up/down trend in this cluster's share across the full time span?)
+# 
+# 
+# trend_results = list()
+# 
+# for (clust in clusters) {
+# 
+#   clust_data = cluster_props %>% filter(.data[[cluster_col]] == clust) %>% arrange(.data[[year_col]])
+# 
+#   if (nrow(clust_data) < 3) next  # trend test needs several time points
+# 
+#   trend_test = prop.trend.test(clust_data$n, clust_data$total)
+# 
+#   trend_results[[as.character(clust)]] = tibble(
+#     cluster       = clust,
+#     n_years       = nrow(clust_data),
+#     first_year    = min(clust_data[[year_col]]),
+#     last_year     = max(clust_data[[year_col]]),
+#     prop_first    = clust_data$proportion[which.min(clust_data[[year_col]])],
+#     prop_last     = clust_data$proportion[which.max(clust_data[[year_col]])],
+#     chi_sq        = unname(trend_test$statistic),
+#     p_value       = trend_test$p.value,
+#     significant_trend = ifelse(trend_test$p.value < 0.05, "Yes", "No")
+#   )
+# }
+# 
+# trend_table = bind_rows(trend_results)
+# 
+# cat("\n==== Overall Trend Test (Cochran-Armitage), Per Cluster ====\n")
+# print(kable(trend_table, digits = 4))
 
 
 ```
