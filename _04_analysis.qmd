@@ -1630,6 +1630,7 @@ ax.set_title(f'{title_name}\nPCA(12) → t-SNE, colored by k-means cluster')
 
 fig.savefig(f"{run_folder}/tsne_cluster_{run_name}.png", dpi=300, bbox_inches='tight')
 plt.show()
+plt.close();
 
 
 ###########
@@ -1695,9 +1696,6 @@ fig2 = plot_all_heatmaps_faceted(heat_by_cluster_pc2, cluster_ids, "PC2 order")
 Assessed against PC 1, cluster 0 is closer to the high fat pole, while cluster 2 is closely associated with the plant-like pole. 
 
 
-## LDL cholesterol and chronic disease data
-
-### Rates of metabolic syndrom related chronic disease symptoms in the UK from 1990 to 2020
 
 
 ```{python}
@@ -1837,7 +1835,9 @@ df_lag_trimmed.to_parquet(file_name_for_export)
 ```
 
 
+## LDL cholesterol and chronic disease data
 
+### Rates of metabolic syndrom related chronic disease symptoms in the UK from 1990 to 2020
 
 
 
