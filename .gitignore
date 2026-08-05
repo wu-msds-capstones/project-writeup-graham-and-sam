@@ -2,3 +2,5 @@
 /_output/
 *_files/
 .quarto/
+/_scratch
+/shared_data
