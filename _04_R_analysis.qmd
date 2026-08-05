@@ -398,7 +398,7 @@ for (clust in clusters) {
 pairwise_table = bind_rows(pairwise_results) %>% arrange(cluster, year_prev)
 
 cat("\n==== Year-over-Year Cluster Proportion Tests ====\n")
-print(kable(pairwise_table, digits = 4))
+#print(kable(pairwise_table, digits = 4))
 
 
 # Trend test across ALL years, PER CLUSTER
@@ -431,7 +431,7 @@ for (clust in clusters) {
 trend_table = bind_rows(trend_results)
 
 cat("\n==== Overall Trend Test (Cochran-Armitage), Per Cluster ====\n")
-print(kable(trend_table, digits = 4))
+#print(kable(trend_table, digits = 4))
 
 
 ```
