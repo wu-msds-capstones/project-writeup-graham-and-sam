@@ -2,14 +2,20 @@
 
 Sources
 The primary explanatory data, the National Food Survey (NFS), was sourced from the UK Data Service. It spans 1974-2000, where it sampled ~7,000 households per year for a total of around 190,000 households. The survey looked into the “diet diary” during a 7-day period for each household. In the diary, the corresponding household would record their food purchasing information. Alongside the diary, the NFS collected the nutrient conversion information for each of the foods purchased. Meaning, there was a quantity value and nutrient unit respective to each food. 
-The demographics included in this report were, age, sex, and household composition. This was split into child/adult/eldery and male/female groups. These variables were used to create metrics allowing for per-person comparisons of the nutrients. These metrics weighted children as 0.5, adult women as 0.8 and elderly as 0.85 of a male adult in terms of their caloric consumption.
+
+Each Nutrient is as follows: Iron, Thiamin, Vegetable Protein, Carbohydrate, Riboflavin, Niacin Equivalent, Calcium, Vitamin C, Tryptophan, Nicotinic acid, Carotene, Animal Protein, Retinol equivalent, Retinol, Energy - Kcal, Vitamin D, Poly-unsaturates, Saturates, Mono-unsaturates and Fat. 
+
+The created food groups were as follows: Saturated Fat, Refined Grains, Sugars & Sweets, Red Meat, Eggs, Potatoes, Milk, Plant Protein, Unsaturated Fat, Fish, Other/Misc, Poultry, Leafy Greens, Cheese & Cream, Whole Grains, and Other Fruits & Vegetables.
+
+The demographics included in this report were, age, sex, and household composition. 
 The primary response variable data was acquired from the Institute for Health Metrics and Evaluation (IHME) looking at the Global Burden of Disease (GBD) study ranging from(1990 to 2023). The data was specifically selected from an open API to find the summary exposure value risk rates: LDL Cholesterol, Body Mass Index, Fasting Plasma Glucose Systolic Blood Pressure, Kidney Dysfunction, Low Bone Mineral Density, and Metabolic Risks. These rates were preaggregated with the API ingestion by year, government region in the UK and to population per region.
 
 Pipeline
-The NFS datasets were aggregated by household per year where they were vertically joined to create a continuous span from 1974-2000. The disease risk rates were horizontally joined on government region and year.
+The NFS datasets were aggregated by household per year where they were vertically joined to create a continuous span from 1974-2000. The disease risk rates were horizontally joined on government region and year. Throughout the process, 
 
 Units
 Food groups rates were normalized as a proportion of total calories consumed. The nutrient groups were normalized as quantity per daily calories. The disease rates were summary exposure values (SEV) which are relative to the total possible risk.
+This was split into child/adult/eldery and male/female groups. These variables were used to create metrics allowing for per-person comparisons of the nutrients. Children require fewer calories to function than adults, and since there is no age data for individuals under 18, the 0.5 ratio of adult males was chosen to account for those on either side of the child age distribution. Adult females were weighted at 0.8 to account for physiological differences which relate to around this decrease in caloric consumption in comparison. For elderly (recorded at an age > 55) the adult male caloric ratio was 0.85. The rationale considers that adult males will inherently be found in this grouping thus, the only confounding factor will be the presence of non-male individuals which aligns and sets the ratio.
 
 Ethics and Responsible Use
-The data is used under a non-commercial educational license, and comes both anonymized and pre-aggregated by the service providers to remove personally identifiable information (PII) and ensure confidentiality. 
+The data is used under a non-commercial educational license, and comes both anonymized and pre-aggregated by the service providers to remove personally identifiable information (PII) and ensure confidentiality. An important assumption regards the original intent of the NFS. It was written to understand economic trends with food availability/consumption and thus it was assumed that all the purchased food was consumed. There was enough food diversity to make computing consumption rates out of scope for the report.
