@@ -260,6 +260,7 @@ fig.savefig(f"{run_folder}/scree_{run_name}.png",  dpi=300, bbox_inches='tight')
 
 print(evr_table)
 evr_table   # renders the table in the Quarto output
+plt.show()
 
 pca_loadings = pd.DataFrame(
     pca.components_.T,                     # transpose: rows = food groups
@@ -303,7 +304,7 @@ for i, j in combinations(range(number_PCs_to_plot), 2):
 
    # fig.savefig(f"{run_folder}/PC{i+1}v{j+1}_{run_name}.png",  dpi=300, bbox_inches='tight')
    # plt.show()
-   plt.close(fig)
+    plt.close(fig)
 
 
 
@@ -1016,6 +1017,8 @@ fig.savefig(f"{run_folder}/scree_{run_name}.png",  dpi=300, bbox_inches='tight')
 
 print(evr_table)
 evr_table   # renders the table in the Quarto output
+plt.show()
+
 
 pca_loadings = pd.DataFrame(
     pca.components_.T,                     # transpose: rows = food groups
@@ -1057,8 +1060,8 @@ for i, j in combinations(range(number_PCs_to_plot), 2):
     ax.set_ylim(pca_coords[:, j].mean() - 5*pca_coords[:, j].std(),
                 pca_coords[:, j].mean() + 5*pca_coords[:, j].std())
 
-    fig.savefig(f"{run_folder}/PC{i+1}v{j+1}_{run_name}.png",  dpi=300, bbox_inches='tight')
-    plt.show()
+    #fig.savefig(f"{run_folder}/PC{i+1}v{j+1}_{run_name}.png",  dpi=300, bbox_inches='tight')
+    #plt.show()
     plt.close(fig)
 
 
