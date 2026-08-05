@@ -13,6 +13,10 @@ execute:
 Intro blub about how the analysis starts here
 
 
+
+
+
+### Analysis was conducted on household food group profiles. 
 ```{python}
 
 import pandas as pd
@@ -265,8 +269,8 @@ ax.set_ylabel('Explained variance ratio')
 ax.set_title(f'{title_name}\nScree plot')
 fig.savefig(f"{run_folder}/scree_{run_name}.png",  dpi=300, bbox_inches='tight')
 
-print(evr_table)
-evr_table   # renders the table in the Quarto output
+#print(evr_table)
+#evr_table   # renders the table in the Quarto output
 plt.show()
 
 pca_loadings = pd.DataFrame(
@@ -314,6 +318,11 @@ for i, j in combinations(range(number_PCs_to_plot), 2):
     plt.close(fig)
 
 
+pca_full = PCA(n_components=0.95, random_state=42)  # 0.95 = auto-pick n for 95% variance
+pcs_95 = pca_full.fit_transform(scaled_df)
+n_components_95 = pca_full.n_components_
+print(f"PCA required {n_components_95} components to cumulatively explain 95% variance")
+
 
 ##############
 # This is the "what does PC1 mean figure"
@@ -327,10 +336,28 @@ loadings_df.to_parquet(f"{run_folder}/pc1_loadings_{run_name}.parquet", index=Fa
 fig, ax = plt.subplots(figsize=(6, 8))
 loadings_sorted = loadings_df.sort_values('PC1_loading', ascending=True)  # ascending so most-positive plots at top
 ax.barh(loadings_sorted['feature'], loadings_sorted['PC1_loading'], color='steelblue')
-ax.set_xlabel('PC1 Loading')
-ax.set_title('PC1 Loadings — Nutrients')
+ax.set_xlabel('PC1 Orientation')
+ax.set_title('PC1 Orientation — Food groups')
 plt.tight_layout()
 fig.savefig(f"{run_folder}/pc1_loadings_barh_{run_name}.png", dpi=300, bbox_inches='tight')
+plt.show()
+
+loadings_df = pd.DataFrame({
+    'feature': scaled_df.columns,
+    'PC2_loading': pca.components_[1] * 1  # match the flipped PC1_score sign
+}).sort_values('PC2_loading', ascending=False)
+
+loadings_df.to_parquet(f"{run_folder}/pc2_loadings_{run_name}.parquet", index=False)
+
+fig, ax = plt.subplots(figsize=(6, 8))
+loadings_sorted = loadings_df.sort_values('PC2_loading', ascending=True)  # ascending so most-positive plots at top
+ax.barh(loadings_sorted['feature'], loadings_sorted['PC2_loading'], color='steelblue')
+ax.set_xlabel('PC2 Orientation')
+ax.set_title('PC2 Orientation — Food groups')
+plt.tight_layout()
+fig.savefig(f"{run_folder}/pc2_loadings_barh_{run_name}.png", dpi=300, bbox_inches='tight')
+plt.show()
+
 
 #   |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\
 #  /-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\
@@ -677,8 +704,7 @@ df_clustered = pd.DataFrame(
 
 df_hh_per_cluster = wide_df.reset_index().groupby('cluster')[key_col].count()
 
-print('Number of households per cluster')
-print(df_hh_per_cluster)
+
 cluster_labels = wide_df['cluster']
 df_hh_per_cluster = cluster_labels.value_counts()
 
@@ -687,7 +713,7 @@ df_hh_per_cluster = cluster_labels.value_counts()
 pca_full = PCA(n_components=0.95, random_state=42)  # 0.95 = auto-pick n for 95% variance
 pcs_95 = pca_full.fit_transform(scaled_df)
 n_components_95 = pca_full.n_components_
-print(f"{n_components_95} components hit 95% variance")
+#print(f"PCA required {n_components_95} components to cumulatively explain 95% variance")
 
 # Step 2: PCA down to 2 from that
 pca_2 = PCA(n_components=2, random_state=42)
@@ -699,6 +725,10 @@ pcs_2 = pca_2.fit_transform(pcs_95)
 
 # tsne = TSNE(n_components=2, random_state=42, init='pca', verbose=2)
 # embedding_tsne = tsne.fit_transform(pcs_2)
+
+print('Number of households per cluster')
+print(df_hh_per_cluster)
+
 
 sample_df = wide_df.sample(n=2000, random_state=42)
 embedding_tsne = TSNE(n_components=2, init ='pca' , verbose=0).fit_transform(sample_df)
@@ -790,7 +820,7 @@ ax_heat.set_xticklabels(['0', '1'])
 ```
 
 
-
+### The analysis was repeated on household nutrients profiles
 
 
 ```{python}
@@ -1013,6 +1043,8 @@ evr_table = pd.DataFrame({
 })
 evr_table.to_parquet(f"{run_folder}/evr_{run_name}.parquet", index=False)
 
+
+
 # scree plot
 fig, ax = plt.subplots(figsize=(8,5))
 ax.plot(range(1, len(evr)+1), evr, marker='o')
@@ -1022,7 +1054,7 @@ ax.set_ylabel('Explained variance ratio')
 ax.set_title(f'{title_name}\nScree plot')
 fig.savefig(f"{run_folder}/scree_{run_name}.png",  dpi=300, bbox_inches='tight')
 
-print(evr_table)
+#print(evr_table)
 evr_table   # renders the table in the Quarto output
 plt.show()
 
@@ -1072,6 +1104,11 @@ for i, j in combinations(range(number_PCs_to_plot), 2):
     plt.close(fig)
 
 
+pca_full = PCA(n_components=0.95, random_state=42)  # 0.95 = auto-pick n for 95% variance
+pcs_95 = pca_full.fit_transform(scaled_df)
+n_components_95 = pca_full.n_components_
+print(f"PCA required {n_components_95} components to cumulatively explain 95% variance")
+
 
 ##############
 # This is the "what does PC1 mean figure"
@@ -1085,10 +1122,27 @@ loadings_df.to_parquet(f"{run_folder}/pc1_loadings_{run_name}.parquet", index=Fa
 fig, ax = plt.subplots(figsize=(6, 8))
 loadings_sorted = loadings_df.sort_values('PC1_loading', ascending=True)  # ascending so most-positive plots at top
 ax.barh(loadings_sorted['feature'], loadings_sorted['PC1_loading'], color='steelblue')
-ax.set_xlabel('PC1 Loading')
-ax.set_title('PC1 Loadings — Nutrients')
+ax.set_xlabel('PC1 Orientation')
+ax.set_title('PC1 Orientation — Nutrients')
 plt.tight_layout()
 fig.savefig(f"{run_folder}/pc1_loadings_barh_{run_name}.png", dpi=300, bbox_inches='tight')
+plt.show()
+
+loadings_df = pd.DataFrame({
+    'feature': scaled_df.columns,
+    'PC2_loading': pca.components_[1] * 1  # match the flipped PC1_score sign
+}).sort_values('PC2_loading', ascending=False)
+
+loadings_df.to_parquet(f"{run_folder}/pc2_loadings_{run_name}.parquet", index=False)
+
+fig, ax = plt.subplots(figsize=(6, 8))
+loadings_sorted = loadings_df.sort_values('PC2_loading', ascending=True)  # ascending so most-positive plots at top
+ax.barh(loadings_sorted['feature'], loadings_sorted['PC2_loading'], color='steelblue')
+ax.set_xlabel('PC2 Orientation')
+ax.set_title('PC2 Orientation — Nutrients')
+plt.tight_layout()
+fig.savefig(f"{run_folder}/pc2_loadings_barh_{run_name}.png", dpi=300, bbox_inches='tight')
+plt.show()
 
 #   |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\
 #  /-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\
@@ -1430,7 +1484,7 @@ df_clustered = pd.DataFrame(
 
 df_hh_per_cluster = wide_df.reset_index().groupby('cluster')[key_col].count()
 
-print(df_hh_per_cluster)
+
 cluster_labels = wide_df['cluster']
 df_hh_per_cluster = cluster_labels.value_counts()
 
@@ -1439,7 +1493,8 @@ df_hh_per_cluster = cluster_labels.value_counts()
 pca_full = PCA(n_components=0.95, random_state=42)  # 0.95 = auto-pick n for 95% variance
 pcs_95 = pca_full.fit_transform(scaled_df)
 n_components_95 = pca_full.n_components_
-print(f"{n_components_95} components hit 95% variance")
+#print(f"PCA required {n_components_95} components to cumulatively explain 95% variance")
+
 
 # Step 2: PCA down to 2 from that
 pca_2 = PCA(n_components=2, random_state=42)
@@ -1451,6 +1506,9 @@ pcs_2 = pca_2.fit_transform(pcs_95)
 
 # tsne = TSNE(n_components=2, random_state=42, init='pca', verbose=2)
 # embedding_tsne = tsne.fit_transform(pcs_2)
+
+print('Households per cluster')
+print(df_hh_per_cluster)
 
 sample_df = wide_df.sample(n=2000, random_state=42)
 embedding_tsne = TSNE(n_components=2, init ='pca' , verbose=0).fit_transform(sample_df)
@@ -1594,7 +1652,7 @@ df_lag_ranges = pd.DataFrame({'styr': df_clusters_pca['styr'].unique()})
 for yr in range (0,50):
     column_name = f'{yr}_year_lag'
     df_lag_ranges[column_name] = df_lag_ranges['styr']+yr
-df_lag_ranges.info() 
+#df_lag_ranges.info() 
 
 df_diet_lags=df_diet.merge(df_lag_ranges, how= 'left', on='styr')
 #df_diet_lags.head(1000)
@@ -1606,7 +1664,7 @@ df_diet_lags=df_diet.merge(df_lag_ranges, how= 'left', on='styr')
 ############
 #### Read in a disease raw data file...
 df_metabolic_risk = pd.read_csv('shared_data/IHME-GBD_SEV_metabolic_regions.csv')
-df_metabolic_risk
+#df_metabolic_risk
 #df_metabolic_risk.head()
 
 
@@ -1714,16 +1772,16 @@ disease_colors = {
     'Metabolic risks': '#7F7F7F',
 }
 
-ax = sns.lineplot(df_metabolic_5yr[df_metabolic_5yr['metric']=='Rate'], x='year', y='val', hue='rei', palette=disease_colors)
-ax.legend(bbox_to_anchor=(1.02, 1), loc='upper left', borderaxespad=0)
+# ax = sns.lineplot(df_metabolic_5yr[df_metabolic_5yr['metric']=='Rate'], x='year', y='val', hue='rei', palette=disease_colors)
+# ax.legend(bbox_to_anchor=(1.02, 1), loc='upper left', borderaxespad=0)
 
-g = sns.relplot(
-    data=df_metabolic_5yr[df_metabolic_5yr['metric'] == 'Rate'],
-    x='year', y='val', hue='rei',
-    col='location', col_wrap=4,
-    kind='line',
-    palette=disease_colors
-)
+# g = sns.relplot(
+#     data=df_metabolic_5yr[df_metabolic_5yr['metric'] == 'Rate'],
+#     x='year', y='val', hue='rei',
+#     col='location', col_wrap=4,
+#     kind='line',
+#     palette=disease_colors
+# )
 
 
 plt.show()
@@ -1731,7 +1789,7 @@ plt.show()
 df_plot = df_metabolic_5yr[
     (df_metabolic_5yr['metric'] == 'Rate') &
     (df_metabolic_5yr['year'] >= 1990) &
-    (df_metabolic_5yr['year'] <= 2019)
+    (df_metabolic_5yr['year'] <= 2020)
 ]
 
 ax = sns.lineplot(df_plot, x='year', y='val', hue='rei', palette=disease_colors)
