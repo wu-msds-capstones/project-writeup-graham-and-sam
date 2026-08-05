@@ -1,1 +1,398 @@
 # Results
+
+
+```{python}
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+import os
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+import geopandas as gpd
+import requests, certifi
+import os
+
+disease_colors = {
+    'High LDL cholesterol': '#D62728',        # red
+    'High body-mass index': '#6A3D9A',        # purple
+    'High fasting plasma glucose': '#8C564B', # brown
+    'High systolic blood pressure': '#17BECF',# teal
+    'Kidney dysfunction': '#BCBD22',          # olive
+    'Low bone mineral density': '#E7298A',    # magenta
+    'Metabolic risks': '#7F7F7F',             # gray
+}
+```
+
+
+```{python}
+fg17fg55nute = 'nute'
+cluster_type = f'{fg17fg55nute}_cluster'
+rei_name = 'High LDL cholesterol'
+cluster_number=2
+
+file_path = f'shared_data/POSTER_{fg17fg55nute}_qualitative_cluster_proportion_vs_metabolic_lags.parquet'
+df_lags_raw = pd.read_parquet(file_path)
+
+df_diet_national = (
+    df_lags_raw.drop_duplicates(['styr', 'location', cluster_type])
+      .groupby(['styr', cluster_type])['proportion'].mean()
+      .reset_index()
+)
+
+df_disease_national = (
+    df_lags_raw.drop_duplicates(['year', 'location', 'rei'])
+      .groupby(['year', 'rei'])['val'].mean()
+      .reset_index()
+)
+
+
+df_diet_series = df_diet_national[df_diet_national[cluster_type] == cluster_number]
+df_disease_series = df_disease_national[df_disease_national['rei'] == rei_name]
+
+x = df_diet_series.set_index('styr')['proportion'].diff().dropna()
+y = df_disease_series.set_index('year')['val'].diff().dropna()
+
+results = []
+for lag in range(0, 21):
+    x_shifted = x.reindex(x.index)  # X at year t
+    y_target = y.reindex(x.index + lag)  # Y at year t+lag
+    r = pd.Series(x_shifted.values).corr(pd.Series(y_target.values))
+    results.append({'lag': lag, 'r': r})
+
+ccf_df = pd.DataFrame(results)
+
+n = len(ccf_df)
+band1 = 1.96 / np.sqrt(n)
+band2 = 2.576 / np.sqrt(n)
+
+diet_label = f'{cluster_type}_{cluster_number}'
+disease_label = rei_name
+
+plt.plot(ccf_df['lag'], ccf_df['r'], color='orange', label='CCF (r)')
+plt.axhline(band1, color='red', linestyle='--', linewidth=1, label='95% significance band')
+plt.axhline(band2, color='blue', linestyle='--', linewidth=1, label='99% significance band')
+plt.axhline(-band1, color='red', linestyle='--', linewidth=1)
+plt.axhline(-band2, color='blue', linestyle='--', linewidth=1)
+plt.axhline(0, color='black', linewidth=0.5)
+plt.xlabel('lag')
+plt.ylabel('r')
+plt.title(f'{diet_label} vs {disease_label}: cross-correlation by lag')
+plt.legend()
+
+file_name_for_export = f'../_scratch/EDA_correlation/{diet_label}_vs_{disease_label.replace(" ", "_")}_ccf.png'
+os.makedirs('../_scratch/EDA_correlation', exist_ok=True)
+
+plt.savefig(file_name_for_export, dpi=150, bbox_inches='tight')
+
+ccf_df.head(1000)
+
+n_clusters =  df_diet_national[cluster_type].nunique()
+fig, axes = plt.subplots(1, n_clusters, figsize=(5 * n_clusters, 4), sharey=True)
+
+for ax, cluster_number in zip(axes, sorted(df_diet_national[cluster_type].unique())):
+    df_diet_series = df_diet_national[df_diet_national[cluster_type] == cluster_number]
+    x = df_diet_series.set_index('styr')['proportion'].diff().dropna()
+
+    results = []
+    for lag in range(0, 21):
+        y_target = y.reindex(x.index + lag)
+        r = pd.Series(x.values).corr(pd.Series(y_target.values))
+        results.append({'lag': lag, 'r': r})
+    ccf_df = pd.DataFrame(results)
+
+    ax.plot(ccf_df['lag'], ccf_df['r'], color='orange')
+    ax.axhline(band1, color='red', linestyle='--', linewidth=1)
+    ax.axhline(-band2, color='red', linestyle='--', linewidth=1)
+    ax.axhline(0, color='black', linewidth=0.5)
+    ax.set_title(f'{cluster_type}_{cluster_number}')
+    ax.set_xlabel('lag')
+
+axes[0].set_ylabel('r')
+plt.suptitle(f'vs {rei_name}')
+
+file_name_for_export_facet = f'../_scratch/EDA_correlation/facet_{diet_label}_vs_{disease_label.replace(" ", "_")}_ccf.png'
+plt.savefig(file_name_for_export_facet, dpi=150, bbox_inches='tight')
+plt.tight_layout()
+```
+
+
+
+```{python}
+lag = 5
+cluster_number = 2
+rei_name = 'High LDL cholesterol'
+
+x_test = df_diet_national[df_diet_national[cluster_type] == cluster_number].set_index('styr')['proportion'].diff().dropna()
+y_test = df_disease_national[df_disease_national['rei'] == rei_name].set_index('year')['val'].diff().dropna()
+
+y_target = y_test.reindex(x_test.index + lag)
+valid = y_target.notna().values
+
+x_valid = x_test[valid]
+y_target_valid = y_target[valid]
+
+observed_r = pd.Series(x_valid.values).corr(pd.Series(y_target_valid.values))
+
+n_perm = 10000
+perm_rs = []
+rng = np.random.default_rng(42)
+x_vals = x_valid.values.copy()
+for _ in range(n_perm):
+    shuffled = rng.permutation(x_vals)
+    r = pd.Series(shuffled).corr(pd.Series(y_target_valid.values))
+    perm_rs.append(r)
+
+perm_rs = np.array(perm_rs)
+p_value = np.mean(np.abs(perm_rs) >= abs(observed_r))
+print(f"Observed r = {observed_r:.3f}, n = {len(x_valid)}, permutation p-value = {p_value:.4f}")
+
+```
+
+
+
+```{python}
+fg17fg55nute = 'nute'
+cluster_type = f'{fg17fg55nute}_cluster'
+rei_name = 'High LDL cholesterol'
+cluster_number=2
+diet_label = fg17fg55nute
+disease_label = rei_name
+
+
+os.makedirs("../_scratch/EDA_maps/POSTER", exist_ok=True)
+save_dir='../_scratch/EDA_maps/POSTER'
+
+file_path = f'shared_data/POSTER_{fg17fg55nute}_qualitative_cluster_proportion_vs_metabolic_lags.parquet'
+df_lags_raw = pd.read_parquet(file_path)
+
+
+lag = 5
+
+
+df_disease_reg = (
+    df_lags_raw.drop_duplicates(['year', 'location', 'rei'])
+      .query("rei == @rei_name")
+)
+
+
+
+df_diet_national = (
+    df_lags_raw.drop_duplicates(['styr', 'location', cluster_type])
+      .groupby(['styr', cluster_type])['proportion'].mean()
+      .reset_index()
+)
+
+df_disease_national = (
+    df_lags_raw.drop_duplicates(['year', 'location', 'rei'])
+      .groupby(['year', 'rei'])['val'].mean()
+      .reset_index()
+)
+
+
+df_diet_series = df_diet_national[df_diet_national[cluster_type] == cluster_number]
+df_disease_series = df_disease_national[df_disease_national['rei'] == rei_name]
+
+x = df_diet_series.set_index('styr')['proportion'].diff().dropna()
+y = df_disease_series.set_index('year')['val'].diff().dropna()
+
+
+results = []
+for loc in df_diet_national['location'].unique() if 'location' in df_diet_national.columns else df_lags_raw['location'].unique():
+    x_loc = (
+        df_lags_raw[(df_lags_raw['fg17_cluster'] if 'fg17_cluster' in df_lags_raw.columns else df_lags_raw['nute_cluster']) == cluster_number]
+          .query("location == @loc")
+          .drop_duplicates(['styr'])
+          .sort_values('styr')
+          .set_index('styr')['proportion']
+          .diff().dropna()
+    )
+    y_loc = (
+        df_disease_reg.query("location == @loc")
+          .sort_values('year')
+          .set_index('year')['val']
+          .diff().dropna()
+    )
+    y_target = y_loc.reindex(x_loc.index + lag)
+    #######
+    ##. RIght here its inverse correlation
+    r = -pd.Series(x_loc.values).corr(pd.Series(y_target.values))
+    n = len(x_loc.dropna())
+    results.append({'location': loc, 'r': r, 'n': n})
+
+df_region_lag5 = pd.DataFrame(results).sort_values('r', ascending=False)
+print(df_region_lag5)
+
+
+url = 'https://raw.githubusercontent.com/martinjc/UK-GeoJSON/master/json/electoral/gb/eer.json'
+r = requests.get(url, verify=certifi.where())
+with open('eer.geojson', 'wb') as f:
+    f.write(r.content)
+
+gdf_uk = gpd.read_file('eer.geojson')
+gdf_uk.columns.tolist()
+
+
+
+gdf_uk['EER13NM'].tolist()
+
+
+region_name_map = {
+    'North East': 'North East England',
+    'North West': 'North West England',
+    'Yorkshire and The Humber': 'Yorkshire and the Humber',
+    'East Midlands': 'East Midlands',
+    'West Midlands': 'West Midlands',
+    'Eastern': 'East of England',
+    'London': 'Greater London',
+    'South East': 'South East England',
+    'South West': 'South West England',
+    'Scotland': 'Scotland',
+    'Wales': 'Wales',
+}
+
+gdf_uk['location'] = gdf_uk['EER13NM'].map(region_name_map)
+gdf_merged = gdf_uk.merge(df_region_lag5, on='location', how='left')
+gdf_merged[['location', 'r']]
+
+
+
+
+fig, ax = plt.subplots(figsize=(8, 10))
+gdf_merged.plot(column='r', cmap='RdBu_r', vmin=-1, vmax=1, legend=True, ax=ax, edgecolor='black', linewidth=0.3)
+ax.set_title(f'{cluster_type}_{cluster_number} vs {rei_name}: lag-5 correlation by region')
+ax.axis('off')
+
+os.makedirs('../_scratch/EDA_maps', exist_ok=True)
+
+plt.savefig(f'{save_dir}/choropleth_lag5_{diet_label}_vs_{disease_label.replace(" ", "_")}_cluster_{cluster_number}.png', dpi=150, bbox_inches='tight')
+plt.show()
+```
+
+
+
+
+
+
+
+
+```{python}
+
+fg17fg55nute = 'nute'
+cluster_type = f'{fg17fg55nute}_cluster'
+rei_name = 'High systolic blood pressure'
+cluster_number=2
+diet_label = fg17fg55nute
+disease_label = rei_name
+
+
+os.makedirs("../_scratch/EDA_maps/POSTER", exist_ok=True)
+save_dir='../_scratch/EDA_maps/POSTER'
+
+file_path = f'shared_data/POSTER_{fg17fg55nute}_qualitative_cluster_proportion_vs_metabolic_lags.parquet'
+df_lags_raw = pd.read_parquet(file_path)
+
+
+lag = 5
+
+
+df_disease_reg = (
+    df_lags_raw.drop_duplicates(['year', 'location', 'rei'])
+      .query("rei == @rei_name")
+)
+
+
+
+df_diet_national = (
+    df_lags_raw.drop_duplicates(['styr', 'location', cluster_type])
+      .groupby(['styr', cluster_type])['proportion'].mean()
+      .reset_index()
+)
+
+df_disease_national = (
+    df_lags_raw.drop_duplicates(['year', 'location', 'rei'])
+      .groupby(['year', 'rei'])['val'].mean()
+      .reset_index()
+)
+
+
+df_diet_series = df_diet_national[df_diet_national[cluster_type] == cluster_number]
+df_disease_series = df_disease_national[df_disease_national['rei'] == rei_name]
+
+x = df_diet_series.set_index('styr')['proportion'].diff().dropna()
+y = df_disease_series.set_index('year')['val'].diff().dropna()
+
+
+results = []
+for loc in df_diet_national['location'].unique() if 'location' in df_diet_national.columns else df_lags_raw['location'].unique():
+    x_loc = (
+        df_lags_raw[(df_lags_raw['fg17_cluster'] if 'fg17_cluster' in df_lags_raw.columns else df_lags_raw['nute_cluster']) == cluster_number]
+          .query("location == @loc")
+          .drop_duplicates(['styr'])
+          .sort_values('styr')
+          .set_index('styr')['proportion']
+          .diff().dropna()
+    )
+    y_loc = (
+        df_disease_reg.query("location == @loc")
+          .sort_values('year')
+          .set_index('year')['val']
+          .diff().dropna()
+    )
+    y_target = y_loc.reindex(x_loc.index + lag)
+    #######
+    ##. RIght here its inverse correlation
+    r = -pd.Series(x_loc.values).corr(pd.Series(y_target.values))
+    n = len(x_loc.dropna())
+    results.append({'location': loc, 'r': r, 'n': n})
+
+df_region_lag5 = pd.DataFrame(results).sort_values('r', ascending=False)
+print(df_region_lag5)
+
+
+url = 'https://raw.githubusercontent.com/martinjc/UK-GeoJSON/master/json/electoral/gb/eer.json'
+r = requests.get(url, verify=certifi.where())
+with open('eer.geojson', 'wb') as f:
+    f.write(r.content)
+
+gdf_uk = gpd.read_file('eer.geojson')
+gdf_uk.columns.tolist()
+
+
+
+gdf_uk['EER13NM'].tolist()
+
+
+region_name_map = {
+    'North East': 'North East England',
+    'North West': 'North West England',
+    'Yorkshire and The Humber': 'Yorkshire and the Humber',
+    'East Midlands': 'East Midlands',
+    'West Midlands': 'West Midlands',
+    'Eastern': 'East of England',
+    'London': 'Greater London',
+    'South East': 'South East England',
+    'South West': 'South West England',
+    'Scotland': 'Scotland',
+    'Wales': 'Wales',
+}
+
+gdf_uk['location'] = gdf_uk['EER13NM'].map(region_name_map)
+gdf_merged = gdf_uk.merge(df_region_lag5, on='location', how='left')
+gdf_merged[['location', 'r']]
+
+
+
+
+fig, ax = plt.subplots(figsize=(8, 10))
+gdf_merged.plot(column='r', cmap='RdBu_r', vmin=-1, vmax=1, legend=True, ax=ax, edgecolor='black', linewidth=0.3)
+ax.set_title(f'{cluster_type}_{cluster_number} vs {rei_name}: lag-5 correlation by region')
+ax.axis('off')
+
+os.makedirs('../_scratch/EDA_maps', exist_ok=True)
+
+plt.savefig(f'{save_dir}/choropleth_lag5_{diet_label}_vs_{disease_label.replace(" ", "_")}_cluster_{cluster_number}.png', dpi=150, bbox_inches='tight')
+plt.show()
+```
