@@ -235,29 +235,29 @@ for (value_col in value_cols) {
 ```{r}
 ## GIF of by year nute cluster proportion sizes
 
-save_dir = "output_plots"
-dir.create(save_dir, showWarnings = FALSE, recursive = TRUE)
-
-# -------------------------------------------------------------------
-# 1. Prep data
-# -------------------------------------------------------------------
-
-cluster_data = data_source %>%
-  select(hhno, all_of(year_col), all_of(cluster_col)) %>%
-  filter(!is.na(.data[[cluster_col]]))
-
-cluster_props = cluster_data %>%
-  group_by(.data[[year_col]], .data[[cluster_col]]) %>%
-  summarise(n = n(), .groups = "drop") %>%
-  group_by(.data[[year_col]]) %>%
-  mutate(
-    total = sum(n),
-    proportion = n / total
-  ) %>%
-  ungroup() %>%
-  arrange(.data[[year_col]], .data[[cluster_col]])
-
-print(kable(cluster_props, digits = 3))
+# save_dir = "output_plots"
+# dir.create(save_dir, showWarnings = FALSE, recursive = TRUE)
+# 
+# # -------------------------------------------------------------------
+# # 1. Prep data
+# # -------------------------------------------------------------------
+# 
+# cluster_data = data_source %>%
+#   select(hhno, all_of(year_col), all_of(cluster_col)) %>%
+#   filter(!is.na(.data[[cluster_col]]))
+# 
+# cluster_props = cluster_data %>%
+#   group_by(.data[[year_col]], .data[[cluster_col]]) %>%
+#   summarise(n = n(), .groups = "drop") %>%
+#   group_by(.data[[year_col]]) %>%
+#   mutate(
+#     total = sum(n),
+#     proportion = n / total
+#   ) %>%
+#   ungroup() %>%
+#   arrange(.data[[year_col]], .data[[cluster_col]])
+# 
+# print(kable(cluster_props, digits = 3))
 
 
 # -------------------------------------------------------------------
