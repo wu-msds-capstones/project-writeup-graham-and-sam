@@ -63,8 +63,8 @@ div.csl-indent {
 
 
 <meta name="citation_title" content="Capstone Project">
-<meta name="citation_author" content="Bob ">
-<meta name="citation_author" content="Jane ">
+<meta name="citation_author" content="Graham ">
+<meta name="citation_author" content="Sam ">
 <meta name="citation_language" content="en">
 <meta name="citation_reference" content="citation_title=A guide to backward paper writing for the data sciences;,citation_abstract=Summary In this perspective, we outline a set of best practices for the planning, writing, and revision of scientific papers and other forms of professional communication in the data sciences. We propose a backward approach that begins with clearly identifying the scientific and professional goals motivating the work, followed by a purposeful mapping from those goals to each section of a paper. This approach is motivated by the conviction that manuscript writing can be more effective, efficient, creative, and even enjoyable—particularly for early-career researchers—when the overarching goals of the paper and its individual components are clearly mapped out.;,citation_author=Jon Zelner;,citation_author=Kelly Broen;,citation_author=Ella August;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S2666389921003068;,citation_issue=3;,citation_doi=10.1016/j.patter.2021.100423;,citation_issn=2666-3899;,citation_volume=3;,citation_journal_title=Patterns;">
 </head>
@@ -249,8 +249,8 @@ div.csl-indent {
                 <div>
             <div class="quarto-title-meta-heading">Authors</div>
             <div class="quarto-title-meta-contents">
-                        <p>Bob </p>
-                        <p>Jane </p>
+                        <p>Graham </p>
+                        <p>Sam </p>
                       </div>
           </div>
                 
@@ -283,9 +283,9 @@ div.csl-indent {
   </ul></li>
   <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a>
   <ul class="collapse">
-  <li><a href="#this-is-the-start-of-the-r-chunks-with-the-statistical-work-and-checks" id="toc-this-is-the-start-of-the-r-chunks-with-the-statistical-work-and-checks" class="nav-link" data-scroll-target="#this-is-the-start-of-the-r-chunks-with-the-statistical-work-and-checks">this is the start of the r chunks with the statistical work and checks</a></li>
+  <li><a href="#stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" id="toc-stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" class="nav-link" data-scroll-target="#stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time">stats for proportions confirming the significance of changing clusters over time</a></li>
+  <li><a href="#last-output-is-easy-to-read-stats-on-long-term-changes-others-are-per-year-with-general-changes-showing-its-not-noise" id="toc-last-output-is-easy-to-read-stats-on-long-term-changes-others-are-per-year-with-general-changes-showing-its-not-noise" class="nav-link" data-scroll-target="#last-output-is-easy-to-read-stats-on-long-term-changes-others-are-per-year-with-general-changes-showing-its-not-noise">last output is easy to read stats on long term changes, others are per year with general changes showing its not noise</a></li>
   </ul></li>
-  <li><a href="#analysis-in-r" id="toc-analysis-in-r" class="nav-link" data-scroll-target="#analysis-in-r">Analysis in R</a></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
   <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
@@ -363,7 +363,7 @@ div.csl-indent {
 14  15                  0.044502    1.000000</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;matplotlib.colorbar.Colorbar object at 0x364b08440&gt;
+<pre><code>&lt;matplotlib.colorbar.Colorbar object at 0x317dd4440&gt;
 Text(0.5, 0, 'PC1')
 Text(0, 0.5, 'PC2')
 Text(0.5, 1.0, 'no_alcohol_foodgroup17 by household \n value = calorie_ratio\nPC1 vs PC2')
@@ -431,7 +431,7 @@ Name: hhno, dtype: int64</code></pre>
 14  15                  0.003550    0.998382</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;matplotlib.colorbar.Colorbar object at 0x36597ccd0&gt;
+<pre><code>&lt;matplotlib.colorbar.Colorbar object at 0x374e84cd0&gt;
 Text(0.5, 0, 'PC1')
 Text(0, 0.5, 'PC2')
 Text(0.5, 1.0, 'no_alcohol_nutrient by household \n value = nutrient_per_total_cal\nPC1 vs PC2')
@@ -485,12 +485,161 @@ Name: hhno, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<section id="this-is-the-start-of-the-r-chunks-with-the-statistical-work-and-checks" class="level2">
-<h2 class="anchored" data-anchor-id="this-is-the-start-of-the-r-chunks-with-the-statistical-work-and-checks">this is the start of the r chunks with the statistical work and checks</h2>
-</section>
-</section>
-<section id="analysis-in-r" class="level1">
-<h1>Analysis in R</h1>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 27 entries, 0 to 26
+Data columns (total 51 columns):
+ #   Column       Non-Null Count  Dtype
+---  ------       --------------  -----
+ 0   styr         27 non-null     int64
+ 1   0_year_lag   27 non-null     int64
+ 2   1_year_lag   27 non-null     int64
+ 3   2_year_lag   27 non-null     int64
+ 4   3_year_lag   27 non-null     int64
+ 5   4_year_lag   27 non-null     int64
+ 6   5_year_lag   27 non-null     int64
+ 7   6_year_lag   27 non-null     int64
+ 8   7_year_lag   27 non-null     int64
+ 9   8_year_lag   27 non-null     int64
+ 10  9_year_lag   27 non-null     int64
+ 11  10_year_lag  27 non-null     int64
+ 12  11_year_lag  27 non-null     int64
+ 13  12_year_lag  27 non-null     int64
+ 14  13_year_lag  27 non-null     int64
+ 15  14_year_lag  27 non-null     int64
+ 16  15_year_lag  27 non-null     int64
+ 17  16_year_lag  27 non-null     int64
+ 18  17_year_lag  27 non-null     int64
+ 19  18_year_lag  27 non-null     int64
+ 20  19_year_lag  27 non-null     int64
+ 21  20_year_lag  27 non-null     int64
+ 22  21_year_lag  27 non-null     int64
+ 23  22_year_lag  27 non-null     int64
+ 24  23_year_lag  27 non-null     int64
+ 25  24_year_lag  27 non-null     int64
+ 26  25_year_lag  27 non-null     int64
+ 27  26_year_lag  27 non-null     int64
+ 28  27_year_lag  27 non-null     int64
+ 29  28_year_lag  27 non-null     int64
+ 30  29_year_lag  27 non-null     int64
+ 31  30_year_lag  27 non-null     int64
+ 32  31_year_lag  27 non-null     int64
+ 33  32_year_lag  27 non-null     int64
+ 34  33_year_lag  27 non-null     int64
+ 35  34_year_lag  27 non-null     int64
+ 36  35_year_lag  27 non-null     int64
+ 37  36_year_lag  27 non-null     int64
+ 38  37_year_lag  27 non-null     int64
+ 39  38_year_lag  27 non-null     int64
+ 40  39_year_lag  27 non-null     int64
+ 41  40_year_lag  27 non-null     int64
+ 42  41_year_lag  27 non-null     int64
+ 43  42_year_lag  27 non-null     int64
+ 44  43_year_lag  27 non-null     int64
+ 45  44_year_lag  27 non-null     int64
+ 46  45_year_lag  27 non-null     int64
+ 47  46_year_lag  27 non-null     int64
+ 48  47_year_lag  27 non-null     int64
+ 49  48_year_lag  27 non-null     int64
+ 50  49_year_lag  27 non-null     int64
+dtypes: int64(51)
+memory usage: 10.9 KB</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     population_group                 measure  ...      upper      lower
+0      All Population  Summary exposure value  ...   5.219344   1.676535
+1      All Population  Summary exposure value  ...  77.334030  58.316582
+2      All Population  Summary exposure value  ...   6.177611   1.971169
+3      All Population  Summary exposure value  ...  78.706067  60.346613
+4      All Population  Summary exposure value  ...  32.295413  23.534806
+...               ...                     ...  ...        ...        ...
+3089   All Population  Summary exposure value  ...  42.913070  13.382209
+3090   All Population  Summary exposure value  ...  35.749636  25.843216
+3091   All Population  Summary exposure value  ...  39.629987  31.288023
+3092   All Population  Summary exposure value  ...  21.036416  10.394431
+3093   All Population  Summary exposure value  ...   5.988702   1.709220
+
+[3094 rows x 11 columns]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  population_group                 measure  ...      upper      lower
+0   All Population  Summary exposure value  ...   5.219344   1.676535
+1   All Population  Summary exposure value  ...  77.334030  58.316582
+2   All Population  Summary exposure value  ...   6.177611   1.971169
+3   All Population  Summary exposure value  ...  78.706067  60.346613
+4   All Population  Summary exposure value  ...  32.295413  23.534806
+
+[5 rows x 11 columns]</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="capstone_files/figure-html/unnamed-chunk-4-15.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="capstone_files/figure-html/unnamed-chunk-4-15.png" class="img-fluid figure-img" width="960"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>     population_group                 measure  ...      upper      lower
+0      All Population  Summary exposure value  ...   5.219344   1.676535
+1      All Population  Summary exposure value  ...  77.334030  58.316582
+2      All Population  Summary exposure value  ...   6.177611   1.971169
+3      All Population  Summary exposure value  ...  78.706067  60.346613
+4      All Population  Summary exposure value  ...  32.295413  23.534806
+...               ...                     ...  ...        ...        ...
+3089   All Population  Summary exposure value  ...  42.913070  13.382209
+3090   All Population  Summary exposure value  ...  35.749636  25.843216
+3091   All Population  Summary exposure value  ...  39.629987  31.288023
+3092   All Population  Summary exposure value  ...  21.036416  10.394431
+3093   All Population  Summary exposure value  ...   5.988702   1.709220
+
+[3094 rows x 11 columns]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  population_group                 measure  ...      upper      lower
+0   All Population  Summary exposure value  ...   5.219344   1.676535
+1   All Population  Summary exposure value  ...  77.334030  58.316582
+2   All Population  Summary exposure value  ...   6.177611   1.971169
+3   All Population  Summary exposure value  ...  78.706067  60.346613
+4   All Population  Summary exposure value  ...  32.295413  23.534806
+
+[5 rows x 11 columns]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     population_group                 measure  ...  upper_ma5  lower_ma5
+172    All Population  Summary exposure value  ...  79.182568  54.105243
+34     All Population  Summary exposure value  ...  78.972394  53.768078
+270    All Population  Summary exposure value  ...  78.453059  53.216098
+154    All Population  Summary exposure value  ...  77.495163  52.247631
+47     All Population  Summary exposure value  ...  76.341019  51.181877
+...               ...                     ...  ...        ...        ...
+634    All Population  Summary exposure value  ...  34.895535  26.466732
+592    All Population  Summary exposure value  ...  35.136213  26.750751
+1195   All Population  Summary exposure value  ...  35.418576  26.971378
+934    All Population  Summary exposure value  ...  35.658824  27.161215
+1398   All Population  Summary exposure value  ...  35.799925  27.490794
+
+[1000 rows x 14 columns]</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="capstone_files/figure-html/unnamed-chunk-5-17.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="capstone_files/figure-html/unnamed-chunk-5-17.png" class="img-fluid figure-img" width="2156"></a></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="capstone_files/figure-html/unnamed-chunk-5-18.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="capstone_files/figure-html/unnamed-chunk-5-18.png" class="img-fluid figure-img" width="2156"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="composition-clusters-with-bar-graphs-and-line-plots" class="level4">
+<h4 class="anchored" data-anchor-id="composition-clusters-with-bar-graphs-and-line-plots">composition clusters with bar graphs and line plots</h4>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -636,18 +785,21 @@ Name: hhno, dtype: int64</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-6-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="capstone_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="capstone_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-6-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="capstone_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-8-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="capstone_files/figure-html/unnamed-chunk-8-2.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
+</section>
+<section id="ridge-and-boxplot-for-per-year-of-pc1" class="level4">
+<h4 class="anchored" data-anchor-id="ridge-and-boxplot-for-per-year-of-pc1">ridge and boxplot for per year of pc1</h4>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -688,14 +840,14 @@ Name: hhno, dtype: int64</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-7-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="capstone_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-9-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="capstone_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-7-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="capstone_files/figure-html/unnamed-chunk-7-2.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-9-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="capstone_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -738,19 +890,27 @@ Name: hhno, dtype: int64</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-7-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="capstone_files/figure-html/unnamed-chunk-7-3.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-9-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="capstone_files/figure-html/unnamed-chunk-9-3.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-7-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="capstone_files/figure-html/unnamed-chunk-7-4.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-9-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="capstone_files/figure-html/unnamed-chunk-9-4.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
-<p>ANIMATION TENDS TO STALL OUT, DOES IT WORK?</p>
+<section id="the-awesome-gif-for-change-overtime" class="level5">
+<h5 class="anchored" data-anchor-id="the-awesome-gif-for-change-overtime">the awesome gif for change overtime <!--#  --></h5>
+</section>
+</section>
+<section id="stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" class="level2">
+<h2 class="anchored" data-anchor-id="stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time">stats for proportions confirming the significance of changing clusters over time</h2>
+</section>
+<section id="last-output-is-easy-to-read-stats-on-long-term-changes-others-are-per-year-with-general-changes-showing-its-not-noise" class="level2">
+<h2 class="anchored" data-anchor-id="last-output-is-easy-to-read-stats-on-long-term-changes-others-are-per-year-with-general-changes-showing-its-not-noise">last output is easy to read stats on long term changes, others are per year with general changes showing its not noise</h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -1049,9 +1209,203 @@ Name: hhno, dtype: int64</code></pre>
 |       4|      27|       1974|      2000|     0.4943|    0.3043|  1218.6112|   0.000|Yes               |</code></pre>
 </div>
 </div>
+<section id="not-too-sure-on-this-one-maybe-looks-very-positive" class="level4">
+<h4 class="anchored" data-anchor-id="not-too-sure-on-this-one-maybe-looks-very-positive">not too sure on this one, maybe? looks very positive!!</h4>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Likelihood ratio tests of Multinomial Models
+
+Response: cluster_fct
+     Model Resid. df Resid. Dev   Test    Df LR stat. Pr(Chi)
+1        1    747216   529221.6                              
+2 year_num    747212   513769.9 1 vs 2     4 15451.71       0</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 6
+  y.level estimate  std.error conf.low conf.high p.value
+  &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+1 1        0.0144  0.00000786  0.0143    0.0144        0
+2 2        0.103   0.00000394  0.103     0.103         0
+3 3       -0.0151  0.00000356 -0.0151   -0.0151        0
+4 4       -0.00140 0.00000318 -0.00141  -0.00139       0</code></pre>
+</div>
+</div>
+</section>
+</section>
 </section>
 <section id="results" class="level1">
 <h1>Results</h1>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="capstone_files/figure-html/unnamed-chunk-13-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="capstone_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="768"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>    lag         r
+0     0 -0.572777
+1     1 -0.298106
+2     2 -0.052893
+3     3  0.467787
+4     4  0.446081
+5     5  0.678667
+6     6  0.426708
+7     7  0.445592
+8     8  0.100704
+9     9 -0.117699
+10   10 -0.248187
+11   11 -0.158684
+12   12 -0.173682
+13   13 -0.094746
+14   14  0.299795
+15   15  0.320505
+16   16  0.393172
+17   17  0.459365
+18   18  0.434622
+19   19  0.332349
+20   20  0.283300</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="capstone_files/figure-html/unnamed-chunk-14-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="capstone_files/figure-html/unnamed-chunk-14-3.png" class="img-fluid figure-img" width="2400"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Observed r = 0.679, n = 15, permutation p-value = 0.0065</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="capstone_files/figure-html/unnamed-chunk-15-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="capstone_files/figure-html/unnamed-chunk-15-5.png" class="img-fluid figure-img" width="576"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>                    location         r   n
+10  Yorkshire and the Humber -0.202527  26
+6         South East England -0.235180  26
+7         South West England -0.274889  26
+1            East of England -0.282573  26
+0              East Midlands -0.294227  26
+9              West Midlands -0.366116  26
+2             Greater London -0.370728  26
+8                      Wales -0.478069  26
+3         North East England -0.483312  26
+4         North West England -0.528504  26
+5                   Scotland -0.677953  26</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>11698695</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['EER13CD', 'EER13CDO', 'EER13NM', 'geometry']</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['North East', 'North West', 'Yorkshire and The Humber', 'East Midlands', 'West Midlands', 'Eastern', 'London', 'South East', 'South West', 'Scotland', 'Wales']</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                    location         r
+0         North East England -0.483312
+1         North West England -0.528504
+2   Yorkshire and the Humber -0.202527
+3              East Midlands -0.294227
+4              West Midlands -0.366116
+5            East of England -0.282573
+6             Greater London -0.370728
+7         South East England -0.235180
+8         South West England -0.274889
+9                   Scotland -0.677953
+10                     Wales -0.478069</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;Axes: &gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Text(0.5, 1.0, 'nute_cluster_2 vs High LDL cholesterol: lag-5 correlation by region')</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(np.float64(-9.170653384613697), np.float64(2.2835621062455984), np.float64(49.31494886355925), np.float64(61.41056204763012))</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="capstone_files/figure-html/unnamed-chunk-16-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="capstone_files/figure-html/unnamed-chunk-16-7.png" class="img-fluid figure-img" width="768"></a></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="capstone_files/figure-html/unnamed-chunk-16-8.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="capstone_files/figure-html/unnamed-chunk-16-8.png" class="img-fluid figure-img" width="768"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>                    location         r   n
+2             Greater London  0.453944  26
+10  Yorkshire and the Humber  0.413071  26
+1            East of England  0.281802  26
+9              West Midlands  0.180450  26
+0              East Midlands  0.042517  26
+7         South West England  0.017599  26
+6         South East England -0.000749  26
+4         North West England -0.021999  26
+5                   Scotland -0.061581  26
+3         North East England -0.333534  26
+8                      Wales -0.397503  26</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>11698695</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['EER13CD', 'EER13CDO', 'EER13NM', 'geometry']</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['North East', 'North West', 'Yorkshire and The Humber', 'East Midlands', 'West Midlands', 'Eastern', 'London', 'South East', 'South West', 'Scotland', 'Wales']</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                    location         r
+0         North East England -0.333534
+1         North West England -0.021999
+2   Yorkshire and the Humber  0.413071
+3              East Midlands  0.042517
+4              West Midlands  0.180450
+5            East of England  0.281802
+6             Greater London  0.453944
+7         South East England -0.000749
+8         South West England  0.017599
+9                   Scotland -0.061581
+10                     Wales -0.397503</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;Axes: &gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Text(0.5, 1.0, 'nute_cluster_2 vs High systolic blood pressure: lag-5 correlation by region')</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(np.float64(-9.170653384613697), np.float64(2.2835621062455984), np.float64(49.31494886355925), np.float64(61.41056204763012))</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="capstone_files/figure-html/unnamed-chunk-17-11.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="capstone_files/figure-html/unnamed-chunk-17-11.png" class="img-fluid figure-img" width="768"></a></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="conclusions" class="level1">
 <h1>Conclusions</h1>
