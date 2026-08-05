@@ -1,4 +1,17 @@
+---
+title: "UK Diet and Disease Analysis"
+format: html
+jupyter: python3
+execute:
+  echo: false
+---
+
+
 # Results
+
+Based on the consisitent decline in its SEV risk rate, high LDL cholesterol was chosen as the chronic disease symptom of primary interest.  
+
+Year-on-year change in nutrient profile cluster 2 was assessed against a time-lag sweep of year-on-year change in SEV risk rate for LDL cholesterol using a cross correlation function (CCF), resulting in Pearson correlation score r.  Perfect correlation is r =1.0, whereas no correlation is r =0.0. 
 
 
 ```{python}
@@ -24,10 +37,7 @@ disease_colors = {
     'Low bone mineral density': '#E7298A',    # magenta
     'Metabolic risks': '#7F7F7F',             # gray
 }
-```
 
-
-```{python}
 fg17fg55nute = 'nute'
 cluster_type = f'{fg17fg55nute}_cluster'
 rei_name = 'High LDL cholesterol'
@@ -81,43 +91,20 @@ plt.xlabel('lag')
 plt.ylabel('r')
 plt.title(f'{diet_label} vs {disease_label}: cross-correlation by lag')
 plt.legend()
-
 file_name_for_export = f'../_scratch/EDA_correlation/{diet_label}_vs_{disease_label.replace(" ", "_")}_ccf.png'
 os.makedirs('../_scratch/EDA_correlation', exist_ok=True)
 
 plt.savefig(file_name_for_export, dpi=150, bbox_inches='tight')
-
-ccf_df.head(1000)
-
-n_clusters =  df_diet_national[cluster_type].nunique()
-fig, axes = plt.subplots(1, n_clusters, figsize=(5 * n_clusters, 4), sharey=True)
-
-for ax, cluster_number in zip(axes, sorted(df_diet_national[cluster_type].unique())):
-    df_diet_series = df_diet_national[df_diet_national[cluster_type] == cluster_number]
-    x = df_diet_series.set_index('styr')['proportion'].diff().dropna()
-
-    results = []
-    for lag in range(0, 21):
-        y_target = y.reindex(x.index + lag)
-        r = pd.Series(x.values).corr(pd.Series(y_target.values))
-        results.append({'lag': lag, 'r': r})
-    ccf_df = pd.DataFrame(results)
-
-    ax.plot(ccf_df['lag'], ccf_df['r'], color='orange')
-    ax.axhline(band1, color='red', linestyle='--', linewidth=1)
-    ax.axhline(-band2, color='red', linestyle='--', linewidth=1)
-    ax.axhline(0, color='black', linewidth=0.5)
-    ax.set_title(f'{cluster_type}_{cluster_number}')
-    ax.set_xlabel('lag')
-
-axes[0].set_ylabel('r')
-plt.suptitle(f'vs {rei_name}')
-
-file_name_for_export_facet = f'../_scratch/EDA_correlation/facet_{diet_label}_vs_{disease_label.replace(" ", "_")}_ccf.png'
-plt.savefig(file_name_for_export_facet, dpi=150, bbox_inches='tight')
-plt.tight_layout()
+plt.show()
 ```
 
+A stasticially significant correlation (p <0.05) was noted between 2.5 and 7.5 years, and an even more significant correlation was found at precisely 5 years (p < 0.01). Peak correlation at 5 years was over 0.6.
+
+The five year time lag restricted the number of years for continued analysis. Because the diet data only goes until 2000, and the disease data begins in 1990, the maximal appropriate overlap window was diet data from 1985 to 2000 correlated with disease data from 1990 to 2005.
+
+## Correlation validation
+
+For those 15 years, the time points were shuffled through 10,000 random permutations, and reassessed with cross correlation.  All random permutations failed to produce statistically significant correlation, suggesting that the detected correlation between nutrient cluster 2 and high LDL cholesterol at a five year time lag was a legitimate signal in the data.
 
 
 ```{python}
@@ -151,7 +138,49 @@ print(f"Observed r = {observed_r:.3f}, n = {len(x_valid)}, permutation p-value =
 
 ```
 
+In comparison to nutrient cluster 2, the other nutrient clusters fail to correlate with high LDL cholesterol.
 
+
+```{python}
+
+
+#ccf_df.head(1000)
+
+n_clusters =  df_diet_national[cluster_type].nunique()
+fig, axes = plt.subplots(1, n_clusters, figsize=(5 * n_clusters, 4), sharey=True)
+
+for ax, cluster_number in zip(axes, sorted(df_diet_national[cluster_type].unique())):
+    df_diet_series = df_diet_national[df_diet_national[cluster_type] == cluster_number]
+    x = df_diet_series.set_index('styr')['proportion'].diff().dropna()
+
+    results = []
+    for lag in range(0, 21):
+        y_target = y.reindex(x.index + lag)
+        r = pd.Series(x.values).corr(pd.Series(y_target.values))
+        results.append({'lag': lag, 'r': r})
+    ccf_df = pd.DataFrame(results)
+
+    ax.plot(ccf_df['lag'], ccf_df['r'], color='orange')
+    ax.axhline(band1, color='red', linestyle='--', linewidth=1)
+    ax.axhline(-band2, color='red', linestyle='--', linewidth=1)
+    ax.axhline(0, color='black', linewidth=0.5)
+    ax.set_title(f'{cluster_type}_{cluster_number}')
+    ax.set_xlabel('lag')
+
+axes[0].set_ylabel('r')
+plt.suptitle(f'vs {rei_name}')
+
+file_name_for_export_facet = f'../_scratch/EDA_correlation/facet_{diet_label}_vs_{disease_label.replace(" ", "_")}_ccf.png'
+plt.savefig(file_name_for_export_facet, dpi=150, bbox_inches='tight')
+plt.tight_layout()
+plt.show()
+plt.close()
+```
+
+
+## Choropleth
+
+The five-year-time-lagged correlation coefficient for nutrient cluster 2 and high LDL cholesterol was mapped to each region of the UK.  The inverse association is evident in every region of the UK. 
 
 ```{python}
 fg17fg55nute = 'nute'
@@ -223,7 +252,7 @@ for loc in df_diet_national['location'].unique() if 'location' in df_diet_nation
     results.append({'location': loc, 'r': r, 'n': n})
 
 df_region_lag5 = pd.DataFrame(results).sort_values('r', ascending=False)
-print(df_region_lag5)
+#print(df_region_lag5)
 
 
 url = 'https://raw.githubusercontent.com/martinjc/UK-GeoJSON/master/json/electoral/gb/eer.json'
@@ -272,6 +301,8 @@ plt.show()
 ```
 
 
+
+ For comparison, a similar mapping of five year time lagged rates of nutrient cluster 2 against high systolic blood pressure is included, showing much more nuetral and random association. 
 
 
 
@@ -349,7 +380,7 @@ for loc in df_diet_national['location'].unique() if 'location' in df_diet_nation
     results.append({'location': loc, 'r': r, 'n': n})
 
 df_region_lag5 = pd.DataFrame(results).sort_values('r', ascending=False)
-print(df_region_lag5)
+#print(df_region_lag5)
 
 
 url = 'https://raw.githubusercontent.com/martinjc/UK-GeoJSON/master/json/electoral/gb/eer.json'

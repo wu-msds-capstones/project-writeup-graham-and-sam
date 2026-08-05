@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Untitled</title>
+<title>UK Diet and Disease Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -236,7 +236,7 @@ div.csl-indent {
 <header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Untitled</h1>
+      <h1 class="title">UK Diet and Disease Analysis</h1>
             <p class="subtitle lead">Subtitle</p>
           </div>
 
@@ -299,7 +299,11 @@ div.csl-indent {
   <li><a href="#stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" id="toc-stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" class="nav-link" data-scroll-target="#stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time">stats for proportions confirming the significance of changing clusters over time</a></li>
   <li><a href="#last-output-is-easy-to-read-stats-on-long-term-changes-others-are-per-year-with-general-changes-showing-its-not-noise" id="toc-last-output-is-easy-to-read-stats-on-long-term-changes-others-are-per-year-with-general-changes-showing-its-not-noise" class="nav-link" data-scroll-target="#last-output-is-easy-to-read-stats-on-long-term-changes-others-are-per-year-with-general-changes-showing-its-not-noise">last output is easy to read stats on long term changes, others are per year with general changes showing its not noise</a></li>
   </ul></li>
-  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
+  <ul class="collapse">
+  <li><a href="#correlation-validation" id="toc-correlation-validation" class="nav-link" data-scroll-target="#correlation-validation">Correlation validation</a></li>
+  <li><a href="#choropleth" id="toc-choropleth" class="nav-link" data-scroll-target="#choropleth">Choropleth</a></li>
+  </ul></li>
   <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
@@ -374,7 +378,7 @@ div.csl-indent {
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;matplotlib.colorbar.Colorbar object at 0x32fb80440&gt;
+<pre><code>&lt;matplotlib.colorbar.Colorbar object at 0x331a9c440&gt;
 Text(0.5, 0, 'PC1')
 Text(0, 0.5, 'PC2')
 Text(0.5, 1.0, 'no_alcohol_foodgroup17 by household \n value = calorie_ratio\nPC1 vs PC2')
@@ -478,7 +482,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;matplotlib.colorbar.Colorbar object at 0x334369090&gt;
+<pre><code>&lt;matplotlib.colorbar.Colorbar object at 0x336395090&gt;
 Text(0.5, 0, 'PC1')
 Text(0, 0.5, 'PC2')
 Text(0.5, 1.0, 'no_alcohol_nutrient by household \n value = nutrient_per_total_cal\nPC1 vs PC2')
@@ -1210,66 +1214,80 @@ Response: cluster_fct
 </section>
 <section id="results" class="level1">
 <h1>Results</h1>
+<p>Based on the consisitent decline in its SEV risk rate, high LDL cholesterol was chosen as the chronic disease symptom of primary interest.</p>
+<p>Year-on-year change in nutrient profile cluster 2 was assessed against a time-lag sweep of year-on-year change in SEV risk rate for LDL cholesterol using a cross correlation function (CCF), resulting in Pearson correlation score r. Perfect correlation is r =1.0, whereas no correlation is r =0.0.</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>    lag         r
-0     0 -0.572777
-1     1 -0.298106
-2     2 -0.052893
-3     3  0.467787
-4     4  0.446081
-5     5  0.678667
-6     6  0.426708
-7     7  0.445592
-8     8  0.100704
-9     9 -0.117699
-10   10 -0.248187
-11   11 -0.158684
-12   12 -0.173682
-13   13 -0.094746
-14   14  0.299795
-15   15  0.320505
-16   16  0.393172
-17   17  0.459365
-18   18  0.434622
-19   19  0.332349
-20   20  0.283300</code></pre>
-</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-23-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="capstone_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="2400"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-22-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="capstone_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
+<p>A stasticially significant correlation (p &lt;0.05) was noted between 2.5 and 7.5 years, and an even more significant correlation was found at precisely 5 years (p &lt; 0.01). Peak correlation at 5 years was over 0.6.</p>
+<p>The five year time lag restricted the number of years for continued analysis. Because the diet data only goes until 2000, and the disease data begins in 1990, the maximal appropriate overlap window was diet data from 1985 to 2000 correlated with disease data from 1990 to 2005.</p>
+<section id="correlation-validation" class="level2">
+<h2 class="anchored" data-anchor-id="correlation-validation">Correlation validation</h2>
+<p>For those 15 years, the time points were shuffled through 10,000 random permutations, and reassessed with cross correlation. All random permutations failed to produce statistically significant correlation, suggesting that the detected correlation between nutrient cluster 2 and high LDL cholesterol at a five year time lag was a legitimate signal in the data.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Observed r = 0.679, n = 15, permutation p-value = 0.0065</code></pre>
 </div>
+</div>
+<p>In comparison to nutrient cluster 2, the other nutrient clusters fail to correlate with high LDL cholesterol.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[&lt;matplotlib.lines.Line2D object at 0x37acfb110&gt;]
+&lt;matplotlib.lines.Line2D object at 0x37acfb250&gt;
+&lt;matplotlib.lines.Line2D object at 0x37acfb390&gt;
+&lt;matplotlib.lines.Line2D object at 0x37acfb4d0&gt;
+Text(0.5, 1.0, 'nute_cluster_0')
+Text(0.5, 0, 'lag')
+[&lt;matplotlib.lines.Line2D object at 0x37acfb610&gt;]
+&lt;matplotlib.lines.Line2D object at 0x37acfb750&gt;
+&lt;matplotlib.lines.Line2D object at 0x37acfb890&gt;
+&lt;matplotlib.lines.Line2D object at 0x37acfb9d0&gt;
+Text(0.5, 1.0, 'nute_cluster_1')
+Text(0.5, 0, 'lag')
+[&lt;matplotlib.lines.Line2D object at 0x37acfbb10&gt;]
+&lt;matplotlib.lines.Line2D object at 0x37acfbc50&gt;
+&lt;matplotlib.lines.Line2D object at 0x37acfbd90&gt;
+&lt;matplotlib.lines.Line2D object at 0x37acfbed0&gt;
+Text(0.5, 1.0, 'nute_cluster_2')
+Text(0.5, 0, 'lag')
+[&lt;matplotlib.lines.Line2D object at 0x37ad90050&gt;]
+&lt;matplotlib.lines.Line2D object at 0x37ad90190&gt;
+&lt;matplotlib.lines.Line2D object at 0x37ad902d0&gt;
+&lt;matplotlib.lines.Line2D object at 0x37ad90410&gt;
+Text(0.5, 1.0, 'nute_cluster_3')
+Text(0.5, 0, 'lag')
+[&lt;matplotlib.lines.Line2D object at 0x37ad90550&gt;]
+&lt;matplotlib.lines.Line2D object at 0x37ad90690&gt;
+&lt;matplotlib.lines.Line2D object at 0x37ad907d0&gt;
+&lt;matplotlib.lines.Line2D object at 0x37ad90910&gt;
+Text(0.5, 1.0, 'nute_cluster_4')
+Text(0.5, 0, 'lag')</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Text(0, 0.5, 'r')</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Text(0.5, 0.98, 'vs High LDL cholesterol')</code></pre>
+</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-24-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="capstone_files/figure-html/unnamed-chunk-24-3.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-24-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="capstone_files/figure-html/unnamed-chunk-24-3.png" class="img-fluid figure-img" width="2400"></a></p>
 </figure>
 </div>
 </div>
 </div>
+</section>
+<section id="choropleth" class="level2">
+<h2 class="anchored" data-anchor-id="choropleth">Choropleth</h2>
+<p>The five-year-time-lagged correlation coefficient for nutrient cluster 2 and high LDL cholesterol was mapped to each region of the UK. The inverse association is evident in every region of the UK.</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>                    location         r   n
-10  Yorkshire and the Humber -0.202527  26
-6         South East England -0.235180  26
-7         South West England -0.274889  26
-1            East of England -0.282573  26
-0              East Midlands -0.294227  26
-9              West Midlands -0.366116  26
-2             Greater London -0.370728  26
-8                      Wales -0.478069  26
-3         North East England -0.483312  26
-4         North West England -0.528504  26
-5                   Scotland -0.677953  26</code></pre>
-</div>
 <div class="cell-output cell-output-stdout">
 <pre><code>11698695</code></pre>
 </div>
@@ -1310,21 +1328,8 @@ Response: cluster_fct
 </div>
 </div>
 </div>
+<p>For comparison, a similar mapping of five year time lagged rates of nutrient cluster 2 against high systolic blood pressure is included, showing much more nuetral and random association.</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>                    location         r   n
-2             Greater London  0.453944  26
-10  Yorkshire and the Humber  0.413071  26
-1            East of England  0.281802  26
-9              West Midlands  0.180450  26
-0              East Midlands  0.042517  26
-7         South West England  0.017599  26
-6         South East England -0.000749  26
-4         North West England -0.021999  26
-5                   Scotland -0.061581  26
-3         North East England -0.333534  26
-8                      Wales -0.397503  26</code></pre>
-</div>
 <div class="cell-output cell-output-stdout">
 <pre><code>11698695</code></pre>
 </div>
@@ -1365,6 +1370,7 @@ Response: cluster_fct
 </div>
 </div>
 </div>
+</section>
 </section>
 <section id="conclusions" class="level1">
 <h1>Conclusions</h1>
