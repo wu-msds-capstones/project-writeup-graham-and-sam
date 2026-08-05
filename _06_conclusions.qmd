@@ -1,1 +1,28 @@
+---
+title: "UK Diet and Disease Analysis"
+format: html
+jupyter: python3
+execute:
+  echo: false
+---
+
 # Conclusions
+
+
+### Overall conclusion
+
+There appears to be a statistically significant inverse correlation between nutrient profile cluster 2 and five-year time lag SEV risk rates for high LDL cholesterol. Nutrient profile cluster 2 is characterized by higher levels of nutrients most associated with plant-based foods, so we conclude that there is a detectable correlative association between plant-based food trends and lowering LDL cholesterol rates in the UK population.
+
+Of course, this is consistent with years of literature and medical advice.  The innovation of this project, if any, is the identification of a five year time lag specifically between plant-based diet trends and LDL cholestrol rates. This information is potentially useful to any individual tracking their own health, and to public health officials assessing the effectiveness of policiies related to food and metabolic disease. 
+
+### Limitations
+
+ It might be expected that this five year time lag finding would apply to any population, not just the UK.  That said, there are certainly many confounding variables involved in human health outcomes  --genetics, poverty, food access, education, environmental exposures, other lifestyle factors, and more -- so a strong proclaimation about the universal applicability of this finding is not warranted.  Even looking only at the UK only, there are many caveats to consider in this data. The food diaries were self reported, so the information might be of varying reliability.  Also, the diet diaries tracked the food that was purchased. It is assumed that the purchased food was consumed, but that could be inaccurate.  Relatedly, some households might be bulk shoppers who buy a lot of food every other week. For such a bulk shopping household, the timing of the diet diary week could make them appear to consume way too much or way too little.
+
+ ### Final thoughts
+
+ Human health is complex, the association with diet, while well studied, is also complex.  Any additional insight into connections between food and health can bolster individuals and society in general to improve their longevity and reduce their risk of chroic disease.  While there are mixed messages from online influencers about these food health connections, this analysis suggests that the mainstream medical messaging is right: a more plant based diet can help lower LDL cholesterol.
+
+ So once again:
+
+ Eat more plants now, have lower cholesterol later.  Specifically LDL cholesterol, and specifically five years later. 

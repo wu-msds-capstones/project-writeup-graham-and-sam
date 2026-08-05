@@ -304,7 +304,11 @@ div.csl-indent {
   <li><a href="#correlation-validation" id="toc-correlation-validation" class="nav-link" data-scroll-target="#correlation-validation">Correlation validation</a></li>
   <li><a href="#choropleth" id="toc-choropleth" class="nav-link" data-scroll-target="#choropleth">Choropleth</a></li>
   </ul></li>
-  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a>
+  <ul class="collapse">
+  <li><a href="#overall-conclusion" id="toc-overall-conclusion" class="nav-link" data-scroll-target="#overall-conclusion">Overall conclusion</a></li>
+  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">Limitations</a></li>
+  </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -378,7 +382,7 @@ div.csl-indent {
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;matplotlib.colorbar.Colorbar object at 0x3251f4440&gt;
+<pre><code>&lt;matplotlib.colorbar.Colorbar object at 0x32ee4c440&gt;
 Text(0.5, 0, 'PC1')
 Text(0, 0.5, 'PC2')
 Text(0.5, 1.0, 'no_alcohol_foodgroup17 by household \n value = calorie_ratio\nPC1 vs PC2')
@@ -482,7 +486,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;matplotlib.colorbar.Colorbar object at 0x32992d090&gt;
+<pre><code>&lt;matplotlib.colorbar.Colorbar object at 0x333159090&gt;
 Text(0.5, 0, 'PC1')
 Text(0, 0.5, 'PC2')
 Text(0.5, 1.0, 'no_alcohol_nutrient by household \n value = nutrient_per_total_cal\nPC1 vs PC2')
@@ -1238,34 +1242,34 @@ Response: cluster_fct
 <p>In comparison to nutrient cluster 2, the other nutrient clusters fail to correlate with high LDL cholesterol.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[&lt;matplotlib.lines.Line2D object at 0x33b1f3390&gt;]
-&lt;matplotlib.lines.Line2D object at 0x33b1f34d0&gt;
-&lt;matplotlib.lines.Line2D object at 0x33b1f3610&gt;
-&lt;matplotlib.lines.Line2D object at 0x33b1f3750&gt;
+<pre><code>[&lt;matplotlib.lines.Line2D object at 0x37824f390&gt;]
+&lt;matplotlib.lines.Line2D object at 0x37824f4d0&gt;
+&lt;matplotlib.lines.Line2D object at 0x37824f610&gt;
+&lt;matplotlib.lines.Line2D object at 0x37824f750&gt;
 Text(0.5, 1.0, 'nute_cluster_0')
 Text(0.5, 0, 'lag')
-[&lt;matplotlib.lines.Line2D object at 0x33b1f3890&gt;]
-&lt;matplotlib.lines.Line2D object at 0x33b1f39d0&gt;
-&lt;matplotlib.lines.Line2D object at 0x33b1f3b10&gt;
-&lt;matplotlib.lines.Line2D object at 0x33b1f3c50&gt;
+[&lt;matplotlib.lines.Line2D object at 0x37824f890&gt;]
+&lt;matplotlib.lines.Line2D object at 0x37824f9d0&gt;
+&lt;matplotlib.lines.Line2D object at 0x37824fb10&gt;
+&lt;matplotlib.lines.Line2D object at 0x37824fc50&gt;
 Text(0.5, 1.0, 'nute_cluster_1')
 Text(0.5, 0, 'lag')
-[&lt;matplotlib.lines.Line2D object at 0x33b1f3d90&gt;]
-&lt;matplotlib.lines.Line2D object at 0x33b1f3ed0&gt;
-&lt;matplotlib.lines.Line2D object at 0x33b234050&gt;
-&lt;matplotlib.lines.Line2D object at 0x33b234190&gt;
+[&lt;matplotlib.lines.Line2D object at 0x37824fd90&gt;]
+&lt;matplotlib.lines.Line2D object at 0x37824fed0&gt;
+&lt;matplotlib.lines.Line2D object at 0x378290050&gt;
+&lt;matplotlib.lines.Line2D object at 0x378290190&gt;
 Text(0.5, 1.0, 'nute_cluster_2')
 Text(0.5, 0, 'lag')
-[&lt;matplotlib.lines.Line2D object at 0x33b2342d0&gt;]
-&lt;matplotlib.lines.Line2D object at 0x33b234410&gt;
-&lt;matplotlib.lines.Line2D object at 0x33b234550&gt;
-&lt;matplotlib.lines.Line2D object at 0x33b234690&gt;
+[&lt;matplotlib.lines.Line2D object at 0x3782902d0&gt;]
+&lt;matplotlib.lines.Line2D object at 0x378290410&gt;
+&lt;matplotlib.lines.Line2D object at 0x378290550&gt;
+&lt;matplotlib.lines.Line2D object at 0x378290690&gt;
 Text(0.5, 1.0, 'nute_cluster_3')
 Text(0.5, 0, 'lag')
-[&lt;matplotlib.lines.Line2D object at 0x33b2347d0&gt;]
-&lt;matplotlib.lines.Line2D object at 0x33b234910&gt;
-&lt;matplotlib.lines.Line2D object at 0x33b234a50&gt;
-&lt;matplotlib.lines.Line2D object at 0x33b234b90&gt;
+[&lt;matplotlib.lines.Line2D object at 0x3782907d0&gt;]
+&lt;matplotlib.lines.Line2D object at 0x378290910&gt;
+&lt;matplotlib.lines.Line2D object at 0x378290a50&gt;
+&lt;matplotlib.lines.Line2D object at 0x378290b90&gt;
 Text(0.5, 1.0, 'nute_cluster_4')
 Text(0.5, 0, 'lag')</code></pre>
 </div>
@@ -1374,6 +1378,19 @@ Text(0.5, 0, 'lag')</code></pre>
 </section>
 <section id="conclusions" class="level1">
 <h1>Conclusions</h1>
+<section id="overall-conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="overall-conclusion">Overall conclusion</h3>
+<p>There appears to be a statistically significant inverse correlation between nutrient profile cluster 2 and five-year time lag SEV risk rates for high LDL cholesterol. Nutrient profile cluster 2 is characterized by higher levels of nutrients most associated with plant-based foods, so we conclude that there is a detectable correlative association between plant-based food trends and lowering LDL cholesterol rates in the UK population.</p>
+<p>Of course, this is consistent with years of literature and medical advice. The innovation of this project, if any, is the identification of a five year time lag specifically between plant-based diet trends and LDL cholestrol rates. This information is potentially useful to any individual tracking their own health, and to public health officials assessing the effectiveness of policiies related to food and metabolic disease.</p>
+</section>
+<section id="limitations" class="level3">
+<h3 class="anchored" data-anchor-id="limitations">Limitations</h3>
+<p>It might be expected that this five year time lag finding would apply to any population, not just the UK. That said, there are certainly many confounding variables involved in human health outcomes –genetics, poverty, food access, education, environmental exposures, other lifestyle factors, and more – so a strong proclaimation about the universal applicability of this finding is not warranted. Even looking only at the UK only, there are many caveats to consider in this data. The food diaries were self reported, so the information might be of varying reliability. Also, the diet diaries tracked the food that was purchased. It is assumed that the purchased food was consumed, but that could be inaccurate. Relatedly, some households might be bulk shoppers who buy a lot of food every other week. For such a bulk shopping household, the timing of the diet diary week could make them appear to consume way too much or way too little.</p>
+<p>### Final thoughts</p>
+<p>Human health is complex, the association with diet, while well studied, is also complex. Any additional insight into connections between food and health can bolster individuals and society in general to improve their longevity and reduce their risk of chroic disease. While there are mixed messages from online influencers about these food health connections, this analysis suggests that the mainstream medical messaging is right: a more plant based diet can help lower LDL cholesterol.</p>
+<p>So once again:</p>
+<p>Eat more plants now, have lower cholesterol later. Specifically LDL cholesterol, and specifically five years later.</p>
+</section>
 </section>
 <section id="references" class="level1">
 <h1>References</h1>
