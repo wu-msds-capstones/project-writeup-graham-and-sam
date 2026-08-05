@@ -1824,16 +1824,6 @@ df_lag_trimmed.to_parquet(file_name_for_export)
 
 
 
-
-
-
-
-
-
-
-
-
-
 ```
 
 
@@ -1841,8 +1831,7 @@ df_lag_trimmed.to_parquet(file_name_for_export)
 
 ### Rates of metabolic syndrom related chronic disease symptoms in the UK from 1990 to 2020
 
-
-
+Rates of LDL cholesterol went down in the 1990s.
 
 
 
@@ -1865,9 +1854,6 @@ for col in ['val', 'upper', 'lower']:
           .transform(lambda s: s.rolling(window=5, center=True, min_periods=3).mean())
     )
 #df_metabolic_5yr.head(1000)
-
-
-
 
 disease_colors = {
     'High LDL cholesterol': '#D62728',
