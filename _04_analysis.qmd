@@ -146,7 +146,7 @@ os.makedirs(run_folder, exist_ok=True)
 ####################################################
 ############
 # Build the read in file path name as an f-string
-parquet_filepath = f'../shared_data/NFS_all_years_{household_or_region}_{foodgroup17_foodgroup55_or_nutrient}_aggs_v2_no_alcohol_NI_mlso.parquet'
+parquet_filepath = f'../shared_data/POSTER_NFS_all_years_{household_or_region}_{foodgroup17_foodgroup55_or_nutrient}_aggs_v2_no_alcohol_NI_mlso.parquet'
 
 
 
@@ -896,7 +896,7 @@ os.makedirs(run_folder, exist_ok=True)
 ####################################################
 ############
 # Build the read in file path name as an f-string
-parquet_filepath = f'../shared_data/NFS_all_years_{household_or_region}_{foodgroup17_foodgroup55_or_nutrient}_aggs_v2_no_alcohol_NI_mlso.parquet'
+parquet_filepath = f'../POSTER_shared_data/NFS_all_years_{household_or_region}_{foodgroup17_foodgroup55_or_nutrient}_aggs_v2_no_alcohol_NI_mlso.parquet'
 
 
 
