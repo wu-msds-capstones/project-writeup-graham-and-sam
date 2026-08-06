@@ -276,7 +276,7 @@ fig.savefig(f"{run_folder}/scree_{run_name}.png",  dpi=300, bbox_inches='tight')
 #print(evr_table)
 ##   # renders the table in the Quarto output
 plt.show()
-plt.close();
+plt.close()
 
 pca_loadings = pd.DataFrame(
     pca.components_.T,                     # transpose: rows = food groups
@@ -320,7 +320,8 @@ for i, j in combinations(range(number_PCs_to_plot), 2):
 
    # fig.savefig(f"{run_folder}/PC{i+1}v{j+1}_{run_name}.png",  dpi=300, bbox_inches='tight')
    # plt.show()
-    plt.close();
+    plt.close(fig)
+
 
 pca_full = PCA(n_components=0.95, random_state=42)  # 0.95 = auto-pick n for 95% variance
 pcs_95 = pca_full.fit_transform(scaled_df)
@@ -353,7 +354,6 @@ ax.set_title('PC1 Orientation — Food groups')
 plt.tight_layout()
 fig.savefig(f"{run_folder}/pc1_loadings_barh_{run_name}.png", dpi=300, bbox_inches='tight')
 plt.show()
-plt.close();
 
 loadings_df = pd.DataFrame({
     'feature': scaled_df.columns,
@@ -786,7 +786,6 @@ ax.set_title(f'{title_name}\nPCA(12) → t-SNE, colored by k-means cluster')
 
 fig.savefig(f"{run_folder}/tsne_cluster_{run_name}.png", dpi=300, bbox_inches='tight')
 plt.show()
-plt.close();
 
 ```
 
@@ -839,13 +838,10 @@ for i, cid in enumerate([0, 1]):
 
 ax_heat.set_yticks(range(len(heat_map_data_ordered.index)))
 ax_heat.set_yticklabels(heat_map_data_ordered.index)
-ax_heat.yaxis.tick_right()
 
 ax_heat.set_xticks([0, 1])
 ax_heat.set_xticklabels(['0', '1'])
-fig.subplots_adjust(right=0.95) 
-plt.show()
-plt.close();
+
 #############################################################################
 #######################################
 #############################################################################
@@ -1142,9 +1138,8 @@ ax.set_title(f'{title_name}\nScree plot')
 fig.savefig(f"{run_folder}/scree_{run_name}.png",  dpi=300, bbox_inches='tight')
 
 #print(evr_table)
-#evr_table   # renders the table in the Quarto output
+evr_table   # renders the table in the Quarto output
 plt.show()
-plt.close();
 
 
 pca_loadings = pd.DataFrame(
@@ -1189,7 +1184,7 @@ for i, j in combinations(range(number_PCs_to_plot), 2):
 
     #fig.savefig(f"{run_folder}/PC{i+1}v{j+1}_{run_name}.png",  dpi=300, bbox_inches='tight')
     #plt.show()
-    plt.close();
+    plt.close(fig)
 
 
 pca_full = PCA(n_components=0.95, random_state=42)  # 0.95 = auto-pick n for 95% variance
@@ -1235,7 +1230,6 @@ ax.set_title('PC2 Orientation — Nutrients')
 plt.tight_layout()
 fig.savefig(f"{run_folder}/pc2_loadings_barh_{run_name}.png", dpi=300, bbox_inches='tight')
 plt.show()
-plt.close();
 
 ```
 
@@ -1635,7 +1629,6 @@ ax.set_title(f'{title_name}\nPCA(12) → t-SNE, colored by k-means cluster')
 
 fig.savefig(f"{run_folder}/tsne_cluster_{run_name}.png", dpi=300, bbox_inches='tight')
 plt.show()
-plt.close();
 
 
 ###########
@@ -1686,8 +1679,6 @@ def plot_all_heatmaps_faceted(data_dict, cluster_ids, pc_label):
 
     fig.suptitle(pc_label)
     plt.tight_layout()
-    plt.show()
-    plt.close();
     return fig
 
 cluster_ids = sorted(cluster_colors.keys())
@@ -1703,6 +1694,9 @@ fig2 = plot_all_heatmaps_faceted(heat_by_cluster_pc2, cluster_ids, "PC2 order")
 Assessed against PC 1, cluster 0 is closer to the high fat pole, while cluster 2 is closely associated with the plant-like pole. 
 
 
+## LDL cholesterol and chronic disease data
+
+### Rates of metabolic syndrom related chronic disease symptoms in the UK from 1990 to 2020
 
 
 ```{python}
@@ -1826,22 +1820,35 @@ df_lag_trimmed = df_merged_lag_no_NaN[['styr', 'location', cluster_column,'propo
 df_lag_trimmed.to_parquet(file_name_for_export)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 ```
 
 
-## LDL cholesterol and chronic disease data
 
-### Rates of metabolic syndrom related chronic disease symptoms in the UK from 1990 to 2020
 
-Rates of LDL cholesterol went down in the 1990s.
+
+
+
 
 
 ```{python}
 ############
 #### Read in a disease raw data file...
 df_metabolic_risk = pd.read_csv('shared_data/IHME-GBD_SEV_metabolic_regions.csv')
-#df_metabolic_risk
-#df_metabolic_risk.head()
+df_metabolic_risk
+df_metabolic_risk.head()
 
 
 # Prepare for adding 5 year moving average by sorting sensibly
@@ -1855,6 +1862,9 @@ for col in ['val', 'upper', 'lower']:
           .transform(lambda s: s.rolling(window=5, center=True, min_periods=3).mean())
     )
 #df_metabolic_5yr.head(1000)
+
+
+
 
 disease_colors = {
     'High LDL cholesterol': '#D62728',
@@ -1879,7 +1889,6 @@ disease_colors = {
 
 
 plt.show()
-plt.close();
 
 df_plot = df_metabolic_5yr[
     (df_metabolic_5yr['metric'] == 'Rate') &
@@ -1890,9 +1899,6 @@ df_plot = df_metabolic_5yr[
 ax = sns.lineplot(df_plot, x='year', y='val', hue='rei', palette=disease_colors)
 ax.xaxis.set_major_locator(plt.MaxNLocator(integer=True))
 ax.legend(bbox_to_anchor=(1.02, 1), loc='upper left', borderaxespad=0)
-plt.show()
-plt.close();
-
 ```
 
 Looking at the UK as a whole, SEV risk rates for high LDL cholesterol and high systolic blood pressure both show a downtrend from 1990 to 2000, althgouh high systolic blood pressure rates do start to climb again after that.  Metabolic risk overall continues to increase throughout the timespane, along with high body mass index (BMI). 
@@ -1909,7 +1915,6 @@ g = sns.relplot(
 
 )
 plt.show()
-plt.close();
 ```
 
 There is some regional variation in SEV risk rates over time for these chronic disease symptoms, but the only notable anomaly is the rate of high BMI in Wales compared to other regions. Wales has about 50% high BMI SEV risk for the whole dataset, whereas other regions do not approach that level of risk until later years, if at all.
