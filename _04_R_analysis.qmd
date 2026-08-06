@@ -218,7 +218,7 @@ print(p_trend_line)
   #ggsave(
    # file.path(save_dir, paste0(label_name, "_", value_col, "_", tolower(analysis_type), "_box_by_year.png")),
     #p_box, width = 9, height = 6, dpi = 150)
-}
+
 
 # -------------------------------------------------------------------
 # Combined stats table across PC1_score and PC2_score
