@@ -22,7 +22,7 @@ library(coin)
 library(nnet)
 library(reticulate)
 
-setwd("/Users/samcooper/Documents/GitHub/project-writeup-graham-and-sam/")
+#setwd("/Users/samcooper/Documents/GitHub/project-writeup-graham-and-sam/")
 
 qual_pca_nute = read_parquet("shared_data/cluster_pca_map_5_clusters_no_alcohol_nutrient_household_nutrient_per_total_cal_234_inits.parquet")
 
@@ -218,7 +218,7 @@ print(p_trend_line)
   #ggsave(
    # file.path(save_dir, paste0(label_name, "_", value_col, "_", tolower(analysis_type), "_box_by_year.png")),
     #p_box, width = 9, height = 6, dpi = 150)
-
+# }
 
 # -------------------------------------------------------------------
 # Combined stats table across PC1_score and PC2_score
