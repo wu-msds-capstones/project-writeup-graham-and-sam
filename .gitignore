@@ -5,3 +5,5 @@
 /_scratch
 /shared_data
 /output_plots
+*.html
+.Rhistory
