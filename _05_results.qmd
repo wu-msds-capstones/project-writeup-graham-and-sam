@@ -173,7 +173,7 @@ file_name_for_export_facet = f'../_scratch/EDA_correlation/facet_{diet_label}_vs
 plt.savefig(file_name_for_export_facet, dpi=20, bbox_inches='tight')
 plt.tight_layout()
 plt.show()
-plt.close(fig);
+plt.close();
 ```
 
 
