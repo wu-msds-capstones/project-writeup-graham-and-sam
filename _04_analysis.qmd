@@ -786,6 +786,7 @@ ax.set_title(f'{title_name}\nPCA(12) → t-SNE, colored by k-means cluster')
 
 fig.savefig(f"{run_folder}/tsne_cluster_{run_name}.png", dpi=300, bbox_inches='tight')
 plt.show()
+plt.close();
 
 ```
 
@@ -828,7 +829,7 @@ def col_to_rgb(colname):
 
 rgb_image = np.stack([col_to_rgb(0), col_to_rgb(1)], axis=1)  # (n_rows, 2, 3)
 
-fig, ax_heat = plt.subplots(figsize=(2, heat_map_data_ordered.shape[0]))
+fig, ax_heat = plt.subplots(figsize=(4, heat_map_data_ordered.shape[0]))
 ax_heat.imshow(rgb_image, aspect='auto')
 
 for i, cid in enumerate([0, 1]):
@@ -842,7 +843,7 @@ ax_heat.yaxis.tick_right()
 
 ax_heat.set_xticks([0, 1])
 ax_heat.set_xticklabels(['0', '1'])
-fig.subplots_adjust(right=0.5) 
+fig.subplots_adjust(right=0.8) 
 plt.show()
 plt.close();
 #############################################################################
@@ -1684,6 +1685,8 @@ def plot_all_heatmaps_faceted(data_dict, cluster_ids, pc_label):
 
     fig.suptitle(pc_label)
     plt.tight_layout()
+    plt.show()
+    plt.close();
     return fig
 
 cluster_ids = sorted(cluster_colors.keys())
@@ -1875,6 +1878,7 @@ disease_colors = {
 
 
 plt.show()
+plt.close();
 
 df_plot = df_metabolic_5yr[
     (df_metabolic_5yr['metric'] == 'Rate') &
@@ -1885,6 +1889,9 @@ df_plot = df_metabolic_5yr[
 ax = sns.lineplot(df_plot, x='year', y='val', hue='rei', palette=disease_colors)
 ax.xaxis.set_major_locator(plt.MaxNLocator(integer=True))
 ax.legend(bbox_to_anchor=(1.02, 1), loc='upper left', borderaxespad=0)
+plt.show()
+plt.close();
+
 ```
 
 Looking at the UK as a whole, SEV risk rates for high LDL cholesterol and high systolic blood pressure both show a downtrend from 1990 to 2000, althgouh high systolic blood pressure rates do start to climb again after that.  Metabolic risk overall continues to increase throughout the timespane, along with high body mass index (BMI). 
@@ -1901,6 +1908,7 @@ g = sns.relplot(
 
 )
 plt.show()
+plt.close();
 ```
 
 There is some regional variation in SEV risk rates over time for these chronic disease symptoms, but the only notable anomaly is the rate of high BMI in Wales compared to other regions. Wales has about 50% high BMI SEV risk for the whole dataset, whereas other regions do not approach that level of risk until later years, if at all.
