@@ -382,7 +382,7 @@ div.csl-indent {
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;matplotlib.colorbar.Colorbar object at 0x321b00440&gt;
+<pre><code>&lt;matplotlib.colorbar.Colorbar object at 0x307070440&gt;
 Text(0.5, 0, 'PC1')
 Text(0, 0.5, 'PC2')
 Text(0.5, 1.0, 'no_alcohol_foodgroup17 by household \n value = calorie_ratio\nPC1 vs PC2')
@@ -486,7 +486,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;matplotlib.colorbar.Colorbar object at 0x326309090&gt;
+<pre><code>&lt;matplotlib.colorbar.Colorbar object at 0x30b915090&gt;
 Text(0.5, 0, 'PC1')
 Text(0, 0.5, 'PC2')
 Text(0.5, 1.0, 'no_alcohol_nutrient by household \n value = nutrient_per_total_cal\nPC1 vs PC2')
@@ -687,34 +687,17 @@ Name: count, dtype: int64</code></pre>
 <section id="results" class="level1">
 <h1>Results</h1>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>    lag         r
-0     0 -0.572777
-1     1 -0.298106
-2     2 -0.052893
-3     3  0.467787
-4     4  0.446081
-5     5  0.678667
-6     6  0.426708
-7     7  0.445592
-8     8  0.100704
-9     9 -0.117699
-10   10 -0.248187
-11   11 -0.158684
-12   12 -0.173682
-13   13 -0.094746
-14   14  0.299795
-15   15  0.320505
-16   16  0.393172
-17   17  0.459365
-18   18  0.434622
-19   19  0.332349
-20   20  0.283300</code></pre>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="capstone_files/figure-html/unnamed-chunk-23-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="capstone_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-23-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="capstone_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="2400"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-23-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="capstone_files/figure-html/unnamed-chunk-23-2.png" class="img-fluid figure-img" width="2400"></a></p>
 </figure>
 </div>
 </div>
@@ -722,13 +705,6 @@ Name: count, dtype: int64</code></pre>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Observed r = 0.679, n = 15, permutation p-value = 0.0065</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-24-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="capstone_files/figure-html/unnamed-chunk-24-3.png" class="img-fluid figure-img" width="672"></a></p>
-</figure>
-</div>
 </div>
 </div>
 <div class="cell">
@@ -750,26 +726,6 @@ Name: count, dtype: int64</code></pre>
 <pre><code>11698695</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>['EER13CD', 'EER13CDO', 'EER13NM', 'geometry']</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>['North East', 'North West', 'Yorkshire and The Humber', 'East Midlands', 'West Midlands', 'Eastern', 'London', 'South East', 'South West', 'Scotland', 'Wales']</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                    location         r
-0         North East England -0.483312
-1         North West England -0.528504
-2   Yorkshire and the Humber -0.202527
-3              East Midlands -0.294227
-4              West Midlands -0.366116
-5            East of England -0.282573
-6             Greater London -0.370728
-7         South East England -0.235180
-8         South West England -0.274889
-9                   Scotland -0.677953
-10                     Wales -0.478069</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
 <pre><code>&lt;Axes: &gt;</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -788,41 +744,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>                    location         r   n
-2             Greater London  0.453944  26
-10  Yorkshire and the Humber  0.413071  26
-1            East of England  0.281802  26
-9              West Midlands  0.180450  26
-0              East Midlands  0.042517  26
-7         South West England  0.017599  26
-6         South East England -0.000749  26
-4         North West England -0.021999  26
-5                   Scotland -0.061581  26
-3         North East England -0.333534  26
-8                      Wales -0.397503  26</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
 <pre><code>11698695</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>['EER13CD', 'EER13CDO', 'EER13NM', 'geometry']</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>['North East', 'North West', 'Yorkshire and The Humber', 'East Midlands', 'West Midlands', 'Eastern', 'London', 'South East', 'South West', 'Scotland', 'Wales']</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                    location         r
-0         North East England -0.333534
-1         North West England -0.021999
-2   Yorkshire and the Humber  0.413071
-3              East Midlands  0.042517
-4              West Midlands  0.180450
-5            East of England  0.281802
-6             Greater London  0.453944
-7         South East England -0.000749
-8         South West England  0.017599
-9                   Scotland -0.061581
-10                     Wales -0.397503</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;Axes: &gt;</code></pre>
