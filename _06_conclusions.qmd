@@ -1,15 +1,28 @@
+---
+title: "UK Diet and Disease Analysis"
+format: html
+jupyter: python3
+execute:
+  echo: false
+---
+
 # Conclusions
 
-This study set out to explore the relationship between dietary nutrient intake and the corresponding metabolic rates, focusing on LDL cholesterol risk rate. It explored how increased prevalence of plant-based dietary patterns correlates with a decrease in LDL cholesterol risk rates with a 5-year time lag. 
 
-Through unsupervised principal component analysis and k-means clustering on ~190,000 household food purchase records, we identified a nutrient pattern sourced from plant-based diets (Nutrient cluster 2, high in carbohydrates, plant proteins, key vitamins). Adoption of this cluster expanded greatly during the time period of 1974-2000, when it started with a utilization of 10% of households, increasing to 40% by the end of the period. Concurrently, the population summary score exposure values for elevated levels of LDL cholesterol experienced a steady decline. 
+### Overall conclusion
 
-Using cross-correlation time lag analysis, we confirmed our hypothesis supporting a statistically significant (p-value < 0.01) inverse relationship between the prevalence of plant-based diets and high levels of LDL cholesterol rates with a 5-year time lag.
+There appears to be a statistically significant inverse correlation between nutrient profile cluster 2 and five-year time lag SEV risk rates for high LDL cholesterol. Nutrient profile cluster 2 is characterized by higher levels of nutrients most associated with plant-based foods, so we conclude that there is a detectable correlative association between plant-based food trends and lowering LDL cholesterol rates in the UK population.
 
-To maintain a high confidence level, there was a significant p-value across a 4-year window. During the time lag of 3-7 years, there was a consistent p-value calculated at less than 0.05. Ultimately, the statistical significance peaked at the 5-year time lag, but the expanded ranch further supports the established relationship between specific diet and high LDL cholesterol rate.
+Of course, this is consistent with years of literature and medical advice.  The innovation of this project, if any, is the identification of a five year time lag specifically between plant-based diet trends and LDL cholestrol rates. This information is potentially useful to any individual tracking their own health, and to public health officials assessing the effectiveness of policiies related to food and metabolic disease. 
 
-Despite statistical significance, scientific caution must be included. There were limiting factors inherently baked into the dataset. The study evaluated population-level aggregation as opposed to a longitudinal study focused on specific cohorts of households. Additionally, it operated under the assumption that the bought food was consumed. This analysis did not explicitly account for shifting populations, socioeconomic status, or hereditary features, which may influence the data over time.
+### Limitations
 
-In a time where there are conflicting nutrition claims and diverse diets, this study grounds findings in an empirical, multi-decade observational study determining significant associations. Existing research establishes links between diet and LDL cholesterol levels. This study complements the existing research demonstrating that metabolic benefits can be observed at a macro, population-level scale.
+ It might be expected that this five year time lag finding would apply to any population, not just the UK.  That said, there are certainly many confounding variables involved in human health outcomes  --genetics, poverty, food access, education, environmental exposures, other lifestyle factors, and more -- so a strong proclaimation about the universal applicability of this finding is not warranted.  Even looking only at the UK only, there are many caveats to consider in this data. The food diaries were self reported, so the information might be of varying reliability.  Also, the diet diaries tracked the food that was purchased. It is assumed that the purchased food was consumed, but that could be inaccurate.  Relatedly, some households might be bulk shoppers who buy a lot of food every other week. For such a bulk shopping household, the timing of the diet diary week could make them appear to consume way too much or way too little.
 
-This study works as a springboard for scalable future work. A companion study could be conducted to investigate specific nutrient quantities that decrease subsequent metabolic diseases, beyond a focus on high LDL cholesterol risk. Notable changes would be targeted at the inclusion of additional demographic information to mitigate confounding variables absent from this study.
+### Final thoughts
+
+ Human health is complex, the association with diet, while well studied, is also complex.  Any additional insight into connections between food and health can bolster individuals and society in general to improve their longevity and reduce their risk of chroic disease.  While there are mixed messages from online influencers about these food health connections, this analysis suggests that the mainstream medical messaging is right: a more plant based diet can help lower LDL cholesterol.
+
+ So once again:
+
+ Eat more plants now, have lower cholesterol later.  Specifically LDL cholesterol, and specifically five years later. 

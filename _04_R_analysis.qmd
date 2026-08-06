@@ -94,7 +94,7 @@ cluster_props1 = cluster_data1 %>%
   ungroup() %>%
   arrange(.data[[year_col]], .data[[cluster_col]])
 
-print(kable(cluster_props1, digits = 3))
+#print(kable(cluster_props1, digits = 3))
 
 
 # -------------------------------------------------------------------
@@ -186,6 +186,7 @@ print(p_trend_line)
 
   #all_stats[[value_col]] = var_stats
 
+  #print(kable(var_stats, digits = 3))
   #print(kable(var_stats, digits = 3))
 
   # ---- Ridge plot ----
@@ -405,7 +406,7 @@ for (clust in clusters) {
 pairwise_table = bind_rows(pairwise_results) %>% arrange(cluster, year_prev)
 
 cat("\n==== Year-over-Year Cluster Proportion Tests ====\n")
-print(kable(pairwise_table, digits = 4))
+#print(kable(pairwise_table, digits = 4))
 
 
 ```
