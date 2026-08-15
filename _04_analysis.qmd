@@ -237,8 +237,6 @@ scaled_df = pd.DataFrame(
 ### PCA (principal component analysis)
 
 ```{python}
-
-
 #######
 ### PCA TIME!
 
@@ -319,7 +317,7 @@ for i, j in combinations(range(number_PCs_to_plot), 2):
                 pca_coords[:, j].mean() + 5*pca_coords[:, j].std())
 
    # fig.savefig(f"{run_folder}/PC{i+1}v{j+1}_{run_name}.png",  dpi=300, bbox_inches='tight')
-   # plt.show()
+    plt.show()
     plt.close(fig)
 
 
@@ -1679,6 +1677,7 @@ def plot_all_heatmaps_faceted(data_dict, cluster_ids, pc_label):
 
     fig.suptitle(pc_label)
     plt.tight_layout()
+    plt.close(fig)
     return fig
 
 cluster_ids = sorted(cluster_colors.keys())
@@ -1698,11 +1697,7 @@ Assessed against PC 1, cluster 0 is closer to the high fat pole, while cluster 2
 
 ### Rates of metabolic syndrom related chronic disease symptoms in the UK from 1990 to 2020
 
-
 ```{python}
-
-
-
 gor_to_ihme = {
     1: 'North East England',
     2: 'North West England',
