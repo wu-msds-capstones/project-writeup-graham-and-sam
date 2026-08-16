@@ -6,6 +6,7 @@ execute:
   warning: false
   message: false
 ---
+# Analysis - Clusters over Time
 
 ```{r}
 library(tidyverse)
@@ -70,6 +71,9 @@ region_col    = "ihme_gor"  # part of the uk # needed for by region plots
 These visualizations detail the change in proportion of each nutrient cluster over time. They demonstrate a slight decrease for cluster 0 from around 25% to 15%. Cluster 1 was relatively stable at around 3%. Cluster 2 showed an increase in proportion from around 3% to 40% with a relatively steep slope. Cluster 3 hobbled around the 20% proportion area, starting a few points above and then ending at a value right around 15%. Lastly, we saw cluster 4 start as the highest proportion, nearly 50% and slowly reduce to 30%. This informs us, as time continued, the trends mapped to cluster 2 becoming more prevalent as 0, 3, and 4 fell. This initial model motivated statistical checks to be ran to ensure the changes in proportion over timer (1974-2000) were statistically significant and not simply attributed to random noise.
 
 ```{r}
+#| label: fig-R-stacked-bar-and-line
+#| fig-cap: "Nutrient cluster proportions over time as stacked bar plot."
+
 ## Composition fg 17, then nute, the corresponding dataset will need to be switched
 
 #save_dir = "output_plots"
@@ -120,6 +124,18 @@ print(p_trend)
  # file.path(save_dir, paste0(label_name, "_", tolower(analysis_type), "_stacked_bar.png")),
   #p_trend, width = 9, height = 5.5, dpi = 150)
 
+
+
+
+
+
+```
+
+
+```{r}
+#| label: fig-R--line
+#| fig-cap: "Nutrient cluster proportions over time as line plot."
+
 # -------------------------------------------------------------------
 # 3. Line plot — cluster proportion trends over time
 # -------------------------------------------------------------------
@@ -143,8 +159,8 @@ print(p_trend_line)
 #ggsave(
  # file.path(save_dir, paste0(label_name, "_", tolower(analysis_type), "_trend_line.png")),
   #p_trend_line, width = 9, height = 5.5, dpi = 150)
-
 ```
+
 
 ### 
 
