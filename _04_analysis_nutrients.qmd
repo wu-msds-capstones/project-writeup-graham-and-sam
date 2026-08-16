@@ -554,7 +554,7 @@ plt.show()
 Assessed against PC 1, cluster 0 is closer to the high fat pole, while cluster 2 is closely associated with the plant-like pole. 
 
 
-# Analysis - LDL Cholesterol
+
 
 ## LDL cholesterol and chronic disease data
 

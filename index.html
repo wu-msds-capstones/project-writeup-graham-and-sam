@@ -289,9 +289,6 @@ div.csl-indent {
   <li><a href="#k-means-clustering" id="toc-k-means-clustering" class="nav-link" data-scroll-target="#k-means-clustering">k-means clustering</a></li>
   <li><a href="#pca-for-nutrient-profiles" id="toc-pca-for-nutrient-profiles" class="nav-link" data-scroll-target="#pca-for-nutrient-profiles">PCA for nutrient profiles</a></li>
   </ul></li>
-  </ul></li>
-  <li><a href="#analysis---ldl-cholesterol" id="toc-analysis---ldl-cholesterol" class="nav-link" data-scroll-target="#analysis---ldl-cholesterol">Analysis - LDL Cholesterol</a>
-  <ul class="collapse">
   <li><a href="#ldl-cholesterol-and-chronic-disease-data" id="toc-ldl-cholesterol-and-chronic-disease-data" class="nav-link" data-scroll-target="#ldl-cholesterol-and-chronic-disease-data">LDL cholesterol and chronic disease data</a>
   <ul class="collapse">
   <li><a href="#rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020" id="toc-rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020" class="nav-link" data-scroll-target="#rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020">Rates of metabolic syndrom related chronic disease symptoms in the UK from 1990 to 2020</a></li>
@@ -300,6 +297,13 @@ div.csl-indent {
   <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"></a></li>
   <li><a href="#stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" id="toc-stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" class="nav-link" data-scroll-target="#stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time">Stats for Proportions Confirming the Significance of Changing Clusters Over Time</a></li>
   <li><a href="#cochran-armitage-test" id="toc-cochran-armitage-test" class="nav-link" data-scroll-target="#cochran-armitage-test">Cochran-Armitage Test</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#analysis---disease" id="toc-analysis---disease" class="nav-link" data-scroll-target="#analysis---disease">Analysis - Disease</a>
+  <ul class="collapse">
+  <li><a href="#ldl-cholesterol-and-chronic-disease-data-1" id="toc-ldl-cholesterol-and-chronic-disease-data-1" class="nav-link" data-scroll-target="#ldl-cholesterol-and-chronic-disease-data-1">LDL cholesterol and chronic disease data</a>
+  <ul class="collapse">
+  <li><a href="#rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020-1" id="toc-rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020-1" class="nav-link" data-scroll-target="#rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020-1">Rates of metabolic syndrom related chronic disease symptoms in the UK from 1990 to 2020</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
@@ -493,9 +497,6 @@ Name: count, dtype: int64</code></pre>
 <p>Assessed against PC 1, cluster 0 is closer to the high fat pole, while cluster 2 is closely associated with the plant-like pole.</p>
 </section>
 </section>
-</section>
-<section id="analysis---ldl-cholesterol" class="level1">
-<h1>Analysis - LDL Cholesterol</h1>
 <section id="ldl-cholesterol-and-chronic-disease-data" class="level2">
 <h2 class="anchored" data-anchor-id="ldl-cholesterol-and-chronic-disease-data">LDL cholesterol and chronic disease data</h2>
 <section id="rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020" class="level3">
@@ -585,20 +586,49 @@ Name: count, dtype: int64</code></pre>
 </section>
 </section>
 </section>
+<section id="analysis---disease" class="level1">
+<h1>Analysis - Disease</h1>
+<section id="ldl-cholesterol-and-chronic-disease-data-1" class="level2">
+<h2 class="anchored" data-anchor-id="ldl-cholesterol-and-chronic-disease-data-1">LDL cholesterol and chronic disease data</h2>
+<section id="rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020-1" class="level3">
+<h3 class="anchored" data-anchor-id="rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020-1">Rates of metabolic syndrom related chronic disease symptoms in the UK from 1990 to 2020</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="capstone_files/figure-html/unnamed-chunk-27-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="capstone_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="960"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Looking at the UK as a whole, SEV risk rates for high LDL cholesterol and high systolic blood pressure both show a downtrend from 1990 to 2000, althgouh high systolic blood pressure rates do start to climb again after that. Metabolic risk overall continues to increase throughout the timespane, along with high body mass index (BMI).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="capstone_files/figure-html/unnamed-chunk-28-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="capstone_files/figure-html/unnamed-chunk-28-3.png" class="img-fluid figure-img" width="2156"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>There is some regional variation in SEV risk rates over time for these chronic disease symptoms, but the only notable anomaly is the rate of high BMI in Wales compared to other regions. Wales has about 50% high BMI SEV risk for the whole dataset, whereas other regions do not approach that level of risk until later years, if at all.</p>
+</section>
+</section>
+</section>
 <section id="results" class="level1">
 <h1>Results</h1>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-27-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="capstone_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-30-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="capstone_files/figure-html/unnamed-chunk-30-5.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-27-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="capstone_files/figure-html/unnamed-chunk-27-2.png" class="img-fluid figure-img" width="2400"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-30-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="capstone_files/figure-html/unnamed-chunk-30-6.png" class="img-fluid figure-img" width="2400"></a></p>
 </figure>
 </div>
 </div>
@@ -638,7 +668,7 @@ Name: count, dtype: int64</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-29-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="capstone_files/figure-html/unnamed-chunk-29-5.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-32-9.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="capstone_files/figure-html/unnamed-chunk-32-9.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
@@ -659,7 +689,7 @@ Name: count, dtype: int64</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-30-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="capstone_files/figure-html/unnamed-chunk-30-7.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-33-11.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="capstone_files/figure-html/unnamed-chunk-33-11.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
