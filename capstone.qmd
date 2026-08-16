@@ -1,6 +1,6 @@
 ---
 title: "Capstone Project"
-subtitle: Subtitle
+subtitle: Population level plant-oriented dietary cluster correlated with time lagged LDL decrease
 authors:
   - Graham
   - Sam
