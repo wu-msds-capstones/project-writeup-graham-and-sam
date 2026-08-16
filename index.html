@@ -281,17 +281,17 @@ div.csl-indent {
   <li><a href="#units" id="toc-units" class="nav-link" data-scroll-target="#units">Units</a></li>
   <li><a href="#ethics-and-responsible-use" id="toc-ethics-and-responsible-use" class="nav-link" data-scroll-target="#ethics-and-responsible-use">Ethics and Responsible Use</a></li>
   </ul></li>
-  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a>
+  <li><a href="#analysis---food-groups" id="toc-analysis---food-groups" class="nav-link" data-scroll-target="#analysis---food-groups">Analysis - Food Groups</a>
   <ul class="collapse">
-  <li><a href="#all-years-uk-households-by-food-group-profile" id="toc-all-years-uk-households-by-food-group-profile" class="nav-link" data-scroll-target="#all-years-uk-households-by-food-group-profile">All years UK households by food group profile</a>
+  <li><a href="#food-groups" id="toc-food-groups" class="nav-link" data-scroll-target="#food-groups">FOOD GROUPS</a>
   <ul class="collapse">
   <li><a href="#pca-principal-component-analysis" id="toc-pca-principal-component-analysis" class="nav-link" data-scroll-target="#pca-principal-component-analysis">PCA (principal component analysis)</a></li>
   <li><a href="#k-means-clustering" id="toc-k-means-clustering" class="nav-link" data-scroll-target="#k-means-clustering">k-means clustering</a></li>
-  </ul></li>
-  <li><a href="#all-years-uk-households-by-nutrient-profile" id="toc-all-years-uk-households-by-nutrient-profile" class="nav-link" data-scroll-target="#all-years-uk-households-by-nutrient-profile">All years UK households by nutrient profile</a>
-  <ul class="collapse">
   <li><a href="#pca-for-nutrient-profiles" id="toc-pca-for-nutrient-profiles" class="nav-link" data-scroll-target="#pca-for-nutrient-profiles">PCA for nutrient profiles</a></li>
   </ul></li>
+  </ul></li>
+  <li><a href="#analysis---ldl-cholesterol" id="toc-analysis---ldl-cholesterol" class="nav-link" data-scroll-target="#analysis---ldl-cholesterol">Analysis - LDL Cholesterol</a>
+  <ul class="collapse">
   <li><a href="#ldl-cholesterol-and-chronic-disease-data" id="toc-ldl-cholesterol-and-chronic-disease-data" class="nav-link" data-scroll-target="#ldl-cholesterol-and-chronic-disease-data">LDL cholesterol and chronic disease data</a>
   <ul class="collapse">
   <li><a href="#rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020" id="toc-rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020" class="nav-link" data-scroll-target="#rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020">Rates of metabolic syndrom related chronic disease symptoms in the UK from 1990 to 2020</a></li>
@@ -362,12 +362,12 @@ div.csl-indent {
 <p>The data is used under a non-commercial educational license, and comes both anonymized and pre-aggregated by the service providers to remove personally identifiable information (PII) and ensure confidentiality.</p>
 </section>
 </section>
-<section id="analysis" class="level1">
-<h1>Analysis</h1>
+<section id="analysis---food-groups" class="level1">
+<h1>Analysis - Food Groups</h1>
 <p>Aggregations by food group and aggregations by nutrient were assessed with principle component analysis (PCA) and k-means clustering.</p>
 <p>The entire set of ~190,000 household were analyzed for PCA and k-means clustering, but t-SNE visual renderings use a smaller sample size to enable more rapid report iteration.</p>
-<section id="all-years-uk-households-by-food-group-profile" class="level2">
-<h2 class="anchored" data-anchor-id="all-years-uk-households-by-food-group-profile">All years UK households by food group profile</h2>
+<section id="food-groups" class="level2">
+<h2 class="anchored" data-anchor-id="food-groups">FOOD GROUPS</h2>
 <section id="pca-principal-component-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="pca-principal-component-analysis">PCA (principal component analysis)</h3>
 <div class="cell">
@@ -433,9 +433,6 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </section>
-</section>
-<section id="all-years-uk-households-by-nutrient-profile" class="level2">
-<h2 class="anchored" data-anchor-id="all-years-uk-households-by-nutrient-profile">All years UK households by nutrient profile</h2>
 <section id="pca-for-nutrient-profiles" class="level3">
 <h3 class="anchored" data-anchor-id="pca-for-nutrient-profiles">PCA for nutrient profiles</h3>
 <div class="cell">
@@ -506,6 +503,9 @@ Name: count, dtype: int64</code></pre>
 <p>Assessed against PC 1, cluster 0 is closer to the high fat pole, while cluster 2 is closely associated with the plant-like pole.</p>
 </section>
 </section>
+</section>
+<section id="analysis---ldl-cholesterol" class="level1">
+<h1>Analysis - LDL Cholesterol</h1>
 <section id="ldl-cholesterol-and-chronic-disease-data" class="level2">
 <h2 class="anchored" data-anchor-id="ldl-cholesterol-and-chronic-disease-data">LDL cholesterol and chronic disease data</h2>
 <section id="rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020" class="level3">
