@@ -38,11 +38,10 @@ disease_colors = {
 
 
 
-
-
 ```{python}
 #| label: fig-correlation-sweep-vs-LDL
 #| fig-cap: "Lag correlation sweeps for cluster 2 against High LDL cholesterol"
+
 fg17fg55nute = 'nute'
 cluster_type = f'{fg17fg55nute}_cluster'
 rei_name = 'High LDL cholesterol'
@@ -108,37 +107,37 @@ os.makedirs('../_scratch/EDA_correlation', exist_ok=True)
 #| label: fig-correlation-sweep-for-other-disease
 #| fig-cap: "Lag correlation sweeps for all nutrient clusters against LDL"
 
-#ccf_df.head(1000)
+ccf_df.head(1000)
 
-# n_clusters =  df_diet_national[cluster_type].nunique()
-# fig, axes = plt.subplots(1, n_clusters, figsize=(5 * n_clusters, 4), sharey=True)
+n_clusters =  df_diet_national[cluster_type].nunique()
+fig, axes = plt.subplots(1, n_clusters, figsize=(5 * n_clusters, 4), sharey=True)
 
-# for ax, cluster_number in zip(axes, sorted(df_diet_national[cluster_type].unique())):
-#     df_diet_series = df_diet_national[df_diet_national[cluster_type] == cluster_number]
-#     x = df_diet_series.set_index('styr')['proportion'].diff().dropna()
+for ax, cluster_number in zip(axes, sorted(df_diet_national[cluster_type].unique())):
+    df_diet_series = df_diet_national[df_diet_national[cluster_type] == cluster_number]
+    x = df_diet_series.set_index('styr')['proportion'].diff().dropna()
 
-#     results = []
-#     for lag in range(0, 21):
-#         y_target = y.reindex(x.index + lag)
-#         r = pd.Series(x.values).corr(pd.Series(y_target.values))
-#         results.append({'lag': lag, 'r': r})
-#     ccf_df = pd.DataFrame(results)
+    results = []
+    for lag in range(0, 21):
+        y_target = y.reindex(x.index + lag)
+        r = pd.Series(x.values).corr(pd.Series(y_target.values))
+        results.append({'lag': lag, 'r': r})
+    ccf_df = pd.DataFrame(results)
 
-#     ax.plot(ccf_df['lag'], ccf_df['r'], color='orange')
-#     ax.axhline(band1, color='red', linestyle='--', linewidth=1)
-#     ax.axhline(-band2, color='red', linestyle='--', linewidth=1)
-#     ax.axhline(0, color='black', linewidth=0.5)
-# #    ax.set_title(f'{cluster_type}_{cluster_number}')
-#     ax.set_xlabel('lag')
+    ax.plot(ccf_df['lag'], ccf_df['r'], color='orange')
+    ax.axhline(band1, color='red', linestyle='--', linewidth=1)
+    ax.axhline(-band2, color='red', linestyle='--', linewidth=1)
+    ax.axhline(0, color='black', linewidth=0.5)
+#    ax.set_title(f'{cluster_type}_{cluster_number}')
+    ax.set_xlabel('lag')
 
-# axes[0].set_ylabel('r')
-# plt.suptitle(f'vs {rei_name}')
+axes[0].set_ylabel('r')
+plt.suptitle(f'vs {rei_name}')
 
-# file_name_for_export_facet = f'../_scratch/EDA_correlation/facet_{diet_label}_vs_{disease_label.replace(" ", "_")}_ccf.png'
-# plt.savefig(file_name_for_export_facet, dpi=150, bbox_inches='tight')
-# plt.tight_layout()
-# plt.show()
-# plt.close()
+file_name_for_export_facet = f'../_scratch/EDA_correlation/facet_{diet_label}_vs_{disease_label.replace(" ", "_")}_ccf.png'
+plt.savefig(file_name_for_export_facet, dpi=150, bbox_inches='tight')
+plt.tight_layout()
+plt.show()
+plt.close()
 ```
 
 

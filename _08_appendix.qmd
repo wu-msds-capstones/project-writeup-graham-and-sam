@@ -1,0 +1,19 @@
+# Appendix
+
+Looking at the UK as a whole, SEV risk rates for high LDL cholesterol and high systolic blood pressure both show a downtrend from 1990 to 2000, althgouh high systolic blood pressure rates do start to climb again after that.  Metabolic risk overall continues to increase throughout the timespane, along with high body mass index (BMI). 
+```{python}
+
+
+
+g = sns.relplot(
+    data=df_plot,
+    x='year', y='val', hue='rei',
+    col='location', col_wrap=4,
+    kind='line',
+    palette=disease_colors
+
+)
+plt.show()
+```
+
+There is some regional variation in SEV risk rates over time for these chronic disease symptoms, but the only notable anomaly is the rate of high BMI in Wales compared to other regions. Wales has about 50% high BMI SEV risk for the whole dataset, whereas other regions do not approach that level of risk until later years, if at all.

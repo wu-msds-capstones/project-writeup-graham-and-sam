@@ -18,7 +18,10 @@ Demographic and economic information is also included with the NFS data. However
 
 #### Food groups
 
-Each diary row was assigned to one of sixteen food groups NEED APPENDIX FOR THIS based on an iterative literature informed (CITATION) manual review of all reported minimal food codes. Then row wise quantities of each food group were aggregated household's total food purchases were converted to total calories
+Each diary row was assigned to one of sixteen food groups based on an iterative literature informed (CITATION) manual review of all reported minimal food codes. Then row wise quantities of each food group were aggregated and converted to calories from that food group.
+
+
+ household's total food purchases were converted to total calories
 
 
 
