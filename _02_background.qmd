@@ -20,4 +20,3 @@ Although previous research has pointed at contemporaneous connections between di
 While the results presented herein are explicitly pertinent to aggregate population-level trends, it would not be unreasonable for an individual person to take some inspiration from these findings. A population is a collection of individuals, after all.  
 
 More importantly though, population-level statistical findings are certainly appropriate for public health officials. Better information about time-lagged population-level diet and disease correlations can be used to inform policy making and progress monitoring for diet oriented public health initiatives. 
-""""""""""""
