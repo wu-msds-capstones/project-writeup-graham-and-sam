@@ -276,11 +276,8 @@ div.csl-indent {
   <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">Background</a></li>
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a>
   <ul class="collapse">
-  <li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources">Sources</a>
-  <ul class="collapse">
   <li><a href="#diet-data-national-food-survey-1974-to-2000" id="toc-diet-data-national-food-survey-1974-to-2000" class="nav-link" data-scroll-target="#diet-data-national-food-survey-1974-to-2000">Diet data: National Food Survey (1974 to 2000)</a></li>
   <li><a href="#disease-data-global-burden-of-disease-survey-1990-to-2023" id="toc-disease-data-global-burden-of-disease-survey-1990-to-2023" class="nav-link" data-scroll-target="#disease-data-global-burden-of-disease-survey-1990-to-2023">Disease data: Global Burden of Disease survey (1990 to 2023)</a></li>
-  </ul></li>
   <li><a href="#pipeline" id="toc-pipeline" class="nav-link" data-scroll-target="#pipeline">Pipeline</a></li>
   <li><a href="#units" id="toc-units" class="nav-link" data-scroll-target="#units">Units</a></li>
   <li><a href="#ethics-and-responsible-use" id="toc-ethics-and-responsible-use" class="nav-link" data-scroll-target="#ethics-and-responsible-use">Ethics and Responsible Use</a></li>
@@ -352,7 +349,7 @@ div.csl-indent {
 <p>Chronic metabolic diseases are comprised of groups of disorders that disrupt the body’s ability to regulate energy and nutrient metabolism [NLM, 2025]<em>fix this citation?</em>. Common conditions include obesity, type 2 diabetes, hypertension, and cardiovascular disease. Together, these diseases correlate with a significant proportion of premature mortality worldwide [<em>need citation here too?</em>].</p>
 <p>Looking at the UK at beyond, chronic metabolic disease is responsible for some of the highest healthcare spending in modern developed countries [le Roux, 2020]. Impacts of cardiovascular and other chronic diseases spread beyond individuals to their caregivers and to the broader community [Schwind, 2025].</p>
 <p>Chronic disease is complex, and of the many factors that influence chronic disease risk, most (genetics, poverty, care access, luck) are not really conrollable.</p>
-<p>Disease management through medication is and has been an increasingly relied upon strategy in many places including the United Kingdom [Zhang, 2016], but that strategy is expensive, and access can be limited. Additionally, pharmaceutical manageament of chronic disease requires long-term medication consumption, which can have its own set of unserireable physiological side effects.</p>
+<p>Disease management through medication is and has been an increasingly relied upon strategy in many places including the United Kingdom [Zhang, 2016], but that strategy is expensive, and access can be limited. Additionally, pharmaceutical manageament of chronic disease requires long-term medication consumption, which can have its own set of undesireable physiological side effects.</p>
 <p>However, one chronic disease risk factor that individual people can take some control over is their food choices. Specific to this report, diet is known to impact LDL cholesterol levels and other chronic disease risk factors[Schoeneck, 2021].</p>
 <p>Dietary factors have been found to influence chronic disease risk factors through various physiological pathways: diets high in saturated fats or refined carbohydrates tend to increase LDL cholesterol levels and promote chronic inflammation [Kumar et al., 2026]; Conversely, diets richer in fruits, vegetables, and whole grains have been associated with reduced cardiovascular risk and improved lipid profiles [Barnard, 2017].</p>
 <p>Although previous research has pointed at contemporaneous connections between diet quality and chronic metabolic health, fewer studies have examined time-lagged correlation of population-level diet trends with population-level chronic metabolic disease risk rates.</p>
@@ -361,27 +358,24 @@ div.csl-indent {
 </section>
 <section id="data" class="level1">
 <h1>Data</h1>
-<section id="sources" class="level2">
-<h2 class="anchored" data-anchor-id="sources">Sources</h2>
-<section id="diet-data-national-food-survey-1974-to-2000" class="level3">
-<h3 class="anchored" data-anchor-id="diet-data-national-food-survey-1974-to-2000">Diet data: National Food Survey (1974 to 2000)</h3>
-<p>The primary explanatory data, the National Food Survey (NFS), was sourced from the UK Data Service.</p>
-<p>It spans 1974-2000, where it sampled ~7,000 households per year for a total of around 190,000 households.</p>
-<p>The survey looked into the “diet diary” during a 7-day period for each household.</p>
-<p>In the diary, the corresponding household would record their food purchasing information.</p>
-<p>Alongside the diary, the NFS collected the nutrient conversion information for each of the foods purchased.</p>
-<p>Meaning, there was a quantity value and nutrient unit respective to each food.</p>
+<section id="diet-data-national-food-survey-1974-to-2000" class="level2">
+<h2 class="anchored" data-anchor-id="diet-data-national-food-survey-1974-to-2000">Diet data: National Food Survey (1974 to 2000)</h2>
+<p>The UK’s National Food Suvery (NFS) started in 1940 and eventually evolved into the Living Costs and Food Survey. which is active today (https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/500971/nfs-timeline-18feb16.pdf). However, not all of the associated data is publicly available.</p>
+<p>For interested parties with institutional credentials, the UK Data Service, does provide a curated batch of NFS data that spans from 1974-2000. https://ukdataservice.ac.uk</p>
+<p>Each year, approximately 7,000 households across the UK were chosen at random from voting roles and asked to participate. From 1974 to 2000, almost 190,000 households participated. Consenting households tracked all food purchases (what food and how much of it) for one week in a ‘diet diary’.</p>
+<p>The raw diet diary entries listed foods as one of about 400 options (minor food codes, or ‘minfd’), which could be associated with various levels of food groupings.</p>
+<p>Additionally, the NFS included annually adjusted nutrient conversion information for each of the minor food codes, allowing the recorded type and quantity to be converted into a nutrient profile for that purchase, and aggregated to a nutrient profile for each household.</p>
+<p>Demographic and economic information is also included with the NFS data. However, this analysis assesses diet composition per calorie, not diet quantity per capita. So, the only demographic information that was really used in this analysis is the regional location of each household.</p>
 </section>
-<section id="disease-data-global-burden-of-disease-survey-1990-to-2023" class="level3">
-<h3 class="anchored" data-anchor-id="disease-data-global-burden-of-disease-survey-1990-to-2023">Disease data: Global Burden of Disease survey (1990 to 2023)</h3>
+<section id="disease-data-global-burden-of-disease-survey-1990-to-2023" class="level2">
+<h2 class="anchored" data-anchor-id="disease-data-global-burden-of-disease-survey-1990-to-2023">Disease data: Global Burden of Disease survey (1990 to 2023)</h2>
 <p>The primary response variable data was acquired from the Institute for Health Metrics and Evaluation (IHME) looking at the Global Burden of Disease (GBD) study ranging from(1990 to 2023).</p>
 <p>The data was specifically selected from an open API to find the summary exposure value risk rates: LDL Cholesterol, Body Mass Index, Fasting Plasma Glucose Systolic Blood Pressure, Kidney Dysfunction, Low Bone Mineral Density, and Metabolic Risks.</p>
 <p>These rates were preaggregated with the API ingestion by year, government region in the UK and to population per region.</p>
 </section>
-</section>
 <section id="pipeline" class="level2">
 <h2 class="anchored" data-anchor-id="pipeline">Pipeline</h2>
-<p>The NFS datasets were aggregated by household per year where they were vertically joined to create a continuous span from 1974-2000.</p>
+<p>National Food Survey diet diaries, household information, and nutrient conversion information are obtained as .txt files in folders by year. Row-wise, each diet diary entry contains a household number (hhno), a log day (the survey)</p>
 <p>The disease risk rates were horizontally joined on government region and year.</p>
 </section>
 <section id="units" class="level2">
