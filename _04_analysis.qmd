@@ -1,14 +1,3 @@
-
----
-title: "UK Diet and Disease Analysis"
-format: html
-jupyter: python3
-execute:
-  echo: false
-  output: false
----
-
-
 # Analysis
 
 Aggregations by food group and aggregations by nutrient were assessed with principle component analysis (PCA) and k-means clustering.
