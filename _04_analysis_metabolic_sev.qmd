@@ -1,5 +1,3 @@
-# Analysis - Disease
-
 ## LDL cholesterol and chronic disease data
 
 ### Rates of metabolic syndrom related chronic disease symptoms in the UK from 1990 to 2020
