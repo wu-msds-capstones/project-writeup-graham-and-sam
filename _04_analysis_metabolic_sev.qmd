@@ -118,6 +118,9 @@ df_lag_trimmed.to_parquet(file_name_for_export)
 
 
 ```{python}
+#| results: 'hide'
+#| label: fig-metabolic-rates-over-time
+#| fig-cap: "High LDL cholesterol has gone down over time, but other metabolic risks in general have risen overall nonetheless."
 #| output: true
 ############
 #### Read in a disease raw data file...
@@ -161,6 +164,10 @@ disease_colors = {
 
 
 #plt.show()
+```
+```{python}
+#| label: fig-metabolic-rates-over-time-all-region
+#| fig-cap: "High LDL cholesterol across regions."
 
 df_plot = df_metabolic_5yr[
     (df_metabolic_5yr['metric'] == 'Rate') &
