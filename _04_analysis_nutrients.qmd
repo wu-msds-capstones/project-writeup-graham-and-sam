@@ -431,38 +431,67 @@ pcs_2 = pca_2.fit_transform(pcs_95)
 # tsne = TSNE(n_components=2, random_state=42, init='pca', verbose=2)
 # embedding_tsne = tsne.fit_transform(pcs_2)
 
-print('Households per cluster')
-print(df_hh_per_cluster)
+# print('Households per cluster')
+# print(df_hh_per_cluster)
 
-sample_df = wide_df.sample(n=2000, random_state=42)
-embedding_tsne = TSNE(n_components=2, init ='pca' , verbose=0).fit_transform(sample_df)
+# sample_df = wide_df.sample(n=2000, random_state=42)
+# embedding_tsne = TSNE(n_components=2, init ='pca' , verbose=0).fit_transform(sample_df)
+
+# fig, ax = plt.subplots(figsize=(10, 7), constrained_layout=True)
+# cluster_labels = sample_df['cluster']
+# df_hh_per_cluster = cluster_labels.value_counts()
+
+
+# point_colors = cluster_labels.map(cluster_colors)
+
+# sc = ax.scatter(embedding_tsne[:, 0], embedding_tsne[:, 1],
+#                  c=point_colors, s=4, alpha=0.5)
+
+# handles = [Line2D([0], [0], marker='o', linestyle='', color=cluster_colors[i],
+#                    label=f'{i} (n={df_hh_per_cluster[i]})')
+#            for i in sorted(cluster_colors)]
+# ax.legend(handles=handles, bbox_to_anchor=(1.02, 1), loc='upper left', title='Cluster')
+
+# #ax.set_xticks([]); #ax.set_yticks([])
+# ax.set_xlabel('t-SNE 1'); ax.set_ylabel('t-SNE 2')
+# ax.set_title(f'{title_name}\nPCA(12) → t-SNE, colored by k-means cluster')
+
+
+# fig.savefig(f"{run_folder}/tsne_cluster_{run_name}.png", dpi=300, bbox_inches='tight')
+# plt.show()
+
+```
+
+For household nutrient profiles, best k number of clusters was consistently found to be 5.  Notably, one of the five clusters has only about 5,000 household throughout the dataset.  This small cluster turns out to be households that consumed a lot of organ meat.  
+
+
+```{python}
+
+cluster_colors = {0:'#E69F00', 1:'#56B4E9', 2:'#009E73', 3:'#0072B2', 4:'#CC79A7'}
+df_hh_per_cluster = wide_df['cluster'].value_counts()
+pca_2 = PCA(n_components=2, random_state=42)
+pcs_2 = pca_2.fit_transform(pcs_95)
 
 fig, ax = plt.subplots(figsize=(10, 7), constrained_layout=True)
-cluster_labels = sample_df['cluster']
-df_hh_per_cluster = cluster_labels.value_counts()
 
+point_colors = wide_df['cluster'].map(cluster_colors)
 
-point_colors = cluster_labels.map(cluster_colors)
-
-sc = ax.scatter(embedding_tsne[:, 0], embedding_tsne[:, 1],
-                 c=point_colors, s=4, alpha=0.5)
+sc = ax.scatter(pcs_2[:, 0], pcs_2[:, 1], c=point_colors, s=4, alpha=0.5)
 
 handles = [Line2D([0], [0], marker='o', linestyle='', color=cluster_colors[i],
                    label=f'{i} (n={df_hh_per_cluster[i]})')
            for i in sorted(cluster_colors)]
 ax.legend(handles=handles, bbox_to_anchor=(1.02, 1), loc='upper left', title='Cluster')
 
-#ax.set_xticks([]); #ax.set_yticks([])
-ax.set_xlabel('t-SNE 1'); ax.set_ylabel('t-SNE 2')
-ax.set_title(f'{title_name}\nPCA(12) → t-SNE, colored by k-means cluster')
+ax.set_xlabel('PC1 of PCA(95%)')
+ax.set_ylabel('PC2 of PCA(95%)')
+ax.set_title(f'{title_name}\nPCA(95%) → PCA(2), colored by k-means cluster')
 
-
-fig.savefig(f"{run_folder}/tsne_cluster_{run_name}.png", dpi=300, bbox_inches='tight')
 plt.show()
 
 ```
 
-For household nutrient profiles, best k number of clusters was consistently found to be 5.  Notably, one of the five clusters has only about 5,000 household throughout the dataset.  This small cluster turns out to be households that consumed a lot of organ meat.  
+
 
 
 
