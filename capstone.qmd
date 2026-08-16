@@ -21,7 +21,8 @@ execute:
 {{< include _01_intro.qmd >}}
 {{< include _02_background.qmd >}}
 {{< include _03_data.qmd >}}
-{{< include _04_analysis.qmd >}}
+{{< include _04_analysis_food_groups.qmd >}}
+{{< include _04_analysis_nutrients.qmd >}}
 {{< include _04_R_analysis.qmd >}}
 {{< include _05_results.qmd >}}
 {{< include _06_conclusions.qmd >}}
