@@ -287,11 +287,13 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#pca-principal-component-analysis" id="toc-pca-principal-component-analysis" class="nav-link" data-scroll-target="#pca-principal-component-analysis">PCA (principal component analysis)</a></li>
   <li><a href="#k-means-clustering" id="toc-k-means-clustering" class="nav-link" data-scroll-target="#k-means-clustering">k-means clustering</a></li>
-  <li><a href="#pca-for-nutrient-profiles" id="toc-pca-for-nutrient-profiles" class="nav-link" data-scroll-target="#pca-for-nutrient-profiles">PCA for nutrient profiles</a></li>
   </ul></li>
-  <li><a href="#ldl-cholesterol-and-chronic-disease-data" id="toc-ldl-cholesterol-and-chronic-disease-data" class="nav-link" data-scroll-target="#ldl-cholesterol-and-chronic-disease-data">LDL cholesterol and chronic disease data</a>
+  </ul></li>
+  <li><a href="#analysis---nutrients" id="toc-analysis---nutrients" class="nav-link" data-scroll-target="#analysis---nutrients">Analysis - Nutrients</a>
   <ul class="collapse">
-  <li><a href="#rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020" id="toc-rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020" class="nav-link" data-scroll-target="#rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020">Rates of metabolic syndrom related chronic disease symptoms in the UK from 1990 to 2020</a></li>
+  <li><a href="#nutrients" id="toc-nutrients" class="nav-link" data-scroll-target="#nutrients">NUTRIENTS</a>
+  <ul class="collapse">
+  <li><a href="#pca-for-nutrient-profiles" id="toc-pca-for-nutrient-profiles" class="nav-link" data-scroll-target="#pca-for-nutrient-profiles">PCA for nutrient profiles</a></li>
   <li><a href="#composition-clusters-with-bar-graphs-and-line-plots" id="toc-composition-clusters-with-bar-graphs-and-line-plots" class="nav-link" data-scroll-target="#composition-clusters-with-bar-graphs-and-line-plots">Composition Clusters with Bar Graphs and Line Plots</a></li>
   <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
   <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"></a></li>
@@ -301,9 +303,9 @@ div.csl-indent {
   </ul></li>
   <li><a href="#analysis---disease" id="toc-analysis---disease" class="nav-link" data-scroll-target="#analysis---disease">Analysis - Disease</a>
   <ul class="collapse">
-  <li><a href="#ldl-cholesterol-and-chronic-disease-data-1" id="toc-ldl-cholesterol-and-chronic-disease-data-1" class="nav-link" data-scroll-target="#ldl-cholesterol-and-chronic-disease-data-1">LDL cholesterol and chronic disease data</a>
+  <li><a href="#ldl-cholesterol-and-chronic-disease-data" id="toc-ldl-cholesterol-and-chronic-disease-data" class="nav-link" data-scroll-target="#ldl-cholesterol-and-chronic-disease-data">LDL cholesterol and chronic disease data</a>
   <ul class="collapse">
-  <li><a href="#rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020-1" id="toc-rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020-1" class="nav-link" data-scroll-target="#rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020-1">Rates of metabolic syndrom related chronic disease symptoms in the UK from 1990 to 2020</a></li>
+  <li><a href="#rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020" id="toc-rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020" class="nav-link" data-scroll-target="#rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020">Rates of metabolic syndrom related chronic disease symptoms in the UK from 1990 to 2020</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
@@ -439,6 +441,13 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </section>
+</section>
+</section>
+<section id="analysis---nutrients" class="level1">
+<h1>Analysis - Nutrients</h1>
+<p>Additionally, we looked at nutrient profiles.</p>
+<section id="nutrients" class="level2">
+<h2 class="anchored" data-anchor-id="nutrients">NUTRIENTS</h2>
 <section id="pca-for-nutrient-profiles" class="level3">
 <h3 class="anchored" data-anchor-id="pca-for-nutrient-profiles">PCA for nutrient profiles</h3>
 <div class="cell">
@@ -496,32 +505,6 @@ Name: count, dtype: int64</code></pre>
 </div>
 <p>Assessed against PC 1, cluster 0 is closer to the high fat pole, while cluster 2 is closely associated with the plant-like pole.</p>
 </section>
-</section>
-<section id="ldl-cholesterol-and-chronic-disease-data" class="level2">
-<h2 class="anchored" data-anchor-id="ldl-cholesterol-and-chronic-disease-data">LDL cholesterol and chronic disease data</h2>
-<section id="rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020" class="level3">
-<h3 class="anchored" data-anchor-id="rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020">Rates of metabolic syndrom related chronic disease symptoms in the UK from 1990 to 2020</h3>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-17-24.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="capstone_files/figure-html/unnamed-chunk-17-24.png" class="img-fluid figure-img" width="960"></a></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Looking at the UK as a whole, SEV risk rates for high LDL cholesterol and high systolic blood pressure both show a downtrend from 1990 to 2000, althgouh high systolic blood pressure rates do start to climb again after that. Metabolic risk overall continues to increase throughout the timespane, along with high body mass index (BMI).</p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-18-26.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="capstone_files/figure-html/unnamed-chunk-18-26.png" class="img-fluid figure-img" width="2156"></a></p>
-</figure>
-</div>
-</div>
-</div>
-<p>There is some regional variation in SEV risk rates over time for these chronic disease symptoms, but the only notable anomaly is the rate of high BMI in Wales compared to other regions. Wales has about 50% high BMI SEV risk for the whole dataset, whereas other regions do not approach that level of risk until later years, if at all.</p>
-</section>
 <section id="composition-clusters-with-bar-graphs-and-line-plots" class="level3">
 <h3 class="anchored" data-anchor-id="composition-clusters-with-bar-graphs-and-line-plots">Composition Clusters with Bar Graphs and Line Plots</h3>
 <p>These visualizations detail the change in proportion of each nutrient cluster over time. They demonstrate a slight decrease for cluster 0 from around 25% to 15%. Cluster 1 was relatively stable at around 3%. Cluster 2 showed an increase in proportion from around 3% to 40% with a relatively steep slope. Cluster 3 hobbled around the 20% proportion area, starting a few points above and then ending at a value right around 15%. Lastly, we saw cluster 4 start as the highest proportion, nearly 50% and slowly reduce to 30%. This informs us, as time continued, the trends mapped to cluster 2 becoming more prevalent as 0, 3, and 4 fell. This initial model motivated statistical checks to be ran to ensure the changes in proportion over timer (1974-2000) were statistically significant and not simply attributed to random noise.</p>
@@ -529,14 +512,14 @@ Name: count, dtype: int64</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-21-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="capstone_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-18-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="capstone_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-21-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="capstone_files/figure-html/unnamed-chunk-21-2.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-18-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="capstone_files/figure-html/unnamed-chunk-18-2.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -588,15 +571,15 @@ Name: count, dtype: int64</code></pre>
 </section>
 <section id="analysis---disease" class="level1">
 <h1>Analysis - Disease</h1>
-<section id="ldl-cholesterol-and-chronic-disease-data-1" class="level2">
-<h2 class="anchored" data-anchor-id="ldl-cholesterol-and-chronic-disease-data-1">LDL cholesterol and chronic disease data</h2>
-<section id="rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020-1" class="level3">
-<h3 class="anchored" data-anchor-id="rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020-1">Rates of metabolic syndrom related chronic disease symptoms in the UK from 1990 to 2020</h3>
+<section id="ldl-cholesterol-and-chronic-disease-data" class="level2">
+<h2 class="anchored" data-anchor-id="ldl-cholesterol-and-chronic-disease-data">LDL cholesterol and chronic disease data</h2>
+<section id="rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020" class="level3">
+<h3 class="anchored" data-anchor-id="rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020">Rates of metabolic syndrom related chronic disease symptoms in the UK from 1990 to 2020</h3>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-27-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="capstone_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="960"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-24-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="capstone_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="960"></a></p>
 </figure>
 </div>
 </div>
@@ -606,7 +589,7 @@ Name: count, dtype: int64</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-28-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="capstone_files/figure-html/unnamed-chunk-28-3.png" class="img-fluid figure-img" width="2156"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-25-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="capstone_files/figure-html/unnamed-chunk-25-3.png" class="img-fluid figure-img" width="2156"></a></p>
 </figure>
 </div>
 </div>
@@ -621,14 +604,14 @@ Name: count, dtype: int64</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-30-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="capstone_files/figure-html/unnamed-chunk-30-5.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-27-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="capstone_files/figure-html/unnamed-chunk-27-5.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-30-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="capstone_files/figure-html/unnamed-chunk-30-6.png" class="img-fluid figure-img" width="2400"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-27-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="capstone_files/figure-html/unnamed-chunk-27-6.png" class="img-fluid figure-img" width="2400"></a></p>
 </figure>
 </div>
 </div>
@@ -668,7 +651,7 @@ Name: count, dtype: int64</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-32-9.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="capstone_files/figure-html/unnamed-chunk-32-9.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-29-9.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="capstone_files/figure-html/unnamed-chunk-29-9.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
@@ -689,7 +672,7 @@ Name: count, dtype: int64</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-33-11.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="capstone_files/figure-html/unnamed-chunk-33-11.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-30-11.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="capstone_files/figure-html/unnamed-chunk-30-11.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
