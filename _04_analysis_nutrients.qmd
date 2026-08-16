@@ -1,5 +1,7 @@
 # Analysis - Nutrients
 
+Additionally, we looked at nutrient profiles.
+
 
 ## NUTRIENTS
 ```{python}
