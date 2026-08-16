@@ -1,4 +1,4 @@
-# Analysis - Food Groups
+# Analysis
 
 Aggregations by food group and aggregations by nutrient were assessed with principle component analysis (PCA) and k-means clustering.
 
