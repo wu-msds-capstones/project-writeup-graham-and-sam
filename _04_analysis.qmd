@@ -145,7 +145,7 @@ scaled_df = pd.DataFrame(
 ### PCA (principal component analysis)
 
 ```{python}
-#| output: true a
+#| results: 'hide'
 #######
 ### PCA TIME!
 
@@ -185,6 +185,10 @@ fig.savefig(f"{run_folder}/scree_{run_name}.png",  dpi=300, bbox_inches='tight')
 plt.show()
 plt.close()
 
+```
+```{python}
+#| results: 'hide'
+#| fig.show: 'hide'
 pca_loadings = pd.DataFrame(
     pca.components_.T,                     # transpose: rows = food groups
     index=scaled_df.columns,
@@ -242,8 +246,6 @@ The most explanatory component (PC 1) accounted for about 11% of variance in the
 The other components only explained ~5% variance, leading to 14 components required to cumulatively explain 95% of variance.
 
 ```{python}
-
-
 ##############
 # This is the "what does PC1 mean figure"
 loadings_df = pd.DataFrame({
