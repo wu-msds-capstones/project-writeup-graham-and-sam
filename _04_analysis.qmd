@@ -1701,8 +1701,8 @@ df_lag_trimmed.to_parquet(file_name_for_export)
 ############
 #### Read in a disease raw data file...
 df_metabolic_risk = pd.read_csv('shared_data/IHME-GBD_SEV_metabolic_regions.csv')
-df_metabolic_risk
-df_metabolic_risk.head()
+#df_metabolic_risk
+#df_metabolic_risk.head()
 
 
 # Prepare for adding 5 year moving average by sorting sensibly
@@ -1717,9 +1717,6 @@ for col in ['val', 'upper', 'lower']:
     )
 #df_metabolic_5yr.head(1000)
 
-
-
-
 disease_colors = {
     'High LDL cholesterol': '#D62728',
     'High body-mass index': '#6A3D9A',
@@ -1730,10 +1727,10 @@ disease_colors = {
     'Metabolic risks': '#7F7F7F',
 }
 
-# ax = sns.lineplot(df_metabolic_5yr[df_metabolic_5yr['metric']=='Rate'], x='year', y='val', hue='rei', palette=disease_colors)
+#ax = sns.lineplot(df_metabolic_5yr[df_metabolic_5yr['metric']=='Rate'], x='year', y='val', hue='rei', palette=disease_colors)
 # ax.legend(bbox_to_anchor=(1.02, 1), loc='upper left', borderaxespad=0)
 
-# g = sns.relplot(
+#g = sns.relplot(
 #     data=df_metabolic_5yr[df_metabolic_5yr['metric'] == 'Rate'],
 #     x='year', y='val', hue='rei',
 #     col='location', col_wrap=4,
@@ -1742,7 +1739,7 @@ disease_colors = {
 # )
 
 
-plt.show()
+#plt.show()
 
 df_plot = df_metabolic_5yr[
     (df_metabolic_5yr['metric'] == 'Rate') &
@@ -1753,6 +1750,7 @@ df_plot = df_metabolic_5yr[
 ax = sns.lineplot(df_plot, x='year', y='val', hue='rei', palette=disease_colors)
 ax.xaxis.set_major_locator(plt.MaxNLocator(integer=True))
 ax.legend(bbox_to_anchor=(1.02, 1), loc='upper left', borderaxespad=0)
+plt.show()
 ```
 
 Looking at the UK as a whole, SEV risk rates for high LDL cholesterol and high systolic blood pressure both show a downtrend from 1990 to 2000, althgouh high systolic blood pressure rates do start to climb again after that.  Metabolic risk overall continues to increase throughout the timespane, along with high body mass index (BMI). 
