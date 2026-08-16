@@ -1,0 +1,971 @@
+# Analysis - Nutrients
+
+
+
+## NUTRIENTS
+```{python}
+
+## Combined PCA and k-means
+
+#########################
+# Variables for entire pipeline
+###########################
+household_or_region = 'household'
+foodgroup17_foodgroup55_or_nutrient = 'nutrient'
+calorie_prune_threshold = 627 # 627 calories is two SD below total dataset mean in log scale.
+group_17_or_group_55_or_Nutrient_name = 'Nutrient_name'
+is_household = household_or_region == 'household'
+value_to_analyze = 'nutrient_per_total_cal' # this one is for nutrients quality
+seed = 53 # Change to any random integer to seed downstream random number generator.
+#value_aggregation_to_cluster = 'nutrient_per_total_cal' # different options for household and region
+number_of_initializations = 101  # This is how many times the k-means algorithm will start over to see if it gets the same(ish) results.
+# k_means_samples = all the samples, this one is not actually a variable.
+
+####################
+# PCA (Principle Component Analysis) specific variables.  
+##########
+# How many Principle Components
+number_PCA_components = 15
+# Two variables for later plots
+number_PCs_to_plot = 2  # will generate this 2x this many plots                    
+color_PC_plots_by = 'styr'
+##################################################
+
+##############################
+########################################
+##################################################
+# k-means specific variables
+##########
+
+manual_k = True # are you setting clusters manually? True or False
+number_of_clusters = 5  # This will be overwritten by best k selector if manual_k is False
+
+#cluster_colors = {0: '#762A83', 1: '#B2182B'}
+cluster_colors = {0:'#E69F00', 1:'#56B4E9', 2:'#009E73', 3:'#0072B2', 4:'#CC79A7'}
+
+# Best k selector with Adjusted Rand Index (ARI)...optimizing the number of clusters, k. This is SLOW
+best_k_iterations = 10 # How many times the function always runs
+best_k_init = 10 # How many times k-means initializes within the function  (iterations x n_init can get big and slow)
+best_k_samples = 1000 # How many samples does the optimizer do for each run (set lower than )
+
+# For the ARI stuff specificially
+ari_seed_count = 3 # How many times does it try
+k_range = range(2, 9) # How many k's does it try each time
+
+
+##############################
+
+
+
+###########################################
+########################################
+# This section dynamically generates f-strings for creating folders, saving files, and titling plots and tables.
+
+
+folder_name = f"no_alcohol_{foodgroup17_foodgroup55_or_nutrient}_{household_or_region}_{value_to_analyze}_{number_of_initializations}_inits"
+
+run_folder = f"_scratch/EDA_visuals_POSTER/{folder_name}"
+
+run_name = f"{folder_name}"
+
+title_name = f"no_alcohol_{foodgroup17_foodgroup55_or_nutrient} by {household_or_region} \n value = {value_to_analyze}"
+
+#####################
+# Allow script to write new directories (aka folders)
+os.makedirs(run_folder, exist_ok=True)
+
+#####################################################
+####################################################
+############
+# Build the read in file path name as an f-string
+parquet_filepath = f'shared_data/POSTER_NFS_all_years_{household_or_region}_{foodgroup17_foodgroup55_or_nutrient}_aggs_v2_no_alcohol_NI_mlso.parquet'
+
+
+#############
+# Now the appropriate aggregated file reads in
+df_raw_all = pd.read_parquet(parquet_filepath)
+
+# Merseyside (gor = 3) does not exist in the IHME data, and that region is simply part of North West England (gor = 2)
+# So all gor = 3 rows will be reclassified as gor = 2 so that all downstream grouping and analysis is consistent with the IHME data.
+df_raw_all['gor'] = df_raw_all['gor'].replace(3, 2)
+
+# Prune nutrients not in all 27 years
+if foodgroup17_foodgroup55_or_nutrient == 'nutrient':
+    
+    coverage = df_raw_all.groupby('nutrient')['styr'].nunique()
+    full_coverage = coverage[coverage == 27].index
+    df_raw_1 = df_raw_all[df_raw_all['nutrient'].isin(full_coverage)]
+    # Don't need calories and megaJoules for energy, dropping the uncommon one
+    energy_MJ_mask= df_raw_1['nutrient']!=9
+    df_raw = df_raw_1[energy_MJ_mask]
+else:
+    df_raw = df_raw_all
+
+# Now the calorie pruning for households below more than 2 SDs off the log of total daily per person calorie intake mean
+# (This was calculated elsewhere to be 627 calories, will probably be added to pipeline soon)
+df_to_prune = df_raw.copy()
+df_to_prune['cal_per_cap_per_day'] = df_to_prune['hh_total_calories'] / df_to_prune['adult_equiv_sexsplit'] / 7 
+if 'hh_total_calories' in df_to_prune.columns:
+    threshold_mask = df_to_prune['cal_per_cap_per_day'] > calorie_prune_threshold
+    df_pruned = df_to_prune[threshold_mask]
+else:
+    df_pruned = df_to_prune
+
+
+input_df = df_pruned.dropna(subset=group_17_or_group_55_or_Nutrient_name)
+column_to_cluster_on = group_17_or_group_55_or_Nutrient_name
+key_col = 'hhno' if is_household else 'gor'
+
+# Build the pivot index to make the wide DataFrame
+if is_household:
+    pivot_index = [key_col, 'styr', 'gor', 'vegind']
+else:
+    pivot_index = [key_col, 'styr',  'vegind']
+
+# Do the actual pivot and make the wide DataFrame. 
+wide_df = pd.DataFrame(input_df.pivot(
+    index=pivot_index,
+    columns=column_to_cluster_on,
+    values=value_to_analyze
+).fillna(0))
+
+#########
+# Scale it - 
+#  Different foodgroups and nutrients can have different units of measurement (ounces, grams, liters),
+#  and different magnitudes (kg vs. mg), so all variables will be Standard Scaled (mean = 0, SD = +-1)
+#  This will make the k-means vector space more coherent and clusterable.
+#  Real world interpretations need to bear all this in mind.  
+
+scaler = StandardScaler()
+scaled_df = pd.DataFrame(
+    scaler.fit_transform(wide_df),
+    columns=wide_df.columns,
+    index=wide_df.index)
+
+# Separate title for the k-SWEEP plots (ARI table, elbow) — these test a RANGE of k,
+# so naming a single cluster count would be misleading. Reports the range instead.
+# sweep_title = f"{foodgroup17_foodgroup55_or_nutrient} by {household_or_region} \nk tested {k_range.start}–{k_range.stop - 1} over {number_of_initializations} Kmeans initializations \n pruned at {calorie_prune_threshold} daily calories \n clustered value = {value_aggregation_to_cluster}"
+```
+
+### PCA for nutrient profiles
+
+```{python}
+#| results: 'hide'
+#######
+### PCA TIME!
+
+pca = PCA(n_components=number_PCA_components, random_state=seed)
+pca_coords = pca.fit_transform(scaled_df)
+pca_coords[:,0]*=-1
+
+wide_df['PC1_score'] = pca_coords[:, 0]
+if number_PCA_components >1:
+    wide_df['PC2_score'] = pca_coords[:, 1]  
+if number_PCA_components >2:
+    wide_df['PC3_score'] = pca_coords[:, 2]  
+
+
+evr = pca.explained_variance_ratio_
+#print(evr.cumsum())
+
+# variance table
+evr_table = pd.DataFrame({
+    'PC': range(1, len(evr)+1),
+    'explained_variance_ratio': evr,
+    'cumulative': evr.cumsum()
+})
+evr_table.to_parquet(f"{run_folder}/evr_{run_name}.parquet", index=False)
+
+
+
+# scree plot
+fig, ax = plt.subplots(figsize=(8,5))
+ax.plot(range(1, len(evr)+1), evr, marker='o')
+ax.set_ylim(0, 0.30)
+ax.set_xlabel('Principal Component')
+ax.set_ylabel('Explained variance ratio')
+ax.set_title(f'{title_name}\nScree plot')
+fig.savefig(f"{run_folder}/scree_{run_name}.png",  dpi=300, bbox_inches='tight')
+
+#print(evr_table)
+#evr_table   # renders the table in the Quarto output
+plt.show()
+plt.close()
+```
+```{python}
+#| results: 'hide'
+#| fig.show: 'hide'
+pca_loadings = pd.DataFrame(
+    pca.components_.T,                     # transpose: rows = food groups
+    index=scaled_df.columns,
+    columns=[f'PC{i+1}' for i in range(pca.n_components_)]
+)
+
+
+pca_loadings.to_parquet(f"{run_folder}/pca_loadings_{run_name}.parquet")
+
+pca_loadings_folder = f"{run_folder}/pca_loadings_by_PC"
+os.makedirs(pca_loadings_folder, exist_ok=True)
+
+pcX_order_list=[]
+for pc in pca_loadings.columns:
+    tbl = pca_loadings[pc].sort_values().reset_index()
+    tbl.columns = [group_17_or_group_55_or_Nutrient_name, pc]
+    tbl.to_parquet(f"{pca_loadings_folder}/pca_loadings_{pc}_{run_name}.parquet", index=False)
+    pcX_order_list.append(tbl)
+
+for i, j in combinations(range(number_PCs_to_plot), 2):
+    fig, ax = plt.subplots(figsize=(8, 7))
+
+    if color_PC_plots_by is not None:
+        c = scaled_df.index.get_level_values(color_PC_plots_by)
+        sc = ax.scatter(pca_coords[:, i], pca_coords[:, j],
+                        c=c, s=4, alpha=0.1, cmap='viridis')
+        fig.colorbar(sc, label=color_PC_plots_by)
+    else:
+        ax.scatter(pca_coords[:, i], pca_coords[:, j],
+                   s=4, alpha=0.1, color='steelblue')
+
+    ax.set_xlabel(f'PC{i+1}')
+    ax.set_ylabel(f'PC{j+1}')
+    ax.set_title(f'{title_name}\nPC{i+1} vs PC{j+1}')
+
+    ax.set_xlim(pca_coords[:, i].mean() - 5*pca_coords[:, i].std(),
+                pca_coords[:, i].mean() + 5*pca_coords[:, i].std())
+    ax.set_ylim(pca_coords[:, j].mean() - 5*pca_coords[:, j].std(),
+                pca_coords[:, j].mean() + 5*pca_coords[:, j].std())
+
+    #fig.savefig(f"{run_folder}/PC{i+1}v{j+1}_{run_name}.png",  dpi=300, bbox_inches='tight')
+    #plt.show()
+    plt.close(fig)
+
+
+pca_full = PCA(n_components=0.95, random_state=42)  # 0.95 = auto-pick n for 95% variance
+pcs_95 = pca_full.fit_transform(scaled_df)
+n_components_95 = pca_full.n_components_
+print(f"PCA required {n_components_95} components to cumulatively explain 95% variance")
+
+```
+
+For household nutrient profiles, PC 1 and PC 2 each explain over 20% of variance, and 11 components are required to cumulatively explain 95% of variance.
+
+```{python}
+##############
+# This is the "what does PC1 mean figure"
+loadings_df = pd.DataFrame({
+    'feature': scaled_df.columns,
+    'PC1_loading': pca.components_[0] * 1  # match the flipped PC1_score sign
+}).sort_values('PC1_loading', ascending=False)
+
+loadings_df.to_parquet(f"{run_folder}/pc1_loadings_{run_name}.parquet", index=False)
+
+fig, ax = plt.subplots(figsize=(6, 8))
+loadings_sorted = loadings_df.sort_values('PC1_loading', ascending=True)  # ascending so most-positive plots at top
+ax.barh(loadings_sorted['feature'], loadings_sorted['PC1_loading'], color='steelblue')
+ax.set_xlabel('PC1 Orientation')
+ax.set_title('PC1 Orientation — Nutrients')
+plt.tight_layout()
+fig.savefig(f"{run_folder}/pc1_loadings_barh_{run_name}.png", dpi=300, bbox_inches='tight')
+plt.show()
+
+loadings_df = pd.DataFrame({
+    'feature': scaled_df.columns,
+    'PC2_loading': pca.components_[1] * 1  # match the flipped PC1_score sign
+}).sort_values('PC2_loading', ascending=False)
+
+loadings_df.to_parquet(f"{run_folder}/pc2_loadings_{run_name}.parquet", index=False)
+
+fig, ax = plt.subplots(figsize=(6, 8))
+loadings_sorted = loadings_df.sort_values('PC2_loading', ascending=True)  # ascending so most-positive plots at top
+ax.barh(loadings_sorted['feature'], loadings_sorted['PC2_loading'], color='steelblue')
+ax.set_xlabel('PC2 Orientation')
+ax.set_title('PC2 Orientation — Nutrients')
+plt.tight_layout()
+fig.savefig(f"{run_folder}/pc2_loadings_barh_{run_name}.png", dpi=300, bbox_inches='tight')
+plt.show()
+
+```
+
+PC 1 for household nutrient profiles has a fat (saturated and unsaturated) pole and a "plant-food" pole (vegetable protein and carbohydrates and vitamins).  PC 2 for household nutrient profiles has a high carbohydrate pole juxtaposed against a high animal protein pole.
+
+```{python}
+
+
+#   |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\
+#  /-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\
+# /-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\/-\
+#  \-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\/-\
+# \-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\
+#  /-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\
+################################################################
+# k-means clustering part starts here ##########################
+#################################################################
+
+
+#print('k-means time')
+
+###################################################
+###################################################
+###################################################
+# User Inputs for k-means analysis, make sure these are what you want
+# Some of these choices fuel the parquet read in.
+# Calorie prune threshold used to remove junk rows with little to no data
+
+
+# Value aggregation to cluster options
+ #      NUTRIENT
+ # 16  nute_per_adulteq_sexsplit_per_diem  float64
+ # 17  calories_per_cap_per_day            float64
+ # 18  nutrient_per_total_cal              float64
+
+#       Food Group 17 and Food Group 55
+#   10  calorie_ratio                           float64
+#  11  quantity_per_total_cal                  float64
+#  12  quantity_per_adulteq_per_diem           float64
+#  13  calories_per_adulteq_per_diem           float64
+#  14  quantity_per_adulteq_sexsplit_per_diem  float64
+#  15  calories_per_adulteq_sexsplit_per_diem  float64
+
+
+# seed = 248 # Change to any random integer to seed downstream random number generators.
+# household_or_region = 'household'
+# foodgroup17_foodgroup55_or_nutrient = 'nutrient'
+# calorie_prune_threshold = 627 # 627 calories is two SD below total dataset mean in log scale.
+# group_17_or_group_55_or_Nutrient_name = 'Nutrient_name'
+# is_household = household_or_region == 'household'
+# value_aggregation_to_cluster = 'nutrient_per_total_cal' # different options for household and region
+# number_of_initializations = 246 # How many times will the clustering run
+
+
+# manual_k = False # are you setting clusters manually? True or False
+# number_of_clusters = 7 # This will be overwritten by best k selector if manual_k is True 
+
+
+# # Best k selector with Adjusted Rand Index...this is SLOW
+# best_k_samples = 12345 # How many samples does it do for each run
+# ari_seed_count = 12 # How many times does it try
+# k_range = range(2, 8) # How many k's does it try each time
+
+# # Silhouette analysis: how distinct are the clusters. This is not a huge worry.
+# # And this does take a long time, so set lower for iterations, higher for final product.
+# sil_sample = 1000 # for silhouette analysis (this is slow, big number takes long time)
+
+# # UMAP visualization
+# umap_sample = 123456 # umap sampling (how many points on plots)
+# umap_neighbors = 100 # how smoothly do the points relate
+
+# #####################################################
+# ####################################################
+# ############
+# #Build the read in file path name as an f-string
+# parquet_filepath = f'../shared_data/NFS_all_years_{household_or_region}_{foodgroup17_foodgroup55_or_nutrient}_aggs_v2.parquet'
+
+# #############
+# #Now the appropriate aggregated file reads in
+# df_raw_all = pd.read_parquet(parquet_filepath)
+
+# # Prune nutrients not in all 27 years
+
+# if foodgroup17_foodgroup55_or_nutrient == 'nutrient':
+#     coverage = df_raw_all.groupby('nutrient')['styr'].nunique()
+#     full_coverage = coverage[coverage == 27].index
+#     df_raw = df_raw_all[df_raw_all['nutrient'].isin(full_coverage)]
+# else:
+#     df_raw = df_raw_all
+# ###########
+# # Future version will not need this, will do this step in aggregation script.
+# # But until then, the calorie prune threshold is applied, removing rows with
+# # per person per day calorie intake being physiologically impossible. 
+
+
+# df_to_prune = df_raw.copy()
+# df_to_prune['cal_per_cap_per_day'] = df_to_prune['hh_total_calories'] / df_to_prune['adult_equiv_sexsplit'] / 7 
+# if 'hh_total_calories' in df_to_prune.columns:
+#     threshold_mask = df_to_prune['cal_per_cap_per_day'] > calorie_prune_threshold
+#     df_pruned = df_to_prune[threshold_mask]
+# else:
+#     df_pruned = df_to_prune
+
+
+# ####################
+# ####################
+# # Widen it — k-means requires a column for the each of the values of the clustering variable.
+# # So we need to pivot wide.  Each row remains a household or region due to pivot index.  
+# # First the input data has NaN dropped, then variables defined based on earlier user inputs.
+
+input_df = df_pruned.dropna(subset=group_17_or_group_55_or_Nutrient_name)
+column_to_cluster_on = group_17_or_group_55_or_Nutrient_name
+key_col = 'hhno' if is_household else 'gor'
+
+
+# Build the pivot index to make the wide DataFrame
+if is_household:
+    pivot_index = [key_col, 'styr', 'gor', 'vegind']
+else:
+    pivot_index = [key_col, 'styr']
+
+
+# Do the actual pivot and make the wide DataFrame. 
+wide_df = pd.DataFrame(input_df.pivot(
+    index=pivot_index,
+    columns=column_to_cluster_on,
+    values=value_to_analyze
+).fillna(0))
+
+#########
+# Scale it - 
+#  Different foodgroups and nutrients can have different units of measurement (ounces, grams, liters),
+#  and different magnitudes (kg vs. mg), so all variables will be Standard Scaled (mean = 0, SD = +-1)
+#  This will make the k-means vector space more coherent and clusterable.
+#  Real world interpretations need to bear all this in mind.  
+
+# scaler = StandardScaler()
+# scaled_df = pd.DataFrame(
+#     scaler.fit_transform(wide_df),
+#     columns=wide_df.columns,
+#     index=wide_df.index)
+
+
+
+#####################################
+#############################################
+##############################################################
+# Cross Validation Stability Test to find best k number of clusters
+# Calling it best_k_selector
+# Note, the K selector is slow!
+
+wide_df['PC1_score'] = pca_coords[:, 0]
+if number_PCA_components >1:
+    wide_df['PC2_score'] = pca_coords[:, 1]  
+if number_PCA_components >2:
+    wide_df['PC3_score'] = pca_coords[:, 2]  
+
+
+def best_k_selector(df, k, n_iterations=best_k_iterations, sample_fraction=0.8, seed=0):
+    rng = np.random.RandomState(seed)
+    df_sampled=df.sample(best_k_samples, random_state = seed)
+    array_sampled = df_sampled.values
+    n = array_sampled.shape[0]
+    scores = []
+    for _ in range(n_iterations):
+        samples_1 = np.sort(rng.choice(n, int(sample_fraction*n), replace = False))
+        samples_2 = np.sort(rng.choice(n, int(sample_fraction*n), replace = False))
+        overlap = np.intersect1d(samples_1, samples_2)
+        if len(overlap) < k:
+            continue
+
+        kmeans_1 = KMeans(n_clusters=k, n_init=best_k_init, random_state=rng.randint(1e6),verbose =0).fit(array_sampled[samples_1])
+
+        kmeans_2 = KMeans(n_clusters=k, n_init=best_k_init, random_state=rng.randint(1e6),verbose =0).fit(array_sampled[samples_2])
+
+        position_1=np.searchsorted(samples_1, overlap)
+        position_2=np.searchsorted(samples_2, overlap)
+        labels_1 = kmeans_1.labels_[position_1]
+        labels_2 = kmeans_2.labels_[position_2]
+
+        scores.append(adjusted_rand_score(labels_1, labels_2))
+    return np.mean(scores), np.std(scores)
+
+
+
+ari_rows=[]
+
+seed_picker = np.random.RandomState(seed)
+sweep_seeds = seed_picker.choice(1000, ari_seed_count, replace=False)
+
+if not manual_k:
+    print('starting best-k-selector cross-validation stability process')
+    print('this can take a long time.')
+    print('the Adjusted Rand Index scores coming up suggest how stable the data is when forced into k number of clusters')
+    print('the selector repeats clustering on random samples of the total data' )
+    print('within the random samples, the algorithm takes a random 80 percent and clusters, replaces those, and clusters random 80 percent, and compares those pair of cluster for overlap, which indicates similarity/stability')
+    print('the output will show several runs through a sweep of k values, and then the k value with the highest average ARI amongst runs will be declared the winner.')
+
+    for seed in sweep_seeds:
+        print(f'seed:  {seed}')
+        for k in k_range:
+            mean_ARI, std_ARI = best_k_selector(scaled_df, k, seed = int(seed))
+            ari_rows.append((seed, k, mean_ARI, std_ARI))
+            output = (f"k = {k} : Adjusted Rand Index {mean_ARI:.3f} ± {std_ARI:.3f}")
+            # This prints during the loop to show results from each iteration
+            print(output)
+    # This prints the appended list of all iterations
+    #print(ari_rows)
+
+    # Set the number of clusters variable for the actual k-means analysis
+    # This dynamically feeds the pipeline the results of the cross validation.
+    ari_df = pd.DataFrame(ari_rows, columns=['seed', 'k', 'mean_ARI', 'std_ARI'])
+
+if not manual_k:
+
+    mean_by_k = ari_df.groupby('k')['mean_ARI'].mean().sort_values(ascending=False)
+    best_k = int(mean_by_k.index[0])
+    best_ARI = mean_by_k.iloc[0]
+    runner_up_k = int(mean_by_k.index[1])
+    runner_up_ARI = mean_by_k.iloc[1]
+    print(f'Best k by mean ARI across seeds: {best_k} (mean ARI {best_ARI:.3f})')
+    print(f'Runner-up: {runner_up_k} (mean ARI {runner_up_ARI:.3f})')
+    number_of_clusters = best_k
+
+
+###########################################
+########################################
+# This section dynamically generates f-strings for creating folders, saving files, and titling plots and tables.
+# It used to go earlier, but now it comes here so number of clusters can be decided algorithmically
+
+# folder_name = f"{foodgroup17_foodgroup55_or_nutrient}_{household_or_region}_{number_of_clusters}clusters_{number_of_initializations}initializations_prune{calorie_prune_threshold}_{value_to_analyze}_best_k_samples_{best_k_samples}"
+
+# run_folder = f"EDA_visuals_5/{folder_name}"
+
+# run_name = f"clustered_wide_{folder_name}"
+
+# title_name = f"{foodgroup17_foodgroup55_or_nutrient} by {household_or_region} \nwith {number_of_clusters} clusters over {number_of_initializations} Kmeans initializations \n pruned at {calorie_prune_threshold} daily calories \n on {value_to_analyze}"
+
+# # Separate title for the k-SWEEP plots (ARI table, elbow) — these test a RANGE of k,
+# # so naming a single cluster count would be misleading. Reports the range instead.
+# sweep_title = f"{foodgroup17_foodgroup55_or_nutrient} by {household_or_region} \nk tested {k_range.start}–{k_range.stop - 1} over {number_of_initializations} Kmeans initializations \n pruned at {calorie_prune_threshold} daily calories \n on {value_to_analyze}"
+
+
+# Allow script to write new directories (aka folders)
+os.makedirs(run_folder, exist_ok=True)
+
+if manual_k is False:
+    fig_ari, ax_ari = plt.subplots(figsize=(6, 0.5 * len(ari_df) + 2))
+    ax_ari.axis('off')
+    tbl = ax_ari.table(cellText=ari_df.round(4).values, colLabels=ari_df.columns, loc='center')
+    tbl.scale(1, 1.5)
+    ax_ari.set_title(f'Cross Validation \n subsample-stability Adjusted Rand Index') # by k \n {sweep_title}')
+    ax_ari.get_figure().savefig(f"{run_folder}/ari_by_k_{run_name}.png", bbox_inches='tight')
+
+
+##########
+# Moved elbow down here to grab the sweep title
+
+# #######################
+# #################
+# ## Trying KNEE METHOD of best k selector
+
+# def elbow_plot_maker(df, k, n_init=20, seed=0):
+#     df_10k = df.sample(10000, random_state=seed)
+#     km = KMeans(n_clusters=k, n_init=n_init, random_state=seed, verbose=0).fit(df_10k.values)
+#     return km.inertia_
+# inertia_rows = []
+# seed_picker = np.random.RandomState(seed)
+# sweep_seeds = seed_picker.choice(1000, 5, replace=False)
+# for seed in sweep_seeds:
+#     print(f'seed: {seed}')
+#     for k in range(2, 7):
+#         inertia = elbow_plot_maker(scaled_df, k, seed=int(seed))
+#         inertia_rows.append((seed, k, inertia))
+#         print(f"k = {k} : inertia {inertia:,.1f}")
+
+# inertia_df = pd.DataFrame(inertia_rows, columns=['seed', 'k', 'inertia'])
+# mean_curve = inertia_df.groupby('k')['inertia'].mean()
+
+# fig, ax = plt.subplots(figsize=(6, 4))
+# for seed in sweep_seeds:
+#     sub = inertia_df[inertia_df.seed == seed]
+#     ax.plot(sub.k, sub.inertia, alpha=0.3, color='gray')
+# ax.plot(mean_curve.index, mean_curve.values, marker='o', color='C0', label='mean')
+# ax.set_xlabel('k'); ax.set_ylabel('inertia'); ax.legend()
+# ax.set_title(f'Elbow (inertia) by k \n {title_name}')
+# fig.savefig(f"{run_folder}/elbow_by_k_{run_name}.png", bbox_inches='tight')
+
+# plt.close(fig)
+
+
+
+#   |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\
+#  /-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\
+# /-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\/-\
+#   |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\
+#  /-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\
+# /-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\/-\
+#   |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\
+#  /-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\
+# /-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\/-\
+# ACTUAL K-MEAN CLUSTERING
+#print('doing the actual k-means clustering now')
+#print('this can take a while...')
+############
+#### Run the k-means clustering algorithm
+kmeans_df = KMeans(n_clusters=number_of_clusters, init='random', n_init=number_of_initializations, random_state=42)
+wide_df['cluster'] = kmeans_df.fit_predict(scaled_df)
+
+
+
+##   |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\
+#  /-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\
+
+##   |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\
+#  /-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\
+##########################
+###   ACTUAL OUTPUTTING OF THE CLUSTER MAP
+##   |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\
+#  /-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\
+
+cluster_map = wide_df.reset_index()[['hhno', 'styr', 'gor', 'cluster','PC1_score', 'PC2_score', 'PC3_score']]
+
+os.makedirs("../shared_data/POSTER_cluster_pca_maps", exist_ok=True)
+cluster_map.to_parquet(f"../shared_data/POSTER_cluster_pca_maps/cluster_pca_map_{number_of_clusters}_clusters_{run_name}.parquet", index=False)
+
+#   |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\
+#  /-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\
+##########################
+##   |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\
+#  /-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\
+##   |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\  |^\
+#  /-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\
+
+
+wide_df.to_parquet(f"{run_folder}/{run_name}.parquet")
+
+
+#########
+# Quick Cluster Counter — label centroids from wide_df columns
+#######
+feature_cols = [c for c in wide_df.columns if c not in ['cluster', 'PC1_score', 'PC2_score', 'PC3_score']]
+df_clustered = pd.DataFrame(
+    kmeans_df.cluster_centers_,
+    columns=feature_cols).reset_index().rename(columns={"index": "Cluster"})
+
+df_hh_per_cluster = wide_df.reset_index().groupby('cluster')[key_col].count()
+
+
+cluster_labels = wide_df['cluster']
+df_hh_per_cluster = cluster_labels.value_counts()
+
+
+
+pca_full = PCA(n_components=0.95, random_state=42)  # 0.95 = auto-pick n for 95% variance
+pcs_95 = pca_full.fit_transform(scaled_df)
+n_components_95 = pca_full.n_components_
+#print(f"PCA required {n_components_95} components to cumulatively explain 95% variance")
+
+
+# Step 2: PCA down to 2 from that
+pca_2 = PCA(n_components=2, random_state=42)
+pcs_2 = pca_2.fit_transform(pcs_95)
+
+# Step 3: t-SNE on the 2D PCA output
+################################
+##### THIS TAKES FOREVER AND MAKES COMPUTER MAD
+
+# tsne = TSNE(n_components=2, random_state=42, init='pca', verbose=2)
+# embedding_tsne = tsne.fit_transform(pcs_2)
+
+print('Households per cluster')
+print(df_hh_per_cluster)
+
+sample_df = wide_df.sample(n=2000, random_state=42)
+embedding_tsne = TSNE(n_components=2, init ='pca' , verbose=0).fit_transform(sample_df)
+
+fig, ax = plt.subplots(figsize=(10, 7), constrained_layout=True)
+cluster_labels = sample_df['cluster']
+df_hh_per_cluster = cluster_labels.value_counts()
+
+
+point_colors = cluster_labels.map(cluster_colors)
+
+sc = ax.scatter(embedding_tsne[:, 0], embedding_tsne[:, 1],
+                 c=point_colors, s=4, alpha=0.5)
+
+handles = [Line2D([0], [0], marker='o', linestyle='', color=cluster_colors[i],
+                   label=f'{i} (n={df_hh_per_cluster[i]})')
+           for i in sorted(cluster_colors)]
+ax.legend(handles=handles, bbox_to_anchor=(1.02, 1), loc='upper left', title='Cluster')
+
+#ax.set_xticks([]); #ax.set_yticks([])
+ax.set_xlabel('t-SNE 1'); ax.set_ylabel('t-SNE 2')
+ax.set_title(f'{title_name}\nPCA(12) → t-SNE, colored by k-means cluster')
+
+
+fig.savefig(f"{run_folder}/tsne_cluster_{run_name}.png", dpi=300, bbox_inches='tight')
+plt.show()
+
+
+###########
+# Heat map stuff
+###
+###############.  .T is transpose
+#print('Heatmaps coming up')
+
+```
+
+For household nutrient profiles, best k number of clusters was consistently found to be 5.  Notably, one of the five clusters has only about 5,000 household throughout the dataset.  This small cluster turns out to be households that consumed a lot of organ meat.  
+
+
+
+```{python}
+#| output: true
+
+heat_map_data = df_clustered.set_index('Cluster')[feature_cols].T
+
+pc_index_0 = 0  # PC1, for cluster 0
+order_0 = pcX_order_list[pc_index_0][group_17_or_group_55_or_Nutrient_name]
+heat_map_0 = heat_map_data.reindex(order_0)
+
+pc_index_2 = 1  # PC2, for cluster 2
+order_2 = pcX_order_list[pc_index_2][group_17_or_group_55_or_Nutrient_name]
+heat_map_2 = heat_map_data.reindex(order_2)
+
+
+def col_to_rgb(data, colname):
+    cmap = LinearSegmentedColormap.from_list(
+        'c', ['#B0B0B0', 'white', cluster_colors[colname]]
+    )
+    norm = TwoSlopeNorm(vmin=-vmax, vcenter=0, vmax=vmax)
+    vals = data[colname].clip(-vmax, vmax)
+    return cmap(norm(vals))[:, :3]
+
+
+def plot_all_heatmaps_faceted(data_dict, cluster_ids, pc_label):
+    n = len(cluster_ids)
+    fig, axes = plt.subplots(1, n, figsize=(2 * n, data_dict[cluster_ids[0]].shape[0] * 0.3), sharey=True)
+
+    for ax, cid in zip(axes, cluster_ids):
+        rgb = col_to_rgb(data_dict[cid], cid).reshape(-1, 1, 3)
+        ax.imshow(rgb, aspect='auto')
+        ax.set_xticks([0]); ax.set_xticklabels([str(cid)])
+
+    axes[0].set_yticks(range(len(data_dict[cluster_ids[0]].index)))
+    axes[0].set_yticklabels(data_dict[cluster_ids[0]].index)
+
+    fig.suptitle(pc_label)
+    plt.tight_layout()
+    return fig
+
+cluster_ids = sorted(cluster_colors.keys())
+
+# Build a dict {cluster_id: data} for each ordering — reuse same data for every cluster
+heat_by_cluster_pc1 = {cid: heat_map_0 for cid in cluster_ids}
+heat_by_cluster_pc2 = {cid: heat_map_2 for cid in cluster_ids}
+
+fig1 = plot_all_heatmaps_faceted(heat_by_cluster_pc1, cluster_ids, "PC1 order")
+plt.show()
+fig2 = plot_all_heatmaps_faceted(heat_by_cluster_pc2, cluster_ids, "PC2 order")
+plt.show()
+
+```
+Assessed against PC 1, cluster 0 is closer to the high fat pole, while cluster 2 is closely associated with the plant-like pole. 
+
+
+## LDL cholesterol and chronic disease data
+
+### Rates of metabolic syndrom related chronic disease symptoms in the UK from 1990 to 2020
+
+```{python}
+gor_to_ihme = {
+    1: 'North East England',
+    2: 'North West England',
+    4: 'Yorkshire and the Humber',
+    5: 'East Midlands',
+    6: 'West Midlands',
+    7: 'East of England',
+    8: 'Greater London',
+    9: 'South East England',
+    10: 'South West England',
+    11: 'Wales',
+    12: 'Scotland',
+  #  13: 'Northern Ireland',
+}
+df_clusters_pca = pd.read_parquet('shared_data/POSTER_nfs_clusters_pca.parquet') # qualitative
+
+#df_clusters_pca = pd.read_parquet('../shared_data/nfs_clusters_pca_quantity.parquet') # quantitative
+
+df_clusters_pca['location']=df_clusters_pca['gor'].map(gor_to_ihme)
+
+df_clusters_pca['year']=df_clusters_pca['styr']
+
+
+################
+##### VARIABLES :
+
+fg17fg55nute = 'fg17'
+cluster_column = 'fg17_cluster'
+x_metric = 'cluster_proportion'
+y_type = 'metabolic'
+quant_qual = 'qualitative' #gonna be all qual
+
+
+file_name_for_export = f'shared_data/POSTER_{fg17fg55nute}_{quant_qual}_{x_metric}_vs_{y_type}_lags.parquet'
+
+
+# For this protoype, we group by the binary fg17 and get 'proportion'
+# This is the proportion of people who are cluster 1 for the fg17 cluster catergory
+df_grouped=df_clusters_pca.copy()
+df_grouped = pd.DataFrame(df_grouped.groupby(['styr','location'])[[cluster_column]].value_counts(normalize=True).reset_index())
+df_diet=df_grouped
+
+
+#########
+##################### Lags Stuff
+
+# This is a just a dynamic way to grab the exact right 'styr' range.
+df_lag_ranges = pd.DataFrame({'styr': df_clusters_pca['styr'].unique()})
+# Then looping through 49 extra columns added to those styr
+# as dynamically labelled lag years
+for yr in range (0,50):
+    column_name = f'{yr}_year_lag'
+    df_lag_ranges[column_name] = df_lag_ranges['styr']+yr
+#df_lag_ranges.info() 
+
+df_diet_lags=df_diet.merge(df_lag_ranges, how= 'left', on='styr')
+#df_diet_lags.head(1000)
+
+# Now the diet data has joinable columns for disease data a all possible lag intervals
+#########
+
+
+############
+#### Read in a disease raw data file...
+df_metabolic_risk = pd.read_csv('shared_data/IHME-GBD_SEV_metabolic_regions.csv')
+#df_metabolic_risk
+#df_metabolic_risk.head()
+
+
+
+
+merged_list = []
+for lag in range(0, 50):
+    lag_string = [f'{lag}_year_lag', 'location']
+    df_merged = df_diet_lags.merge(df_metabolic_risk, how='left', left_on=lag_string, right_on=['year', 'location'])
+    df_merged['lag'] = lag
+    #print(df_merged.head())
+    merged_list.append(df_merged)
+df_merged_list_lags = pd.concat(merged_list)
+
+
+#df_merged_list_lags.head(10000)
+
+#df_merged_list_lags.info()
+
+#########
+## This next step drops rows where there is no disease data, looking for null in the 'val' column that the IHME brings in
+
+
+df_merged_lag_no_NaN = df_merged_list_lags.dropna(subset=['val'])
+
+#df_merged_lag_no_NaN.head(100000)
+
+
+
+######
+## This choses columns we like, but really is for dropping the 49 lag year columns that were used to guided the previous merges
+
+df_lag_trimmed = df_merged_lag_no_NaN[['styr', 'location', cluster_column,'proportion','population_group','measure', 'rei', 'year', 'val', 'upper','lower','lag']]
+
+
+
+#######
+## This is the dynamic file naming. Variable selection will go above eventually, and then eventually eventually be subsumed into the overall dynamic variables. But for this stage in commit history, we are getting our poster ready for the deadline, so code streamlining comes later.
+
+
+
+
+
+
+# Where the file actually gets output for the next step
+#/^|^\^/^|^\^/^|^\^/^|^\^/^|^\^/^|^\^/^|^\^/^|^\^\
+#/^|^\^/^|^\^/^|^\^/^|^\^/^|^\^/^|^\^/^|^\^/^|^\^\
+
+df_lag_trimmed.to_parquet(file_name_for_export)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```
+
+
+
+
+
+
+
+
+
+```{python}
+#| output: true
+############
+#### Read in a disease raw data file...
+df_metabolic_risk = pd.read_csv('shared_data/IHME-GBD_SEV_metabolic_regions.csv')
+#df_metabolic_risk
+#df_metabolic_risk.head()
+
+
+# Prepare for adding 5 year moving average by sorting sensibly
+df_metabolic_5yr = df_metabolic_risk.sort_values(['location', 'rei', 'year'])
+df_metabolic_5yr = df_metabolic_5yr[df_metabolic_5yr['location'] != 'Northern Ireland']
+# Doing as loop to capture the value and its upper and lower ribbon bounds
+# all as appropriate 5 year moving average
+for col in ['val', 'upper', 'lower']:
+    df_metabolic_5yr[f'{col}_ma5'] = (
+        df_metabolic_5yr.groupby(['location', 'rei'])[col]
+          .transform(lambda s: s.rolling(window=5, center=True, min_periods=3).mean())
+    )
+#df_metabolic_5yr.head(1000)
+
+disease_colors = {
+    'High LDL cholesterol': '#D62728',
+    'High body-mass index': '#6A3D9A',
+    'High fasting plasma glucose': '#8C564B',
+    'High systolic blood pressure': '#17BECF',
+    'Kidney dysfunction': '#BCBD22',
+    'Low bone mineral density': '#E7298A',
+    'Metabolic risks': '#7F7F7F',
+}
+
+#ax = sns.lineplot(df_metabolic_5yr[df_metabolic_5yr['metric']=='Rate'], x='year', y='val', hue='rei', palette=disease_colors)
+# ax.legend(bbox_to_anchor=(1.02, 1), loc='upper left', borderaxespad=0)
+
+#g = sns.relplot(
+#     data=df_metabolic_5yr[df_metabolic_5yr['metric'] == 'Rate'],
+#     x='year', y='val', hue='rei',
+#     col='location', col_wrap=4,
+#     kind='line',
+#     palette=disease_colors
+# )
+
+
+#plt.show()
+
+df_plot = df_metabolic_5yr[
+    (df_metabolic_5yr['metric'] == 'Rate') &
+    (df_metabolic_5yr['year'] >= 1990) &
+    (df_metabolic_5yr['year'] <= 2020)
+]
+fig, ax = plt.subplots(figsize=(10, 7), constrained_layout=True)
+ax = sns.lineplot(df_plot, x='year', y='val', hue='rei', palette=disease_colors)
+ax.xaxis.set_major_locator(plt.MaxNLocator(integer=True))
+ax.legend(bbox_to_anchor=(1.02, 1), loc='upper left', borderaxespad=0)
+plt.show()
+```
+
+Looking at the UK as a whole, SEV risk rates for high LDL cholesterol and high systolic blood pressure both show a downtrend from 1990 to 2000, althgouh high systolic blood pressure rates do start to climb again after that.  Metabolic risk overall continues to increase throughout the timespane, along with high body mass index (BMI). 
+```{python}
+
+
+
+g = sns.relplot(
+    data=df_plot,
+    x='year', y='val', hue='rei',
+    col='location', col_wrap=4,
+    kind='line',
+    palette=disease_colors
+
+)
+plt.show()
+```
+
+There is some regional variation in SEV risk rates over time for these chronic disease symptoms, but the only notable anomaly is the rate of high BMI in Wales compared to other regions. Wales has about 50% high BMI SEV risk for the whole dataset, whereas other regions do not approach that level of risk until later years, if at all.
