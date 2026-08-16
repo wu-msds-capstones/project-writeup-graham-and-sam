@@ -174,7 +174,7 @@ ax.plot(range(1, len(evr)+1), evr, marker='o')
 ax.set_ylim(0, 0.30)
 ax.set_xlabel('Principal Component')
 ax.set_ylabel('Explained variance ratio')
-ax.set_title(f'{title_name}\nScree plot')
+#ax.set_title(f'{title_name}\nScree plot')
 fig.savefig(f"{run_folder}/scree_{run_name}.png",  dpi=300, bbox_inches='tight')
 
 #print(evr_table)
@@ -219,7 +219,7 @@ for i, j in combinations(range(number_PCs_to_plot), 2):
 
     ax.set_xlabel(f'PC{i+1}')
     ax.set_ylabel(f'PC{j+1}')
-    ax.set_title(f'{title_name}\nPC{i+1} vs PC{j+1}')
+    ##ax.set_title(f'{title_name}\nPC{i+1} vs PC{j+1}')
 
     ax.set_xlim(pca_coords[:, i].mean() - 5*pca_coords[:, i].std(),
                 pca_coords[:, i].mean() + 5*pca_coords[:, i].std())
@@ -255,11 +255,11 @@ fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 10))
 loadings_sorted1 = loadings_df1.sort_values('PC1_loading', ascending=True)  # ascending so most-positive plots at top
 ax1.barh(loadings_sorted1['feature'], loadings_sorted1['PC1_loading'], color='steelblue')
 ax1.set_xlabel('PC1 Orientation')
-ax1.set_title('PC1 Orientation — Nutrients')
+#ax1.set_title('PC1 Orientation — Nutrients')
 
 ax1.tick_params(axis='y', labelsize=20)
 ax1.tick_params(axis='x', labelsize=20)
-ax1.set_title(ax1.get_title(), fontsize=22)
+#ax1.set_title(ax1.get_title(), fontsize=22)
 ax1.set_xlabel(ax1.get_xlabel(), fontsize=21)
 
 
@@ -278,11 +278,11 @@ loadings_df2.to_parquet(f"{run_folder}/pc2_loadings_{run_name}.parquet", index=F
 loadings_sorted2 = loadings_df2.sort_values('PC2_loading', ascending=True)  # ascending so most-positive plots at top
 ax2.barh(loadings_sorted2['feature'], loadings_sorted2['PC2_loading'], color='steelblue')
 ax2.set_xlabel('PC2 Orientation')
-ax2.set_title('PC2 Orientation — Nutrients')
+#ax2.set_title('PC2 Orientation — Nutrients')
 
 ax2.tick_params(axis='y', labelsize=20)
 ax2.tick_params(axis='x', labelsize=20)
-ax2.set_title(ax2.get_title(), fontsize=22)
+#ax2.set_title(ax2.get_title(), fontsize=22)
 ax2.set_xlabel(ax2.get_xlabel(), fontsize=21)
 
 
@@ -513,7 +513,7 @@ ax.legend(handles=handles, bbox_to_anchor=(1.02, 1), loc='upper left', title='Cl
 
 ax.set_xlabel('PC1 of PCA(95%)')
 ax.set_ylabel('PC2 of PCA(95%)')
-ax.set_title(f'{title_name}\nPCA(95%) → PCA(2), colored by k-means cluster')
+#ax.set_title(f'{title_name}\nPCA(95%) → PCA(2), colored by k-means cluster')
 
 plt.show()
 
