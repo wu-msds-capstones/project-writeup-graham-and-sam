@@ -27,5 +27,6 @@ execute:
 {{< include _04_analysis_metabolic_sev.qmd >}}
 {{< include _05_results.qmd >}}
 {{< include _06_conclusions.qmd >}}
-{{< include _07_references.qmd >}}
 {{< include _08_appendix.qmd >}}
+{{< include _07_references.qmd >}}
+
