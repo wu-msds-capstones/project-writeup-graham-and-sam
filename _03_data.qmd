@@ -2,7 +2,7 @@
 
 ## Diet data: National Food Survey (1974 to 2000)
 
-The UK's National Food Suvery (NFS) started in 1940 and eventually evolved into the Living Costs and Food Survey. which is active today (https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/500971/nfs-timeline-18feb16.pdf). However, not all of the associated data is publicly available.
+The UK's National Food Suvery (NFS) started in 1940 and eventually evolved into the Living Costs and Food Survey. which is active today . However, not all of the associated data is publicly available.
 
 For interested parties with institutional credentials, the UK Data Service, does provide a curated batch of NFS data that spans from 1974-2000.  https://ukdataservice.ac.uk
 
@@ -14,11 +14,19 @@ Additionally, the NFS included annually adjusted nutrient conversion information
 
 Demographic and economic information is also included with the NFS data. However, this analysis assesses diet composition per calorie, not diet quantity per capita.  So, the only demographic information that was really used in this analysis is the regional location of each household.
 
+### Dietary Unit Transformation
+
+#### Food groups
+
+Each diary row was assigned to one of sixteen food groups NEED APPENDIX FOR THIS based on an iterative literature informed (CITATION) manual review of all reported minimal food codes. Then row wise quantities of each food group were aggregated household's total food purchases were converted to total calories
 
 
-## Disease data: Global Burden of Disease survey (1990 to 2023)
 
-The primary response variable data was acquired from the Institute for Health Metrics and Evaluation (IHME) looking at the Global Burden of Disease (GBD) study ranging from(1990 to 2023). 
+## Disease data: Global Burden of Disease (1990 to 2023)
+
+Population-level disease risk rates for High LDL cholesterol and other metabolic-disease associated risk factors were acquired from the Institute for Health Metrics and Evaluation (IHME), using their GBD Results tool (https://vizhub.healthdata.org/gbd-results/).
+
+
 
 The data was specifically selected from an open API to find the summary exposure value risk rates: LDL Cholesterol, Body Mass Index, Fasting Plasma Glucose Systolic Blood Pressure, Kidney Dysfunction, Low Bone Mineral Density, and Metabolic Risks. 
 
@@ -26,7 +34,19 @@ These rates were preaggregated with the API ingestion by year, government region
 
 ## Pipeline
 
+### Diet data cleaning
+
+
+### Diet data aggregation
+
+
 National Food Survey diet diaries, household information, and nutrient conversion information are obtained as .txt files in folders by year.  Row-wise, each diet diary entry contains a household number (hhno), a log day (the survey)
+
+
+
+
+
+
 
 The disease risk rates were horizontally joined on government region and year.
 
