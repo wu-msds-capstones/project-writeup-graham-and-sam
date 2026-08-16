@@ -1,23 +1,22 @@
 # Data
 
-## Sources
+## Diet data: National Food Survey (1974 to 2000)
 
-### Diet data: National Food Survey (1974 to 2000)
+The UK's National Food Suvery (NFS) started in 1940 and eventually evolved into the Living Costs and Food Survey. which is active today (https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/500971/nfs-timeline-18feb16.pdf). However, not all of the associated data is publicly available.
 
-The primary explanatory data, the National Food Survey (NFS), was sourced from the UK Data Service. 
+For interested parties with institutional credentials, the UK Data Service, does provide a curated batch of NFS data that spans from 1974-2000.  https://ukdataservice.ac.uk
 
-It spans 1974-2000, where it sampled ~7,000 households per year for a total of around 190,000 households. 
+Each year, approximately 7,000 households across the UK were chosen at random from voting roles and asked to participate. From 1974 to 2000, almost 190,000 households participated. Consenting households tracked all food purchases (what food and how much of it) for one week in a 'diet diary'.  
 
-The survey looked into the “diet diary” during a 7-day period for each household.
+The raw diet diary entries listed foods as one of about 400 options (minor food codes, or 'minfd'), which could be associated with various levels of food groupings.  
 
-In the diary, the corresponding household would record their food purchasing information. 
+Additionally, the NFS included annually adjusted nutrient conversion information for each of the minor food codes, allowing the recorded type and quantity to be converted into a nutrient profile for that purchase, and aggregated to a nutrient profile for each household.
 
-Alongside the diary, the NFS collected the nutrient conversion information for each of the foods purchased.
+Demographic and economic information is also included with the NFS data. However, this analysis assesses diet composition per calorie, not diet quantity per capita.  So, the only demographic information that was really used in this analysis is the regional location of each household.
 
- Meaning, there was a quantity value and nutrient unit respective to each food. 
 
-### Disease data: Global Burden of Disease survey (1990 to 2023)
 
+## Disease data: Global Burden of Disease survey (1990 to 2023)
 
 The primary response variable data was acquired from the Institute for Health Metrics and Evaluation (IHME) looking at the Global Burden of Disease (GBD) study ranging from(1990 to 2023). 
 
@@ -27,7 +26,7 @@ These rates were preaggregated with the API ingestion by year, government region
 
 ## Pipeline
 
-The NFS datasets were aggregated by household per year where they were vertically joined to create a continuous span from 1974-2000. 
+National Food Survey diet diaries, household information, and nutrient conversion information are obtained as .txt files in folders by year.  Row-wise, each diet diary entry contains a household number (hhno), a log day (the survey)
 
 The disease risk rates were horizontally joined on government region and year.
 
