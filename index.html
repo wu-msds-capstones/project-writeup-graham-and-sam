@@ -276,7 +276,11 @@ div.csl-indent {
   <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">Background</a></li>
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a>
   <ul class="collapse">
-  <li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources">Sources</a></li>
+  <li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources">Sources</a>
+  <ul class="collapse">
+  <li><a href="#diet-data-national-food-survey-1974-to-2000" id="toc-diet-data-national-food-survey-1974-to-2000" class="nav-link" data-scroll-target="#diet-data-national-food-survey-1974-to-2000">Diet data: National Food Survey (1974 to 2000)</a></li>
+  <li><a href="#disease-data-global-burden-of-disease-survey-1990-to-2023" id="toc-disease-data-global-burden-of-disease-survey-1990-to-2023" class="nav-link" data-scroll-target="#disease-data-global-burden-of-disease-survey-1990-to-2023">Disease data: Global Burden of Disease survey (1990 to 2023)</a></li>
+  </ul></li>
   <li><a href="#pipeline" id="toc-pipeline" class="nav-link" data-scroll-target="#pipeline">Pipeline</a></li>
   <li><a href="#units" id="toc-units" class="nav-link" data-scroll-target="#units">Units</a></li>
   <li><a href="#ethics-and-responsible-use" id="toc-ethics-and-responsible-use" class="nav-link" data-scroll-target="#ethics-and-responsible-use">Ethics and Responsible Use</a></li>
@@ -359,17 +363,31 @@ div.csl-indent {
 <h1>Data</h1>
 <section id="sources" class="level2">
 <h2 class="anchored" data-anchor-id="sources">Sources</h2>
-<p>The primary explanatory data, the National Food Survey (NFS), was sourced from the UK Data Service. It spans 1974-2000, where it sampled ~7,000 households per year for a total of around 190,000 households. The survey looked into the “diet diary” during a 7-day period for each household. In the diary, the corresponding household would record their food purchasing information. Alongside the diary, the NFS collected the nutrient conversion information for each of the foods purchased. Meaning, there was a quantity value and nutrient unit respective to each food.</p>
-<p>The demographics included in this report were, age, sex, and household composition. This was split into child/adult/eldery and male/female groups. These variables were used to create metrics allowing for per-person comparisons of the nutrients. These metrics weighted children as 0.5, adult women as 0.8 and elderly as 0.85 of a male adult in terms of their caloric consumption.</p>
-<p>The primary response variable data was acquired from the Institute for Health Metrics and Evaluation (IHME) looking at the Global Burden of Disease (GBD) study ranging from(1990 to 2023). The data was specifically selected from an open API to find the summary exposure value risk rates: LDL Cholesterol, Body Mass Index, Fasting Plasma Glucose Systolic Blood Pressure, Kidney Dysfunction, Low Bone Mineral Density, and Metabolic Risks. These rates were preaggregated with the API ingestion by year, government region in the UK and to population per region.</p>
+<section id="diet-data-national-food-survey-1974-to-2000" class="level3">
+<h3 class="anchored" data-anchor-id="diet-data-national-food-survey-1974-to-2000">Diet data: National Food Survey (1974 to 2000)</h3>
+<p>The primary explanatory data, the National Food Survey (NFS), was sourced from the UK Data Service.</p>
+<p>It spans 1974-2000, where it sampled ~7,000 households per year for a total of around 190,000 households.</p>
+<p>The survey looked into the “diet diary” during a 7-day period for each household.</p>
+<p>In the diary, the corresponding household would record their food purchasing information.</p>
+<p>Alongside the diary, the NFS collected the nutrient conversion information for each of the foods purchased.</p>
+<p>Meaning, there was a quantity value and nutrient unit respective to each food.</p>
+</section>
+<section id="disease-data-global-burden-of-disease-survey-1990-to-2023" class="level3">
+<h3 class="anchored" data-anchor-id="disease-data-global-burden-of-disease-survey-1990-to-2023">Disease data: Global Burden of Disease survey (1990 to 2023)</h3>
+<p>The primary response variable data was acquired from the Institute for Health Metrics and Evaluation (IHME) looking at the Global Burden of Disease (GBD) study ranging from(1990 to 2023).</p>
+<p>The data was specifically selected from an open API to find the summary exposure value risk rates: LDL Cholesterol, Body Mass Index, Fasting Plasma Glucose Systolic Blood Pressure, Kidney Dysfunction, Low Bone Mineral Density, and Metabolic Risks.</p>
+<p>These rates were preaggregated with the API ingestion by year, government region in the UK and to population per region.</p>
+</section>
 </section>
 <section id="pipeline" class="level2">
 <h2 class="anchored" data-anchor-id="pipeline">Pipeline</h2>
-<p>The NFS datasets were aggregated by household per year where they were vertically joined to create a continuous span from 1974-2000. The disease risk rates were horizontally joined on government region and year.</p>
+<p>The NFS datasets were aggregated by household per year where they were vertically joined to create a continuous span from 1974-2000.</p>
+<p>The disease risk rates were horizontally joined on government region and year.</p>
 </section>
 <section id="units" class="level2">
 <h2 class="anchored" data-anchor-id="units">Units</h2>
-<p>Food groups rates were normalized as a proportion of total calories consumed. The nutrient groups were normalized as quantity per daily calories. The disease rates were summary exposure values (SEV) which are relative to the total possible risk.</p>
+<p>Food groups rates were normalized as a proportion of total calories consumed. The nutrient groups were normalized as quantity per daily calories.</p>
+<p>The disease rates were summary exposure values (SEV) which are relative to the total possible risk.</p>
 </section>
 <section id="ethics-and-responsible-use" class="level2">
 <h2 class="anchored" data-anchor-id="ethics-and-responsible-use">Ethics and Responsible Use</h2>
