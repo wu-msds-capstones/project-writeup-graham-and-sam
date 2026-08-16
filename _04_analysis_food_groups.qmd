@@ -564,3 +564,4 @@ ax_heat.set_xticklabels(['Cluster 0', 'Cluster 1'])
 
 fig.subplots_adjust(left=0.5, right=0.95, top=0.95, bottom=0.05)
 
+```
