@@ -24,7 +24,7 @@ execute:
 {{< include _04_analysis_food_groups.qmd >}}
 {{< include _04_analysis_nutrients.qmd >}}
 {{< include _04_R_analysis.qmd >}}
-{{< include _04_metabolic_sev.qmd >}}
+{{< include _04_analysis_metabolic_sev.qmd >}}
 {{< include _05_results.qmd >}}
 {{< include _06_conclusions.qmd >}}
 {{< include _07_references.qmd >}}
