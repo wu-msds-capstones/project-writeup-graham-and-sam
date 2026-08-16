@@ -4,6 +4,7 @@ Additionally, we looked at nutrient profiles.
 
 
 ## NUTRIENTS
+
 ```{python}
 
 ## Combined PCA and k-means
@@ -235,34 +236,51 @@ For household nutrient profiles, PC 1 and PC 2 each explain over 20% of variance
 ```{python}
 ##############
 # This is the "what does PC1 mean figure"
-loadings_df = pd.DataFrame({
+loadings_df1 = pd.DataFrame({
     'feature': scaled_df.columns,
     'PC1_loading': pca.components_[0] * 1  # match the flipped PC1_score sign
 }).sort_values('PC1_loading', ascending=False)
 
-loadings_df.to_parquet(f"{run_folder}/pc1_loadings_{run_name}.parquet", index=False)
+loadings_df1.to_parquet(f"{run_folder}/pc1_loadings_{run_name}.parquet", index=False)
 
-fig, ax = plt.subplots(figsize=(6, 8))
-loadings_sorted = loadings_df.sort_values('PC1_loading', ascending=True)  # ascending so most-positive plots at top
-ax.barh(loadings_sorted['feature'], loadings_sorted['PC1_loading'], color='steelblue')
-ax.set_xlabel('PC1 Orientation')
-ax.set_title('PC1 Orientation — Nutrients')
-plt.tight_layout()
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 10))
+#fig, ax = plt.subplots(figsize=(6, 8))
+
+loadings_sorted1 = loadings_df1.sort_values('PC1_loading', ascending=True)  # ascending so most-positive plots at top
+ax1.barh(loadings_sorted1['feature'], loadings_sorted1['PC1_loading'], color='steelblue')
+ax1.set_xlabel('PC1 Orientation')
+ax1.set_title('PC1 Orientation — Nutrients')
+
+ax1.tick_params(axis='y', labelsize=20)
+ax1.tick_params(axis='x', labelsize=20)
+ax1.set_title(ax1.get_title(), fontsize=22)
+ax1.set_xlabel(ax1.get_xlabel(), fontsize=21)
+
+
+#plt.tight_layout()
 fig.savefig(f"{run_folder}/pc1_loadings_barh_{run_name}.png", dpi=300, bbox_inches='tight')
-plt.show()
+#plt.show()
 
-loadings_df = pd.DataFrame({
+loadings_df2 = pd.DataFrame({
     'feature': scaled_df.columns,
     'PC2_loading': pca.components_[1] * 1  # match the flipped PC1_score sign
 }).sort_values('PC2_loading', ascending=False)
 
-loadings_df.to_parquet(f"{run_folder}/pc2_loadings_{run_name}.parquet", index=False)
+loadings_df2.to_parquet(f"{run_folder}/pc2_loadings_{run_name}.parquet", index=False)
 
-fig, ax = plt.subplots(figsize=(6, 8))
-loadings_sorted = loadings_df.sort_values('PC2_loading', ascending=True)  # ascending so most-positive plots at top
-ax.barh(loadings_sorted['feature'], loadings_sorted['PC2_loading'], color='steelblue')
-ax.set_xlabel('PC2 Orientation')
-ax.set_title('PC2 Orientation — Nutrients')
+#fig, ax = plt.subplots(figsize=(6, 8))
+loadings_sorted2 = loadings_df2.sort_values('PC2_loading', ascending=True)  # ascending so most-positive plots at top
+ax2.barh(loadings_sorted2['feature'], loadings_sorted2['PC2_loading'], color='steelblue')
+ax2.set_xlabel('PC2 Orientation')
+ax2.set_title('PC2 Orientation — Nutrients')
+
+ax2.tick_params(axis='y', labelsize=20)
+ax2.tick_params(axis='x', labelsize=20)
+ax2.set_title(ax2.get_title(), fontsize=22)
+ax2.set_xlabel(ax2.get_xlabel(), fontsize=21)
+
+
+
 plt.tight_layout()
 fig.savefig(f"{run_folder}/pc2_loadings_barh_{run_name}.png", dpi=300, bbox_inches='tight')
 plt.show()
