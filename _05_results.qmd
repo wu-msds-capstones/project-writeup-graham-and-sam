@@ -41,6 +41,8 @@ disease_colors = {
 
 
 ```{python}
+#| label: fig-correlation-sweep-vs-LDL
+#| fig-cap: "Lag correlation sweeps for cluster 2 against High LDL cholesterol"
 fg17fg55nute = 'nute'
 cluster_type = f'{fg17fg55nute}_cluster'
 rei_name = 'High LDL cholesterol'
@@ -95,12 +97,16 @@ plt.ylabel('r')
 plt.title(f'{diet_label} vs {disease_label}: cross-correlation by lag')
 plt.legend()
 plt.show()
-plt.close()
+#plt.close()
 
 file_name_for_export = f'../_scratch/EDA_correlation/{diet_label}_vs_{disease_label.replace(" ", "_")}_ccf.png'
 os.makedirs('../_scratch/EDA_correlation', exist_ok=True)
 
-plt.savefig(file_name_for_export, dpi=150, bbox_inches='tight')
+#plt.savefig(file_name_for_export, dpi=150, bbox_inches='tight')
+```
+```{python}
+#| label: fig-correlation-sweep-for-other-disease
+#| fig-cap: "Lag correlation sweeps for all nutrient clusters against LDL"
 
 #ccf_df.head(1000)
 
@@ -171,6 +177,9 @@ print(f"Observed r = {observed_r:.3f}, n = {len(x_valid)}, permutation p-value =
 
 
 ```{python}
+#| results: 'hide'
+#| label: fig-map-neg-corr-ldl-nute-cluster-2
+#| fig-cap: "Consistent negative correlation at five year lag across the UK"
 fg17fg55nute = 'nute'
 cluster_type = f'{fg17fg55nute}_cluster'
 rei_name = 'High LDL cholesterol'
@@ -240,7 +249,7 @@ for loc in df_diet_national['location'].unique() if 'location' in df_diet_nation
     results.append({'location': loc, 'r': r, 'n': n})
 
 df_region_lag5 = pd.DataFrame(results).sort_values('r', ascending=False)
-print(df_region_lag5)
+#print(df_region_lag5)
 
 
 url = 'https://raw.githubusercontent.com/martinjc/UK-GeoJSON/master/json/electoral/gb/eer.json'
@@ -297,7 +306,9 @@ plt.close()
 
 
 ```{python}
-
+#| results: 'hide'
+#| label: fig-map-no-corr-blood-pressure-nute-cluster-2
+#| fig-cap: "Not consistent l;a against blood proessure in the same time"
 fg17fg55nute = 'nute'
 cluster_type = f'{fg17fg55nute}_cluster'
 rei_name = 'High systolic blood pressure'
