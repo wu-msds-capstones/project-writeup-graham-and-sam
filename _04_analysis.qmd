@@ -5,6 +5,7 @@ format: html
 jupyter: python3
 execute:
   echo: false
+  output: false
 ---
 
 
@@ -41,61 +42,18 @@ import numpy as np
 from matplotlib.colors import LinearSegmentedColormap, TwoSlopeNorm
 
 
-#import umap
-
-
-##################
-#####
-## Combined PCA and k-means
-
-#########################
-# Variables for entire pipeline
-###########################
+#
 household_or_region = 'household'
 foodgroup17_foodgroup55_or_nutrient = 'foodgroup17'
 calorie_prune_threshold = 627 # 627 calories is two SD below total dataset mean in log scale.
 group_17_or_group_55_or_Nutrient_name = 'group_17'
 is_household = household_or_region == 'household'
-#value_to_analyze = 'nutrient_per_total_cal' # this one is for nutrients quality
-#value_to_analyze = 'nute_per_adulteq_sexsplit_per_diem' # this one is for nutrients quantity
 value_to_analyze = 'calorie_ratio' # this one is for food groups quality
-#value_to_analyze = 'quantity_per_adulteq_sexsplit_per_diem' # this one is for food groups quantity
 seed = 53 # Change to any random integer to seed downstream random number generator.
-#value_aggregation_to_cluster = 'nutrient_per_total_cal' # different options for household and region
-number_of_initializations = 101  # This is how many times the k-means algorithm will start over to see if it gets the same(ish) results.
-# k_means_samples = all the samples, this one is not actually a variable.
-
-# Value aggregation to cluster options
- #      NUTRIENT
- # 16  nute_per_adulteq_sexsplit_per_diem  float64
- # 17  calories_per_cap_per_day            float64
- # 18  nutrient_per_total_cal              float64
-
-#       Food Group 17 and Food Group 55
-#  10  calorie_ratio                           float64
-#  11  quantity_per_total_cal                  float64
-#  12  quantity_per_adulteq_per_diem           float64
-#  13  calories_per_adulteq_per_diem           float64
-#  14  quantity_per_adulteq_sexsplit_per_diem  float64
-#  15  calories_per_adulteq_sexsplit_per_diem  float64
-
-##########################################################
-########################################
-####################
-# PCA (Principle Component Analysis) specific variables.  
-##########
-# How many Principle Components
+number_of_initializations = 101 
 number_PCA_components = 15
-# Two variables for later plots
 number_PCs_to_plot = 2  # will generate this 2x this many plots                    
 color_PC_plots_by = 'styr'
-##################################################
-
-##############################
-########################################
-##################################################
-# k-means specific variables
-##########
 
 manual_k = True # are you setting clusters manually? True or False
 number_of_clusters = 2  # This will be overwritten by best k selector if manual_k is False
@@ -109,39 +67,6 @@ best_k_samples = 1000 # How many samples does the optimizer do for each run (set
 # For the ARI stuff specificially
 ari_seed_count = 3 # How many times does it try
 k_range = range(2, 9) # How many k's does it try each time
-
-# Silhouette analysis: how distinct are the clusters. This is not a huge worry.
-# And this does take a long time, so set lower for iterations, higher for final product.
-sil_sample = 33 # for silhouette analysis (this is slow, big number takes long time)
-
-# # UMAP visualization
-# umap_sample = len(scaled_df) # 13579 # umap sampling (how many points on plots)
-# umap_neighbors = 10 # how smoothly do the points relate
-
-##############################
-
-
-
-# Value aggregation to cluster options
- #      NUTRIENT
- # 16  nute_per_adulteq_sexsplit_per_diem  float64
- # 17  calories_per_cap_per_day            float64
- # 18  nutrient_per_total_cal              float64
-
-#       Food Group 17 and Food Group 55
-#  10  calorie_ratio                           float64
-#  11  quantity_per_total_cal                  float64
-#  12  quantity_per_adulteq_per_diem           float64
-#  13  calories_per_adulteq_per_diem           float64
-#  14  quantity_per_adulteq_sexsplit_per_diem  float64
-#  15  calories_per_adulteq_sexsplit_per_diem  float64
-
-
-
-
-###########################################
-########################################
-# This section dynamically generates f-strings for creating folders, saving files, and titling plots and tables.
 
 
 folder_name = f"no_alcohol_{foodgroup17_foodgroup55_or_nutrient}_{household_or_region}_{value_to_analyze}_{number_of_initializations}_inits"
@@ -163,8 +88,6 @@ os.makedirs(run_folder, exist_ok=True)
 parquet_filepath = f'shared_data/POSTER_NFS_all_years_{household_or_region}_{foodgroup17_foodgroup55_or_nutrient}_aggs_v2_no_alcohol_NI_mlso.parquet'
 
 
-
-
 #############
 # Now the appropriate aggregated file reads in
 df_raw_all = pd.read_parquet(parquet_filepath)
@@ -173,11 +96,8 @@ df_raw_all = pd.read_parquet(parquet_filepath)
 # So all gor = 3 rows will be reclassified as gor = 2 so that all downstream grouping and analysis is consistent with the IHME data.
 df_raw_all['gor'] = df_raw_all['gor'].replace(3, 2)
 
-
-
 # Prune nutrients not in all 27 years
 if foodgroup17_foodgroup55_or_nutrient == 'nutrient':
-    
     coverage = df_raw_all.groupby('nutrient')['styr'].nunique()
     full_coverage = coverage[coverage == 27].index
     df_raw_1 = df_raw_all[df_raw_all['nutrient'].isin(full_coverage)]
@@ -196,7 +116,6 @@ if 'hh_total_calories' in df_to_prune.columns:
     df_pruned = df_to_prune[threshold_mask]
 else:
     df_pruned = df_to_prune
-
 
 input_df = df_pruned.dropna(subset=group_17_or_group_55_or_Nutrient_name)
 column_to_cluster_on = group_17_or_group_55_or_Nutrient_name
@@ -237,6 +156,7 @@ scaled_df = pd.DataFrame(
 ### PCA (principal component analysis)
 
 ```{python}
+#| output: true a
 #######
 ### PCA TIME!
 
@@ -317,8 +237,8 @@ for i, j in combinations(range(number_PCs_to_plot), 2):
                 pca_coords[:, j].mean() + 5*pca_coords[:, j].std())
 
    # fig.savefig(f"{run_folder}/PC{i+1}v{j+1}_{run_name}.png",  dpi=300, bbox_inches='tight')
-    plt.show()
-    plt.close(fig)
+    #plt.show()
+    #plt.close(fig)
 
 
 pca_full = PCA(n_components=0.95, random_state=42)  # 0.95 = auto-pick n for 95% variance
