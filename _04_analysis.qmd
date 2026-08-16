@@ -672,7 +672,7 @@ print(df_hh_per_cluster)
 sample_df = wide_df.sample(n=2000, random_state=42)
 embedding_tsne = TSNE(n_components=2, init ='pca' , verbose=0).fit_transform(sample_df)
 
-fig, ax = plt.subplots(figsize=(8, 7))
+fig, ax = plt.subplots(figsize=(10, 7), constrained_layout=True)
 cluster_labels = sample_df['cluster']
 df_hh_per_cluster = cluster_labels.value_counts()
 
@@ -688,7 +688,7 @@ handles = [Line2D([0], [0], marker='o', linestyle='', color=cluster_colors[i],
            for i in sorted(cluster_colors)]
 ax.legend(handles=handles, bbox_to_anchor=(1.02, 1), loc='upper left', title='Cluster')
 
-ax.set_xticks([]); ax.set_yticks([])
+#ax.set_xticks([]); #ax.set_yticks([])
 ax.set_xlabel('t-SNE 1'); ax.set_ylabel('t-SNE 2')
 ax.set_title(f'{title_name}\nPCA(12) → t-SNE, colored by k-means cluster')
 
@@ -703,8 +703,8 @@ This heatmap combines information from PCA and k-means clustering.  The two colu
 
 
 ```{python}
-
-
+#| fig-align: center
+#| results: 'hide'
 
 ###########
 # Heat map stuff
@@ -713,16 +713,11 @@ This heatmap combines information from PCA and k-means clustering.  The two colu
 #print('Heatmaps coming up')
 
 
-# --- explicit PC1 ordering, no dependency on earlier cells ---
 heat_map_data = df_clustered.set_index('Cluster')[feature_cols].T
 pc_index = 0  # PC1
 pc_name = pca_loadings.columns[pc_index]
 order = pcX_order_list[pc_index][group_17_or_group_55_or_Nutrient_name]
 heat_map_data_ordered = heat_map_data.reindex(order)
-
-
-# order = pcX_order_list[pc_index][group_17_or_group_55_or_Nutrient_name]
-# heat_map_data_ordered = heat_map_data.reindex(order)
 
 #fg17_cluster_colors = {0: '#762A83', 1: '#B2182B'}
 vmax = 2
@@ -737,7 +732,7 @@ def col_to_rgb(colname):
 
 rgb_image = np.stack([col_to_rgb(0), col_to_rgb(1)], axis=1)  # (n_rows, 2, 3)
 
-fig, ax_heat = plt.subplots(figsize=(2, heat_map_data_ordered.shape[0]))
+fig, ax_heat = plt.subplots(figsize=(6, heat_map_data_ordered.shape[0]*0.4))
 ax_heat.imshow(rgb_image, aspect='auto')
 
 for i, cid in enumerate([0, 1]):
@@ -749,7 +744,9 @@ ax_heat.set_yticks(range(len(heat_map_data_ordered.index)))
 ax_heat.set_yticklabels(heat_map_data_ordered.index)
 
 ax_heat.set_xticks([0, 1])
-ax_heat.set_xticklabels(['0', '1'])
+ax_heat.set_xticklabels(['Cluster 0', 'Cluster 1'])
+
+fig.subplots_adjust(left=0.5, right=0.95, top=0.95, bottom=0.05)
 
 #############################################################################
 #######################################
