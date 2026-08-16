@@ -1,23 +1,11 @@
 # Introduction
 
-Eat more plants now, have lower cholesterol later.
+Can changes in population-level dietary trends track with downstream changes in population-level health outcomes? 
 
-Specifically, low density lipoprotein (LDL) cholesterol, which is often described in the media and in doctor's offices as "bad cholesterol."
+Specifically, can a population's increase in a relatively plant-based dietary pattern be correlated with a time-lagged decrease in that population's elevated LDL cholesterol risk level? If so, at how long a time lag? 
 
-Elevelated levels of LDL cholesterol are associated with increased risk of cardiovascular disease and all cause mortality [Peng, 2022], resulting in many lost years of wellbeing and lifespan.  Impacts of cardiovascular and other chronic diseases spread beyond individuals to their caregivers and to the broader community [Schwind, 2025]. It is in everyone's best interest to promote reduction of chronic disease risk factors such as high LDL cholesterol.  
+This study examines the population of the United Kingdom (UK), drawing on diet diary data from a representative sample of UK households from 1974 to 2000, and disease risk factor rates (especially high LDL cholesterol) from 1990 to 2023.  Correlation is derived from aggregates at national and regional levels. 
 
-Chronic disease is complex, and of the many factors that influence chronic disease risk, most (genetics, poverty, care access, luck) are not really conrollable.  Disease management through medication is and has been an increasingly relied upon strategy in many places including the United Kingdom [Zhang, 2016], but that strategy is expensive, and access can be limited. Additionally, pharmaceutical manageament of chronic disease requires long-term medication consumption, which can have its own set of unserireable physiological side effects.
-
-However, one chronic disease risk factor that individual people can take some control over is their food choices. Specific to this report, diet is known to impact LDL cholesterol levels and other chronic disease risk factors[Schoeneck, 2021]. 
-
-This study examines the population of the United Kingdom (UK), drawing on diet diary data from a representative sample of UK households from 1974 to 2000, and disease risk factor rates (especially high LDL cholesterol) 1990 to 2023. 
-
-Ultimately, this study identifies a statistically significant inverse correlation between year-on-year changes in relatively-plant-based diet patterns and risk of high LDL cholesterol, at a five-year-time lag.  
-
-This is to say, eat more plants now, have lower LDL cholesterol five years later.
-
-
-
-
+Ultimately, this study identifies a statistically significant inverse correlation between population-level year-on-year changes in relatively-plant-based diet patterns and risk of high LDL cholesterol, at a five-year-time lag.  
 
 
