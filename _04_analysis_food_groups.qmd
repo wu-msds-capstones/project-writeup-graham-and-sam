@@ -144,6 +144,9 @@ scaled_df = pd.DataFrame(
 
 ```{python}
 #| results: 'hide'
+#| label: fig-scree-plot
+#| fig-cap: "Explained variance ratio by principle component for PCA of household diet data examined by food group calories to total calorie ratios."
+
 #######
 ### PCA TIME!
 
@@ -236,6 +239,9 @@ The most explanatory component (PC 1) accounted for about 11% of variance in the
 The other components only explained ~5% variance, leading to 14 components required to cumulatively explain 95% of variance.
 
 ```{python}
+#| label: fig-pca_nutes-plot
+#| fig-cap: "Orientations of the first two principal components of the food group orientated diet data."
+
 ##############
 # This is the "what does PC1 mean figure"
 loadings_df1 = pd.DataFrame({
@@ -446,6 +452,7 @@ The principal components that were required to explain 95% variance in the aggre
 
 ```{python}
 
+
 # Step 3: t-SNE on the 2D PCA output
 ################################
 ##### THIS TAKES FOREVER AND MAKES COMPUTER MAD
@@ -501,6 +508,8 @@ print(df_hh_per_cluster)
 
 
 ```{python}
+#| label: fig-cluster-2D-food-groups-plot
+#| fig-cap: "A 2-D projection of the k-means clustering of the households based on food groups. The 14 principal components required to explain 95% of the variance in the household diet data were further reduced to 2 principal components, which serve as the axes of this visualization."
 cluster_colors = {0: '#762A83', 1: '#B2182B'}
 df_hh_per_cluster = wide_df['cluster'].value_counts()
 pca_2 = PCA(n_components=2, random_state=42)
@@ -531,6 +540,8 @@ This heatmap combines information from PCA and k-means clustering.  The two colu
 ```{python}
 #| fig-align: center
 #| results: 'hide'
+#| label: fig-heat-map-food-groups-plot
+#| fig-cap: "A visualization of the cluster centroid z score for each of the food group dimensions, originally calculated as proportion of total calories for each food group."
 
 ###########
 # Heat map stuff

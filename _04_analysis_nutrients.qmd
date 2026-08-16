@@ -141,6 +141,8 @@ scaled_df = pd.DataFrame(
 
 ```{python}
 #| results: 'hide'
+#| label: fig-scree-nutrients-plot
+#| fig-cap: "Scree Plot Nutrients"
 #######
 ### PCA TIME!
 
@@ -183,6 +185,8 @@ plt.close()
 ```{python}
 #| results: 'hide'
 #| fig.show: 'hide'
+
+
 pca_loadings = pd.DataFrame(
     pca.components_.T,                     # transpose: rows = food groups
     index=scaled_df.columns,
@@ -234,6 +238,8 @@ print(f"PCA required {n_components_95} components to cumulatively explain 95% va
 For household nutrient profiles, PC 1 and PC 2 each explain over 20% of variance, and 11 components are required to cumulatively explain 95% of variance.
 
 ```{python}
+#| label: fig-pca-orientations-nutrients
+#| fig-cap: "Orientations of the first two principal components of the diet data by nutrient in dimension space."
 ##############
 # This is the "what does PC1 mean figure"
 loadings_df1 = pd.DataFrame({
@@ -486,6 +492,8 @@ For household nutrient profiles, best k number of clusters was consistently foun
 
 
 ```{python}
+#| label: fig-clusteres-nutrients
+#| fig-cap: "A 2-D rendering of all households by nutrient profile clusters."
 
 cluster_colors = {0:'#E69F00', 1:'#56B4E9', 2:'#009E73', 3:'#0072B2', 4:'#CC79A7'}
 df_hh_per_cluster = wide_df['cluster'].value_counts()
@@ -517,7 +525,8 @@ plt.show()
 
 ```{python}
 #| output: true
-
+#| label: fig-heatmaps-nutrients
+#| fig-cap: "Orientations of the first two principal components of the diet data by nutrient in dimension space."
 ###########
 # Heat map stuff
 ###

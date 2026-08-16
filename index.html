@@ -376,22 +376,32 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="food-groups">FOOD GROUPS</h2>
 <section id="pca-principal-component-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="pca-principal-component-analysis">PCA (principal component analysis)</h3>
-<div class="cell">
+<div id="cell-fig-scree-plot" class="cell">
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="capstone_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="768"></a></p>
+<div id="fig-scree-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-scree-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="capstone_files/figure-html/fig-scree-plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Explained variance ratio by principle component for PCA of household diet data examined by food group calories to total calorie ratios."><img src="capstone_files/figure-html/fig-scree-plot-1.png" class="img-fluid figure-img" width="768"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scree-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Explained variance ratio by principle component for PCA of household diet data examined by food group calories to total calorie ratios.
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p>The most explanatory component (PC 1) accounted for about 11% of variance in the food group aggregations.</p>
 <p>The other components only explained ~5% variance, leading to 14 components required to cumulatively explain 95% of variance.</p>
-<div class="cell">
+<div id="cell-fig-pca_nutes-plot" class="cell">
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-4-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="capstone_files/figure-html/unnamed-chunk-4-4.png" class="img-fluid figure-img" width="1344"></a></p>
+<div id="fig-pca_nutes-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pca_nutes-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="capstone_files/figure-html/fig-pca_nutes-plot-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Orientations of the first two principal components of the food group orientated diet data."><img src="capstone_files/figure-html/fig-pca_nutes-plot-4.png" class="img-fluid figure-img" width="1344"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pca_nutes-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Orientations of the first two principal components of the food group orientated diet data.
+</figcaption>
 </figure>
 </div>
 </div>
@@ -414,21 +424,31 @@ div.csl-indent {
 Name: count, dtype: int64</code></pre>
 </div>
 </div>
-<div class="cell">
+<div id="cell-fig-cluster-2D-food-groups-plot" class="cell">
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-7-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="capstone_files/figure-html/unnamed-chunk-7-6.png" class="img-fluid figure-img" width="960"></a></p>
+<div id="fig-cluster-2D-food-groups-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-cluster-2D-food-groups-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="capstone_files/figure-html/fig-cluster-2D-food-groups-plot-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: A 2-D projection of the k-means clustering of the households based on food groups. The 14 principal components required to explain 95% of the variance in the household diet data were further reduced to 2 principal components, which serve as the axes of this visualization."><img src="capstone_files/figure-html/fig-cluster-2D-food-groups-plot-6.png" class="img-fluid figure-img" width="960"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cluster-2D-food-groups-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: A 2-D projection of the k-means clustering of the households based on food groups. The 14 principal components required to explain 95% of the variance in the household diet data were further reduced to 2 principal components, which serve as the axes of this visualization.
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p>This heatmap combines information from PCA and k-means clustering. The two columns represent the two clusters that were assigned in k-means clustering. The axis of the heatmap is oriented along PC 1 for food group aggregations. Cell color indicates cluster centroid similarity to each dimension of PC 1. Gray cells are dissimilar, white cells are nuetral, colorful cells are more similar.</p>
-<div class="cell" data-layout-align="center">
+<div id="cell-fig-heat-map-food-groups-plot" class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-8-8.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="capstone_files/figure-html/unnamed-chunk-8-8.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></a></p>
+<div id="fig-heat-map-food-groups-plot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-heat-map-food-groups-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="capstone_files/figure-html/fig-heat-map-food-groups-plot-8.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;4: A visualization of the cluster centroid z score for each of the food group dimensions, originally calculated as proportion of total calories for each food group."><img src="capstone_files/figure-html/fig-heat-map-food-groups-plot-8.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-heat-map-food-groups-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: A visualization of the cluster centroid z score for each of the food group dimensions, originally calculated as proportion of total calories for each food group.
+</figcaption>
 </figure>
 </div>
 </div>
@@ -443,48 +463,73 @@ Name: count, dtype: int64</code></pre>
 <h2 class="anchored" data-anchor-id="nutrients">NUTRIENTS</h2>
 <section id="pca-for-nutrient-profiles" class="level3">
 <h3 class="anchored" data-anchor-id="pca-for-nutrient-profiles">PCA for nutrient profiles</h3>
-<div class="cell">
+<div id="cell-fig-scree-nutrients-plot" class="cell">
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-10-10.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="capstone_files/figure-html/unnamed-chunk-10-10.png" class="img-fluid figure-img" width="768"></a></p>
+<div id="fig-scree-nutrients-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-scree-nutrients-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="capstone_files/figure-html/fig-scree-nutrients-plot-10.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure&nbsp;5: Scree Plot Nutrients"><img src="capstone_files/figure-html/fig-scree-nutrients-plot-10.png" class="img-fluid figure-img" width="768"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scree-nutrients-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Scree Plot Nutrients
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p>For household nutrient profiles, PC 1 and PC 2 each explain over 20% of variance, and 11 components are required to cumulatively explain 95% of variance.</p>
-<div class="cell">
+<div id="cell-fig-pca-orientations-nutrients" class="cell">
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-12-12.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="capstone_files/figure-html/unnamed-chunk-12-12.png" class="img-fluid figure-img" width="1344"></a></p>
+<div id="fig-pca-orientations-nutrients" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pca-orientations-nutrients-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="capstone_files/figure-html/fig-pca-orientations-nutrients-12.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;6: Orientations of the first two principal components of the diet data by nutrient in dimension space."><img src="capstone_files/figure-html/fig-pca-orientations-nutrients-12.png" class="img-fluid figure-img" width="1344"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pca-orientations-nutrients-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Orientations of the first two principal components of the diet data by nutrient in dimension space.
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p>PC 1 for household nutrient profiles has a fat (saturated and unsaturated) pole and a “plant-food” pole (vegetable protein and carbohydrates and vitamins). PC 2 for household nutrient profiles has a high carbohydrate pole juxtaposed against a high animal protein pole.</p>
 <p>For household nutrient profiles, best k number of clusters was consistently found to be 5. Notably, one of the five clusters has only about 5,000 household throughout the dataset. This small cluster turns out to be households that consumed a lot of organ meat.</p>
-<div class="cell">
+<div id="cell-fig-clusteres-nutrients" class="cell">
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-14-14.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="capstone_files/figure-html/unnamed-chunk-14-14.png" class="img-fluid figure-img" width="960"></a></p>
+<div id="fig-clusteres-nutrients" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-clusteres-nutrients-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="capstone_files/figure-html/fig-clusteres-nutrients-14.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;7: A 2-D rendering of all households by nutrient profile clusters."><img src="capstone_files/figure-html/fig-clusteres-nutrients-14.png" class="img-fluid figure-img" width="960"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-clusteres-nutrients-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: A 2-D rendering of all households by nutrient profile clusters.
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<div class="cell">
+<div id="cell-fig-heatmaps-nutrients" class="cell">
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-15-16.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="capstone_files/figure-html/unnamed-chunk-15-16.png" class="img-fluid figure-img" width="960"></a></p>
+<div id="fig-heatmaps-nutrients-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-heatmaps-nutrients-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="capstone_files/figure-html/fig-heatmaps-nutrients-16.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Figure&nbsp;8: Orientations of the first two principal components of the diet data by nutrient in dimension space."><img src="capstone_files/figure-html/fig-heatmaps-nutrients-16.png" class="img-fluid figure-img" width="960"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-heatmaps-nutrients-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Orientations of the first two principal components of the diet data by nutrient in dimension space.
+</figcaption>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-15-17.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="capstone_files/figure-html/unnamed-chunk-15-17.png" class="img-fluid figure-img" width="960"></a></p>
+<div id="fig-heatmaps-nutrients-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-heatmaps-nutrients-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="capstone_files/figure-html/fig-heatmaps-nutrients-17.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Figure&nbsp;9: Orientations of the first two principal components of the diet data by nutrient in dimension space."><img src="capstone_files/figure-html/fig-heatmaps-nutrients-17.png" class="img-fluid figure-img" width="960"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-heatmaps-nutrients-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: Orientations of the first two principal components of the diet data by nutrient in dimension space.
+</figcaption>
 </figure>
 </div>
 </div>
@@ -498,14 +543,14 @@ Name: count, dtype: int64</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-18-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="capstone_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-10-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="capstone_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-18-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="capstone_files/figure-html/unnamed-chunk-18-2.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-10-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="capstone_files/figure-html/unnamed-chunk-10-2.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -565,7 +610,7 @@ Name: count, dtype: int64</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-24-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="capstone_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="960"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-16-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="capstone_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="960"></a></p>
 </figure>
 </div>
 </div>
@@ -575,7 +620,7 @@ Name: count, dtype: int64</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-25-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="capstone_files/figure-html/unnamed-chunk-25-3.png" class="img-fluid figure-img" width="2156"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-17-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="capstone_files/figure-html/unnamed-chunk-17-3.png" class="img-fluid figure-img" width="2156"></a></p>
 </figure>
 </div>
 </div>
@@ -590,14 +635,14 @@ Name: count, dtype: int64</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-27-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="capstone_files/figure-html/unnamed-chunk-27-5.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-19-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="capstone_files/figure-html/unnamed-chunk-19-5.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-27-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="capstone_files/figure-html/unnamed-chunk-27-6.png" class="img-fluid figure-img" width="2400"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-19-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="capstone_files/figure-html/unnamed-chunk-19-6.png" class="img-fluid figure-img" width="2400"></a></p>
 </figure>
 </div>
 </div>
@@ -637,7 +682,7 @@ Name: count, dtype: int64</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-29-9.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="capstone_files/figure-html/unnamed-chunk-29-9.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-21-9.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="capstone_files/figure-html/unnamed-chunk-21-9.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
@@ -658,7 +703,7 @@ Name: count, dtype: int64</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-30-11.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="capstone_files/figure-html/unnamed-chunk-30-11.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-22-11.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="capstone_files/figure-html/unnamed-chunk-22-11.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
