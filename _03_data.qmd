@@ -104,9 +104,11 @@ Alcohol, confectioneries, and soft drinks were added as reportable food options 
 
 Initial analysis before dropping alcohol had designated alcohol as its own food group, for 17 total food groups.  After dropping all alcohol rows, this analysis looked at 16 total foodgroups.
 
-Northern Ireland was only included in the survey starting in 1996. So, in the interest of consistency, Northern Ireland households were excluded from this analysis altogether.
+Northern Ireland was only included in the survey starting in 1996. In the interest of consistency, Northern Ireland households were excluded from this analysis altogether.
 
-The nutrient conversion information evolved over time as well, tracking 21 nutrients in 1974 and over 40 nutrients by 2000.  As with pruning rows from late-added foods and locations, nutrient trends were only assessed for the nutrients that were tracked throughout the entire dataset.  One of the included nutrients was Energy in megaJoules (MJ), which was collinear with Energy in kCal, so Energy in MJ was also dropped from nutrient analysis, resulting in 20 assessed nutrients.
+The nutrient conversion information evolved over time as well, tracking 21 nutrients in 1974 and over 40 nutrients by 2000.  As with pruning rows from late-added foods and locations, nutrient trends were only assessed for the nutrients that were tracked throughout the entire dataset.  
+
+One of the included nutrients was Energy in MJ (megaJoules), which was collinear with Energy in kCal. Energy in MJ was dropped from nutrient analysis, resulting in 20 assessed nutrients.
 
 The NFS and IHME data have a discrepancy in UK government office regions as well: the 1974 to 2000 NFS data list Merseyside as a distinct region, while the 1990 to 2023 IHME data includes that some geographical area as part of North West England.  So, before aggregation, all NFS households from Merseyside were reassigned as being part of North West England, for consistency between datasets.
 
