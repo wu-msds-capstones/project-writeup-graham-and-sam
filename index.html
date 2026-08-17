@@ -334,14 +334,14 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#pca-for-nutrient-profiles" id="toc-pca-for-nutrient-profiles" class="nav-link" data-scroll-target="#pca-for-nutrient-profiles">PCA for nutrient profiles</a></li>
   </ul></li>
-  </ul></li>
-  <li><a href="#analysis---clusters-over-time" id="toc-analysis---clusters-over-time" class="nav-link" data-scroll-target="#analysis---clusters-over-time">Analysis - Clusters over Time</a>
+  <li><a href="#clusters-over-time" id="toc-clusters-over-time" class="nav-link" data-scroll-target="#clusters-over-time">Clusters over time</a>
   <ul class="collapse">
   <li><a href="#composition-clusters-with-bar-graphs-and-line-plots" id="toc-composition-clusters-with-bar-graphs-and-line-plots" class="nav-link" data-scroll-target="#composition-clusters-with-bar-graphs-and-line-plots">Composition Clusters with Bar Graphs and Line Plots</a></li>
   <li><a href="#disease-line-plot-rename" id="toc-disease-line-plot-rename" class="nav-link" data-scroll-target="#disease-line-plot-rename">Disease Line Plot (Rename)</a></li>
   <li><a href="#stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" id="toc-stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" class="nav-link" data-scroll-target="#stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time">Stats for Proportions Confirming the Significance of Changing Clusters Over Time</a></li>
   <li><a href="#cochran-armitage-test" id="toc-cochran-armitage-test" class="nav-link" data-scroll-target="#cochran-armitage-test">Cochran-Armitage Test</a></li>
   <li><a href="#companion-robustness-kendall-tau-trend-test" id="toc-companion-robustness-kendall-tau-trend-test" class="nav-link" data-scroll-target="#companion-robustness-kendall-tau-trend-test">Companion Robustness: Kendall Tau Trend Test</a></li>
+  </ul></li>
   <li><a href="#ldl-cholesterol-and-chronic-disease-data" id="toc-ldl-cholesterol-and-chronic-disease-data" class="nav-link" data-scroll-target="#ldl-cholesterol-and-chronic-disease-data">LDL cholesterol and chronic disease data</a>
   <ul class="collapse">
   <li><a href="#rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020" id="toc-rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020" class="nav-link" data-scroll-target="#rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020">Rates of metabolic syndrom related chronic disease symptoms in the UK from 1990 to 2020</a></li>
@@ -693,9 +693,8 @@ Figure&nbsp;9: Orientations of the first two principal components of the diet da
 <p>Assessed against PC 1, cluster 0 is closer to the high fat pole, while cluster 2 is closely associated with the plant-like pole.</p>
 </section>
 </section>
-</section>
-<section id="analysis---clusters-over-time" class="level1">
-<h1>Analysis - Clusters over Time</h1>
+<section id="clusters-over-time" class="level2">
+<h2 class="anchored" data-anchor-id="clusters-over-time">Clusters over time</h2>
 <section id="composition-clusters-with-bar-graphs-and-line-plots" class="level3">
 <h3 class="anchored" data-anchor-id="composition-clusters-with-bar-graphs-and-line-plots">Composition Clusters with Bar Graphs and Line Plots</h3>
 <p>These visualizations detail the change in proportion of each nutrient cluster over time. They demonstrate a slight decrease for cluster 0 from around 25% to 15%. Cluster 1 was relatively stable at around 3%. Cluster 2 showed an increase in proportion from around 3% to 40% with a relatively steep slope. Cluster 3 hobbled around the 20% proportion area, starting a few points above and then ending at a value right around 15%. Lastly, we saw cluster 4 start as the highest proportion, nearly 50% and slowly reduce to 30%. This informs us, as time continued, the trends mapped to cluster 2 becoming more prevalent as 0, 3, and 4 fell. This initial model motivated statistical checks to be ran to ensure the changes in proportion over timer (1974-2000) were statistically significant and not simply attributed to random noise.</p>
@@ -951,6 +950,7 @@ Table&nbsp;2: Kendall’s tau rank-correlation trend test, by nutrient cluster
 </figure>
 </div>
 </div>
+</section>
 </section>
 <section id="ldl-cholesterol-and-chronic-disease-data" class="level2">
 <h2 class="anchored" data-anchor-id="ldl-cholesterol-and-chronic-disease-data">LDL cholesterol and chronic disease data</h2>
