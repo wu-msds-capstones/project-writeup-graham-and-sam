@@ -2,23 +2,25 @@
 
 ## Diet data: <br> National Food Survey <br> (1974 to 2000)
 
-All dietary data for this project originates from the UK government's National Food Suvery (NFS). The NFS started in 1940 and eventually evolved into the Living Costs and Food Survey, which is active in 2026. 
+All dietary data for this project originates from the UK government's National Food Suvery (NFS).
 
-However, not all of the associated data is publicly available.
+The NFS started in 1940 and eventually evolved into the Living Costs and Food Survey, which is active in 2026. However, not all of the associated data is publicly available.
 
 For interested parties with institutional credentials, the [UK Data Service](https://ukdataservice.ac.uk) does provide a curated batch of NFS data that spans from 1974-2000.  
 
-Each year, approximately 7,000 households across the UK were chosen at random from voting roles and asked to participate by keeping a one week diet diary. From 1974 to 2000, almost 190,000 total households participated. 
+In this data, approximately 7,000 households per year across the UK were chosen at random from voting roles and asked to participate by keeping a one week diet diary. From 1974 to 2000, almost 190,000 total households participated. 
 
 Consenting households tracked all food purchases for one week, recording the consumable quantity (`cq`) of each purchase and assigning it to one of over 300 minor food codes (`minfd`). Each minor food code can be mapped to one of 184 major food codes (`majfd`).  
 
-There are several native food group mappings included with the NFS data, but those food groupings tend to focus on economic details more than nutrition oriented details.  So, based on an iterative manual review of all reported foods in the data, a custom set of sixteen foodgroups was selected, based on literature [@schulz_advances_2021; @perraud_plant_2022; @gaesser_whole_2020] and in order to assess the data from a nutritional perspective. Each row in the diet diaries was assigned a custom food group label, enabling food group profiling of each household.
+There are several native food group mappings included with the NFS data, but those food groupings tend to focus on economic details more than nutrition oriented details. 
 
-A full printout of the custom food group mappings is included in the Appendix.
+An iterative manual review of all reported foods in the data was conducted, and a custom set of sixteen foodgroups was designated based on literature [@schulz_advances_2021; @perraud_plant_2022; @gaesser_whole_2020] in order to assess the data from a nutritional perspective. 
+
+Each row in the diet diaries was assigned one of these custom food group labels, enabling food group profiling of each household. A full printout of the custom food group mappings is included in the Appendix .
 
 Additionally, the NFS included annually adjusted nutrient conversion information for each of the minor food codes, allowing the recorded type and quantity to be converted into a nutrient profile for that purchase, and in turn aggregated to an overall nutrient profile for each household.
 
-Demographic and economic information is also included with the NFS data. However, this analysis assesses diet composition per calorie, not diet quantity per capita.  While calorie-per-person-per-day was used to cull data devoid households in the data cleaning (discussed below),  the food group and nutrient profile metrics carried forward into the analysis are quantity agnostic.
+Demographic and economic information is also included with the NFS data. However, this analysis assesses diet composition per calorie, not diet quantity per capita.  While calorie-per-person-per-day was used to cull data-devoid households in the data cleaning (discussed below), the food group and nutrient profile metrics carried forward into the analysis are quantity-agnostic.
 
 So, the only demographic information that was ultimately used in this analysis is the regional location of each household. 
 
@@ -29,7 +31,7 @@ Population-level disease risk rates for High LDL cholesterol and other metabolic
 
 The specific metric chosen for disease risk rate was summary exposure value, or SEV.
 
- [The IHME defines SEV](https://www.healthdata.org/sites/default/files/files/policy_report/GBD/2016/IHME_GBD2015_Report_Glossary-of-terms_2016.pdf) as a "... measure of a population’s exposure to a risk factor that takes into account the extent of exposure by risk level and the severity of that risk’s contribution to disease burden."
+[The IHME defines SEV](https://www.healthdata.org/sites/default/files/files/policy_report/GBD/2016/IHME_GBD2015_Report_Glossary-of-terms_2016.pdf) as a "... measure of a population’s exposure to a risk factor that takes into account the extent of exposure by risk level and the severity of that risk’s contribution to disease burden."
 
 SEV appeared to be the best available metric from the GBD results tool to assess risk factor prevelance.  
 
