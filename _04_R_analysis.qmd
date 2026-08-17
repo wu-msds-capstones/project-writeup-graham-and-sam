@@ -537,3 +537,40 @@ kable(
   #select(y.level, estimate, std.error, conf.low, conf.high, p.value) %>%
   #print()
 ```
+
+### Companion Robustness: Kendall Tau Trend Test
+
+``` r
+    {r}
+
+#| label: tbl-kendall-tau
+#| tbl-cap: "Kendall's tau rank-correlation trend test, by nutrient cluster"
+
+kendall_results = list()
+
+for (clust in clusters) {
+  clust_series = cluster_props %>% filter(.data[[cluster_col]] == clust) %>% arrange(.data[[year_col]])
+  if (nrow(clust_series) < 3) next
+
+  k_test = suppressWarnings(cor.test(clust_series[[year_col]], clust_series$proportion, method = "kendall"))
+
+  kendall_results[[as.character(clust)]] = tibble(
+    cluster     = clust,
+    tau         = unname(k_test$estimate),
+    p_value     = k_test$p.value,
+    significant = ifelse(k_test$p.value < 0.05, "Yes", "No")
+  )
+}
+
+kendall_table = bind_rows(kendall_results)
+
+kable(
+  kendall_table %>%
+    mutate(tau = round(tau, 3), p_value = pvalue(p_value, accuracy = 0.001, add_p = TRUE)),
+  col.names = c("Cluster", "Kendall's tau", "p-value", "Significant Trend?"),
+  align = "c",
+  caption = "Kendall's tau rank-correlation trend test, by nutrient cluster"
+) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE) %>%
+  row_spec(which(kendall_table$significant == "Yes"), bold = TRUE, background = "#eaf7ea")
+```
