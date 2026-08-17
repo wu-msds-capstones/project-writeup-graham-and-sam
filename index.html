@@ -323,12 +323,22 @@ window.Quarto = {
   <li><a href="#ethical-implications" id="toc-ethical-implications" class="nav-link" data-scroll-target="#ethical-implications">Ethical Implications</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
   <ul class="collapse">
-  <li><a href="#food-groups" id="toc-food-groups" class="nav-link" data-scroll-target="#food-groups">FOOD GROUPS</a>
+  <li><a href="#software-and-tools" id="toc-software-and-tools" class="nav-link" data-scroll-target="#software-and-tools">Software and Tools</a></li>
+  <li><a href="#principal-component-analysis" id="toc-principal-component-analysis" class="nav-link" data-scroll-target="#principal-component-analysis">Principal component analysis</a></li>
+  <li><a href="#best-k-selector-for-k-means-clustering" id="toc-best-k-selector-for-k-means-clustering" class="nav-link" data-scroll-target="#best-k-selector-for-k-means-clustering">Best k selector for k-means clustering</a>
+  <ul class="collapse">
+  <li><a href="#k-means-clustering" id="toc-k-means-clustering" class="nav-link" data-scroll-target="#k-means-clustering">k-means clustering</a></li>
+  <li><a href="#pca-to-visualize-clusters" id="toc-pca-to-visualize-clusters" class="nav-link" data-scroll-target="#pca-to-visualize-clusters">PCA to visualize clusters</a></li>
+  <li><a href="#pca-used-for-heat-map-interpretation" id="toc-pca-used-for-heat-map-interpretation" class="nav-link" data-scroll-target="#pca-used-for-heat-map-interpretation">PCA used for heat map interpretation</a></li>
+  <li><a href="#heat-map-interpretation-used-to-characterize-clusters." id="toc-heat-map-interpretation-used-to-characterize-clusters." class="nav-link" data-scroll-target="#heat-map-interpretation-used-to-characterize-clusters.">Heat map interpretation used to characterize clusters.</a></li>
+  <li><a href="#cluster-proportions-over-time" id="toc-cluster-proportions-over-time" class="nav-link" data-scroll-target="#cluster-proportions-over-time">Cluster proportions over time</a></li>
+  <li><a href="#correlation-with-ldl-rates-over-time" id="toc-correlation-with-ldl-rates-over-time" class="nav-link" data-scroll-target="#correlation-with-ldl-rates-over-time">Correlation with LDL rates over time</a></li>
+  </ul></li>
+  <li><a href="#food-group-clustering" id="toc-food-group-clustering" class="nav-link" data-scroll-target="#food-group-clustering">Food group clustering</a>
   <ul class="collapse">
   <li><a href="#pca-principal-component-analysis" id="toc-pca-principal-component-analysis" class="nav-link" data-scroll-target="#pca-principal-component-analysis">PCA (principal component analysis)</a></li>
-  <li><a href="#k-means-clustering" id="toc-k-means-clustering" class="nav-link" data-scroll-target="#k-means-clustering">k-means clustering</a></li>
   </ul></li>
   <li><a href="#nutrients" id="toc-nutrients" class="nav-link" data-scroll-target="#nutrients">NUTRIENTS</a>
   <ul class="collapse">
@@ -528,12 +538,47 @@ nutrient\_quantity\_per\_total\_cal_{row} =  \frac{\text{total quantity per nutr
 </section>
 </section>
 </section>
-<section id="analysis" class="level1">
-<h1>Analysis</h1>
-<p>Aggregations by food group and aggregations by nutrient were assessed with principle component analysis (PCA) and k-means clustering.</p>
-<p>The entire set of ~190,000 household were analyzed for PCA and k-means clustering, but t-SNE visual renderings use a smaller sample size to enable more rapid report iteration.</p>
-<section id="food-groups" class="level2">
-<h2 class="anchored" data-anchor-id="food-groups">FOOD GROUPS</h2>
+<section id="methods" class="level1">
+<h1>Methods</h1>
+<section id="software-and-tools" class="level2">
+<h2 class="anchored" data-anchor-id="software-and-tools">Software and Tools</h2>
+<p>All data engineering, analysis, and visualization were conducted in Python 3.13.7 and R 4.5.1.</p>
+<p>Python packages that were used in the final analysis include pandas and numpy for basic data manipulation, sci-kit-learn for PCA and k-means clustering, and matplotlib, seaborn and geopandas for visualization. R packages that were used in the final analysis include tidyverse for data manipulation, rstatix/coin for statistcal testing, and ggplot2 for visualization.</p>
+</section>
+<section id="principal-component-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="principal-component-analysis">Principal component analysis</h2>
+<p>Z-scored household diet data was subjected to dimensionality reduction in both the food group dimension space and the nutrient dimension space using principlal component analysis (PCA). PCA finds the multi-dimensional axis of greatest variance for all the data in a dataset, and multiple iterations of PCA can cumulatively explain increasing amounts of variance in the data.</p>
+<p>For both food group and nutrients dimensionspace, PCA was successively run until 95% percent of the variance was explained.</p>
+<p>The top two most explanatory principal components (PC 1 and PC 2) for each analysis were plotted in order of their linear combination weights for the given dimensions, producing a human interpretable orientation for that component.</p>
+</section>
+<section id="best-k-selector-for-k-means-clustering" class="level2">
+<h2 class="anchored" data-anchor-id="best-k-selector-for-k-means-clustering">Best k selector for k-means clustering</h2>
+<p>In k-means clustering, data points are categorized into <strong>k</strong> number of clusters, based on data point distance from moving cluster centroids across many initializations of the algorithm. Any taget number of clusters could be arbitrarily selected, but rigorous analysis requires a more careful process to select the most stable number of clusters for the data.</p>
+<p>In order to select the most stable number of clusters in a rigorous manner, a cross-validation cluster stability overlap algorithm was constucted and named <code>best-k-selector</code>. In this algorithm, a random sample of the data points are selected and subjected to k-means clustering in successive rounds with the number of clusters increasing iteratively upwards from two. Each round involves 80% of the sample being subsampled, clustered, replaced, and then a fresh 80% subsample (with many of the same data points) being clustered at the same number of clusters. The clustered subsampled data points are compared for overlapping labels. The percentage of datapoints with overlapping cluster labels between the two subsamples is called the Adjusted Rand Index, or ARI score.</p>
+<p>The <code>best-k-selector</code> repeats the process as it sweeps from two clusters upward as many times as instructed. Eventually, the ARI scores for each number of clusters is averaged, and the number of clusters with the highest average ARI amongst all repeats is considered the ‘best k’ number of clusters for that dataset.</p>
+<section id="k-means-clustering" class="level3">
+<h3 class="anchored" data-anchor-id="k-means-clustering">k-means clustering</h3>
+<p>Once the ‘best k’ number of clusters was consistently discovered for food group and nutrient dimensions, clustering of the all households in the data could take place.</p>
+<p>The k-means clustering algorithm places the desired number of cluster centroids randomly in the data, assigns each data point a cluster label based on the nearest centroid, shifts the centroids to average position of their respective assigned data points. This is repeated over and over until the centroids effectively stop moving. The k-means algorithm reinitializes numerous times (hundreds or more) to assess cluster label consistency before determining the final designiated cluster labels for each data point.</p>
+</section>
+<section id="pca-to-visualize-clusters" class="level3">
+<h3 class="anchored" data-anchor-id="pca-to-visualize-clusters">PCA to visualize clusters</h3>
+</section>
+<section id="pca-used-for-heat-map-interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="pca-used-for-heat-map-interpretation">PCA used for heat map interpretation</h3>
+</section>
+<section id="heat-map-interpretation-used-to-characterize-clusters." class="level3">
+<h3 class="anchored" data-anchor-id="heat-map-interpretation-used-to-characterize-clusters.">Heat map interpretation used to characterize clusters.</h3>
+</section>
+<section id="cluster-proportions-over-time" class="level3">
+<h3 class="anchored" data-anchor-id="cluster-proportions-over-time">Cluster proportions over time</h3>
+</section>
+<section id="correlation-with-ldl-rates-over-time" class="level3">
+<h3 class="anchored" data-anchor-id="correlation-with-ldl-rates-over-time">Correlation with LDL rates over time</h3>
+</section>
+</section>
+<section id="food-group-clustering" class="level2">
+<h2 class="anchored" data-anchor-id="food-group-clustering">Food group clustering</h2>
 <section id="pca-principal-component-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="pca-principal-component-analysis">PCA (principal component analysis)</h3>
 <div id="cell-fig-scree-plot" class="cell">
@@ -567,11 +612,6 @@ Figure&nbsp;2: Orientations of the first two principal components of the food gr
 </div>
 </div>
 <p>The axis of greatest variance, PC 1, orients to a more plant-based pole, and a more meat and refined food based-pole. PC 2 appears to orient to a more processed and refined foods pole, and a whole foods pole.</p>
-</section>
-<section id="k-means-clustering" class="level3">
-<h3 class="anchored" data-anchor-id="k-means-clustering">k-means clustering</h3>
-<p>In k-means clustering, data points are categorized into k number of clusters.</p>
-<p>The best, most stable k for the aggregated household diet data was determined by a cross validation proces where subsamples of the data were iteratively clustered in comparable pairs, outputing an Adjusted Rand Index (ARI) score, which rated that pairing of clusters by assessing cluster label overlap (1.0 is perfect overlap, a decent number of clusters should have ARI score as close to 1.0 as possble). The k number of clusters with the highest ARI score was then selected as the “best” k number of clusters for k-means clustering. For food group aggregated data, the best k number of clusters was consistently found to be 2.</p>
 <p>The principal components that were required to explain 95% variance in the aggregated foodgroup data were fed into an additional round of PCA to produce two derivative principal compenents, which were in turn fed into a t-distributed stochastic neighbor emedding (t-SNE) visualization. The t-SNE plot projects 20 dimensional nutrient space in 2 dimensions, enabling visualization of the k-means cluster assignments for each household.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">

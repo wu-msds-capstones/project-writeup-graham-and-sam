@@ -1,0 +1,22 @@
+# Methods
+
+## Software and Tools
+
+All data engineering, analysis, and visualization were conducted in Python 
+
+
+- packages actually used in analysis
+- PCA for description
+- k means best k selector
+### k-means clustering
+
+In k-means clustering, data points are categorized into k number of clusters.
+
+The best, most stable k for the aggregated household diet data was determined by a cross validation proces where subsamples of the data were iteratively clustered in comparable pairs, outputing an Adjusted Rand Index (ARI) score, which rated that pairing of clusters by assessing cluster label overlap (1.0 is perfect overlap, a decent number of clusters should have ARI score as close to 1.0 as possble).  The k number of clusters with the highest ARI score was then selected as the "best" k number of clusters for k-means clustering.  For food group aggregated data, the best k number of clusters was consistently found to be 2.
+
+- k means clustering
+
+
+- PCA used for visualization
+- PCA used for heat map interpretation
+- Heat map interpretation used to characterize clusters.
