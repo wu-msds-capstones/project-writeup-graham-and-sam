@@ -368,9 +368,9 @@ window.Quarto = {
   <li><a href="#pca-1" id="toc-pca-1" class="nav-link" data-scroll-target="#pca-1">PCA</a></li>
   <li><a href="#k-means-clustering-2" id="toc-k-means-clustering-2" class="nav-link" data-scroll-target="#k-means-clustering-2">k-means clustering</a></li>
   </ul></li>
-  <li><a href="#nutrient-cluster-proportions-over-time" id="toc-nutrient-cluster-proportions-over-time" class="nav-link" data-scroll-target="#nutrient-cluster-proportions-over-time">Nutrient cluster proportions over time</a>
+  <li><a href="#nutrient-cluster-proportions-over-time" id="toc-nutrient-cluster-proportions-over-time" class="nav-link" data-scroll-target="#nutrient-cluster-proportions-over-time">Nutrient cluster proportions over time</a></li>
+  <li><a href="#statistics" id="toc-statistics" class="nav-link" data-scroll-target="#statistics">Statistics</a>
   <ul class="collapse">
-  <li><a href="#statistics" id="toc-statistics" class="nav-link" data-scroll-target="#statistics">Statistics</a></li>
   <li><a href="#cochran-armitage-test" id="toc-cochran-armitage-test" class="nav-link" data-scroll-target="#cochran-armitage-test">Cochran-Armitage Test</a></li>
   <li><a href="#companion-robustness-kendall-tau-trend-test" id="toc-companion-robustness-kendall-tau-trend-test" class="nav-link" data-scroll-target="#companion-robustness-kendall-tau-trend-test">Companion Robustness: Kendall Tau Trend Test</a></li>
   </ul></li>
@@ -437,9 +437,9 @@ window.Quarto = {
 <p>However, not all of the associated data is publicly available.</p>
 <p>For interested parties with institutional credentials, the <a href="https://ukdataservice.ac.uk">UK Data Service</a> does provide a curated batch of NFS data that spans from 1974-2000.</p>
 <p>Each year, approximately 7,000 households across the UK were chosen at random from voting roles and asked to participate by keeping a one week diet diary. From 1974 to 2000, almost 190,000 total households participated.</p>
-<p>Consenting households tracked all food purchases for one week, recording the consumable quantity (‘cq’) of each purchase and assigning it to one of over 300 minor food codes (‘minfd’). Each minor food code can be mapped to one of 184 major food codes (‘majfd’).</p>
+<p>Consenting households tracked all food purchases for one week, recording the consumable quantity (<code>cq</code>) of each purchase and assigning it to one of over 300 minor food codes (<code>minfd</code>). Each minor food code can be mapped to one of 184 major food codes (<code>majfd</code>).</p>
 <p>There are several native food group mappings included with the NFS data, but those food groupings tend to focus on economic details more than nutrition oriented details. So, based on an iterative manual review of all reported foods in the data, a custom set of sixteen foodgroups was selected, based on literature <span class="citation" data-cites="schulz_advances_2021 perraud_plant_2022 gaesser_whole_2020">(<a href="#ref-schulz_advances_2021" role="doc-biblioref">Schulz, Oluwagbemigun, and Nöthlings 2021</a>; <a href="#ref-perraud_plant_2022" role="doc-biblioref">Perraud et al. 2022</a>; <a href="#ref-gaesser_whole_2020" role="doc-biblioref">Gaesser 2020</a>)</span> and in order to assess the data from a nutritional perspective. Each row in the diet diaries was assigned a custom food group label, enabling food group profiling of each household.</p>
-<p>A full printout of the custom food group mapping [insert link when reference availabe] is included in the Appendix.</p>
+<p>A full printout of the custom food group mappings is included in the Appendix.</p>
 <p>Additionally, the NFS included annually adjusted nutrient conversion information for each of the minor food codes, allowing the recorded type and quantity to be converted into a nutrient profile for that purchase, and in turn aggregated to an overall nutrient profile for each household.</p>
 <p>Demographic and economic information is also included with the NFS data. However, this analysis assesses diet composition per calorie, not diet quantity per capita. While calorie-per-person-per-day was used to cull data devoid households in the data cleaning (discussed below), the food group and nutrient profile metrics carried forward into the analysis are quantity agnostic.</p>
 <p>So, the only demographic information that was ultimately used in this analysis is the regional location of each household.</p>
@@ -447,8 +447,9 @@ window.Quarto = {
 <section id="disease-data-global-burden-of-disease-1990-to-2023" class="level2">
 <h2 class="anchored" data-anchor-id="disease-data-global-burden-of-disease-1990-to-2023">Disease data: <br> Global Burden of Disease <br> (1990 to 2023)</h2>
 <p>Population-level disease risk rates for High LDL cholesterol and other metabolic-disease associated risk factors were acquired from the Institute for Health Metrics and Evaluation (IHME), using their <a href="https://vizhub.healthdata.org/gbd-results/">Global Burden of Disease (GBD) Results tool</a>.</p>
-<p>The data was specifically selected from this open API to find the summary exposure value (SEV). <a href="https://www.healthdata.org/sites/default/files/files/policy_report/GBD/2016/IHME_GBD2015_Report_Glossary-of-terms_2016.pdf">The IHME defines SEV</a> as a “… measure of a population’s exposure to a risk factor that takes into account the extent of exposure by risk level and the severity of that risk’s contribution to disease burden.”</p>
-<p>SEV appears to be the best available metric from the GBD results tool to assess risk factor prevelance.</p>
+<p>The specific metric chosen for disease risk rate was summary exposure value, or SEV.</p>
+<p><a href="https://www.healthdata.org/sites/default/files/files/policy_report/GBD/2016/IHME_GBD2015_Report_Glossary-of-terms_2016.pdf">The IHME defines SEV</a> as a “… measure of a population’s exposure to a risk factor that takes into account the extent of exposure by risk level and the severity of that risk’s contribution to disease burden.”</p>
+<p>SEV appeared to be the best available metric from the GBD results tool to assess risk factor prevelance.</p>
 <p>From there, the chronic disease risk factors and conditions for which SEV information were metabolic risks: High LDL Cholesterol, High Body Mass Index, High Fasting Plasma Glucose Systolic Blood Pressure, Kidney Dysfunction, Low Bone Mineral Density, and overall Metabolic Risks.</p>
 <p>These risk rates were hand-selected and obtained preaggreagted at a population level, grouped by UK region and by year. For the scope of this project, all ages and both sexes were included in SEV information.</p>
 </section>
@@ -501,7 +502,7 @@ nutrient\_quantity\_per\_total\_cal_{row} =  \frac{\text{total quantity per nutr
 <h3 class="anchored" data-anchor-id="diet-data-cleaning">Diet data cleaning</h3>
 <p>The NFS evolved over time, and this evolution prompted several data cleaning decisions for this analysis.</p>
 <p>To start, alcohol, confectioneries, and soft drinks were added as reportable food options in 1992. Previous to 1992, it is presumed that some UK households did purchase alochol, confectioneries, and soft drinks though the records cannot show this. All three of these are considered high calorie, so their sudden appearance does skew calorie adjusted calculations. In order to maintain consistency over time, all diet diary rows from these three categories were dropped from analysis, though the related households and all their other diet diary entries were retained.</p>
-<p>Initial analysis before dropping alochol had desiginated alochol as its own food group, for 17 total food groups. After dropping all alochol rows, this analysis looked at 16 total foodgroups, as depicted in the Heatmaps in Figs X and Y.</p>
+<p>Initial analysis before dropping alochol had desiginated alochol as its own food group, for 17 total food groups. After dropping all alochol rows, this analysis looked at 16 total foodgroups.</p>
 <p>Northern Ireland was only included in the survey starting in 1996. So, in the interest of consistency, Northern Ireland households were excluded from this analysis altogether.</p>
 <p>The nutrient conversion information evolved over time as well, tracking 21 nutrients in 1974 and over 40 nutrients by 2000. As with pruning rows from late-added foods and locations, nutrient trends were only assessed for the nutrients that were tracked throughout the entire dataset. One of the included nutrients was Energy in megaJoules (MJ), which was collinear with Energy in kCal, so Energy in MJ was also dropped from nutrient analysis, resulting in 20 assessed nutrients.</p>
 <p>The NSF and IHME data have a discrepancy in UK government office regions as well: the 1974 to 2000 NFS data list Merseyside as a distinct region, while the 1990 to 2023 IHME data includes that some geographical area as part of North West England. So, before aggregation, all NFS households from Merseyside were reassigned as being part of North West England, for consistency between datasets.</p>
@@ -796,12 +797,13 @@ Figure&nbsp;10: Nutrient cluster proportions over time as line plot.
 </div>
 </div>
 </div>
-<p>The visualization <a href="#fig-R-line" class="quarto-xref">Figure&nbsp;10</a> details the change in proportion of each nutrient cluster over time.</p>
+<p><a href="#fig-R-line" class="quarto-xref">Figure&nbsp;10</a> details the change in proportion of each nutrient cluster over time.</p>
 <p>There is a slight decrease for cluster 0 from around 25% to 15%. Cluster 1 was relatively stable at around 3%. Cluster 2 showed an increase in proportion from around 3% to 40% with a relatively steep slope. Cluster 3 remained around the 20% proportion area, starting a few points above and then ending at a value right around 15%. Lastly, cluster 4 starts as the highest proportion, nearly 50%, and slowly reduces to 30%.</p>
 <p>This suggests that as as time continued, the trends mapped to cluster 2 became more prevalent as proportions of clusters 0, 3, and 4 fell.</p>
 <p>This initial model motivated statistical checks to ensure the changes in proportion over time (1974-2000) were statistically significant and not simply attributed to random noise.</p>
-<section id="statistics" class="level3">
-<h3 class="anchored" data-anchor-id="statistics">Statistics</h3>
+</section>
+<section id="statistics" class="level2">
+<h2 class="anchored" data-anchor-id="statistics">Statistics</h2>
 <div class="cell">
 <div id="tbl-cluster-change-summary" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -869,7 +871,6 @@ Table&nbsp;1: Significance of year-by-year changes, by cluster
 <p>Cluster 2 was the most dynamic cluster, noting a robust upward trend. Beginning with a baseline composition of around 3%, there was a leap to 40% of household diet share by the end of the period. A majority of year-over-year changes reach statistical significance (15 transitions or 57.7%) confirming a strong continued expansion.</p>
 <p>Cluster 3 fluctuates around 25-28% of household share. It was heavily influenced in the early 1990s (plausibly to a recession in the UK during this time period) with some volatility. Beyond this disruption, the trend remained broadly stable with 8 statistically significant transitions (30.8%).</p>
 <p>Cluster 4 began with the largest share of household diet share, but experienced consistent downward pressure. Disregarding the market shock in the early 1990s, the group had 11 statistically significant year-over-year transitions (42.3%) backing this claim.</p>
-</section>
 <section id="cochran-armitage-test" class="level3">
 <h3 class="anchored" data-anchor-id="cochran-armitage-test">Cochran-Armitage Test</h3>
 <div class="cell">

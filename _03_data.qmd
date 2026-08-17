@@ -10,11 +10,11 @@ For interested parties with institutional credentials, the [UK Data Service](htt
 
 Each year, approximately 7,000 households across the UK were chosen at random from voting roles and asked to participate by keeping a one week diet diary. From 1974 to 2000, almost 190,000 total households participated. 
 
-Consenting households tracked all food purchases for one week, recording the consumable quantity ('cq') of each purchase and assigning it to one of over 300 minor food codes ('minfd'). Each minor food code can be mapped to one of 184 major food codes ('majfd').  
+Consenting households tracked all food purchases for one week, recording the consumable quantity (`cq`) of each purchase and assigning it to one of over 300 minor food codes (`minfd`). Each minor food code can be mapped to one of 184 major food codes (`majfd`).  
 
 There are several native food group mappings included with the NFS data, but those food groupings tend to focus on economic details more than nutrition oriented details.  So, based on an iterative manual review of all reported foods in the data, a custom set of sixteen foodgroups was selected, based on literature [@schulz_advances_2021; @perraud_plant_2022; @gaesser_whole_2020] and in order to assess the data from a nutritional perspective. Each row in the diet diaries was assigned a custom food group label, enabling food group profiling of each household.
 
-A full printout of the custom food group mapping [insert link when reference availabe] is included in the Appendix.
+A full printout of the custom food group mappings is included in the Appendix.
 
 Additionally, the NFS included annually adjusted nutrient conversion information for each of the minor food codes, allowing the recorded type and quantity to be converted into a nutrient profile for that purchase, and in turn aggregated to an overall nutrient profile for each household.
 
@@ -27,9 +27,11 @@ So, the only demographic information that was ultimately used in this analysis i
 
 Population-level disease risk rates for High LDL cholesterol and other metabolic-disease associated risk factors were acquired from the Institute for Health Metrics and Evaluation (IHME), using their [Global Burden of Disease (GBD) Results tool](https://vizhub.healthdata.org/gbd-results/).
 
-The data was specifically selected from this open API to find the summary exposure value (SEV).  [The IHME defines SEV](https://www.healthdata.org/sites/default/files/files/policy_report/GBD/2016/IHME_GBD2015_Report_Glossary-of-terms_2016.pdf) as a "... measure of a population’s exposure to a risk factor that takes into account the extent of exposure by risk level and the severity of that risk’s contribution to disease burden."
+The specific metric chosen for disease risk rate was summary exposure value, or SEV.
 
-SEV appears to be the best available metric from the GBD results tool to assess risk factor prevelance.  
+ [The IHME defines SEV](https://www.healthdata.org/sites/default/files/files/policy_report/GBD/2016/IHME_GBD2015_Report_Glossary-of-terms_2016.pdf) as a "... measure of a population’s exposure to a risk factor that takes into account the extent of exposure by risk level and the severity of that risk’s contribution to disease burden."
+
+SEV appeared to be the best available metric from the GBD results tool to assess risk factor prevelance.  
 
 From there, the chronic disease risk factors and conditions for which SEV information were metabolic risks: High LDL Cholesterol, High Body Mass Index, High Fasting Plasma Glucose Systolic Blood Pressure, Kidney Dysfunction, Low Bone Mineral Density, and overall Metabolic Risks. 
 
@@ -98,7 +100,7 @@ The NFS evolved over time, and this evolution prompted several data cleaning dec
 
 To start, alcohol, confectioneries, and soft drinks were added as reportable food options in 1992. Previous to 1992, it is presumed that some UK households did purchase alochol, confectioneries, and soft drinks though the records cannot show this.  All three of these are considered high calorie, so their sudden appearance does skew calorie adjusted calculations. In order to maintain consistency over time, all diet diary rows from these three categories were dropped from analysis, though the related households and all their other diet diary entries were retained.
 
-Initial analysis before dropping alochol had desiginated alochol as its own food group, for 17 total food groups.  After dropping all alochol rows, this analysis looked at 16 total foodgroups, as depicted in the Heatmaps in Figs X and Y.
+Initial analysis before dropping alochol had desiginated alochol as its own food group, for 17 total food groups.  After dropping all alochol rows, this analysis looked at 16 total foodgroups.
 
 Northern Ireland was only included in the survey starting in 1996. So, in the interest of consistency, Northern Ireland households were excluded from this analysis altogether.
 
