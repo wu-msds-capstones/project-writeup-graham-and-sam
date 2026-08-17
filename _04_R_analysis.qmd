@@ -160,18 +160,36 @@ p_trend_line = ggplot(
   aes(
     x = .data[[year_col]],
     y = proportion,
-    color = factor(.data[[cluster_col]]),
-    fill = factor(.data[[cluster_col]])
+    color = factor(.data[[cluster_col]])
   )
 ) +
-  geom_ribbon(
-    aes(ymin = lower, ymax = upper),
-    alpha = 0.15,
-    color = NA
+
+  # Recession period around 1992
+  annotate(
+    "rect",
+    xmin = 1991,
+    xmax = 1992,
+    ymin = -Inf,
+    ymax = Inf,
+    fill = "grey60",
+    alpha = 0.15
   ) +
-  geom_line(linewidth = 0.8) +
-  geom_point(size = 1.5) +
-  
+
+  annotate(
+    "text",
+    x = 1992,
+    y = Inf,
+    label = "Recession",
+    vjust = 1.5,
+    color = "grey35",
+    fontface = "bold",
+    size = 3.5
+  ) +
+
+  # Cluster trend lines
+  geom_line(linewidth = 0.9) +
+
+  # Nutrient cluster colors
   scale_color_manual(
     values = c(
       "0" = "#E69F00",
@@ -181,42 +199,68 @@ p_trend_line = ggplot(
       "4" = "#CC79A7"
     )
   ) +
-  
-  scale_fill_manual(
-    values = c(
-      "0" = "#E69F00",
-      "1" = "#56B4E9",
-      "2" = "#009E73",
-      "3" = "#0072B2",
-      "4" = "#CC79A7"
-    ),
-    guide = "none"
+
+  # Axes
+  scale_x_continuous(
+    breaks = seq(1974, 2020, by = 2),
+    expand = expansion(mult = c(0.015, 0.015))
   ) +
-  
+
   scale_y_continuous(
     labels = scales::percent_format(accuracy = 1),
-    expand = expansion(mult = c(0, 0.03))
+    expand = expansion(mult = c(0.01, 0.04))
   ) +
-  
+
+  # Labels
   labs(
     title = "Nutrient Cluster Proportions by Survey Year",
-    subtitle = analysis_type,
     x = "Survey Year",
     y = "Households (%)",
     color = "Nutrient Cluster"
   ) +
-  
-  theme_minimal(base_size = 12) +
+
+  # Match disease graph styling
+  theme_bw(base_size = 12) +
   theme(
-    legend.position = "top",
-    legend.title = element_text(face = "bold"),
-    panel.grid.minor = element_blank(),
-    panel.grid.major.x = element_blank(),
-    panel.grid.major.y = element_line(linewidth = 0.3),
-    axis.title = element_text(face = "bold"),
-    plot.title = element_text(face = "bold", size = 14),
-    plot.subtitle = element_text(size = 11),
-    legend.key.width = unit(1.2, "cm")
+    legend.position = "right",
+    legend.title = element_blank(),
+    legend.key = element_blank(),
+    legend.key.width = unit(0.9, "cm"),
+    legend.background = element_rect(
+      color = "grey75",
+      linewidth = 0.3
+    ),
+    legend.text = element_text(size = 9),
+
+    panel.grid = element_blank(),
+    panel.border = element_rect(
+      color = "black",
+      fill = NA,
+      linewidth = 0.6
+    ),
+
+    axis.title = element_text(
+      face = "plain",
+      size = 10,
+      color = "grey30"
+    ),
+    axis.text = element_text(
+      size = 9,
+      color = "grey20"
+    ),
+    axis.text.x = element_text(
+  angle = 45,
+  hjust = 1,
+  size = 8,
+  color = "grey20"
+),
+    plot.title = element_text(
+      face = "bold",
+      size = 16,
+      hjust = 0,
+      color = "grey20"
+    ),
+    plot.title.position = "plot"
   )
 
 print(p_trend_line)
@@ -361,183 +405,6 @@ p_metabolic = ggplot(
 print(p_metabolic)
 
 
-```
-
-```{r}
-## qual pca box and ridge map for fg17. fg55, nute pc1 values
-
-
-#save_dir = "output_plots"
-#dir.create(save_dir, showWarnings = FALSE, recursive = TRUE)
-
-#all_stats = list()
-
-# -------------------------------------------------------------------
-# Loop through PC1_score and PC2_score
-# -------------------------------------------------------------------
-
-#for (value_col in value_cols) {
-
-  #cat("\n\n########## ", value_col, " ##########\n")
-
-  # ---- Prep data ----
-  #plot_data = data_source %>%
-    #select(hhno, all_of(year_col), all_of(value_col)) %>%
-    #filter(!is.na(.data[[value_col]]))
-
-  # ---- Stat table — summary by year ----
-  #var_stats = plot_data %>%
-    #group_by(.data[[year_col]]) %>%
-    #summarise(
-     # n      = n(),
-      #mean   = mean(.data[[value_col]], na.rm = TRUE),
-      #sd     = sd(.data[[value_col]], na.rm = TRUE),
-      #median = median(.data[[value_col]], na.rm = TRUE),
-      #min    = min(.data[[value_col]], na.rm = TRUE),
-      #max    = max(.data[[value_col]], na.rm = TRUE),
-      #.groups = "drop"
-    #) %>%
-    #mutate(variable = value_col, .before = 1)
-
-  #all_stats[[value_col]] = var_stats
-
-  #print(kable(var_stats, digits = 3))
-  #print(kable(var_stats, digits = 3))
-
-  # ---- Ridge plot ----
-  #p_ridge = ggplot(plot_data, aes(x = .data[[value_col]], y = factor(.data[[year_col]]), fill = factor(.data[[year_col]]))) +
-   # geom_density_ridges(alpha = 0.7, scale = 1.3, color = "white") +
-    #scale_fill_viridis_d(option = "D") +
-#    labs(
-   #   title = paste0(label_name, " ", value_col, " (", analysis_type, ") by Year"),
-     # x = value_col, y = "Survey Year", fill = "Year" ) +
-  #  theme_minimal(base_size = 12) +
-  #  theme(legend.position = "none")
-
- # print(p_ridge)
-  #ggsave(
-   # file.path(save_dir, paste0(label_name, "_", value_col, "_", tolower(analysis_type), "_ridge_by_year.png")),
-    #p_ridge, width = 9, height = 6, dpi = 150)
-
-  # ---- Box plot ----
- # p_box = ggplot(plot_data, aes(x = factor(.data[[year_col]]), y = .data[[value_col]], fill = factor(.data[[year_col]]))) +
-  #  geom_boxplot(alpha = 0.7, outlier.alpha = 0.3) +
-  #  scale_fill_viridis_d(option = "D") +
-  #  labs(
-  #    title = paste0(label_name, " ", value_col, " (", analysis_type, ") by Year"),
-  #    x = "Survey Year", y = value_col, fill = "Year   ) +
-  #  theme_minimal(base_size = 12) +
-  #  theme(legend.position = "none", axis.text.x = element_text(angle = 45, hjust = 1))
-
- # print(p_box)
-  #ggsave(
-   # file.path(save_dir, paste0(label_name, "_", value_col, "_", tolower(analysis_type), "_box_by_year.png")),
-    #p_box, width = 9, height = 6, dpi = 150)
-# }
-
-# -------------------------------------------------------------------
-# Combined stats table across PC1_score and PC2_score
-# -------------------------------------------------------------------
-
-# full_stats_table = bind_rows(all_stats)
-# print(kable(full_stats_table, digits = 3))
-
-```
-
-### 
-
-```{r}
-
-## GIF of by year nute cluster proportion sizes
-
- # save_dir = "output_plots"
- # dir.create(save_dir, showWarnings = FALSE, recursive = TRUE)
-
-# # -------------------------------------------------------------------
-# # 1. Prep data
-# # -------------------------------------------------------------------
-
- # cluster_data = data_source %>%
- #   select(hhno, all_of(year_col), all_of(cluster_col)) %>%
- #   filter(!is.na(.data[[cluster_col]]))
- # 
- # cluster_props = cluster_data %>%
- #   group_by(.data[[year_col]], .data[[cluster_col]]) %>%
- #   summarise(n = n(), .groups = "drop") %>%
- #   group_by(.data[[year_col]]) %>%
- #   mutate(
- #     total = sum(n),
- #     proportion = n / total
- #   ) %>%
- #  ungroup() %>%
- #   arrange(.data[[year_col]], .data[[cluster_col]])
- # 
- # print(kable(cluster_props, digits = 3))
-
-
-# -------------------------------------------------------------------
-# 2. Static bar plot per year (loop, non-animated reference frames)
-# -------------------------------------------------------------------
-
- # years = sort(unique(cluster_props[[year_col]]))
- # y_max = max(cluster_props$proportion, na.rm = TRUE)
- # 
- # for (y in years) {
- # 
- #   year_data = cluster_props %>% filter(.data[[year_col]] == y)
- # 
- #   p_year = ggplot(year_data, aes(x = factor(.data[[cluster_col]]), y = proportion, fill = factor(.data[[cluster_col]]))) +
- #     geom_col(color = "white", alpha = 0.85) +
- #     geom_text(aes(label = scales::percent(proportion, accuracy = 0.1)), vjust = -0.5, size = 3.5) +
- #     coord_cartesian(ylim = c(0, y_max * 1.1)) +
- #     scale_fill_viridis_d(option = "D") +
- #     labs(
- #       title = paste0(label_name, " Cluster Proportions (", analysis_type, ") — ", y),
- #       x = paste0(label_name, " Cluster"), y = "Proportion of Households", fill = paste0(label_name, " Cluster")
- #     ) +
- #     theme_minimal(base_size = 12) +
- #     theme(legend.position = "none")
- # 
- #   print(p_year)
- # 
- #   ggsave(
- #     file.path(save_dir, paste0(label_name, "_", tolower(analysis_type), "_proportions_", y, ".png")),
- #     p_year, width = 7, height = 5, dpi = 30
- #   )
- # }
-
-# # -------------------------------------------------------------------
-# # 3. Animated bar plot — cycles through years
-# # -------------------------------------------------------------------
-
-# p_anim = ggplot(cluster_props, aes(x = factor(.data[[cluster_col]]), y = proportion, fill = factor(.data[[cluster_col]]))) +
-#    geom_col(color = "white", alpha = 0.85) +
-#    geom_text(aes(label = scales::percent(proportion, accuracy = 0.1)), vjust = -0.5, size = 4) +
-#    coord_cartesian(ylim = c(0, y_max * 1.1)) +
-#    scale_fill_viridis_d(option = "D") +
-#    labs(
-#      title = paste0(label_name, " Cluster Proportions (", analysis_type, ") — Year: {closest_state}"),
-#      x = paste0(label_name, " Cluster"), y = "Proportion of Households", fill = paste0(label_name, " Cluster")
-#    ) +
-#    theme_minimal(base_size = 13) +
-#    theme(legend.position = "none") +
-#    transition_states(.data[[year_col]], transition_length = 2, state_length = 1) +
-#    ease_aes("cubic-in-out")
-# 
-#  anim = animate(
-#    p_anim,
-#    nframes = 27,
-#    fps = 3,
-#    width = 800, height = 600,
-#    renderer = gifski_renderer()
-#  )
-# 
-#  anim_save(
-#    file.path(save_dir, paste0(label_name, "_", tolower(analysis_type), "_proportions_animated.gif")),
-#    animation = anim
-#  )
-# 
-# anim
 ```
 
 ### Stats for Proportions Confirming the Significance of Changing Clusters Over Time

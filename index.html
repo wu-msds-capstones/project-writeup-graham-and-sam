@@ -305,7 +305,7 @@ window.Quarto = {
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">Background</a></li>
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a>
+  <li><a href="#data-engineering" id="toc-data-engineering" class="nav-link" data-scroll-target="#data-engineering">Data Engineering</a>
   <ul class="collapse">
   <li><a href="#diet-data-national-food-survey-1974-to-2000" id="toc-diet-data-national-food-survey-1974-to-2000" class="nav-link" data-scroll-target="#diet-data-national-food-survey-1974-to-2000">Diet data: <br> National Food Survey <br> (1974 to 2000)</a>
   <ul class="collapse">
@@ -316,8 +316,10 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#diet-data-cleaning" id="toc-diet-data-cleaning" class="nav-link" data-scroll-target="#diet-data-cleaning">Diet data cleaning</a></li>
   <li><a href="#diet-data-aggregation" id="toc-diet-data-aggregation" class="nav-link" data-scroll-target="#diet-data-aggregation">Diet data aggregation</a></li>
+  <li><a href="#household-food-group-profile-aggregation" id="toc-household-food-group-profile-aggregation" class="nav-link" data-scroll-target="#household-food-group-profile-aggregation">Household food group profile aggregation</a></li>
+  <li><a href="#household-nutrient-profile-aggregation" id="toc-household-nutrient-profile-aggregation" class="nav-link" data-scroll-target="#household-nutrient-profile-aggregation">Household nutrient profile aggregation</a></li>
   </ul></li>
-  <li><a href="#units" id="toc-units" class="nav-link" data-scroll-target="#units">Units</a></li>
+  <li><a href="#project-scalability" id="toc-project-scalability" class="nav-link" data-scroll-target="#project-scalability">Project scalability</a></li>
   <li><a href="#ethics-and-responsible-use" id="toc-ethics-and-responsible-use" class="nav-link" data-scroll-target="#ethics-and-responsible-use">Ethics and Responsible Use</a></li>
   </ul></li>
   <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a>
@@ -336,7 +338,6 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#composition-clusters-with-bar-graphs-and-line-plots" id="toc-composition-clusters-with-bar-graphs-and-line-plots" class="nav-link" data-scroll-target="#composition-clusters-with-bar-graphs-and-line-plots">Composition Clusters with Bar Graphs and Line Plots</a></li>
   <li><a href="#disease-line-plot-rename" id="toc-disease-line-plot-rename" class="nav-link" data-scroll-target="#disease-line-plot-rename">Disease Line Plot (Rename)</a></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
   <li><a href="#stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" id="toc-stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" class="nav-link" data-scroll-target="#stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time">Stats for Proportions Confirming the Significance of Changing Clusters Over Time</a></li>
   <li><a href="#cochran-armitage-test" id="toc-cochran-armitage-test" class="nav-link" data-scroll-target="#cochran-armitage-test">Cochran-Armitage Test</a></li>
   <li><a href="#companion-robustness-kendall-tau-trend-test" id="toc-companion-robustness-kendall-tau-trend-test" class="nav-link" data-scroll-target="#companion-robustness-kendall-tau-trend-test">Companion Robustness: Kendall Tau Trend Test</a></li>
@@ -391,16 +392,16 @@ window.Quarto = {
 <p>While the results presented herein are explicitly pertinent to aggregate population-level trends, it would not be unreasonable for an individual person to take some inspiration from these findings. A population is a collection of individuals, after all.</p>
 <p>More importantly though, population-level statistical findings are certainly appropriate for public health officials. Better information about time-lagged population-level diet and disease correlations can be used to inform policy making and progress monitoring for diet oriented public health initiatives.</p>
 </section>
-<section id="data" class="level1">
-<h1>Data</h1>
+<section id="data-engineering" class="level1">
+<h1>Data Engineering</h1>
 <section id="diet-data-national-food-survey-1974-to-2000" class="level2">
 <h2 class="anchored" data-anchor-id="diet-data-national-food-survey-1974-to-2000">Diet data: <br> National Food Survey <br> (1974 to 2000)</h2>
-<p>The UK government’s National Food Suvery (NFS) started in 1940 and eventually evolved into the Living Costs and Food Survey, which is active today.</p>
+<p>All dietary data for this project originates from the UK government’s National Food Suvery (NFS). The NFS started in 1940 and eventually evolved into the Living Costs and Food Survey, which is active in 2026.</p>
 <p>However, not all of the associated data is publicly available.</p>
-<p>For interested parties with institutional credentials, the UK Data Service (https://ukdataservice.ac.uk) does provide a curated batch of NFS data that spans from 1974-2000.</p>
-<p>Each year, approximately 7,000 households across the UK were chosen at random from voting roles and asked to participate. From 1974 to 2000, almost 190,000 households participated.</p>
-<p>Consenting households tracked all food purchases (what food and how much of it) for one week in a ‘diet diary’.</p>
-<p>The raw diet diary entries list foods as one of over 300 minor food codes, or ‘minfd’, which can be mapped to one of 184 major food codes ‘majfd’. There are several native food group mappings included with the NFS data, but those food groupings tend to focus on economic details more than nutrition oriented details. So, this study assigned each row in the diet diary to one of sixteen food groups based on an iterative literature informed (CITATIONS) manual review of all reported foods. This food group mapping is included in the Appendix.</p>
+<p>For interested parties with institutional credentials, the <a href="https://ukdataservice.ac.uk">UK Data Service</a> does provide a curated batch of NFS data that spans from 1974-2000.</p>
+<p>Each year, approximately 7,000 households across the UK were chosen at random from voting roles and asked to participate by keeping a one week diet diary. From 1974 to 2000, almost 190,000 households participated.</p>
+<p>Consenting households tracked all food purchases for one week, recording the consumable quantity (‘cq’) of each purchase and assigning it to one of over 300 minor food codes (‘minfd’). Each minor food codeh can be mapped to one of 184 major food codes (‘majfd’).</p>
+<p>There are several native food group mappings included with the NFS data, but those food groupings tend to focus on economic details more than nutrition oriented details. So, this study assigned each row in the diet diary to one of sixteen food groups based on an iterative literature informed (CITATIONS) manual review of all reported foods. This food group mapping is included in the Appendix.</p>
 <p>Additionally, the NFS included annually adjusted nutrient conversion information for each of the minor food codes, allowing the recorded type and quantity to be converted into a nutrient profile for that purchase, and aggregated to a nutrient profile for each household.</p>
 <p>Demographic and economic information is also included with the NFS data. However, this analysis assesses diet composition per calorie, not diet quantity per capita. So, the only demographic information that was ultimately used in this analysis is the regional location of each household.</p>
 <section id="dietary-data-feature-engineering" class="level3">
@@ -413,7 +414,7 @@ calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
 \tag{1}\]</span></span></p>
 <p>Then, for each household, calories were aggregated for each of the assigned food groups, and then divided by total calories for that household.</p>
 <p><span id="eq-food-groups-calorie-ratio"><span class="math display">\[
-calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
+{calorie_ratio}_{food group} = \frac{\text{total calories per food group}}{\text{total calories per household}}
 \tag{2}\]</span></span></p>
 <p>This resulted in a ‘calorie ratio’ for each food group for that household for that week. This normalized metric cancels out quantity, and purely examines the qualitative composition of each household’s reported food acquisition for the week. Therefore, the number of people in the household do not factor into this metric, and further demographic considerations did not need to be calculated.</p>
 <p>Finally, calorie ratios for all food groups were normalized by Standard Scaler and z-scored, with the means set to zero and the standard deviations set to plus or minus one.</p>
@@ -445,7 +446,7 @@ calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
 <h2 class="anchored" data-anchor-id="pipeline">Pipeline</h2>
 <section id="diet-data-cleaning" class="level3">
 <h3 class="anchored" data-anchor-id="diet-data-cleaning">Diet data cleaning</h3>
-<p>The NFS evolved over time, and this evolution prompted several data cleaning decisions.</p>
+<p>The NFS evolved over time, and this evolution prompted several data cleaning decisions for this analysis.</p>
 <p>To start, alcohol, confectioneries, and soft drinks were added as reportable food options in 1992. Previous to 1992, it is presumed that some UK households did purchase alochol, confectioneries, and soft drinks though the records cannot show this. All three of these are considered high calorie, so their sudden appearance does skew calorie adjusted calculations. In order to maintain consistency over time, all diet diary rows from these three categories were dropped from analysis, though the related households and all their other diet diary entries were retained.</p>
 <p>Initial analysis before dropping alochol had desiginated alochol as its own food group, for 17 total food groups. After dropping all alochol rows, this analysis looked at 16 total foodgroups, as depicted in the Heatmaps in Figs X and Y.</p>
 <p>Northern Ireland was only included in the survey starting in 1996. So, in the interest of consistency, Northern Ireland households were excluded from this analysis altogether.</p>
@@ -455,14 +456,23 @@ calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
 </section>
 <section id="diet-data-aggregation" class="level3">
 <h3 class="anchored" data-anchor-id="diet-data-aggregation">Diet data aggregation</h3>
-<p>National Food Survey diet diaries, household information, and nutrient conversion information are obtained as .txt files in folders by year.</p>
-<p>The disease risk rates were horizontally joined on government region and year.</p>
+<p>Dietary data aggregation was undertaken to generate the features described with <a href="#eq-food-groups-calorie-ratio" class="quarto-xref">Equation&nbsp;2</a>, <a href="#eq-row-calories" class="quarto-xref">Equation&nbsp;1</a>, <a href="#eq-food-groups-calorie-ratio-3" class="quarto-xref">Equation&nbsp;3</a>, and <a href="#eq-food-groups-calorie-ratio-4" class="quarto-xref">Equation&nbsp;4</a> above. The raw download from the UK Data Service has a folder for each year between 1974 and 2000, with space separated text files for diet diary, household information, and nutrient conversion factors. All years of the NFS data share minor to major food code look up tables with consistent food code descriptions.</p>
+</section>
+<section id="household-food-group-profile-aggregation" class="level3">
+<h3 class="anchored" data-anchor-id="household-food-group-profile-aggregation">Household food group profile aggregation</h3>
+<p>Year by year, calories nutrient conversion information (Energy kCal) was joined to each row of the diet diary (on minor food code, ‘minfd’), multiplied by consumable quantity ‘cq’, and then summed by household to calculate total calories for that household (<a href="#eq-row-calories" class="quarto-xref">Equation&nbsp;1</a>). Total household calories was later joined back to un-aggregated data as needed.</p>
+<p>Minor food codes were mapped to major food codes, which were then mapped to custom food group labels (see Appendix). Then each row was grouped by household and by foodgroup, aggregating total calories for each food group and for each household. From there, everyhouse hold could be assigned a proportion of total calories that was attributable to each foodgroup <a href="#eq-food-groups-calorie-ratio" class="quarto-xref">Equation&nbsp;2</a>.</p>
+<p>Household information was then joined on household number (‘hhno’) to obtain the correct goverment office region for each household.</p>
+</section>
+<section id="household-nutrient-profile-aggregation" class="level3">
+<h3 class="anchored" data-anchor-id="household-nutrient-profile-aggregation">Household nutrient profile aggregation</h3>
 </section>
 </section>
-<section id="units" class="level2">
-<h2 class="anchored" data-anchor-id="units">Units</h2>
-<p>Food groups rates were normalized as a proportion of total calories consumed. The nutrient groups were normalized as quantity per daily calories.</p>
-<p>The disease rates were summary exposure values (SEV) which are relative to the total possible risk.</p>
+<section id="project-scalability" class="level2">
+<h2 class="anchored" data-anchor-id="project-scalability">Project scalability</h2>
+<p>The exact aggregation scripts that transform the raw diet diary data into usuable machine learning inputs are specific to the conventions of the 1974 to 2000 NFS data collection process. Ingestion of other similar dietary data would not automatically work with those scripts.</p>
+<p>That said, modifications to the ingestion and aggregation scripts could facilitate ingestion of applicable similar data. Once ingested and aggregated according to the feature engineering steps described above, harmonizable diet data from other sources (the UK in later years, the United States, or other countries) could be integrated into the analysis.</p>
+<p>The chronic disease data from the GBD Results tool is easily scalable, and compatible chronic disease SEV data for other developed nations could be obtained and integegrated into this analysis.</p>
 </section>
 <section id="ethics-and-responsible-use" class="level2">
 <h2 class="anchored" data-anchor-id="ethics-and-responsible-use">Ethics and Responsible Use</h2>
@@ -680,9 +690,6 @@ Figure&nbsp;11: Nutrient cluster proportions over time as line plot.
 </div>
 </div>
 </div>
-</section>
-<section id="section" class="level3">
-<h3 class="anchored" data-anchor-id="section"></h3>
 </section>
 <section id="stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" class="level3">
 <h3 class="anchored" data-anchor-id="stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time">Stats for Proportions Confirming the Significance of Changing Clusters Over Time</h3>
@@ -1005,7 +1012,7 @@ Figure&nbsp;16: Not consistent l;a against blood proessure in the same time
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-17-11.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="capstone_files/figure-html/unnamed-chunk-17-11.png" class="img-fluid figure-img" width="2156"></a></p>
+<p><a href="capstone_files/figure-html/unnamed-chunk-15-11.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="capstone_files/figure-html/unnamed-chunk-15-11.png" class="img-fluid figure-img" width="2156"></a></p>
 </figure>
 </div>
 </div>

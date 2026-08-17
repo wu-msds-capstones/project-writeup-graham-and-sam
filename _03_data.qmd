@@ -1,18 +1,18 @@
-# Data
+# Data Engineering
 
 ## Diet data: <br> National Food Survey <br> (1974 to 2000)
 
-The UK government's National Food Suvery (NFS) started in 1940 and eventually evolved into the Living Costs and Food Survey, which is active today. 
+All dietary data for this project originates from the UK government's National Food Suvery (NFS). The NFS started in 1940 and eventually evolved into the Living Costs and Food Survey, which is active in 2026. 
 
 However, not all of the associated data is publicly available.
 
-For interested parties with institutional credentials, the UK Data Service (https://ukdataservice.ac.uk) does provide a curated batch of NFS data that spans from 1974-2000.  
+For interested parties with institutional credentials, the [UK Data Service](https://ukdataservice.ac.uk) does provide a curated batch of NFS data that spans from 1974-2000.  
 
-Each year, approximately 7,000 households across the UK were chosen at random from voting roles and asked to participate. From 1974 to 2000, almost 190,000 households participated. 
+Each year, approximately 7,000 households across the UK were chosen at random from voting roles and asked to participate by keeping a one week diet diary. From 1974 to 2000, almost 190,000 households participated. 
 
-Consenting households tracked all food purchases (what food and how much of it) for one week in a 'diet diary'.  
+Consenting households tracked all food purchases for one week, recording the consumable quantity ('cq') of each purchase and assigning it to one of over 300 minor food codes ('minfd'). Each minor food codeh can be mapped to one of 184 major food codes ('majfd').  
 
-The raw diet diary entries list foods as one of over 300 minor food codes, or 'minfd', which can be mapped to one of 184 major food codes 'majfd'.  There are several native food group mappings included with the NFS data, but those food groupings tend to focus on economic details more than nutrition oriented details.  So, this study assigned each row in the diet diary to one of sixteen food groups based on an iterative literature informed (CITATIONS) manual review of all reported foods. This food group mapping is included in the Appendix.
+There are several native food group mappings included with the NFS data, but those food groupings tend to focus on economic details more than nutrition oriented details.  So, this study assigned each row in the diet diary to one of sixteen food groups based on an iterative literature informed (CITATIONS) manual review of all reported foods. This food group mapping is included in the Appendix.
 
 Additionally, the NFS included annually adjusted nutrient conversion information for each of the minor food codes, allowing the recorded type and quantity to be converted into a nutrient profile for that purchase, and aggregated to a nutrient profile for each household.
 
@@ -33,7 +33,7 @@ $$ {#eq-row-calories}
 Then, for each household, calories were aggregated for each of the assigned food groups, and then divided by total calories for that household.
 
 $$
-calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
+{calorie_ratio}_{food group} = \frac{\text{total calories per food group}}{\text{total calories per household}}
 $$ {#eq-food-groups-calorie-ratio}
 
 
@@ -78,7 +78,7 @@ These risk rates were obtained preaggreagted at a population level, grouped by U
 
 ### Diet data cleaning
 
-The NFS evolved over time, and this evolution prompted several data cleaning decisions.  
+The NFS evolved over time, and this evolution prompted several data cleaning decisions for this analysis.  
 
 To start, alcohol, confectioneries, and soft drinks were added as reportable food options in 1992. Previous to 1992, it is presumed that some UK households did purchase alochol, confectioneries, and soft drinks though the records cannot show this.  All three of these are considered high calorie, so their sudden appearance does skew calorie adjusted calculations. In order to maintain consistency over time, all diet diary rows from these three categories were dropped from analysis, though the related households and all their other diet diary entries were retained.
 
@@ -92,25 +92,34 @@ The NSF and IHME data have a discrepancy in UK government office regions as well
 
 A final cleaning step was to prune households that reported a physiologically unrealistic amount of calories, below a threshold that people require to live.  These households were considered to have provided unreliable data and were excluded from analysis.  The caloric floor threshold was set to two standard deviations below the mean of log-space per capita calorie intake, inspired by similar approaches in the literature [REFERENCE].  While the overall analysis does not rely on per capita calculations, this pruning step does. Per capita per household calculations were adjusted for age and sex (adult males = 1, adult females = 0.8, children = 0.5, elderly adults = 0.85), consistent with the literature [REFERENCE].
 
-
 ### Diet data aggregation
 
-
-National Food Survey diet diaries, household information, and nutrient conversion information are obtained as .txt files in folders by year.  
-
-
+Dietary data aggregation was undertaken to generate the features described with @eq-food-groups-calorie-ratio, @eq-row-calories, @eq-food-groups-calorie-ratio-3, and @eq-food-groups-calorie-ratio-4 above.
+The raw download from the UK Data Service has a folder for each year between 1974 and 2000, with space separated text files for diet diary, household information, and nutrient conversion factors.  All years of the NFS data share minor to major food code look up tables with consistent food code descriptions.
 
 
+### Household food group profile aggregation
+
+Year by year, calories nutrient conversion information (Energy kCal) was joined to each row of the diet diary (on minor food code, 'minfd'), multiplied by consumable quantity 'cq', and then summed by household to calculate total calories for that household (@eq-row-calories). Total household calories was later joined back to un-aggregated data as needed.
+
+Minor food codes were mapped to major food codes, which were then mapped to custom food group labels (see Appendix).  Then each row was grouped by household and by foodgroup, aggregating total calories for each food group and for each household.  From there, everyhouse hold could be assigned a proportion of total calories that was attributable to each foodgroup @eq-food-groups-calorie-ratio.
+
+Household information was then joined on household number ('hhno') to obtain the correct goverment office region for each household. 
 
 
 
-The disease risk rates were horizontally joined on government region and year.
+### Household nutrient profile aggregation
 
-## Units
 
-Food groups rates were normalized as a proportion of total calories consumed. The nutrient groups were normalized as quantity per daily calories. 
+## Project scalability
 
-The disease rates were summary exposure values (SEV) which are relative to the total possible risk.
+The exact aggregation scripts that transform the raw diet diary data into usuable machine learning inputs are specific to the conventions of the 1974 to 2000 NFS data collection process. Ingestion of other similar dietary data would not automatically work with those scripts. 
+
+That said, modifications to the ingestion and aggregation scripts could facilitate ingestion of applicable similar data. Once ingested and aggregated according to the feature engineering steps described above, harmonizable diet data from other sources (the UK in later years, the United States, or other countries) could be integrated into the analysis. 
+
+The chronic disease data from the GBD Results tool is easily scalable, and compatible chronic disease SEV data for other developed nations could be obtained and integegrated into this analysis.
+
+
 
 ## Ethics and Responsible Use
 
