@@ -407,7 +407,7 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="dietary-data-feature-engineering">Dietary Data Feature Engineering</h3>
 <section id="household-food-group-profiles" class="level4">
 <h4 class="anchored" data-anchor-id="household-food-group-profiles">Household food group profiles</h4>
-<p>For each diet diary row, calories were calculated based on NFS provided nutrient conversion factor for Energy (kCal) for the given food multiplied by the consumable quantity (cq) reported, as depicted in <a href="#eq-row-calories" class="quarto-xref">Equation&nbsp;1</a></p>
+<p>For each diet diary row, calories were calculated based on NFS provided nutrient conversion factor for Energy (kCal) for the given food multiplied by the consumable quantity <code>cq</code> reported (<a href="#eq-row-calories" class="quarto-xref">Equation&nbsp;1</a>).</p>
 <p><span id="eq-row-calories"><span class="math display">\[
 calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
 \tag{1}\]</span></span></p>
@@ -420,14 +420,14 @@ calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
 </section>
 <section id="household-nutrient-profiles" class="level4">
 <h4 class="anchored" data-anchor-id="household-nutrient-profiles">Household nutrient profiles</h4>
-<p>Total calories were calculated for each household as with the food group feature engineering <a href="#eq-food-groups-calorie-ratio" class="quarto-xref">Equation&nbsp;2</a>.</p>
-<p>Then, each minor food code ‘minfd’ was converted to the nutrient profile for that food multipled by the quantity reported ‘cq’. This effectively expanded each diary entry row into twenty rows, one for each of the twenty nutrients tracked throughout the data, with the appropriate unit quantity for each nutrient reported.</p>
+<p>Total calories were calculated for each household as with the food group feature engineering.</p>
+<p>Then, each minor food code <code>minfd</code> was converted to the nutrient profile for that food multipled by the quantity reported <code>cq</code>. This effectively expanded each diary entry row into twenty rows, one for each of the twenty nutrients tracked throughout the data, with the appropriate unit quantity for each nutrient reported.</p>
 <p><span id="eq-nutrient-calorie-ratio-3"><span class="math display">\[
-quantity_{nutrient} = cq_{row} \times \text{nutrient conversion factor}_{minfd}_row
+nutrient\_quantity_{row} = cq_{row} \times \text{nutrient conversion factor}_{row}
 \tag{3}\]</span></span></p>
-<p>Maintaining each nutrient’s native unit (grams, milligrams, micrograms, etc), the total quantity of each nutrient across all food purchases was aggregated for each household. Those quantities were then divided by total calories for that household.</p>
-<p><span id="eq-food-groups-calorie-ratio-4"><span class="math display">\[
-calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
+<p>Maintaining each nutrient’s native unit (grams, milligrams, micrograms, etc.), the total quantity of each nutrient across all food purchases was aggregated for each household. Those quantities were then divided by total calories for that household.</p>
+<p><span id="eq-nutrient-quantity-calorie-ratio-4"><span class="math display">\[
+nutrient\_quantity\_per\_total\_cal_{row} =  \frac{\text{total quantity per nutrient}}{\text{total calories per household}}
 \tag{4}\]</span></span></p>
 <p>The resultant nutrient profile metric, ‘quantity per total calories,’ is similar in spirit to the ‘calorie-ratio’ metric from the food groups.</p>
 <p>However, a pure calorie comparison for nutrients would not be viable, as certain nutrients (carbohydrates, fats) have abundant calories while other nutrients (vitamins) have essentially zero calories. Hence, native nutrient units were maintained and divided by the common total calories. This might preclude comparison amongst nutrients, but this analysis assesses household nutrient profiles, so the variation in fundamental units was not problematic.</p>
@@ -445,12 +445,16 @@ calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
 </section>
 <section id="pipeline-overview" class="level2">
 <h2 class="anchored" data-anchor-id="pipeline-overview">Pipeline Overview</h2>
-<p>As described in detail below, diet diary data was cleaned and aggregated by food group and by nutrient profile for each household in the dataset.</p>
-<p>This yielded a sixteen-dimensional food group vector and a twenty-dimensional nutrient vector for each household.</p>
-<p>Those vectors were subjected to a machine learning pipeline that assigned a food group cluster label and a nutrient cluster label to each household. Principle component analysis was used to understand and visualize the clustering.</p>
-<p>Changing proportions of those clusters in the total population were assessed over time using a variety of statistical tests, in addition to visual inspection of time-based line plots.</p>
-<p>Population-level SEV risk rates were then joined at varying time-lags on year and region.</p>
-<p>The year-on-year rate of change for a given cluster proportion was correlated with year-on-year rate of change for metabolic disease risk factors at varying time lags.</p>
+<p>As described in detail below: * diet diary data was cleaned and aggregated by food group and by nutrient profile for each household in the dataset.</p>
+<pre><code>* This yielded a sixteen-dimensional food group vector and a twenty-dimensional nutrient vector for each household.  
+
+* Those vectors were subjected to a machine learning pipeline that assigned a food group cluster label and a nutrient cluster label to each household.  Principle component analysis was used to understand and visualize the clustering.  
+
+* Changing proportions of those clusters in the total population were assessed over time using a variety of statistical tests, in addition to visual inspection of time-based line plots.  
+
+* Population-level SEV risk rates were then joined at varying time-lags on year and region.
+
+* The year-on-year rate of change for a given cluster proportion was correlated with year-on-year rate of change for metabolic disease risk factors at varying time lags.   </code></pre>
 <section id="diet-data-cleaning" class="level3">
 <h3 class="anchored" data-anchor-id="diet-data-cleaning">Diet data cleaning</h3>
 <p>The NFS evolved over time, and this evolution prompted several data cleaning decisions for this analysis.</p>
@@ -463,7 +467,7 @@ calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
 </section>
 <section id="diet-data-aggregation" class="level3">
 <h3 class="anchored" data-anchor-id="diet-data-aggregation">Diet data aggregation</h3>
-<p>Dietary data aggregation was undertaken to generate the features described with <a href="#eq-food-groups-calorie-ratio" class="quarto-xref">Equation&nbsp;2</a>, <a href="#eq-row-calories" class="quarto-xref">Equation&nbsp;1</a>, <strong>?@eq-food-groups-calorie-ratio-3</strong>, and <a href="#eq-food-groups-calorie-ratio-4" class="quarto-xref">Equation&nbsp;4</a> above. The raw download from the UK Data Service has a folder for each year between 1974 and 2000, with space separated text files for diet diary, household information, and nutrient conversion factors. All years of the NFS data share minor to major food code look up tables with consistent food code descriptions.</p>
+<p>Dietary data aggregation was undertaken to generate the features described with <a href="#eq-food-groups-calorie-ratio" class="quarto-xref">Equation&nbsp;2</a>, <a href="#eq-row-calories" class="quarto-xref">Equation&nbsp;1</a>, <strong>?@eq-food-groups-calorie-ratio-3</strong>, and <strong>?@eq-food-groups-calorie-ratio-4</strong> above. The raw download from the UK Data Service has a folder for each year between 1974 and 2000, with space separated text files for diet diary, household information, and nutrient conversion factors. All years of the NFS data share minor to major food code look up tables with consistent food code descriptions.</p>
 <section id="household-food-group-profile-aggregation" class="level4">
 <h4 class="anchored" data-anchor-id="household-food-group-profile-aggregation">Household food group profile aggregation</h4>
 <p>On a year by year basis, calorie-specific nutrient conversion information was joined to each row of the diet diary (on minor food code, ‘minfd’), multiplied by consumable quantity ‘cq’, and then summed per household to calculate total calories for that household (<a href="#eq-row-calories" class="quarto-xref">Equation&nbsp;1</a>). Total household calories was later joined back to un-aggregated data as needed.</p>
@@ -473,8 +477,8 @@ calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
 </section>
 <section id="household-nutrient-profile-aggregation" class="level4">
 <h4 class="anchored" data-anchor-id="household-nutrient-profile-aggregation">Household nutrient profile aggregation</h4>
-<p>Year by year, nutrient conversion information for all included nutrients was joined to each row of the diet diary (on minor food code, ‘minfd’), multiplied by consumable quantity ‘cq’, and then summed by household to calculate quantity of that nutrient for that household (<strong>?@eq-food-groups-calorie-ratio-3</strong>). This automatically included total calories for that household, which was then used to create quantity-per-total-calorie metrics for each household and each nutrient <a href="#eq-food-groups-calorie-ratio-4" class="quarto-xref">Equation&nbsp;4</a>.</p>
-<p>Household information was then joined on household number (‘hhno’) to obtain the correct goverment office region ‘gor’ for each household.</p>
+<p>Year by year, nutrient conversion information for all included nutrients was joined to each row of the diet diary (on minor food code, ‘minfd’), multiplied by consumable quantity ‘cq’, and then summed by household to calculate quantity of that nutrient for that household (<a href="#eq-nutrient-calorie-ratio-3" class="quarto-xref">Equation&nbsp;3</a>). This automatically included total calories for that household, which was then used to create quantity-per-total-calorie metrics for each household and each nutrient <a href="#eq-nutrient-quantity-calorie-ratio-4" class="quarto-xref">Equation&nbsp;4</a>.</p>
+<p>Household information was then joined on household number <code>hhno</code> to obtain the correct goverment office region ‘gor’ for each household.</p>
 <p>Finally, each year’s processed aggregated nutrient profile data was appended to a list of dataframes and vertically concatenated.</p>
 </section>
 <section id="machine-learning-pipeline" class="level4">
