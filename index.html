@@ -312,13 +312,12 @@ window.Quarto = {
   <li><a href="#dietary-data-feature-engineering" id="toc-dietary-data-feature-engineering" class="nav-link" data-scroll-target="#dietary-data-feature-engineering">Dietary Data Feature Engineering</a></li>
   </ul></li>
   <li><a href="#disease-data-global-burden-of-disease-1990-to-2023" id="toc-disease-data-global-burden-of-disease-1990-to-2023" class="nav-link" data-scroll-target="#disease-data-global-burden-of-disease-1990-to-2023">Disease data: <br> Global Burden of Disease <br> (1990 to 2023)</a></li>
-  <li><a href="#pipeline" id="toc-pipeline" class="nav-link" data-scroll-target="#pipeline">Pipeline</a>
+  <li><a href="#pipeline-overview" id="toc-pipeline-overview" class="nav-link" data-scroll-target="#pipeline-overview">Pipeline Overview</a>
   <ul class="collapse">
   <li><a href="#diet-data-cleaning" id="toc-diet-data-cleaning" class="nav-link" data-scroll-target="#diet-data-cleaning">Diet data cleaning</a></li>
   <li><a href="#diet-data-aggregation" id="toc-diet-data-aggregation" class="nav-link" data-scroll-target="#diet-data-aggregation">Diet data aggregation</a></li>
   </ul></li>
   <li><a href="#project-scalability" id="toc-project-scalability" class="nav-link" data-scroll-target="#project-scalability">Project scalability</a></li>
-  <li><a href="#ethics-and-responsible-use" id="toc-ethics-and-responsible-use" class="nav-link" data-scroll-target="#ethics-and-responsible-use">Ethics and Responsible Use</a></li>
   </ul></li>
   <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a>
   <ul class="collapse">
@@ -435,13 +434,20 @@ calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
 </section>
 <section id="disease-data-global-burden-of-disease-1990-to-2023" class="level2">
 <h2 class="anchored" data-anchor-id="disease-data-global-burden-of-disease-1990-to-2023">Disease data: <br> Global Burden of Disease <br> (1990 to 2023)</h2>
-<p>Population-level disease risk rates for High LDL cholesterol and other metabolic-disease associated risk factors were acquired from the Institute for Health Metrics and Evaluation (IHME), using their Global Burden of Disease (GBD) Results tool (https://vizhub.healthdata.org/gbd-results/).</p>
-<p>The data was specifically selected from this open API to find the summary exposure value (SEV) risk rates. The IHME defines SEV as “A measure of a population’s exposure to a risk factor that takes into account the extent of exposure by risk level and the severity of that risk’s contribution to disease burden.” https://www.healthdata.org/sites/default/files/files/policy_report/GBD/2016/IHME_GBD2015_Report_Glossary-of-terms_2016.pdf</p>
-<p>Other metics such as disability-adjusted life years (DALYs) or simple mortality rates would be confounded by chronic disease management and treatment: society developing better medical management of chronic diseases might decrease mortality rates from associated risk factors, even if the prevelance of the risk factor is increasing. SEV was the best available metric from the GBD results tool to assess risk factor prevelance. From there, the chronic disease risk factors and conditions for which SEV information were metabolic risks: High LDL Cholesterol, High Body Mass Index, High Fasting Plasma Glucose Systolic Blood Pressure, Kidney Dysfunction, Low Bone Mineral Density, and overall Metabolic Risks.</p>
+<p>Population-level disease risk rates for High LDL cholesterol and other metabolic-disease associated risk factors were acquired from the Institute for Health Metrics and Evaluation (IHME), using their <a href="https://vizhub.healthdata.org/gbd-results/">Global Burden of Disease (GBD) Results tool</a>.</p>
+<p>The data was specifically selected from this open API to find the summary exposure value (SEV) risk rates. <a href="https://www.healthdata.org/sites/default/files/files/policy_report/GBD/2016/IHME_GBD2015_Report_Glossary-of-terms_2016.pdf">The IHME defines SEV</a> as “A measure of a population’s exposure to a risk factor that takes into account the extent of exposure by risk level and the severity of that risk’s contribution to disease burden.”</p>
+<p>Other metics such as disability-adjusted life years (DALYs) or simple mortality rates would be confounded by chronic disease management and treatment: society developing better medical management of chronic diseases might decrease mortality rates from associated risk factors, even if the prevelance of the risk factor is increasing. SEV was the best available metric from the GBD results tool to assess risk factor prevelance.</p>
+<p>From there, the chronic disease risk factors and conditions for which SEV information were metabolic risks: High LDL Cholesterol, High Body Mass Index, High Fasting Plasma Glucose Systolic Blood Pressure, Kidney Dysfunction, Low Bone Mineral Density, and overall Metabolic Risks.</p>
 <p>These risk rates were obtained preaggreagted at a population level, grouped by UK region and by year.</p>
 </section>
-<section id="pipeline" class="level2">
-<h2 class="anchored" data-anchor-id="pipeline">Pipeline</h2>
+<section id="pipeline-overview" class="level2">
+<h2 class="anchored" data-anchor-id="pipeline-overview">Pipeline Overview</h2>
+<p>As described in detail below, diet diary data was cleaned and aggregated by food group and by nutrient profile for each household in the dataset.</p>
+<p>This yielded a sixteen-dimensional food group vector and a twenty-dimensional nutrient vector for each household.</p>
+<p>Those vectors were subjected to a machine learning pipeline that assigned a food group cluster label and a nutrient cluster label to each household. Principle component analysis was used to understand and visualize the clustering.</p>
+<p>Changing proportions of those clusters in the total population were assessed over time using a variety of statistical tests, in addition to visual inspection of time-based line plots.</p>
+<p>Population-level SEV risk rates were then joined at varying time-lags on year and region.</p>
+<p>The year-on-year rate of change for a given cluster proportion was correlated with year-on-year rate of change for metabolic disease risk factors at varying time lags.</p>
 <section id="diet-data-cleaning" class="level3">
 <h3 class="anchored" data-anchor-id="diet-data-cleaning">Diet data cleaning</h3>
 <p>The NFS evolved over time, and this evolution prompted several data cleaning decisions for this analysis.</p>
@@ -457,8 +463,8 @@ calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
 <p>Dietary data aggregation was undertaken to generate the features described with <a href="#eq-food-groups-calorie-ratio" class="quarto-xref">Equation&nbsp;2</a>, <a href="#eq-row-calories" class="quarto-xref">Equation&nbsp;1</a>, <a href="#eq-food-groups-calorie-ratio-3" class="quarto-xref">Equation&nbsp;3</a>, and <a href="#eq-food-groups-calorie-ratio-4" class="quarto-xref">Equation&nbsp;4</a> above. The raw download from the UK Data Service has a folder for each year between 1974 and 2000, with space separated text files for diet diary, household information, and nutrient conversion factors. All years of the NFS data share minor to major food code look up tables with consistent food code descriptions.</p>
 <section id="household-food-group-profile-aggregation" class="level4">
 <h4 class="anchored" data-anchor-id="household-food-group-profile-aggregation">Household food group profile aggregation</h4>
-<p>Year by year, calories nutrient conversion information (Energy kCal) was joined to each row of the diet diary (on minor food code, ‘minfd’), multiplied by consumable quantity ‘cq’, and then summed by household to calculate total calories for that household (<a href="#eq-row-calories" class="quarto-xref">Equation&nbsp;1</a>). Total household calories was later joined back to un-aggregated data as needed.</p>
-<p>Minor food codes were mapped to major food codes, which were then mapped to custom food group labels (see Appendix). Then each row was grouped by household and by foodgroup, aggregating total calories for each food group and for each household. From there, everyhouse hold could be assigned a proportion of total calories that was attributable to each foodgroup <a href="#eq-food-groups-calorie-ratio" class="quarto-xref">Equation&nbsp;2</a>.</p>
+<p>On a year by year basis, calorie-specific nutrient conversion information was joined to each row of the diet diary (on minor food code, ‘minfd’), multiplied by consumable quantity ‘cq’, and then summed per household to calculate total calories for that household (<a href="#eq-row-calories" class="quarto-xref">Equation&nbsp;1</a>). Total household calories was later joined back to un-aggregated data as needed.</p>
+<p>Minor food codes were mapped to major food codes, which were then mapped to custom food group labels (see Appendix). Then each row was grouped by household and by foodgroup, aggregating total calories for each food group and for each household. From there, every household could be assigned a proportion of total calories that was attributable to each foodgroup <a href="#eq-food-groups-calorie-ratio" class="quarto-xref">Equation&nbsp;2</a>.</p>
 <p>Household information was then joined on household number (‘hhno’) to obtain the correct goverment office region for each household.</p>
 <p>Finally, each year’s processed aggregated food group profile data was appended to a list of dataframes and vertically concatenated.</p>
 </section>
@@ -487,10 +493,6 @@ calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
 <p>That said, modifications to the ingestion and aggregation scripts could facilitate ingestion of applicable similar data. Once ingested and aggregated according to the feature engineering steps described above, harmonizable diet data from other sources (the UK in later years, the United States, or other countries) could be integrated into the analysis. If appropriately prepared, it could potentially be clustered by the ML pipeline in this project and analyzed downstream as if it were from the original data.</p>
 <p>The chronic disease data from the GBD Results tool is easily scalable, and compatible chronic disease SEV data for other developed nations could be obtained and integegrated into this analysis.</p>
 <p>All that said, due diligence would be required to make sure any new dietary data was actually harmonizable, and potential external confounding factors would have to be sought and ruled out.</p>
-</section>
-<section id="ethics-and-responsible-use" class="level2">
-<h2 class="anchored" data-anchor-id="ethics-and-responsible-use">Ethics and Responsible Use</h2>
-<p>The data is used under a non-commercial educational license, and comes both anonymized and pre-aggregated by the service providers to remove personally identifiable information (PII) and ensure confidentiality.</p>
 </section>
 </section>
 <section id="analysis" class="level1">
@@ -707,12 +709,12 @@ Figure&nbsp;11: Nutrient cluster proportions over time as line plot.
 </section>
 <section id="stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" class="level3">
 <h3 class="anchored" data-anchor-id="stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time">Stats for Proportions Confirming the Significance of Changing Clusters Over Time</h3>
-<p>A two proportion test was conducted to investigate the year by year trends for each cluster to determine their significance.</p>
-<p>Cluster 0 shows multiple statistically significant decline scattered throughout the time span. There are no significant reversals of this trend, so this cluster demonstrates slow, step-wise decline.</p>
-<p>Cluster 1 stayed stable. It had few significant shifts and the overall proportion of its diet ownership suggests it has no strong directional trend.</p>
-<p>Cluster 2 starts tiny and continuously grows to end with a diet proportion of 40%. It is the most dynamic cluster with string of statistically significant upward changes. It can confidently be said there is a significant strong positive trend in in its dietary proportion represented in households.</p>
-<p>Cluster 3 fluctuates around 25-28%, it has volatility in 1990s, but beyond these outliers, it remains generally stable with fewer significant year to year changes.</p>
-<p>Cluster 4 has the largest initial share of diet. It consistently has downward trends, when disregarding the shock during 1990-1992. It has a sustained statistically significant downward trend over the time period.</p>
+<p>A series of two-proportion z-tests assessed the significance of the year-over-year nutrient group cluster composition changes over the 27 year time period.</p>
+<p>Cluster 0 demonstrated a gradual contraction over the time period. It had 8 statistically significant annual shifts (30.8% of transitions). There was a scattered, but downward aiming shift without stark reversals upward.</p>
+<p>Cluster 1 exhibits consistent stability with the lowest volatility among the clusters. It only had 6 statistically significant transitions (23.1% of the shifts). There was not a specific trajectory instead, there were both positive and negative changes during the time span.</p>
+<p>Cluster 2 was the most dynamic cluster, noting a robust upward trend. Beginning with a baseline composition of around 3%, there was a leap to 40% of household diet share by the end of the period. A majority of year-over-year changes reach statistical significance (15 transitions or 57.7%) confirming a strong continued expansion.</p>
+<p>Cluster 3 fluctuates around 25-28% of household share. It was heavily influenced in the early 1990s (plausibly to a recession in the UK during this time period) with some volatility. Beyond this disruption, the trend remained broadly stable with 8 statistically significant transitions (30.8%).</p>
+<p>Cluster 4 began with the largest share of household diet share, but experienced consistent downward pressure. Disregarding the market shock in the early 1990s, the group had 11 statistically significant year-over-year transitions (42.3%) backing this claim.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-striped table-hover table-condensed caption-top table-sm small" data-quarto-postprocess="true">
@@ -769,7 +771,7 @@ Figure&nbsp;11: Nutrient cluster proportions over time as line plot.
 </section>
 <section id="cochran-armitage-test" class="level3">
 <h3 class="anchored" data-anchor-id="cochran-armitage-test">Cochran-Armitage Test</h3>
-<p>The Cochran-Armitage trend test was applied separately to each of the five clusters, testing whether that cluster’s share of the population trended consistently upward or downward across the ordered sequence of survey years (1974-2000). It binary checked if the change in households was significantly different between the initial and final years to mark long-term trends. It found that all but cluster 1 experience significant change during the time frame. The confirms the listed trends, focusing on cluster 2 are not defined by noise in the data.Together, these results indicate a substantial compositional shift in the population’s cluster membership over the 27-year period, with Cluster 2 gaining population share at the expense of Clusters 0, 3, and 4, while Cluster 1 remained a stable, low-prevalence group throughout.</p>
+<p>The Cochran-Armitage trend test was selected because it is designed to detect whether a proportion moved consistently in one direction across an ordered sequence of groups. The cluster membership was essentially binary, a household either belonged to a given cluster or did not, and the survey years followed a natural chronological order, this test was suited for the data . It was applied separately to each of the five clusters, to see whether that cluster’s share of the population trended consistently either upward or downward across the survey years (1974-2000). The test incorporated every year to determine whether the year-to-year movement followed a single consistent direction, as opposed to random fluctuation. It found that all but Cluster 1 experienced significant change during the time frame, confirming that the trends observed in these clusters reflected a real, sustained shift rather than noise in the data. These results demonstrated a substantial compositional shift in the UK population’s cluster membership over the 27-year period, with Cluster 2 gaining population share at the expense of Clusters 0, 3, and 4, while Cluster 1 remained a stable, low-prevalence group throughout.</p>
 <div class="cell">
 <div id="tbl-cochran-armitage" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">

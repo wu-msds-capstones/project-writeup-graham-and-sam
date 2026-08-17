@@ -66,15 +66,29 @@ Furthermore, variations in magnitude amongst the derived nutrient-quanity-per-to
 
 ## Disease data: <br> Global Burden of Disease <br> (1990 to 2023)
 
-Population-level disease risk rates for High LDL cholesterol and other metabolic-disease associated risk factors were acquired from the Institute for Health Metrics and Evaluation (IHME), using their Global Burden of Disease (GBD) Results tool (https://vizhub.healthdata.org/gbd-results/).
+Population-level disease risk rates for High LDL cholesterol and other metabolic-disease associated risk factors were acquired from the Institute for Health Metrics and Evaluation (IHME), using their [Global Burden of Disease (GBD) Results tool](https://vizhub.healthdata.org/gbd-results/).
 
-The data was specifically selected from this open API to find the summary exposure value (SEV) risk rates.  The IHME defines SEV as "A measure of a population’s exposure to a risk factor that takes into account the extent of exposure by risk level and the severity of that risk’s contribution to disease burden." https://www.healthdata.org/sites/default/files/files/policy_report/GBD/2016/IHME_GBD2015_Report_Glossary-of-terms_2016.pdf
+The data was specifically selected from this open API to find the summary exposure value (SEV) risk rates.  [The IHME defines SEV](https://www.healthdata.org/sites/default/files/files/policy_report/GBD/2016/IHME_GBD2015_Report_Glossary-of-terms_2016.pdf) as "A measure of a population’s exposure to a risk factor that takes into account the extent of exposure by risk level and the severity of that risk’s contribution to disease burden." 
 
-Other metics such as disability-adjusted life years (DALYs) or simple mortality rates would be confounded by chronic disease management and treatment: society developing better medical management of chronic diseases might decrease mortality rates from associated risk factors, even if the prevelance of the risk factor is increasing. SEV was the best available metric from the GBD results tool to assess risk factor prevelance.  From there, the chronic disease risk factors and conditions for which SEV information were metabolic risks: High LDL Cholesterol, High Body Mass Index, High Fasting Plasma Glucose Systolic Blood Pressure, Kidney Dysfunction, Low Bone Mineral Density, and overall Metabolic Risks. 
+Other metics such as disability-adjusted life years (DALYs) or simple mortality rates would be confounded by chronic disease management and treatment: society developing better medical management of chronic diseases might decrease mortality rates from associated risk factors, even if the prevelance of the risk factor is increasing. SEV was the best available metric from the GBD results tool to assess risk factor prevelance.  
+
+From there, the chronic disease risk factors and conditions for which SEV information were metabolic risks: High LDL Cholesterol, High Body Mass Index, High Fasting Plasma Glucose Systolic Blood Pressure, Kidney Dysfunction, Low Bone Mineral Density, and overall Metabolic Risks. 
 
 These risk rates were obtained preaggreagted at a population level, grouped by UK region and by year.
 
-## Pipeline
+## Pipeline Overview
+
+As described in detail below, diet diary data was cleaned and aggregated by food group and by nutrient profile for each household in the dataset.
+
+This yielded a sixteen-dimensional food group vector and a twenty-dimensional nutrient vector for each household.  
+
+Those vectors were subjected to a machine learning pipeline that assigned a food group cluster label and a nutrient cluster label to each household.  Principle component analysis was used to understand and visualize the clustering.  
+
+Changing proportions of those clusters in the total population were assessed over time using a variety of statistical tests, in addition to visual inspection of time-based line plots.  
+
+Population-level SEV risk rates were then joined at varying time-lags on year and region.
+
+The year-on-year rate of change for a given cluster proportion was correlated with year-on-year rate of change for metabolic disease risk factors at varying time lags.   
 
 ### Diet data cleaning
 
@@ -100,9 +114,9 @@ The raw download from the UK Data Service has a folder for each year between 197
 
 #### Household food group profile aggregation
 
-Year by year, calories nutrient conversion information (Energy kCal) was joined to each row of the diet diary (on minor food code, 'minfd'), multiplied by consumable quantity 'cq', and then summed by household to calculate total calories for that household (@eq-row-calories). Total household calories was later joined back to un-aggregated data as needed.
+On a year by year basis, calorie-specific nutrient conversion information was joined to each row of the diet diary (on minor food code, 'minfd'), multiplied by consumable quantity 'cq', and then summed per household to calculate total calories for that household (@eq-row-calories). Total household calories was later joined back to un-aggregated data as needed.
 
-Minor food codes were mapped to major food codes, which were then mapped to custom food group labels (see Appendix).  Then each row was grouped by household and by foodgroup, aggregating total calories for each food group and for each household.  From there, everyhouse hold could be assigned a proportion of total calories that was attributable to each foodgroup @eq-food-groups-calorie-ratio.
+Minor food codes were mapped to major food codes, which were then mapped to custom food group labels (see Appendix).  Then each row was grouped by household and by foodgroup, aggregating total calories for each food group and for each household.  From there, every household could be assigned a proportion of total calories that was attributable to each foodgroup @eq-food-groups-calorie-ratio.
 
 Household information was then joined on household number ('hhno') to obtain the correct goverment office region for each household. 
 
@@ -145,6 +159,3 @@ The chronic disease data from the GBD Results tool is easily scalable, and compa
 All that said, due diligence would be required to make sure any new dietary data was actually harmonizable, and potential external confounding factors would have to be sought and ruled out.
 
 
-## Ethics and Responsible Use
-
-The data is used under a non-commercial educational license, and comes both anonymized and pre-aggregated by the service providers to remove personally identifiable information (PII) and ensure confidentiality. 
