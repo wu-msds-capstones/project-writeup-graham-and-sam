@@ -350,7 +350,6 @@ window.Quarto = {
   <li><a href="#clusters-over-time" id="toc-clusters-over-time" class="nav-link" data-scroll-target="#clusters-over-time">Clusters over time</a>
   <ul class="collapse">
   <li><a href="#composition-clusters-with-bar-graphs-and-line-plots" id="toc-composition-clusters-with-bar-graphs-and-line-plots" class="nav-link" data-scroll-target="#composition-clusters-with-bar-graphs-and-line-plots">Composition Clusters with Bar Graphs and Line Plots</a></li>
-  <li><a href="#disease-line-plot-rename" id="toc-disease-line-plot-rename" class="nav-link" data-scroll-target="#disease-line-plot-rename">Disease Line Plot (Rename)</a></li>
   <li><a href="#stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" id="toc-stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" class="nav-link" data-scroll-target="#stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time">Stats for Proportions Confirming the Significance of Changing Clusters Over Time</a></li>
   <li><a href="#cochran-armitage-test" id="toc-cochran-armitage-test" class="nav-link" data-scroll-target="#cochran-armitage-test">Cochran-Armitage Test</a></li>
   <li><a href="#companion-robustness-kendall-tau-trend-test" id="toc-companion-robustness-kendall-tau-trend-test" class="nav-link" data-scroll-target="#companion-robustness-kendall-tau-trend-test">Companion Robustness: Kendall Tau Trend Test</a></li>
@@ -775,18 +774,6 @@ Figure&nbsp;10: Nutrient cluster proportions over time as line plot.
 </div>
 </div>
 </section>
-<section id="disease-line-plot-rename" class="level3">
-<h3 class="anchored" data-anchor-id="disease-line-plot-rename">Disease Line Plot (Rename)</h3>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-11-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="capstone_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></a></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
 <section id="stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" class="level3">
 <h3 class="anchored" data-anchor-id="stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time">Stats for Proportions Confirming the Significance of Changing Clusters Over Time</h3>
 <p>A series of two-proportion z-tests assessed the significance of the year-over-year nutrient group cluster composition changes over the 27 year time period.</p>
@@ -796,8 +783,14 @@ Figure&nbsp;10: Nutrient cluster proportions over time as line plot.
 <p>Cluster 3 fluctuates around 25-28% of household share. It was heavily influenced in the early 1990s (plausibly to a recession in the UK during this time period) with some volatility. Beyond this disruption, the trend remained broadly stable with 8 statistically significant transitions (30.8%).</p>
 <p>Cluster 4 began with the largest share of household diet share, but experienced consistent downward pressure. Disregarding the market shock in the early 1990s, the group had 11 statistically significant year-over-year transitions (42.3%) backing this claim.</p>
 <div class="cell">
+<div id="tbl-cluster-change-summary" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-cluster-change-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Significance of year-by-year changes, by cluster
+</figcaption>
+<div aria-describedby="tbl-cluster-change-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="table table-striped table-hover table-condensed caption-top table-sm small" data-quarto-postprocess="true">
+<table class="table table-striped table-hover table-condensed do-not-create-environment cell caption-top table-sm small" data-quarto-postprocess="true">
 <caption>Significance of year-by-year changes, by nutrient cluster</caption>
 <thead>
 <tr class="header">
@@ -848,6 +841,9 @@ Figure&nbsp;10: Nutrient cluster proportions over time as line plot.
 </table>
 </div>
 </div>
+</figure>
+</div>
+</div>
 </section>
 <section id="cochran-armitage-test" class="level3">
 <h3 class="anchored" data-anchor-id="cochran-armitage-test">Cochran-Armitage Test</h3>
@@ -856,7 +852,7 @@ Figure&nbsp;10: Nutrient cluster proportions over time as line plot.
 <div id="tbl-cochran-armitage" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-cochran-armitage-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;1: Cochran-Armitage trend test results, by nutrient cluster
+Table&nbsp;2: Cochran-Armitage trend test results, by nutrient cluster
 </figcaption>
 <div aria-describedby="tbl-cochran-armitage-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
@@ -946,7 +942,7 @@ Table&nbsp;1: Cochran-Armitage trend test results, by nutrient cluster
 <div id="tbl-kendall-tau" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-kendall-tau-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;2: Kendall’s tau rank-correlation trend test, by nutrient cluster
+Table&nbsp;3: Kendall’s tau rank-correlation trend test, by nutrient cluster
 </figcaption>
 <div aria-describedby="tbl-kendall-tau-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
@@ -1009,7 +1005,7 @@ Table&nbsp;2: Kendall’s tau rank-correlation trend test, by nutrient cluster
 <div id="fig-metabolic-rates-over-time-all-region" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-metabolic-rates-over-time-all-region-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-metabolic-rates-over-time-all-region-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Figure&nbsp;11: High LDL cholesterol across regions."><img src="capstone_files/figure-html/fig-metabolic-rates-over-time-all-region-1.png" class="img-fluid figure-img" width="960"></a>
+<a href="capstone_files/figure-html/fig-metabolic-rates-over-time-all-region-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Figure&nbsp;11: High LDL cholesterol across regions."><img src="capstone_files/figure-html/fig-metabolic-rates-over-time-all-region-1.png" class="img-fluid figure-img" width="960"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-metabolic-rates-over-time-all-region-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;11: High LDL cholesterol across regions.
@@ -1028,7 +1024,7 @@ Figure&nbsp;11: High LDL cholesterol across regions.
 <div id="fig-correlation-sweep-vs-LDL" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-correlation-sweep-vs-LDL-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-correlation-sweep-vs-LDL-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Figure&nbsp;12: Lag correlation sweeps for cluster 2 against High LDL cholesterol"><img src="capstone_files/figure-html/fig-correlation-sweep-vs-LDL-3.png" class="img-fluid figure-img" width="672"></a>
+<a href="capstone_files/figure-html/fig-correlation-sweep-vs-LDL-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Figure&nbsp;12: Lag correlation sweeps for cluster 2 against High LDL cholesterol"><img src="capstone_files/figure-html/fig-correlation-sweep-vs-LDL-3.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-correlation-sweep-vs-LDL-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;12: Lag correlation sweeps for cluster 2 against High LDL cholesterol
@@ -1042,7 +1038,7 @@ Figure&nbsp;12: Lag correlation sweeps for cluster 2 against High LDL cholestero
 <div id="fig-correlation-sweep-for-other-disease" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-correlation-sweep-for-other-disease-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-correlation-sweep-for-other-disease-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Figure&nbsp;13: Lag correlation sweeps for all nutrient clusters against LDL"><img src="capstone_files/figure-html/fig-correlation-sweep-for-other-disease-5.png" class="img-fluid figure-img" width="2400"></a>
+<a href="capstone_files/figure-html/fig-correlation-sweep-for-other-disease-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Figure&nbsp;13: Lag correlation sweeps for all nutrient clusters against LDL"><img src="capstone_files/figure-html/fig-correlation-sweep-for-other-disease-5.png" class="img-fluid figure-img" width="2400"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-correlation-sweep-for-other-disease-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;13: Lag correlation sweeps for all nutrient clusters against LDL
@@ -1061,7 +1057,7 @@ Figure&nbsp;13: Lag correlation sweeps for all nutrient clusters against LDL
 <div id="fig-map-neg-corr-ldl-nute-cluster-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-map-neg-corr-ldl-nute-cluster-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-map-neg-corr-ldl-nute-cluster-2-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="Figure&nbsp;14: Consistent negative correlation at five year lag across the UK"><img src="capstone_files/figure-html/fig-map-neg-corr-ldl-nute-cluster-2-7.png" class="img-fluid figure-img" width="768"></a>
+<a href="capstone_files/figure-html/fig-map-neg-corr-ldl-nute-cluster-2-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Figure&nbsp;14: Consistent negative correlation at five year lag across the UK"><img src="capstone_files/figure-html/fig-map-neg-corr-ldl-nute-cluster-2-7.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-map-neg-corr-ldl-nute-cluster-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;14: Consistent negative correlation at five year lag across the UK
@@ -1075,7 +1071,7 @@ Figure&nbsp;14: Consistent negative correlation at five year lag across the UK
 <div id="fig-map-no-corr-blood-pressure-nute-cluster-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-map-no-corr-blood-pressure-nute-cluster-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-map-no-corr-blood-pressure-nute-cluster-2-9.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="Figure&nbsp;15: Not consistent l;a against blood proessure in the same time"><img src="capstone_files/figure-html/fig-map-no-corr-blood-pressure-nute-cluster-2-9.png" class="img-fluid figure-img" width="768"></a>
+<a href="capstone_files/figure-html/fig-map-no-corr-blood-pressure-nute-cluster-2-9.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="Figure&nbsp;15: Not consistent l;a against blood proessure in the same time"><img src="capstone_files/figure-html/fig-map-no-corr-blood-pressure-nute-cluster-2-9.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-map-no-corr-blood-pressure-nute-cluster-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;15: Not consistent l;a against blood proessure in the same time
@@ -1105,17 +1101,6 @@ Figure&nbsp;15: Not consistent l;a against blood proessure in the same time
 </section>
 <section id="appendix" class="level1">
 <h1>Appendix</h1>
-<p>Looking at the UK as a whole, SEV risk rates for high LDL cholesterol and high systolic blood pressure both show a downtrend from 1990 to 2000, althgouh high systolic blood pressure rates do start to climb again after that. Metabolic risk overall continues to increase throughout the timespane, along with high body mass index (BMI).</p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="capstone_files/figure-html/unnamed-chunk-16-11.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="capstone_files/figure-html/unnamed-chunk-16-11.png" class="img-fluid figure-img" width="2156"></a></p>
-</figure>
-</div>
-</div>
-</div>
-<p>There is some regional variation in SEV risk rates over time for these chronic disease symptoms, but the only notable anomaly is the rate of high BMI in Wales compared to other regions. Wales has about 50% high BMI SEV risk for the whole dataset, whereas other regions do not approach that level of risk until later years, if at all.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
