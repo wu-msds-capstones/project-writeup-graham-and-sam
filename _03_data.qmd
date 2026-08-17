@@ -12,7 +12,7 @@ Each year, approximately 7,000 households across the UK were chosen at random fr
 
 Consenting households tracked all food purchases for one week, recording the consumable quantity ('cq') of each purchase and assigning it to one of over 300 minor food codes ('minfd'). Each minor food code can be mapped to one of 184 major food codes ('majfd').  
 
-There are several native food group mappings included with the NFS data, but those food groupings tend to focus on economic details more than nutrition oriented details.  So, based on an iterative manual review of all reported foods in the data, a custom set of sixteen foodgroups was selected, based on literature[REFERNECES] and in order to assess the data from a nutritional perspective. Each row in the diet diaries was assigned a custom food group label, enabling food group profiling of each household.
+There are several native food group mappings included with the NFS data, but those food groupings tend to focus on economic details more than nutrition oriented details.  So, based on an iterative manual review of all reported foods in the data, a custom set of sixteen foodgroups was selected, based on literature [@schulz_advances_2021; @perraud_plant_2022; @gaesser_whole_2020] and in order to assess the data from a nutritional perspective. Each row in the diet diaries was assigned a custom food group label, enabling food group profiling of each household.
 
 A full printout of the custom food group mapping [insert link when reference availabe] is included in the Appendix.
 
@@ -106,7 +106,7 @@ The nutrient conversion information evolved over time as well, tracking 21 nutri
 
 The NSF and IHME data have a discrepancy in UK government office regions as well: the 1974 to 2000 NFS data list Merseyside as a distinct region, while the 1990 to 2023 IHME data includes that some geographical area as part of North West England.  So, before aggregation, all NFS households from Merseyside were reassigned as being part of North West England, for consistency between datasets.
 
-A final cleaning step was to prune households that reported a physiologically unrealistic amount of calories, below a threshold that people require to live.  These households were considered to have provided unreliable data and were excluded from analysis.  The caloric floor threshold was set to two standard deviations below the mean of log-space per capita calorie intake, inspired by similar approaches in the literature [REFERENCE].  While the overall analysis does not rely on per capita calculations, this pruning step does. Per capita per household calculations were adjusted for age and sex (adult males = 1, adult females = 0.8, children = 0.5, elderly adults = 0.85), consistent with the literature [REFERENCE].
+A final cleaning step was to prune households that reported a physiologically unrealistic amount of calories, below a threshold that people require to live.  These households were considered to have provided unreliable data and were excluded from analysis.  The caloric floor threshold was set to two standard deviations below the mean of log-space per capita calorie intake, inspired by similar approaches in the literature [@black_critical_2000].  While the overall analysis does not rely on per capita calculations, this pruning step does. Per capita per household calculations were adjusted for age and sex (adult males = 1, adult females = 0.8, children = 0.5, elderly adults = 0.85), consistent with the literature [@noauthor_sacn_nodate].
 
 ### Diet data aggregation
 

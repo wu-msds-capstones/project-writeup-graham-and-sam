@@ -1,19 +1,19 @@
 # Background
-LDL cholesterol is often described in the media and in doctor's offices as "bad cholesterol." Elevated levels of LDL cholesterol are associated with increased risk of cardiovascular disease, resulting in many lost years of wellbeing and lifespan  [Peng, 2022]. 
+LDL cholesterol is often described in the media and in doctor's offices as "bad cholesterol." Elevated levels of LDL cholesterol are associated with increased risk of cardiovascular disease, resulting in many lost years of wellbeing and lifespan [@peng_association_2022]. 
 
 This study focuses on population level LDL cholesterol risk rates specifically, but it is important to note that this is just one risk factor in a more complex public health picture around chronic metabolic disease. 
 
-Chronic metabolic diseases are comprised of groups of disorders that disrupt the body’s ability to regulate energy and nutrient metabolism [NLM, 2025]*fix this citation?*. Common conditions include obesity, type 2 diabetes, hypertension, and cardiovascular disease. Together, these diseases correlate with a significant proportion of premature mortality worldwide [*need citation here too?*]. 
+Chronic metabolic diseases are comprised of groups of disorders that disrupt the body’s ability to regulate energy and nutrient metabolism [@noauthor_metabolic_nodate]. Common conditions include obesity, type 2 diabetes, hypertension, and cardiovascular disease. 
 
-Looking at the UK at beyond, chronic metabolic disease is responsible for some of the highest healthcare spending in modern developed countries [le Roux, 2020]. Impacts of cardiovascular and other chronic diseases spread beyond individuals to their caregivers and to the broader community [Schwind, 2025]. 
+Looking at the UK at beyond, chronic metabolic disease is responsible for some of the highest healthcare spending in modern developed countries [@le_roux_obesity_2021]. Impacts of cardiovascular and other chronic diseases spread beyond individuals to their caregivers and to the broader community [@schwind_understanding_2025]. 
 
 Chronic disease is complex, and of the many factors that influence chronic disease risk, most (genetics, poverty, care access, luck) are not really conrollable.  
 
-Disease management through medication is and has been an increasingly relied upon strategy in many places including the United Kingdom [Zhang, 2016], but that strategy is expensive, and access can be limited. Additionally, pharmaceutical manageament of chronic disease requires long-term medication consumption, which can have its own set of undesireable physiological side effects.
+Disease management through medication is and has been an increasingly relied upon strategy in many places including the United Kingdom [@zhang_increasing_2016], but that strategy is expensive, and access can be limited. Additionally, pharmaceutical manageament of chronic disease requires long-term medication consumption, which can have its own set of undesireable physiological side effects.
 
-However, one chronic disease risk factor that individual people can take some control over is their food choices. Specific to this report, diet is known to impact LDL cholesterol levels and other chronic disease risk factors[Schoeneck, 2021]. 
+However, one chronic disease risk factor that individual people can take some control over is their food choices. Specific to this report, diet is known to impact LDL cholesterol levels and other chronic disease risk factors [@schoeneck_effects_2021]. 
 
-Dietary factors have been found to influence chronic disease risk factors through various physiological pathways: diets high in saturated fats or refined carbohydrates tend to increase LDL cholesterol levels and promote chronic inflammation [Kumar et al., 2026]; Conversely, diets richer in fruits, vegetables, and whole grains have been associated with reduced cardiovascular risk and improved lipid profiles [Barnard, 2017]. 
+Dietary factors have been found to influence chronic disease risk factors through various physiological pathways: diets high in saturated fats or refined carbohydrates tend to increase LDL cholesterol levels and promote chronic inflammation [@kumar_reconsidering_nodate]; Conversely, diets richer in fruits, vegetables, and whole grains have been associated with reduced cardiovascular risk and improved lipid profiles [@kahleova_cardio-metabolic_2017]. 
 
 Although previous research has pointed at contemporaneous connections between diet quality and chronic metabolic health, fewer studies have examined time-lagged correlation of population-level diet trends with population-level chronic metabolic disease risk rates.
 
