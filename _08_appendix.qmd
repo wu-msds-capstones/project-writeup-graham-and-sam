@@ -1,5 +1,7 @@
 # Appendix
 
+Custom food group mappings were assigned in two waves.  First, each major food code was associated with one of 55 food groups, as informed by literature.  However, 55 dimensions was suspected to result in too sparse a vector space for clustering, so a further food grouping with 17 food groups was applied to each food item.  Later, alcohol was dropped from analysis, so the ultimate number of food groups in this study was 16.  Confectionary and soft drinks were dropped as rows (as discussed in data cleaning) but the food groups they are in have been retained.
+
 
 ```{python}
 food_group_csv = pd.read_csv('shared_data/food_group_reference.csv')

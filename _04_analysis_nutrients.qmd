@@ -19,9 +19,9 @@ number_of_initializations = 101  # This is how many times the k-means algorithm 
 # k_means_samples = all the samples, this one is not actually a variable.
 
 ####################
-# PCA (Principle Component Analysis) specific variables.  
+# PCA (Principlal Component Analysis) specific variables.  
 ##########
-# How many Principle Components
+# How many Principal Components
 number_PCA_components = 15
 # Two variables for later plots
 number_PCs_to_plot = 2  # will generate this 2x this many plots                    
@@ -137,7 +137,7 @@ scaled_df = pd.DataFrame(
 ```{python}
 #| results: 'hide'
 #| label: fig-scree-nutrients-plot
-#| fig-cap: "Explained variance ratio by principle component for PCA of household diet data examined by nutrient quanity per total household calories."
+#| fig-cap: "Explained variance ratio by principal component for PCA of household diet data examined by nutrient quantity per total household calories."
 #######
 ### PCA TIME!
 
@@ -235,7 +235,7 @@ As seen in @fig-scree-nutrients-plot, PC 1 and PC 2 for household nutrient-quant
 
 ```{python}
 #| label: fig-pca-orientations-nutrients
-#| fig-cap: "Orientations of the first two principal components of the diet data by nutrient profile. PC 1 has a high fat pole juxtapose with a pole higher in plant-associated nutrients. PC 2 has a high carbohydrate and vegetable protein pole, juxatoposed against a pole with high animal protein and associated nutrients."
+#| fig-cap: "Orientations of the first two principal components of the diet data by nutrient profile. PC 1 has a high fat pole juxtaposed with a pole higher in plant-associated nutrients. PC 2 has a high carbohydrate and vegetable protein pole, juxtoposed against a pole with high animal protein and associated nutrients."
 ##############
 # This is the "what does PC1 mean figure"
 loadings_df1 = pd.DataFrame({
@@ -292,7 +292,7 @@ plt.show()
 
 ```
 
-As seen in @fig-pca-orientations-nutrients, PC 1 for household nutrient profiles has a fat (saturated and unsaturated) pole and a "plant-food" pole (vegetable protein and carbohydrates and vitamins).  PC 2 for household nutrient profiles has a high carbohydrate pole juxtaposed against a high animal protein pole.  These nutrient profile principal components are more compelling than the food group comonents, as they each explained over 20% of household variance.
+As seen in @fig-pca-orientations-nutrients, PC 1 for household nutrient profiles has a fat (saturated and unsaturated) pole and a "plant-food" pole (vegetable protein and carbohydrates and vitamins).  PC 2 for household nutrient profiles has a high carbohydrate pole juxtaposed against a high animal protein pole.  These nutrient profile principal components are somewhat more compelling than the food group principal components, as they each explain over 20% of household variance.
 
 
 ### k-means clustering
@@ -489,12 +489,12 @@ pcs_2 = pca_2.fit_transform(pcs_95)
 
 ```
 
-For household nutrient profiles, best k number of clusters was consistently found to be 5.  Notably, one of the five clusters has only about 5,000 household throughout the dataset.  This small cluster turns out to be households that consumed a lot of organ meat.  
+For household nutrient profiles, best k number of clusters was consistently found to be 5.  Notably, one of the five clusters has only about 5,000 households amongst the almost 190,000 households in the dataset.  This small cluster turns out to be households that consumed a lot of organ meat.  
 
 
 ```{python}
 #| label: fig-clusteres-nutrients
-#| fig-cap: "A two dimensional rendering of all households by nutrient profile clusters. This rendering is the product of two rounds of PCA, with the 11 components required to explain 95% of variance in the original data being channeled into 2 components, which are the axes of this figure.  The clusers are continuous, but with distinct boundaries."
+#| fig-cap: "A 2-dimensional rendering of all households by nutrient profile clusters. This rendering is the product of two rounds of PCA, with the 11 components required to explain 95% of variance in the original data being channeled into 2 components, which are the axes of this figure.  The clusters are continuous, but with distinct boundaries."
 
 cluster_colors = {0:'#E69F00', 1:'#56B4E9', 2:'#009E73', 3:'#0072B2', 4:'#CC79A7'}
 df_hh_per_cluster = wide_df['cluster'].value_counts()

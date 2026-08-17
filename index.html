@@ -412,29 +412,29 @@ window.Quarto = {
 <p>Specifically, can a population’s increase in a relatively plant-based dietary pattern be correlated with a time-lagged decrease in that population’s elevated LDL cholesterol risk level? If so, at how long a time lag?</p>
 <p>This study examines the population of the United Kingdom (UK), drawing on diet diary data from a representative sample of nearly 190,000 UK households from 1974 to 2000, and population-level chronic disease risk factor rates (especially high LDL cholesterol) from 1990 to 2023.</p>
 <p>Diet diary data is assessed by both food group profile and nutrient profile. Each household’s reported food acquisition is aggregated and normalized against that household’s total calories, painting a quantity-agnostic picture of that household’s diet composition.</p>
-<p>A machine-learning pipeline is then applied to the household level data, with a cross-validated stability optimized k-means clustering algorithm designating a cluster identity for each household, and with principal component analysis being used to orient and characterize the clustering.</p>
-<p>The year-on-year changes to the population-level proportion of households assigned to any of these clusters over time can serve as the explanatory variable for cross-correlative analysis against downstream population-level disease risk rates.</p>
-<p>Ultimately, this study identifies a statistically significant inverse correlation between population-level year-on-year changes in relatively-plant-based diet patterns and risk of high LDL cholesterol, at a five-year-time lag.</p>
+<p>A machine-learning pipeline is then applied to the household-level data, with a cross-validated stability optimized k-means clustering algorithm designating a cluster identity for each household, and with principal component analysis being used to orient and characterize the clustering.</p>
+<p>The year-on-year changes to the population-level proportion of households assigned to any of these k-means clusters over time can serve as the explanatory variable for cross-correlative analysis against downstream population-level disease risk rates.</p>
+<p>Ultimately, this study identifies a statistically significant inverse correlation between population-level year-on-year changes in relatively plant-based dietary patterns and risk of high LDL cholesterol, at a five-year time lag.</p>
 </section>
 <section id="background" class="level1">
 <h1>Background</h1>
 <p>LDL cholesterol is often described in the media and in doctor’s offices as “bad cholesterol.” Elevated levels of LDL cholesterol are associated with increased risk of cardiovascular disease, resulting in many lost years of wellbeing and lifespan <span class="citation" data-cites="peng_association_2022">(<a href="#ref-peng_association_2022" role="doc-biblioref">Peng et al. 2022</a>)</span>.</p>
-<p>This study focuses on population level LDL cholesterol risk rates specifically, but it is important to note that this is just one risk factor in a more complex public health picture around chronic metabolic disease.</p>
+<p>This study focuses specifically on population-level LDL cholesterol risk rates, but it is important to note that this is just one risk factor in a more complex public health picture around chronic metabolic disease.</p>
 <p>Chronic metabolic diseases are comprised of groups of disorders that disrupt the body’s ability to regulate energy and nutrient metabolism <span class="citation" data-cites="noauthor_metabolic_nodate">(<a href="#ref-noauthor_metabolic_nodate" role="doc-biblioref"><span>“Metabolic <span>Disorders</span>”</span> n.d.</a>)</span>. Common conditions include obesity, type 2 diabetes, hypertension, and cardiovascular disease.</p>
-<p>Looking at the UK at beyond, chronic metabolic disease is responsible for some of the highest healthcare spending in modern developed countries <span class="citation" data-cites="le_roux_obesity_2021">(<a href="#ref-le_roux_obesity_2021" role="doc-biblioref">Roux et al. 2021</a>)</span>. Impacts of cardiovascular and other chronic diseases spread beyond individuals to their caregivers and to the broader community <span class="citation" data-cites="schwind_understanding_2025">(<a href="#ref-schwind_understanding_2025" role="doc-biblioref">Schwind et al. 2025</a>)</span>.</p>
-<p>Chronic disease is complex, and of the many factors that influence chronic disease risk, most (genetics, poverty, care access, luck) are not really conrollable.</p>
-<p>Disease management through medication is and has been an increasingly relied upon strategy in many places including the United Kingdom <span class="citation" data-cites="zhang_increasing_2016">(<a href="#ref-zhang_increasing_2016" role="doc-biblioref">Zhang et al. 2016</a>)</span>, but that strategy is expensive, and access can be limited. Additionally, pharmaceutical manageament of chronic disease requires long-term medication consumption, which can have its own set of undesireable physiological side effects.</p>
+<p>Looking at the UK and beyond, chronic metabolic disease is responsible for some of the highest healthcare spending in modern developed countries <span class="citation" data-cites="le_roux_obesity_2021">(<a href="#ref-le_roux_obesity_2021" role="doc-biblioref">Roux et al. 2021</a>)</span>. Impacts of cardiovascular and other chronic diseases spread beyond individuals to their caregivers and to the broader community <span class="citation" data-cites="schwind_understanding_2025">(<a href="#ref-schwind_understanding_2025" role="doc-biblioref">Schwind et al. 2025</a>)</span>.</p>
+<p>Chronic disease is complex, and of the many factors that influence chronic disease risk, most (genetics, poverty, care access, luck) are not really controllable.</p>
+<p>Disease management through medication is and has been an increasingly relied upon strategy in many places including the United Kingdom <span class="citation" data-cites="zhang_increasing_2016">(<a href="#ref-zhang_increasing_2016" role="doc-biblioref">Zhang et al. 2016</a>)</span>, but that strategy is expensive, and access can be limited. Additionally, pharmaceutical management of chronic disease requires long-term medication consumption, which can have its own set of undesireable physiological side effects.</p>
 <p>However, one chronic disease risk factor that individual people can take some control over is their food choices. Specific to this report, diet is known to impact LDL cholesterol levels and other chronic disease risk factors <span class="citation" data-cites="schoeneck_effects_2021">(<a href="#ref-schoeneck_effects_2021" role="doc-biblioref">Schoeneck and Iggman 2021</a>)</span>.</p>
-<p>Dietary factors have been found to influence chronic disease risk factors through various physiological pathways: diets high in saturated fats or refined carbohydrates tend to increase LDL cholesterol levels and promote chronic inflammation <span class="citation" data-cites="kumar_reconsidering_nodate">(<a href="#ref-kumar_reconsidering_nodate" role="doc-biblioref">Kumar et al. n.d.</a>)</span>; Conversely, diets richer in fruits, vegetables, and whole grains have been associated with reduced cardiovascular risk and improved lipid profiles <span class="citation" data-cites="kahleova_cardio-metabolic_2017">(<a href="#ref-kahleova_cardio-metabolic_2017" role="doc-biblioref">Kahleova, Levin, and Barnard 2017</a>)</span>.</p>
+<p>Dietary factors have been found to influence chronic disease risk factors through various physiological pathways: diets high in saturated fats or refined carbohydrates tend to increase LDL cholesterol levels and promote chronic inflammation <span class="citation" data-cites="kumar_reconsidering_nodate">(<a href="#ref-kumar_reconsidering_nodate" role="doc-biblioref">Kumar et al. n.d.</a>)</span>. Conversely, diets richer in fruits, vegetables, and whole grains have been associated with reduced cardiovascular risk and improved lipid profiles <span class="citation" data-cites="kahleova_cardio-metabolic_2017">(<a href="#ref-kahleova_cardio-metabolic_2017" role="doc-biblioref">Kahleova, Levin, and Barnard 2017</a>)</span>.</p>
 <p>Although previous research has pointed at contemporaneous connections between diet quality and chronic metabolic health, fewer studies have examined time-lagged correlation of population-level diet trends with population-level chronic metabolic disease risk rates.</p>
 <p>While the results presented herein are explicitly pertinent to aggregate population-level trends, it would not be unreasonable for an individual person to take some inspiration from these findings. A population is a collection of individuals, after all.</p>
-<p>More importantly though, population-level statistical findings are certainly appropriate for public health officials. Better information about time-lagged population-level diet and disease correlations can be used to inform policy making and progress monitoring for diet oriented public health initiatives.</p>
+<p>More importantly though, population-level statistical findings are certainly appropriate for public health officials. Better information about time-lagged population-level diet and disease correlations can be used to inform policy making and progress monitoring for diet-oriented public health initiatives.</p>
 </section>
 <section id="data" class="level1">
 <h1>Data</h1>
 <section id="diet-data-national-food-survey-1974-to-2000" class="level2">
 <h2 class="anchored" data-anchor-id="diet-data-national-food-survey-1974-to-2000">Diet data: <br> National Food Survey <br> (1974 to 2000)</h2>
-<p>All dietary data for this project originates from the UK government’s National Food Suvery (NFS).</p>
+<p>All dietary data for this project originates from the UK government’s National Food Survey (NFS).</p>
 <p>The NFS started in 1940 and eventually evolved into the Living Costs and Food Survey, which is active in 2026. However, not all of the associated data is publicly available.</p>
 <p>For interested parties with institutional credentials, the <a href="https://ukdataservice.ac.uk">UK Data Service</a> does provide a curated batch of NFS data that spans from 1974-2000.</p>
 <p>In this data, approximately 7,000 households per year across the UK were chosen at random from voting roles and asked to participate by keeping a one week diet diary. From 1974 to 2000, almost 190,000 total households participated.</p>
@@ -451,9 +451,9 @@ window.Quarto = {
 <p>Population-level disease risk rates for High LDL cholesterol and other metabolic-disease associated risk factors were acquired from the Institute for Health Metrics and Evaluation (IHME), using their <a href="https://vizhub.healthdata.org/gbd-results/">Global Burden of Disease (GBD) Results tool</a>.</p>
 <p>The specific metric chosen for disease risk rate was summary exposure value, or SEV.</p>
 <p><a href="https://www.healthdata.org/sites/default/files/files/policy_report/GBD/2016/IHME_GBD2015_Report_Glossary-of-terms_2016.pdf">The IHME defines SEV</a> as a “… measure of a population’s exposure to a risk factor that takes into account the extent of exposure by risk level and the severity of that risk’s contribution to disease burden.”</p>
-<p>SEV appeared to be the best available metric from the GBD results tool to assess risk factor prevelance.</p>
+<p>SEV appeared to be the best available metric from the GBD results tool to assess risk factor prevalance.</p>
 <p>From there, the chronic disease risk factors and conditions for which SEV information were metabolic risks: High LDL Cholesterol, High Body Mass Index, High Fasting Plasma Glucose Systolic Blood Pressure, Kidney Dysfunction, Low Bone Mineral Density, and overall Metabolic Risks.</p>
-<p>These risk rates were hand-selected and obtained preaggreagted at a population level, grouped by UK region and by year. For the scope of this project, all ages and both sexes were included in SEV information.</p>
+<p>These risk rates were hand-selected and obtained preaggregted at a population level, grouped by UK region and by year. For the scope of this project, all ages and both sexes were included in SEV information.</p>
 </section>
 <section id="dietary-data-engineering" class="level2">
 <h2 class="anchored" data-anchor-id="dietary-data-engineering">Dietary Data Engineering</h2>
@@ -473,7 +473,7 @@ calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
 <section id="household-nutrient-profiles" class="level4">
 <h4 class="anchored" data-anchor-id="household-nutrient-profiles">Household nutrient profiles</h4>
 <p>Total calories were calculated for each household as with the food group feature engineering.</p>
-<p>Then, each minor food code <code>minfd</code> was converted to the nutrient profile for that food multipled by the quantity reported <code>cq</code>. This effectively expanded each diary entry row into twenty rows, one for each of the twenty nutrients tracked throughout the data, with the appropriate unit quantity for each nutrient reported.</p>
+<p>Then, each minor food code <code>minfd</code> was converted to the nutrient profile for that food multiplied by the quantity reported <code>cq</code>. This effectively expanded each diary entry row into twenty rows, one for each of the twenty nutrients tracked throughout the data, with the appropriate unit quantity for each nutrient reported.</p>
 <p><span id="eq-nutrient-calorie-ratio-3"><span class="math display">\[
 nutrient\_quantity_{row} = cq_{row} \times \text{nutrient conversion factor}_{row}
 \tag{3}\]</span></span></p>
@@ -483,7 +483,7 @@ nutrient\_quantity\_per\_total\_cal_{row} =  \frac{\text{total quantity per nutr
 \tag{4}\]</span></span></p>
 <p>The resultant nutrient profile metric, ‘quantity per total calories,’ is similar in spirit to the ‘calorie-ratio’ metric from the food groups.</p>
 <p>However, a pure calorie comparison for nutrients would not be viable, as certain nutrients (carbohydrates, fats) have abundant calories while other nutrients (vitamins) have essentially zero calories. Hence, native nutrient units were maintained and divided by the common total calories. This might preclude comparison amongst nutrients, but this analysis assesses household nutrient profiles, so the variation in fundamental units was not problematic.</p>
-<p>Furthermore, variations in magnitude amongst the derived nutrient-quanity-per-total-calorie unit was also subjected to the Standared Scaler and z-scored before analysis.</p>
+<p>Furthermore, variations in magnitude amongst the derived nutrient-quantity-per-total-calorie unit was also subjected to the Standard Scaler and z-scored before analysis.</p>
 </section>
 </section>
 <section id="data-pipeline-overview" class="level2">
@@ -503,11 +503,11 @@ nutrient\_quantity\_per\_total\_cal_{row} =  \frac{\text{total quantity per nutr
 <section id="diet-data-cleaning" class="level3">
 <h3 class="anchored" data-anchor-id="diet-data-cleaning">Diet data cleaning</h3>
 <p>The NFS evolved over time, and this evolution prompted several data cleaning decisions for this analysis.</p>
-<p>To start, alcohol, confectioneries, and soft drinks were added as reportable food options in 1992. Previous to 1992, it is presumed that some UK households did purchase alochol, confectioneries, and soft drinks though the records cannot show this. All three of these are considered high calorie, so their sudden appearance does skew calorie adjusted calculations. In order to maintain consistency over time, all diet diary rows from these three categories were dropped from analysis, though the related households and all their other diet diary entries were retained.</p>
-<p>Initial analysis before dropping alochol had desiginated alochol as its own food group, for 17 total food groups. After dropping all alochol rows, this analysis looked at 16 total foodgroups.</p>
+<p>To start, alcohol, confectioneries, and soft drinks were added as reportable food options in 1992. Previous to 1992, it is presumed that some UK households did purchase alcohol, confectioneries, and soft drinks though the records cannot show this. All three of these are considered high calorie, so their sudden appearance does skew calorie adjusted calculations. In order to maintain consistency over time, all diet diary rows from these three categories were dropped from analysis, though the related households and all their other diet diary entries were retained.</p>
+<p>Initial analysis before dropping alochol had designated alochol as its own food group, for 17 total food groups. After dropping all alochol rows, this analysis looked at 16 total foodgroups.</p>
 <p>Northern Ireland was only included in the survey starting in 1996. So, in the interest of consistency, Northern Ireland households were excluded from this analysis altogether.</p>
 <p>The nutrient conversion information evolved over time as well, tracking 21 nutrients in 1974 and over 40 nutrients by 2000. As with pruning rows from late-added foods and locations, nutrient trends were only assessed for the nutrients that were tracked throughout the entire dataset. One of the included nutrients was Energy in megaJoules (MJ), which was collinear with Energy in kCal, so Energy in MJ was also dropped from nutrient analysis, resulting in 20 assessed nutrients.</p>
-<p>The NSF and IHME data have a discrepancy in UK government office regions as well: the 1974 to 2000 NFS data list Merseyside as a distinct region, while the 1990 to 2023 IHME data includes that some geographical area as part of North West England. So, before aggregation, all NFS households from Merseyside were reassigned as being part of North West England, for consistency between datasets.</p>
+<p>The NFS and IHME data have a discrepancy in UK government office regions as well: the 1974 to 2000 NFS data list Merseyside as a distinct region, while the 1990 to 2023 IHME data includes that some geographical area as part of North West England. So, before aggregation, all NFS households from Merseyside were reassigned as being part of North West England, for consistency between datasets.</p>
 <p>A final cleaning step was to prune households that reported a physiologically unrealistic amount of calories, below a threshold that people require to live. These households were considered to have provided unreliable data and were excluded from analysis. The caloric floor threshold was set to two standard deviations below the mean of log-space per capita calorie intake, inspired by similar approaches in the literature <span class="citation" data-cites="black_critical_2000">(<a href="#ref-black_critical_2000" role="doc-biblioref">Black 2000</a>)</span>. While the overall analysis does not rely on per capita calculations, this pruning step does. Per capita per household calculations were adjusted for age and sex (adult males = 1, adult females = 0.8, children = 0.5, elderly adults = 0.85), consistent with the literature <span class="citation" data-cites="noauthor_sacn_nodate">(<a href="#ref-noauthor_sacn_nodate" role="doc-biblioref"><span>“<span>SACN</span> <span>Dietary</span> <span>Reference</span> <span>Values</span> for <span>Energy</span>”</span> n.d.</a>)</span>.</p>
 </section>
 <section id="diet-data-aggregation" class="level3">
@@ -518,20 +518,20 @@ nutrient\_quantity\_per\_total\_cal_{row} =  \frac{\text{total quantity per nutr
 <h4 class="anchored" data-anchor-id="household-food-group-profile-aggregation">Household food group profile aggregation</h4>
 <p>On a year by year basis, calorie-specific nutrient conversion information was joined to each row of the diet diary (on minor food code, <code>minfd</code>), multiplied by consumable quantity <code>cq</code>, and then summed per household to calculate total calories for that household (<a href="#eq-row-calories" class="quarto-xref">Equation&nbsp;1</a>). Total household calories was later joined back to un-aggregated data as needed.</p>
 <p>Minor food codes were mapped to major food codes, which were then mapped to custom food group labels (see Appendix). Then each row was grouped by household and by foodgroup, aggregating total calories for each food group and for each household. From there, every household could be assigned a proportion of total calories that was attributable to each foodgroup <a href="#eq-food-groups-calorie-ratio" class="quarto-xref">Equation&nbsp;2</a>.</p>
-<p>Household information was then joined on household number (<code>hhno</code>) to obtain the correct goverment office region for each household.</p>
+<p>Household information was then joined on household number (<code>hhno</code>) to obtain the correct government office region for each household.</p>
 <p>Finally, each year’s processed aggregated food group profile data was appended to a list of dataframes and vertically concatenated.</p>
 </section>
 <section id="household-nutrient-profile-aggregation" class="level4">
 <h4 class="anchored" data-anchor-id="household-nutrient-profile-aggregation">Household nutrient profile aggregation</h4>
 <p>Year by year, nutrient conversion information for all included nutrients was joined to each row of the diet diary (on minor food code, <code>minfd</code>), multiplied by consumable quantity <code>cq</code>, and then summed by household to calculate quantity of that nutrient for that household (<a href="#eq-nutrient-calorie-ratio-3" class="quarto-xref">Equation&nbsp;3</a>). This automatically included total calories for that household, which was then used to create quantity-per-total-calorie metrics for each household and each nutrient <a href="#eq-nutrient-quantity-calorie-ratio-4" class="quarto-xref">Equation&nbsp;4</a>.</p>
-<p>Household information was then joined on household number <code>hhno</code> to obtain the correct goverment office region <code>gor</code> for each household.</p>
+<p>Household information was then joined on household number <code>hhno</code> to obtain the correct government office region <code>gor</code> for each household.</p>
 <p>Finally, each year’s processed aggregated nutrient profile data was appended to a list of dataframes and vertically concatenated.</p>
 </section>
 <section id="machine-learning-pipeline" class="level4">
 <h4 class="anchored" data-anchor-id="machine-learning-pipeline">Machine Learning Pipeline</h4>
 <p>The data for both food group and nutrient profiles were pivoted to a wide format, with each household retaining a row, and each column becoming one of the foodgroups or nutrients. The values in the wide pivot table were the household’s calorie ratio or quantity-per-total-calorie for that food group or nutrient, respectively. The wide tables were then z-score normalized.</p>
-<p>The machine learning pipeline (descibed in detail in the Analysis section) assigned food group profile cluster labels and nutrient profile cluster labels to each household.</p>
-<p>Proportions of each cluster type amongst all households was then plotted and assessed over time, nationally and regionally. Changes in these proportions is the fundamental explanatory variable of this analysis.</p>
+<p>The machine learning pipeline (described in detail in the Analysis section) assigned food group profile cluster labels and nutrient profile cluster labels to each household.</p>
+<p>Proportions of each cluster type amongst all households were then plotted and assessed over time, nationally and regionally. Changes in these proportions is the fundamental explanatory variable of this analysis.</p>
 </section>
 <section id="joining-disease-data" class="level4">
 <h4 class="anchored" data-anchor-id="joining-disease-data">Joining disease data</h4>
@@ -542,9 +542,9 @@ nutrient\_quantity\_per\_total\_cal_{row} =  \frac{\text{total quantity per nutr
 </section>
 <section id="project-scalability" class="level2">
 <h2 class="anchored" data-anchor-id="project-scalability">Project scalability</h2>
-<p>The exact aggregation scripts that transform the raw diet diary data into usuable machine learning inputs are specific to the conventions of the 1974 to 2000 NFS data collection process. Ingestion of other similar dietary data would not automatically work with those scripts.</p>
+<p>The exact aggregation scripts that transform the raw diet diary data into usable machine learning inputs are specific to the conventions of the 1974 to 2000 NFS data collection process. Ingestion of other similar dietary data would not automatically work with those scripts.</p>
 <p>That said, modifications to the ingestion and aggregation scripts could facilitate ingestion of applicable similar data. Once ingested and aggregated according to the feature engineering steps described above, harmonizable diet data from other sources (the UK in later years, the United States, or other countries) could be integrated into the analysis. If appropriately prepared, it could potentially be clustered by the ML pipeline in this project and analyzed downstream as if it were from the original data.</p>
-<p>The chronic disease data from the GBD Results tool is easily scalable, and compatible chronic disease SEV data for other developed nations could be obtained and integegrated into this analysis.</p>
+<p>The chronic disease data from the GBD Results tool is easily scalable, and compatible chronic disease SEV data for other developed nations could be obtained and integrated into this analysis.</p>
 <p>All that said, due diligence would be required to make sure any new dietary data was actually harmonizable, and potential external confounding factors would have to be sought and ruled out.</p>
 </section>
 <section id="data-ethics" class="level2">
@@ -555,15 +555,15 @@ nutrient\_quantity\_per\_total\_cal_{row} =  \frac{\text{total quantity per nutr
 </section>
 <section id="bias" class="level3">
 <h3 class="anchored" data-anchor-id="bias">Bias</h3>
-<p>The National Food Survey primarily tracks household food purchases intended for home preparation, which historically could undercount the food consumed outside the household. Additionally, during the 27 year period, there were food-category definitions and houshold participation which would change. This means some portions of the observed cluster trends could reflect changes in the methodology as opposed to genuine diet transition.</p>
-<p>As well, some houshold types could be over or under surveyed and the resulting data could have patterns more specified to those unique areas as opposed to a holistic view of the UK. The survey data itself was self-reported, and therefore is open to social desirability bias, food groups with a negative connotation may be underrepresented and vice verse for foods with a positive one.</p>
+<p>The National Food Survey primarily tracks household food purchases intended for home preparation, which historically could undercount the food consumed outside the household. Additionally, during the 27-year period, food-category definitions and household participation patterns may have changed. This means some portions of the observed cluster trends could reflect changes in the methodology as opposed to genuine diet transition.</p>
+<p>As well, some household types could be over or under surveyed and the resulting data could have patterns more specified to those unique areas as opposed to a holistic view of the UK. The survey data itself was self-reported, and therefore is open to social desirability bias. Food groups with a negative connotation may be underrepresented and conversely, foods with a positive connotation may be overrepresented.</p>
 </section>
 <section id="ethical-implications" class="level3">
 <h3 class="anchored" data-anchor-id="ethical-implications">Ethical Implications</h3>
-<p>Diet data can be easily connected to judgements about socioeconomic status, and other hereditary health situations. The findings from this study are presented as described trends as opposed to evaluative claims. For this reason, no causal claims can be made, only correlative suggestions can presented.</p>
-<p>Additionally, no casual claim can be made linking the early 1990s recession (discussed below) to the change in the respective nutrient cluster groups.</p>
-<p>The findings in this report work to suggest dietary trends that may introduce benefits to health at a population wide scale.</p>
-<p>The findings are not for commercial application or targeted marketing. Since the data utilized in this study followed guidelines and restrictions, these guidlines should continue with any further use of the analysis produced.</p>
+<p>Diet data can be easily connected to judgements about socioeconomic status, and other hereditary health situations. The findings from this study are presented as described trends as opposed to evaluative claims. For this reason, no causal claims can be made, only correlative suggestions can be presented.</p>
+<p>Additionally, no causal claim can be made linking the early 1990s recession (discussed below) to the change in the respective nutrient cluster groups.</p>
+<p>The findings in this report work to suggest dietary trends that may introduce benefits to health at a population-wide scale.</p>
+<p>The findings are not for commercial application or targeted marketing. Since the data utilized in this study followed guidelines and restrictions, these guidelines should continue with any further use of the analysis produced.</p>
 </section>
 </section>
 </section>
@@ -572,29 +572,29 @@ nutrient\_quantity\_per\_total\_cal_{row} =  \frac{\text{total quantity per nutr
 <section id="software-and-tools" class="level2">
 <h2 class="anchored" data-anchor-id="software-and-tools">Software and Tools</h2>
 <p>All data engineering, analysis, and visualization were conducted in Python 3.13.7 and R 4.5.1.</p>
-<p>Python packages that were used in the final analysis include pandas and numpy for basic data manipulation, sci-kit-learn for PCA and k-means clustering, and matplotlib, seaborn and geopandas for visualization. R packages that were used in the final analysis include tidyverse for data manipulation, rstatix/coin for statistcal testing, and ggplot2 for visualization.</p>
+<p>Python packages that were used in the final analysis include pandas and numpy for basic data manipulation, scikit-learn for PCA and k-means clustering, and matplotlib, seaborn and geopandas for visualization. R packages that were used in the final analysis include tidyverse for data manipulation, rstatix/coin for statistical testing, and ggplot2 for visualization.</p>
 </section>
 <section id="principal-component-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="principal-component-analysis">Principal component analysis</h2>
-<p>Z-scored household diet data was subjected to dimensionality reduction in both the food group dimension space and the nutrient dimension space using principlal component analysis, or PCA. PCA finds the multi-dimensional axis of greatest variance for all the data in a dataset, and multiple iterations of PCA can cumulatively explain increasing amounts of variance in the data.</p>
-<p>For both food group and nutrients dimensionspace, PCA was successively run until 95% percent of the variance was explained.</p>
+<p>Z-scored household diet data was subjected to dimensionality reduction in both the food group dimension space and the nutrient dimension space using principal component analysis, or PCA. PCA finds the multi-dimensional axis of greatest variance for all the data in a dataset, and multiple iterations of PCA can cumulatively explain increasing amounts of variance in the data.</p>
+<p>For both food group and nutrients dimensionspace, PCA was successively run until 95% of the variance was explained.</p>
 <p>The top two most explanatory principal components (PC 1 and PC 2) for each analysis were plotted in order of their linear combination weights for the given dimensions, producing a human interpretable orientation for that component.</p>
 </section>
 <section id="best-k-selector-for-k-means-clustering" class="level2">
 <h2 class="anchored" data-anchor-id="best-k-selector-for-k-means-clustering">Best k selector for k-means clustering</h2>
-<p>In k-means clustering, data points are categorized into <strong>k</strong> number of clusters, based on data point distance from moving cluster centroids across many initializations of the algorithm. Any taget number of clusters could be arbitrarily selected, but rigorous analysis requires a more careful process to select the most stable number of clusters for the data.</p>
-<p>In order to select the most stable number of clusters in a rigorous manner, a cross-validation cluster stability overlap algorithm was constucted and named <code>best-k-selector</code>. In this algorithm, a random sample of the data points are selected and subjected to k-means clustering in successive rounds with the number of clusters increasing iteratively upwards from two. Each round involves 80% of the sample being subsampled, clustered, replaced, and then a fresh 80% subsample (with many of the same data points) being clustered at the same number of clusters. The clustered subsampled data points are compared for overlapping labels. The percentage of datapoints with overlapping cluster labels between the two subsamples is called the Adjusted Rand Index, or ARI score.</p>
+<p>In k-means clustering, data points are categorized into <strong>k</strong> number of clusters, based on data point distance from moving cluster centroids across many initializations of the algorithm. Any target number of clusters could be arbitrarily selected, but rigorous analysis requires a more careful process to select the most stable number of clusters for the data.</p>
+<p>In order to select the most stable number of clusters in a rigorous manner, a cross-validation cluster stability overlap function was constructed and named <code>best-k-selector</code>. In this algorithm, a random sample of the data points are selected and subjected to k-means clustering in successive rounds with the number of clusters increasing iteratively upwards from two. Each round involves 80% of the sample being subsampled, clustered, replaced, and then a fresh 80% subsample (with many of the same data points) being clustered at the same number of clusters. The clustered subsampled data points are compared for overlapping labels. The percentage of datapoints with overlapping cluster labels between the two subsamples is called the Adjusted Rand Index, or ARI score.</p>
 <p>The <code>best-k-selector</code> repeats the process as it sweeps from two clusters upward as many times as instructed. Eventually, the ARI scores for each number of clusters is averaged, and the number of clusters with the highest average ARI amongst all repeats is considered the ‘best k’ number of clusters for that dataset.</p>
 </section>
 <section id="k-means-clustering" class="level2">
 <h2 class="anchored" data-anchor-id="k-means-clustering">k-means clustering</h2>
-<p>Once the ‘best k’ number of clusters was consistently discovered for food group and nutrient dimensions, clustering of the all households in the data could take place.</p>
-<p>The k-means clustering algorithm places the desired number of cluster centroids randomly in the data, assigns each data point a cluster label based on the nearest centroid, shifts the centroids to average position of their respective assigned data points. This is repeated over and over until the centroids effectively stop moving. The k-means algorithm reinitializes numerous times (hundreds or more) to assess cluster label consistency before determining the final designiated cluster labels for each data point.</p>
+<p>Once the ‘best k’ number of clusters was consistently discovered for food group and nutrient dimensions, clustering of all households in the data could take place.</p>
+<p>The k-means clustering algorithm places the desired number of cluster centroids randomly in the data, assigns each data point a cluster label based on the nearest centroid, shifts the centroids to average position of their respective assigned data points. This is repeated over and over until the centroids effectively stop moving. The k-means algorithm reinitializes numerous times (hundreds or more) to assess cluster label consistency before determining the final designated cluster labels for each data point.</p>
 </section>
 <section id="pca-to-visualize-clusters" class="level2">
 <h2 class="anchored" data-anchor-id="pca-to-visualize-clusters">PCA to visualize clusters</h2>
-<p>In order to visualize household cluster labels in 16 dimensional food group space or 20 dimensional nutrient space, the principal components required to cumulatively explain 95% of variance of the data were but through an additional round of PCA, this time aiming for exactly two new principal components. These new components were used as the X and Y axes along which to plot all households in a two dimensional scatter plot projection.</p>
-<p>This double PCA approach does not directly inform the k-means clustering, but it does allow the datapoints to be visualized in human-friendly two dimensions, and along reasonably human-interperable axes.</p>
+<p>In order to visualize household cluster labels from 16-dimensional food group space or 20-dimensional nutrient space, the principal components required to cumulatively explain 95% of variance of the data were put through an additional round of PCA, this time aiming for exactly two new principal components. These new components were used as the X and Y axes along which to plot all households in a 2-dimensional scatter plot projection.</p>
+<p>This double PCA approach does not directly inform the k-means clustering, but it does allow the datapoints to be visualized in human-friendly two dimensions, and along reasonably human-interpretable axes.</p>
 </section>
 <section id="pca-used-for-heat-map-interpretation" class="level2">
 <h2 class="anchored" data-anchor-id="pca-used-for-heat-map-interpretation">PCA used for heat map interpretation</h2>
@@ -607,13 +607,13 @@ nutrient\_quantity\_per\_total\_cal_{row} =  \frac{\text{total quantity per nutr
 </section>
 <section id="correlation-with-ldl-rates-over-time" class="level2">
 <h2 class="anchored" data-anchor-id="correlation-with-ldl-rates-over-time">Correlation with LDL rates over time</h2>
-<p>After k-means clustering, each UK region’s proportion of each assigned cluster per year were exported into a parquet file which was loaded into a new pandas dataframe. That dataframe was extended with many lag year columns onto which IMHE disease SEV data could be joined on region and year, with given diet lag year corresponding to actual IMHE disease SEV year.</p>
+<p>After k-means clustering, each UK region’s proportion of each assigned cluster per year were exported into a parquet file which was loaded into a new pandas dataframe. That dataframe was extended with many lag year columns onto which IHME disease SEV data could be joined on region and year, with given diet lag year corresponding to actual IHME disease SEV year.</p>
 <p>This enabled rate of change correlation assessment, with year-on-year changes in cluster proportions and in SEV for a given metabolic risk being assigned a Pearson correlation coefficient <em>r</em>, with high correlation being closer to 1, and no correlation being closer to zero.</p>
-<p>The main explanatory variable (changes in population level proportion of a particularly plant-oriented nutrient cluster over time) and the main response variable (changes in SEV for High LDL cholesterol) were specifically selected based on their visual appearance in lineplots, and not based on more rigorous mathematical means. This is noted in the Methods section because an important part of this lag correlation analysis is that it was primarily informed by a visibly remarkable pair of trends in the lineplots.</p>
+<p>The main explanatory variable (changes in population-level proportion of a particularly plant-oriented nutrient cluster over time) and the main response variable (changes in SEV for High LDL cholesterol) were specifically selected based on their visual appearance in lineplots, and not based on more rigorous mathematical means. This is noted in the Methods section because an important part of this lag correlation analysis is that it was primarily informed by a visibly remarkable pair of trends in the lineplots.</p>
 </section>
 <section id="correlation-validation" class="level2">
 <h2 class="anchored" data-anchor-id="correlation-validation">Correlation validation</h2>
-<p>After identifying stastically significant correlation between the explanatory and response variables at a particular time lag, the order of SEV rates by year was held constant, and tested for correlation against thousands of permutations of the pertinent diet cluster data years. If the identified correlation was actually a product of random chance, it would be expected that other permutations of the data would randomly produce similar appearance of correlation some of the time.</p>
+<p>After identifying statistically significant correlation between the explanatory and response variables at a particular time lag, the order of SEV rates by year was held constant, and tested for correlation against thousands of permutations of the pertinent diet cluster data years. If the identified correlation was actually a product of random chance, it would be expected that other permutations of the data would randomly produce similar appearance of correlation some of the time.</p>
 <p>Additionally and finally, correlation rates at the identified time lag were plotted in a choropleth of the UK, showing how consistently nutrient cluster proportion changes and metabolic risk factor SEVs are correlated at the identified time lag over the time span of the data.</p>
 </section>
 </section>
@@ -628,10 +628,10 @@ nutrient\_quantity\_per\_total\_cal_{row} =  \frac{\text{total quantity per nutr
 <div id="fig-scree-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-scree-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-scree-plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Explained variance ratio by principle component for PCA of household diet data examined by food group calories/total calorie ratios."><img src="capstone_files/figure-html/fig-scree-plot-1.png" class="img-fluid figure-img" width="768"></a>
+<a href="capstone_files/figure-html/fig-scree-plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Explained variance ratio by principal component for PCA of household diet data examined by food group calorie-to-total calorie ratios."><img src="capstone_files/figure-html/fig-scree-plot-1.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scree-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Explained variance ratio by principle component for PCA of household diet data examined by food group calories/total calorie ratios.
+Figure&nbsp;1: Explained variance ratio by principal component for PCA of household diet data examined by food group calorie-to-total calorie ratios.
 </figcaption>
 </figure>
 </div>
@@ -644,16 +644,16 @@ Figure&nbsp;1: Explained variance ratio by principle component for PCA of househ
 <div id="fig-pca_foodgroups-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pca_foodgroups-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-pca_foodgroups-plot-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Orientations of the first two principal components of the food group orientated diet data. PC 1 appears to orient to a ‘healthy foods’ pole with fruits and vegetables and whole grains, and an ‘unhealthy foods pole’ with saturated fat and refined grains. PC 2 has a similar set of poles, but with general ‘whole foods’ at one end and ‘refined foods’ at the other."><img src="capstone_files/figure-html/fig-pca_foodgroups-plot-4.png" class="img-fluid figure-img" width="1344"></a>
+<a href="capstone_files/figure-html/fig-pca_foodgroups-plot-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Orientations of the first two principal components of the food group oriented diet data. PC 1 appears to orient to a ‘healthy foods’ pole with fruits and vegetables and whole grains, and an ‘unhealthy foods’ pole with saturated fat and refined grains. PC 2 has a similar set of poles, but with general ‘whole foods’ at one end and ‘refined foods’ at the other."><img src="capstone_files/figure-html/fig-pca_foodgroups-plot-4.png" class="img-fluid figure-img" width="1344"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pca_foodgroups-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Orientations of the first two principal components of the food group orientated diet data. PC 1 appears to orient to a ‘healthy foods’ pole with fruits and vegetables and whole grains, and an ‘unhealthy foods pole’ with saturated fat and refined grains. PC 2 has a similar set of poles, but with general ‘whole foods’ at one end and ‘refined foods’ at the other.
+Figure&nbsp;2: Orientations of the first two principal components of the food group oriented diet data. PC 1 appears to orient to a ‘healthy foods’ pole with fruits and vegetables and whole grains, and an ‘unhealthy foods’ pole with saturated fat and refined grains. PC 2 has a similar set of poles, but with general ‘whole foods’ at one end and ‘refined foods’ at the other.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>As seen in <a href="#fig-pca_foodgroups-plot" class="quarto-xref">Figure&nbsp;2</a>, the axis of greatest variance for all households by food group calorie ratios orients to a more plant-based pole (higher in ‘Other Fruits &amp; Vegetables’ and ‘Whole Grains’), and a more meat and refined food based-pole (higher in’Saturated Fat’ and “Refined Grains”). PC 2 for all households by food group calorie ratios also appears to orient to a more processed and refined foods pole, and to a whole foods pole.</p>
+<p>As seen in <a href="#fig-pca_foodgroups-plot" class="quarto-xref">Figure&nbsp;2</a>, the axis of greatest variance for all households by food group calorie ratios orients to a more plant-based pole (higher in fruits and vegetables and whole grains), and a more meat and refined food based pole (higher in saturated fat and refined grains). PC 2 for all households by food group calorie ratios also appears to orient to a more processed and refined foods pole, and to a whole foods pole.</p>
 </section>
 <section id="k-means-clustering-1" class="level3">
 <h3 class="anchored" data-anchor-id="k-means-clustering-1">k-means clustering</h3>
@@ -682,22 +682,22 @@ Figure&nbsp;3: A 2-D projection of the k-means clustering of the households base
 </div>
 </div>
 </div>
-<p>A two dimensional projection of the household clustering from sixteen dimensional food-group calorie ratio space is presented in <a href="#fig-cluster-2D-food-groups-plot" class="quarto-xref">Figure&nbsp;3</a>. The principal components that were required to explain 95% variance in the aggregated foodgroup data were fed into an additional round of PCA to produce two derivative principal compenents. These two components serve as the x and y axes in <a href="#fig-cluster-2D-food-groups-plot" class="quarto-xref">Figure&nbsp;3</a>. There are twice as many households assigned to Cluster 0. The data is continuous, so the clusters appear adjacent, though the boundary between the two is rather distinct.</p>
+<p>A 2-dimensional projection of the household clustering from 16-dimensional food group calorie ratio space is presented in <a href="#fig-cluster-2D-food-groups-plot" class="quarto-xref">Figure&nbsp;3</a>. The principal components that were required to explain 95% variance in the aggregated foodgroup data were fed into an additional round of PCA to produce two derivative principal components. These two components serve as the x and y axes in <a href="#fig-cluster-2D-food-groups-plot" class="quarto-xref">Figure&nbsp;3</a>. There are twice as many households assigned to Cluster 0. The data is continuous, so the clusters appear adjacent, though the boundary between the two is rather distinct.</p>
 <div id="cell-fig-heat-map-food-groups-plot" class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-heat-map-food-groups-plot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-heat-map-food-groups-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-heat-map-food-groups-plot-8.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;4: A visualization of the cluster centroid z score for each of the food group dimensions, originally calculated as proportion of total calories for each food group. Cluster 0 is encoded purple, and Cluster 1 is encoded red. Blue cells depcit negative z-scores, while more vibrant cluster colors indicate increasingly positive z-scores."><img src="capstone_files/figure-html/fig-heat-map-food-groups-plot-8.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></a>
+<a href="capstone_files/figure-html/fig-heat-map-food-groups-plot-8.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;4: A visualization of the cluster centroid z-score for each of the food group dimensions, originally calculated as proportion of total calories for each food group. Cluster 0 is encoded purple, and Cluster 1 is encoded red. Blue cells depict negative z-scores, while more vibrant cluster colors indicate increasingly positive z-scores."><img src="capstone_files/figure-html/fig-heat-map-food-groups-plot-8.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-heat-map-food-groups-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4: A visualization of the cluster centroid z score for each of the food group dimensions, originally calculated as proportion of total calories for each food group. Cluster 0 is encoded purple, and Cluster 1 is encoded red. Blue cells depcit negative z-scores, while more vibrant cluster colors indicate increasingly positive z-scores.
+Figure&nbsp;4: A visualization of the cluster centroid z-score for each of the food group dimensions, originally calculated as proportion of total calories for each food group. Cluster 0 is encoded purple, and Cluster 1 is encoded red. Blue cells depict negative z-scores, while more vibrant cluster colors indicate increasingly positive z-scores.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>The heatmap in <a href="#fig-heat-map-food-groups-plot" class="quarto-xref">Figure&nbsp;4</a> combines information from PCA and k-means clustering. The two columns represent the two clusters that were assigned in k-means clustering. The axis of the heatmap is oriented along PC 1 for food group aggregations. Cell color and printed number inside the cell indicate cluster centroid z-score for each dimension. Blue cells are dissimilar, white cells are nuetral, colorful cells are more similar.</p>
+<p>The heatmap in <a href="#fig-heat-map-food-groups-plot" class="quarto-xref">Figure&nbsp;4</a> combines information from PCA and k-means clustering. The two columns represent the two clusters that were assigned in k-means clustering. The axis of the heatmap is oriented along PC 1 for food group aggregations. Cell color and printed number inside the cell indicate cluster centroid z-score for each dimension. Blue cells are negative z-scores, white cells are neutral, cluster-colored cells are higher z-scores.</p>
 <p>The axis of greatest variance only explained 11% of variance in the food group model, so this visualization is presented with some caution. That said, it is notable that the axis of greater variance appears to orient along a ‘healthy food’ and an ‘unhealthy food’ pole.</p>
 </section>
 </section>
@@ -710,10 +710,10 @@ Figure&nbsp;4: A visualization of the cluster centroid z score for each of the f
 <div id="fig-scree-nutrients-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-scree-nutrients-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-scree-nutrients-plot-10.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure&nbsp;5: Explained variance ratio by principle component for PCA of household diet data examined by nutrient quanity per total household calories."><img src="capstone_files/figure-html/fig-scree-nutrients-plot-10.png" class="img-fluid figure-img" width="768"></a>
+<a href="capstone_files/figure-html/fig-scree-nutrients-plot-10.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure&nbsp;5: Explained variance ratio by principal component for PCA of household diet data examined by nutrient quantity per total household calories."><img src="capstone_files/figure-html/fig-scree-nutrients-plot-10.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scree-nutrients-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5: Explained variance ratio by principle component for PCA of household diet data examined by nutrient quanity per total household calories.
+Figure&nbsp;5: Explained variance ratio by principal component for PCA of household diet data examined by nutrient quantity per total household calories.
 </figcaption>
 </figure>
 </div>
@@ -725,29 +725,29 @@ Figure&nbsp;5: Explained variance ratio by principle component for PCA of househ
 <div id="fig-pca-orientations-nutrients" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pca-orientations-nutrients-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-pca-orientations-nutrients-12.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;6: Orientations of the first two principal components of the diet data by nutrient profile. PC 1 has a high fat pole juxtapose with a pole higher in plant-associated nutrients. PC 2 has a high carbohydrate and vegetable protein pole, juxatoposed against a pole with high animal protein and associated nutrients."><img src="capstone_files/figure-html/fig-pca-orientations-nutrients-12.png" class="img-fluid figure-img" width="1344"></a>
+<a href="capstone_files/figure-html/fig-pca-orientations-nutrients-12.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;6: Orientations of the first two principal components of the diet data by nutrient profile. PC 1 has a high fat pole juxtaposed with a pole higher in plant-associated nutrients. PC 2 has a high carbohydrate and vegetable protein pole, juxtoposed against a pole with high animal protein and associated nutrients."><img src="capstone_files/figure-html/fig-pca-orientations-nutrients-12.png" class="img-fluid figure-img" width="1344"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pca-orientations-nutrients-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6: Orientations of the first two principal components of the diet data by nutrient profile. PC 1 has a high fat pole juxtapose with a pole higher in plant-associated nutrients. PC 2 has a high carbohydrate and vegetable protein pole, juxatoposed against a pole with high animal protein and associated nutrients.
+Figure&nbsp;6: Orientations of the first two principal components of the diet data by nutrient profile. PC 1 has a high fat pole juxtaposed with a pole higher in plant-associated nutrients. PC 2 has a high carbohydrate and vegetable protein pole, juxtoposed against a pole with high animal protein and associated nutrients.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>As seen in <a href="#fig-pca-orientations-nutrients" class="quarto-xref">Figure&nbsp;6</a>, PC 1 for household nutrient profiles has a fat (saturated and unsaturated) pole and a “plant-food” pole (vegetable protein and carbohydrates and vitamins). PC 2 for household nutrient profiles has a high carbohydrate pole juxtaposed against a high animal protein pole. These nutrient profile principal components are more compelling than the food group comonents, as they each explained over 20% of household variance.</p>
+<p>As seen in <a href="#fig-pca-orientations-nutrients" class="quarto-xref">Figure&nbsp;6</a>, PC 1 for household nutrient profiles has a fat (saturated and unsaturated) pole and a “plant-food” pole (vegetable protein and carbohydrates and vitamins). PC 2 for household nutrient profiles has a high carbohydrate pole juxtaposed against a high animal protein pole. These nutrient profile principal components are somewhat more compelling than the food group principal components, as they each explain over 20% of household variance.</p>
 </section>
 <section id="k-means-clustering-2" class="level3">
 <h3 class="anchored" data-anchor-id="k-means-clustering-2">k-means clustering</h3>
-<p>For household nutrient profiles, best k number of clusters was consistently found to be 5. Notably, one of the five clusters has only about 5,000 household throughout the dataset. This small cluster turns out to be households that consumed a lot of organ meat.</p>
+<p>For household nutrient profiles, best k number of clusters was consistently found to be 5. Notably, one of the five clusters has only about 5,000 households amongst the almost 190,000 households in the dataset. This small cluster turns out to be households that consumed a lot of organ meat.</p>
 <div id="cell-fig-clusteres-nutrients" class="cell">
 <div class="cell-output-display">
 <div id="fig-clusteres-nutrients" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-clusteres-nutrients-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-clusteres-nutrients-14.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;7: A two dimensional rendering of all households by nutrient profile clusters. This rendering is the product of two rounds of PCA, with the 11 components required to explain 95% of variance in the original data being channeled into 2 components, which are the axes of this figure. The clusers are continuous, but with distinct boundaries."><img src="capstone_files/figure-html/fig-clusteres-nutrients-14.png" class="img-fluid figure-img" width="960"></a>
+<a href="capstone_files/figure-html/fig-clusteres-nutrients-14.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;7: A 2-dimensional rendering of all households by nutrient profile clusters. This rendering is the product of two rounds of PCA, with the 11 components required to explain 95% of variance in the original data being channeled into 2 components, which are the axes of this figure. The clusters are continuous, but with distinct boundaries."><img src="capstone_files/figure-html/fig-clusteres-nutrients-14.png" class="img-fluid figure-img" width="960"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-clusteres-nutrients-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7: A two dimensional rendering of all households by nutrient profile clusters. This rendering is the product of two rounds of PCA, with the 11 components required to explain 95% of variance in the original data being channeled into 2 components, which are the axes of this figure. The clusers are continuous, but with distinct boundaries.
+Figure&nbsp;7: A 2-dimensional rendering of all households by nutrient profile clusters. This rendering is the product of two rounds of PCA, with the 11 components required to explain 95% of variance in the original data being channeled into 2 components, which are the axes of this figure. The clusters are continuous, but with distinct boundaries.
 </figcaption>
 </figure>
 </div>
@@ -789,16 +789,16 @@ Figure&nbsp;9: Orientations along PC 2 of nutrient-profile clusters. Cluster 3 a
 <section id="nutrient-cluster-proportions-over-time" class="level2">
 <h2 class="anchored" data-anchor-id="nutrient-cluster-proportions-over-time">Nutrient cluster proportions over time</h2>
 <p>The most striking finding from k-means clustering paired with PCA for interpretability was that nutrient Cluster 2, the more plant-oriented cluster, increased its proportional share of the UK population dramatically from 1974 to 2000. Insofar as this analysis was seeking a strong diet-cluster signal to serve as the explanatory variable, nutrient cluster 2 seemed to be the best candidate.</p>
-<p>Therefore, the rest of this analysis focus on nutrient-profile clustering, and not food-group clustering.</p>
+<p>Therefore, the rest of this analysis focuses on nutrient-profile clustering, and not food-group clustering.</p>
 <div id="cell-fig-R-line" class="cell">
 <div class="cell-output-display">
 <div id="fig-R-line" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-R-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-R-line-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Figure&nbsp;10: Nutrient cluster proportions over time. The main cluster often interest, Cluster 2, is represented by the green line. It ascends from under 5% in 1974 to over 40% in 2000. The notable discontinuity of clusters 3 and 4 in 1992 is suspected to be related to an economic recession in the UK in 1992, indicated by the gray band. Cluster 3 is higher meat-related nutrients, while Cluster 4 is higher in carbohydrates. It is speculated that many UK households stared purchasing less meat and more simple staples like potatoes in response to the recession."><img src="capstone_files/figure-html/fig-R-line-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="capstone_files/figure-html/fig-R-line-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Figure&nbsp;10: Nutrient cluster proportions over time. The main cluster of interest, Cluster 2, is represented by the green line. It ascends from under 5% in 1974 to over 40% in 2000. The notable discontinuity of clusters 3 and 4 in 1992 is suspected to be related to an economic recession in the UK in 1992, indicated by the gray band. Cluster 3 is higher meat-related nutrients, while Cluster 4 is higher in carbohydrates. It is speculated that many UK households started purchasing less meat and more simple staples like potatoes in response to the recession."><img src="capstone_files/figure-html/fig-R-line-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-R-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;10: Nutrient cluster proportions over time. The main cluster often interest, Cluster 2, is represented by the green line. It ascends from under 5% in 1974 to over 40% in 2000. The notable discontinuity of clusters 3 and 4 in 1992 is suspected to be related to an economic recession in the UK in 1992, indicated by the gray band. Cluster 3 is higher meat-related nutrients, while Cluster 4 is higher in carbohydrates. It is speculated that many UK households stared purchasing less meat and more simple staples like potatoes in response to the recession.
+Figure&nbsp;10: Nutrient cluster proportions over time. The main cluster of interest, Cluster 2, is represented by the green line. It ascends from under 5% in 1974 to over 40% in 2000. The notable discontinuity of clusters 3 and 4 in 1992 is suspected to be related to an economic recession in the UK in 1992, indicated by the gray band. Cluster 3 is higher meat-related nutrients, while Cluster 4 is higher in carbohydrates. It is speculated that many UK households started purchasing less meat and more simple staples like potatoes in response to the recession.
 </figcaption>
 </figure>
 </div>
@@ -806,7 +806,7 @@ Figure&nbsp;10: Nutrient cluster proportions over time. The main cluster often i
 </div>
 <p><a href="#fig-R-line" class="quarto-xref">Figure&nbsp;10</a> details the change in proportion of each nutrient cluster over time.</p>
 <p>There is a slight decrease for Cluster 0 from around 25% to 15%. Cluster 1 was relatively stable at around 3%. Cluster 2 showed an increase in proportion from around 3% to 40% with a relatively steep slope. Cluster 3 remained around the 20% proportion area, starting a few points above and then ending at a value right around 15%. Lastly, cluster 4 starts as the highest proportion, nearly 50%, and slowly reduces to 30%.</p>
-<p>This suggests that as as time continued, the trends mapped to cluster 2 became more prevalent as proportions of clusters 0, 3, and 4 fell.</p>
+<p>This suggests that as time continued, the trends mapped to cluster 2 became more prevalent as proportions of clusters 0, 3, and 4 fell.</p>
 <p>This initial model motivated statistical checks to ensure the changes in proportion over time (1974-2000) were statistically significant and not simply attributed to random noise.</p>
 </section>
 <section id="statistics" class="level2">
@@ -828,7 +828,7 @@ Table&nbsp;1: Significance of year-by-year changes, by cluster
 <th style="text-align: center;" data-quarto-table-cell-role="th">Years Present</th>
 <th style="text-align: center;" data-quarto-table-cell-role="th">Year-to-Year Transitions Tested</th>
 <th style="text-align: center;" data-quarto-table-cell-role="th"># Significant Transitions</th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">% of Year ChangesSignificant</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">% of Year Changes Significant</th>
 </tr>
 </thead>
 <tbody>
@@ -874,11 +874,11 @@ Table&nbsp;1: Significance of year-by-year changes, by cluster
 </figure>
 </div>
 </div>
-<p>A series of two-proportion z-tests assessed the significance of the year-over-year nutrient group cluster composition changes over the 27 year time period, as displayed in <a href="#tbl-cluster-change-summary" class="quarto-xref">Table&nbsp;1</a>.</p>
+<p>A series of two-proportion z-tests assessed the significance of the year-over-year nutrient group cluster composition changes over the 27-year time period, as displayed in <a href="#tbl-cluster-change-summary" class="quarto-xref">Table&nbsp;1</a>.</p>
 <p>Cluster 0 demonstrated a gradual contraction over the time period. It had 8 statistically significant annual shifts (30.8% of transitions). There was a scattered, but downward aiming shift without stark reversals upward.</p>
 <p>Cluster 1 exhibits consistent stability with the lowest volatility among the clusters. It only had 6 statistically significant transitions (23.1% of the shifts). There was not a specific trajectory instead, there were both positive and negative changes during the time span.</p>
 <p>Cluster 2 was the most dynamic cluster, noting a robust upward trend. Beginning with a baseline composition of around 3%, there was a leap to 40% of household diet share by the end of the period. A majority of year-over-year changes reach statistical significance (15 transitions or 57.7%) confirming a strong continued expansion.</p>
-<p>Cluster 3 fluctuates around 25-28% of household share. It was heavily influenced in the early 1990s (plausibly to a recession in the UK during this time period) with some volatility. Beyond this disruption, the trend remained broadly stable with 8 statistically significant transitions (30.8%).</p>
+<p>Cluster 3 fluctuates around 25-28% of household share. It was heavily influenced in the early 1990s (plausibly due to a recession in the UK during this time period) with some volatility. Beyond this disruption, the trend remained broadly stable with 8 statistically significant transitions (30.8%).</p>
 <p>Cluster 4 began with the largest share of household diet share, but experienced consistent downward pressure. Disregarding the market shock in the early 1990s, the group had 11 statistically significant year-over-year transitions (42.3%) backing this claim.</p>
 </section>
 <section id="cochran-armitage-test" class="level3">
@@ -968,7 +968,8 @@ Table&nbsp;2: Cochran-Armitage trend test results, by nutrient cluster
 </figure>
 </div>
 </div>
-<p>The Cochran-Armitage trend test, displayed in <a href="#tbl-cochran-armitage" class="quarto-xref">Table&nbsp;2</a>, was selected because it is designed to detect whether a proportion moved consistently in one direction across an ordered sequence of groups. The cluster membership was essentially binary, a household either belonged to a given cluster or did not, and the survey years followed a natural chronological order, this test was suited for the data . It was applied separately to each of the five clusters, to see whether that cluster’s share of the population trended consistently either upward or downward across the survey years (1974-2000). The test incorporated every year to determine whether the year-to-year movement followed a single consistent direction, as opposed to random fluctuation. It found that all but Cluster 1 experienced significant change during the time frame, confirming that the trends observed in these clusters reflected a real, sustained shift rather than noise in the data. These results demonstrated a substantial compositional shift in the UK population’s cluster membership over the 27-year period, with Cluster 2 gaining population share at the expense of Clusters 0, 3, and 4, while Cluster 1 remained a stable, low-prevalence group throughout.</p>
+<p>The Cochran-Armitage trend test, displayed in <a href="#tbl-cochran-armitage" class="quarto-xref">Table&nbsp;2</a>, was selected because it is designed to detect whether a proportion moved consistently in one direction across an ordered sequence of groups. The cluster membership was essentially binary (a household either belonged to a given cluster or did not), and survey years followed a natural chronological order. making this data well suited for this test.</p>
+<p>The test was applied separately to each of the five clusters, to see whether that cluster’s share of the population trended consistently either upward or downward across the survey years (1974-2000). The test incorporated every year to determine whether the year-to-year movement followed a single consistent direction, as opposed to random fluctuation. It found that all but Cluster 1 experienced significant change during the time frame, confirming that the trends observed in these clusters reflected a real, sustained shift rather than noise in the data. These results demonstrated a substantial compositional shift in the UK population’s cluster membership over the 27-year period, with Cluster 2 gaining population share at the expense of Clusters 0, 3, and 4, while Cluster 1 remained a stable, low-prevalence group throughout.</p>
 </section>
 <section id="companion-robustness-kendall-tau-trend-test" class="level3">
 <h3 class="anchored" data-anchor-id="companion-robustness-kendall-tau-trend-test">Companion Robustness: Kendall Tau Trend Test</h3>
@@ -1027,7 +1028,8 @@ Table&nbsp;3: Kendall’s tau rank-correlation trend test, by nutrient cluster
 </figure>
 </div>
 </div>
-<p>The Kendall’s Tau trend test, <a href="#tbl-kendall-tau" class="quarto-xref">Table&nbsp;3</a> was employed as a companion check to the Cochran-Armitage test. The Cochran-Armitage test models trends through a counts structure that was approximately linear. The Kendall test does not operate with the same assumptions, thus it is a warranted robustness check for clusters with a nonconforming structure. The Kendall test ranked the years and determined if the direction of the change was consistent. It was applied to each cluster’s composition proportion. It looked at more than just year-to-year changes and worked to give a more comprehensive view of the trends. It found the same pattern as the Cochran-Armitage test: every cluster except for Cluster 1 showed expressed consistent monotonic movement with the corresponding sign to the previous test. The agreement of the tests support the conclusion that there are compositional shifts in the diet clusters, namely that Cluster 2 increased for this UK population.</p>
+<p>The Kendall’s Tau trend test, depicted in <a href="#tbl-kendall-tau" class="quarto-xref">Table&nbsp;3</a>, was employed as a companion check to the Cochran-Armitage test. The Cochran-Armitage test models trends through a counts structure that was approximately linear. The Kendall test does not operate with the same assumptions, thus it is a warranted robustness check for clusters with a nonconforming structure. The Kendall test ranked the years and determined if the direction of the change was consistent. It was applied to each cluster’s composition proportion. It looked at more than just year-to-year changes and worked to give a more comprehensive view of the trends. It found the same pattern as the Cochran-Armitage test: every cluster except for Cluster 1 showed consistent monotonic movement with the corresponding sign to the previous test.</p>
+<p>The agreement of the tests supports the conclusion that there are compositional shifts in the diet clusters, namely that Cluster 2 increased for this UK population during the years of analysis.</p>
 </section>
 </section>
 <section id="ldl-cholesterol-and-chronic-disease-data" class="level2">
@@ -1047,7 +1049,7 @@ Figure&nbsp;11: High LDL cholesterol declined between 1990 and 2023, although it
 </div>
 </div>
 </div>
-<p>As seen in <a href="#fig-metabolic-rates-over-time-all-region" class="quarto-xref">Figure&nbsp;11</a>, high LDL cholestrol decreased between 1990 and 2023. Based on this visualization, year-or-year change in population-level high LDL cholesterol SEV was selected as the response variable for analysis. Population level SEV for high systolic blood pressure also went down from 1990 to 2010, but then started increasing again afterward, suggesting confounding factors and ruling it out for further exploration in this study.</p>
+<p>As seen in <a href="#fig-metabolic-rates-over-time-all-region" class="quarto-xref">Figure&nbsp;11</a>, high LDL cholesterol decreased between 1990 and 2023. Based on this visualization, year-on-year change in population-level high LDL cholesterol SEV was selected as the response variable for analysis. Population-level SEV for high systolic blood pressure also went down from 1990 to 2010, but then started increasing again afterward, suggesting confounding factors and ruling it out for further exploration in this study.</p>
 <p>Notably, despite the decrease in population SEV for high LDL cholesterol, overall metabolic risk in the UK has steadily climbed over this timespan.</p>
 </section>
 </section>
@@ -1057,7 +1059,7 @@ Figure&nbsp;11: High LDL cholesterol declined between 1990 and 2023, although it
 <section id="diet-and-disease-time-lag-correlation" class="level2">
 <h2 class="anchored" data-anchor-id="diet-and-disease-time-lag-correlation">Diet and Disease time-lag correlation</h2>
 <p>With population-level year-on-year changes in nutrient cluster 2 selected to be the explanatory variable, and with population-level year-on-year changes in high LDL cholesterol SEV selected to be the response variable, a correlation analysis was conducted from 0 to 20 years of time lag using a cross correlation function (CCF). For each lag year pair, a Pearson correlation coefficient <em>r</em> was generated.</p>
-<p>A perfect correlation would have a Pearson correlation coefficient <em>r</em> of 1.0, whereas a non-correlation would be expected to have a coefficient <em>r</em> closer to 0.0. The CCF swept through 20 years of lag options, resulting in n = 21 year-lag year pairs for the CCF. Based on this number of assessed year-lag year pairs, the 95% significance threshold was calculated to be approximately <em>r</em> = 0.43, and the 99% percent confidence interval was calculated to be approximately <em>r</em> = 0.562.</p>
+<p>A perfect correlation would have a Pearson correlation coefficient <em>r</em> of 1.0, whereas a non-correlation would be expected to have a coefficient <em>r</em> closer to 0.0. The CCF swept through 20 years of lag options, resulting in n = 21 year-lag year pairs for the CCF. Based on this number of assessed year-lag year pairs, the 95% significance threshold was calculated to be approximately <em>r</em> = 0.43, and the 99% significant threshold was calculated to be approximately <em>r</em> = 0.562.</p>
 <p><span id="eq-sig-band-95"><span class="math display">\[
 r_{crit,\,95\%} = \frac{1.96}{\sqrt{n}}
 \tag{5}\]</span></span></p>
@@ -1085,7 +1087,7 @@ Figure&nbsp;12: Lag correlation sweeps for cluster 2 against High LDL cholestero
 </section>
 <section id="correlation-validation-1" class="level3">
 <h3 class="anchored" data-anchor-id="correlation-validation-1">Correlation validation</h3>
-<p>This finding was tested against thousands of random permutations to investigate if the apparent correlation was random conincidence. The order of SEV scores for the 15 years of time-lagged GBD disease data was held constant, and the corresponding 15 years of nutrient cluster 2 proportions were randomly shuffled. Correlation was assessed with each permutation, and the observed <em>r</em> from <a href="#fig-correlation-sweep-vs-LDL" class="quarto-xref">Figure&nbsp;12</a> of 0.679 was found to be more extreme a result than over 99% of correlations.</p>
+<p>This finding was tested against thousands of random permutations to investigate if the apparent correlation might just be conincidence. The order of SEV scores for the 15 years of time-lagged GBD disease data was held constant, and the corresponding 15 years of nutrient cluster 2 proportions were randomly shuffled. Correlation was assessed with each permutation, and the observed <em>r</em> from <a href="#fig-correlation-sweep-vs-LDL" class="quarto-xref">Figure&nbsp;12</a> of 0.679 was found to be a more extreme result than over 99% of correlations.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Observed r = 0.679, n = 15, permutation p-value = 0.0065</code></pre>
@@ -1107,16 +1109,16 @@ Figure&nbsp;13: Consistent negative correlation at five year lag across the UK
 </div>
 </div>
 <p>As seen in <a href="#fig-map-neg-corr-ldl-nute-cluster-2" class="quarto-xref">Figure&nbsp;13</a>, the five-year time lag correlation between population-level nutrient cluster 2 and the decrease in population-level LDL cholesterol SEV score is consistent across the UK.</p>
-<p>In contrast, a choropleth of a less statistically robust correlation not appear consistent across the UK.</p>
+<p>In contrast, a choropleth of a less statistically robust correlation did not appear consistent across the UK.</p>
 <div id="cell-fig-map-no-corr-blood-pressure-nute-cluster-2" class="cell">
 <div class="cell-output-display">
 <div id="fig-map-no-corr-blood-pressure-nute-cluster-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-map-no-corr-blood-pressure-nute-cluster-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-map-no-corr-blood-pressure-nute-cluster-2-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Figure&nbsp;14: Not consistent l;a against blood proessure in the same time"><img src="capstone_files/figure-html/fig-map-no-corr-blood-pressure-nute-cluster-2-7.png" class="img-fluid figure-img" width="768"></a>
+<a href="capstone_files/figure-html/fig-map-no-corr-blood-pressure-nute-cluster-2-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Figure&nbsp;14: Nutrient Cluster 2 did not show a consistent correlation at a five-year time lag against blood proessure across regions of the UK."><img src="capstone_files/figure-html/fig-map-no-corr-blood-pressure-nute-cluster-2-7.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-map-no-corr-blood-pressure-nute-cluster-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;14: Not consistent l;a against blood proessure in the same time
+Figure&nbsp;14: Nutrient Cluster 2 did not show a consistent correlation at a five-year time lag against blood proessure across regions of the UK.
 </figcaption>
 </figure>
 </div>
@@ -1130,22 +1132,26 @@ Figure&nbsp;14: Not consistent l;a against blood proessure in the same time
 <h1>Conclusions</h1>
 <section id="overall-conclusion" class="level3">
 <h3 class="anchored" data-anchor-id="overall-conclusion">Overall conclusion</h3>
-<p>There appears to be a statistically significant inverse correlation between nutrient profile cluster 2 and five-year time lag SEV risk rates for high LDL cholesterol. Nutrient profile cluster 2 is characterized by higher levels of nutrients most associated with plant-based foods, so we conclude that there is a detectable correlative association between plant-based food trends and lowering LDL cholesterol rates in the UK population.</p>
-<p>Of course, this is consistent with years of literature and medical advice. The innovation of this project, if any, is the identification of a five year time lag specifically between plant-based diet trends and LDL cholestrol rates. This information is potentially useful to any individual tracking their own health, and to public health officials assessing the effectiveness of policiies related to food and metabolic disease.</p>
+<p>There appears to be a statistically-significant inverse correlation between year-on-year changes in population proportion of nutrient-profile Cluster 2 and year-on-year changes in population-level high LDL cholesterol SEV scores, at a five-year time lag. Nutrient profile cluster 2 is characterized by higher levels of nutrients most associated with plant-based foods, so we conclude that there appears to be a detectable time-lagged correlative association between increasing plant-based food trends and lowering LDL cholesterol rates in the UK population.</p>
+<p>Of course, this is consistent with years of literature and medical advice. The innovation of this project, if any, is the identification of the five-year time lag specifically. This information is potentially useful to any individual tracking their own health, and to public health officials assessing the effectiveness of policies related to food and metabolic disease.</p>
 </section>
 <section id="limitations" class="level3">
 <h3 class="anchored" data-anchor-id="limitations">Limitations</h3>
-<p>It might be expected that this five year time lag finding would apply to any population, not just the UK. That said, there are certainly many confounding variables involved in human health outcomes –genetics, poverty, food access, education, environmental exposures, other lifestyle factors, and more – so a strong proclaimation about the universal applicability of this finding is not warranted. Even looking only at the UK only, there are many caveats to consider in this data. The food diaries were self reported, so the information might be of varying reliability. Also, the diet diaries tracked the food that was purchased. It is assumed that the purchased food was consumed, but that could be inaccurate. Relatedly, some households might be bulk shoppers who buy a lot of food every other week. For such a bulk shopping household, the timing of the diet diary week could make them appear to consume way too much or way too little.</p>
+<p>The most significant limitation of this study is that it is not longitudinal. It would be ideal to track high numbers of individual people in a scientifically controlled manner, over many years of analysis. In that case, varying dietary habits and health outcomes could be mapped to individual people and then aggregated for statistical power. Unfortunately, longitudinal data like this is rare and hard to obtain. So, the best option for this realm of investigation was to find aggregatable data with large numbers of subjects, and to make statistically cautious population level claims from there. Future investigation in this direction would be buoyed by access to longitudinal diet and health data.</p>
+<p>It might be expected that this five year time lag finding would apply to any population, not just the UK. That said, there are certainly many confounding variables involved in human health outcomes - genetics, poverty, food access, education, environmental exposures, other lifestyle factors, and more - so a strong proclamation about the universal applicability of this finding is not warranted.</p>
+<p>Even looking at the UK only, there are many caveats to consider in this data. The food diaries were self-reported, so the information might be of varying reliability.</p>
+<p>Also, the diet diaries tracked quantities of consumable food that was purchased. It is assumed that all of this purchased food was actually consumed, but that could be inaccurate.</p>
+<p>Relatedly, some households might be bulk shoppers who buy a lot of food every other week. For such a bulk shopping household, the timing of the diet diary week could make them appear to consume way too much or way too little.</p>
 </section>
 <section id="final-thoughts" class="level3">
 <h3 class="anchored" data-anchor-id="final-thoughts">Final thoughts</h3>
-<p>Human health is complex, the association with diet, while well studied, is also complex. Any additional insight into connections between food and health can bolster individuals and society in general to improve their longevity and reduce their risk of chroic disease. While there are mixed messages from online influencers about these food health connections, this analysis suggests that the mainstream medical messaging is right: a more plant based diet can help lower LDL cholesterol.</p>
-<p>So once again:</p>
-<p>Eat more plants now, have lower cholesterol later. Specifically LDL cholesterol, and specifically five years later.</p>
+<p>Human health is complex, the association with diet, while well studied, is also complex. Any additional insight into connections between food and health can bolster individuals and society in general to improve their longevity and reduce their risk of chronic disease. While there are mixed messages from online influencers about these food health connections, this analysis suggests that the mainstream medical messaging is right: a more plant-based diet might help lower LDL cholesterol.</p>
+<p>To be very clear, this study makes no claims about diet and health for individual people. That said, this study does conclude that at least in the UK from 1985 to 2000, there was a statistically significant correlation between the year-on-year rate of change of the population proportion of nutrient-profile Cluster 2 (as designated by k-means clustering) and the year-on-year rate of change for high LDL cholesterol SEV score.</p>
 </section>
 </section>
 <section id="appendix" class="level1">
 <h1>Appendix</h1>
+<p>Custom food group mappings were assigned in two waves. First, each major food code was associated with one of 55 food groups, as informed by literature. However, 55 dimensions was suspected to result in too sparse a vector space for clustering, so a further food grouping with 17 food groups was applied to each food item. Later, alcohol was dropped from analysis, so the ultimate number of food groups in this study was 16. Confectionary and soft drinks were dropped as rows (as discussed in data cleaning) but the food groups they are in have been retained.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">

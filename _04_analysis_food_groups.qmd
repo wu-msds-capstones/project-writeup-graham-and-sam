@@ -141,7 +141,7 @@ scaled_df = pd.DataFrame(
 ```{python}
 #| results: 'hide'
 #| label: fig-scree-plot
-#| fig-cap: "Explained variance ratio by principle component for PCA of household diet data examined by food group calories/total calorie ratios."
+#| fig-cap: "Explained variance ratio by principal component for PCA of household diet data examined by food group calorie-to-total calorie ratios."
 
 #######
 ### PCA TIME!
@@ -237,7 +237,7 @@ The other components only explained about 5% variance each, leading to 14 compon
 
 ```{python}
 #| label: fig-pca_foodgroups-plot
-#| fig-cap: "Orientations of the first two principal components of the food group orientated diet data. PC 1 appears to orient to a 'healthy foods' pole with fruits and vegetables and whole grains, and an 'unhealthy foods pole' with saturated fat and refined grains. PC 2 has a similar set of poles, but with general 'whole foods' at one end and 'refined foods' at the other. "
+#| fig-cap: "Orientations of the first two principal components of the food group oriented diet data. PC 1 appears to orient to a 'healthy foods' pole with fruits and vegetables and whole grains, and an 'unhealthy foods' pole with saturated fat and refined grains. PC 2 has a similar set of poles, but with general 'whole foods' at one end and 'refined foods' at the other. "
 
 ##############
 # This is the "what does PC1 mean figure"
@@ -292,7 +292,7 @@ plt.tight_layout()
 plt.show()
 
 ```
-As seen in @fig-pca_foodgroups-plot, the axis of greatest variance for all households by food group calorie ratios orients to a more plant-based pole (higher in 'Other Fruits & Vegetables' and 'Whole Grains'), and a more meat and refined food based-pole (higher in'Saturated Fat' and "Refined Grains"). PC 2 for all households by food group calorie ratios also appears to orient to a more processed and refined foods pole, and to a whole foods pole.
+As seen in @fig-pca_foodgroups-plot, the axis of greatest variance for all households by food group calorie ratios orients to a more plant-based pole (higher in fruits and vegetables and whole grains), and a more meat and refined food based pole (higher in saturated fat and refined grains). PC 2 for all households by food group calorie ratios also appears to orient to a more processed and refined foods pole, and to a whole foods pole.
 
 
 ### k-means clustering
@@ -533,14 +533,14 @@ ax.set_ylabel('PC2 of PCA(95%)')
 plt.show()
 ```
 
-A two dimensional projection of the household clustering from sixteen dimensional food-group calorie ratio space is presented in @fig-cluster-2D-food-groups-plot. The principal components that were required to explain 95% variance in the aggregated foodgroup data were fed into an additional round of PCA to produce two derivative principal compenents.  These two components serve as the x and y axes in @fig-cluster-2D-food-groups-plot.  There are twice as many households assigned to Cluster 0.  The data is continuous, so the clusters appear adjacent, though the boundary between the two is rather distinct.
+A 2-dimensional projection of the household clustering from 16-dimensional food group calorie ratio space is presented in @fig-cluster-2D-food-groups-plot. The principal components that were required to explain 95% variance in the aggregated foodgroup data were fed into an additional round of PCA to produce two derivative principal components.  These two components serve as the x and y axes in @fig-cluster-2D-food-groups-plot.  There are twice as many households assigned to Cluster 0.  The data is continuous, so the clusters appear adjacent, though the boundary between the two is rather distinct.
 
 
 ```{python}
 #| fig-align: center
 #| results: 'hide'
 #| label: fig-heat-map-food-groups-plot
-#| fig-cap: "A visualization of the cluster centroid z score for each of the food group dimensions, originally calculated as proportion of total calories for each food group. Cluster 0 is encoded purple, and Cluster 1 is encoded red.  Blue cells depcit negative z-scores, while more vibrant cluster colors indicate increasingly positive z-scores. "
+#| fig-cap: "A visualization of the cluster centroid z-score for each of the food group dimensions, originally calculated as proportion of total calories for each food group. Cluster 0 is encoded purple, and Cluster 1 is encoded red.  Blue cells depict negative z-scores, while more vibrant cluster colors indicate increasingly positive z-scores. "
 
 ###########
 # Heat map stuff
@@ -592,6 +592,6 @@ fig.subplots_adjust(left=0.4, right=0.95, top=0.95, bottom=0.05)
 
 ```
 
-The heatmap in @fig-heat-map-food-groups-plot combines information from PCA and k-means clustering.  The two columns represent the two clusters that were assigned in k-means clustering.  The axis of the heatmap is oriented along PC 1 for food group aggregations.  Cell color and printed number inside the cell indicate cluster centroid z-score for each dimension. Blue cells are dissimilar, white cells are nuetral, colorful cells are more similar. 
+The heatmap in @fig-heat-map-food-groups-plot combines information from PCA and k-means clustering.  The two columns represent the two clusters that were assigned in k-means clustering.  The axis of the heatmap is oriented along PC 1 for food group aggregations.  Cell color and printed number inside the cell indicate cluster centroid z-score for each dimension. Blue cells are negative z-scores, white cells are neutral, cluster-colored cells are higher z-scores. 
 
 The axis of greatest variance only explained 11% of variance in the food group model, so this visualization is presented with some caution.  That said, it is notable that the axis of greater variance appears to orient along a 'healthy food' and an 'unhealthy food' pole.
