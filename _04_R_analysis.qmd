@@ -574,6 +574,8 @@ kable(
 
 ### Companion Robustness: Kendall Tau Trend Test
 
+The Kendall's Tau trend test was employed as a companion check to the Cochran-Armitage test. The Cochran-Armitage test models trends through a counts structure that was approximately linear. The Kendall test does not operate with the same assumptions, thus it is a warranted robustness check for clusters with a nonconforming structure. The Kendall test ranked the years and determined if the direction of the change was consistent. It was applied to each cluster's composition proportion. It looked at more than just year-to-year changes and worked to give a more comprehensive view of the trends. It found the same pattern as the Cochran-Armitage test: every cluster except for Cluster 1 showed expressed consistent monotonic movement with the corresponding sign to the previous test. The agreement of the tests support the conclusion that there are compositional shifts in the diet clusters, namely that Cluster 2 increased for this UK population.
+
 ```{r}
 #| label: tbl-kendall-tau
 #| tbl-cap: "Kendall's tau rank-correlation trend test, by nutrient cluster"
