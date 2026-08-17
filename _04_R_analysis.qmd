@@ -238,7 +238,7 @@ print(p_trend_line)
 ```
 
 
-The visualization @fig-R-line details the change in proportion of each nutrient cluster over time. 
+@fig-R-line details the change in proportion of each nutrient cluster over time. 
 
 There is a slight decrease for cluster 0 from around 25% to 15%. Cluster 1 was relatively stable at around 3%. Cluster 2 showed an increase in proportion from around 3% to 40% with a relatively steep slope. Cluster 3 remained around the 20% proportion area, starting a few points above and then ending at a value right around 15%. Lastly, cluster 4 starts as the highest proportion, nearly 50%, and slowly reduces to 30%. 
 
@@ -455,7 +455,7 @@ pairwise_table = bind_rows(pairwise_results) %>% arrange(cluster, year_prev)
 ```
 
 
-### Statistics
+## Statistics
 
 ```{r}
 #| label: tbl-cluster-change-summary
