@@ -138,29 +138,88 @@ print(p_trend)
 #| label: fig-R--line
 #| fig-cap: "Nutrient cluster proportions over time as line plot."
 
-# -------------------------------------------------------------------
-# 3. Line plot — cluster proportion trends over time
-# -------------------------------------------------------------------
+cluster_props1 = data_source %>%
+  filter(!is.na(.data[[cluster_col]])) %>%
+  group_by(.data[[year_col]], .data[[cluster_col]]) %>%
+  summarise(
+    n = n_distinct(hhno),
+    .groups = "drop"
+  ) %>%
+  group_by(.data[[year_col]]) %>%
+  mutate(
+    total_n = sum(n),
+    proportion = n / total_n,
+    se = sqrt(proportion * (1 - proportion) / total_n),
+    lower = pmax(0, proportion - 1.96 * se),
+    upper = pmin(1, proportion + 1.96 * se)
+  ) %>%
+  ungroup()
 
 p_trend_line = ggplot(
   cluster_props1,
-  aes(x = .data[[year_col]], y = proportion, color = factor(.data[[cluster_col]]))
+  aes(
+    x = .data[[year_col]],
+    y = proportion,
+    color = factor(.data[[cluster_col]]),
+    fill = factor(.data[[cluster_col]])
+  )
 ) +
-  geom_line(linewidth = 1) +
-  geom_point(size = 2) +
-  labs(
-    title = paste0(label_name, " Cluster Proportion (", analysis_type, ") Trends by Year"),
-    x = "Survey Year",
-    y = "Proportion of Households",
-    color = paste0(label_name, " Cluster")
+  geom_ribbon(
+    aes(ymin = lower, ymax = upper),
+    alpha = 0.15,
+    color = NA
   ) +
+  geom_line(linewidth = 0.8) +
+  geom_point(size = 1.5) +
+  
+  scale_color_manual(
+    values = c(
+      "0" = "#E69F00",
+      "1" = "#56B4E9",
+      "2" = "#009E73",
+      "3" = "#0072B2",
+      "4" = "#CC79A7"
+    )
+  ) +
+  
+  scale_fill_manual(
+    values = c(
+      "0" = "#E69F00",
+      "1" = "#56B4E9",
+      "2" = "#009E73",
+      "3" = "#0072B2",
+      "4" = "#CC79A7"
+    ),
+    guide = "none"
+  ) +
+  
+  scale_y_continuous(
+    labels = scales::percent_format(accuracy = 1),
+    expand = expansion(mult = c(0, 0.03))
+  ) +
+  
+  labs(
+    title = "Nutrient Cluster Proportions by Survey Year",
+    subtitle = analysis_type,
+    x = "Survey Year",
+    y = "Households (%)",
+    color = "Nutrient Cluster"
+  ) +
+  
   theme_minimal(base_size = 12) +
-  theme(legend.position = "top")
+  theme(
+    legend.position = "top",
+    legend.title = element_text(face = "bold"),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_blank(),
+    panel.grid.major.y = element_line(linewidth = 0.3),
+    axis.title = element_text(face = "bold"),
+    plot.title = element_text(face = "bold", size = 14),
+    plot.subtitle = element_text(size = 11),
+    legend.key.width = unit(1.2, "cm")
+  )
 
 print(p_trend_line)
-#ggsave(
- # file.path(save_dir, paste0(label_name, "_", tolower(analysis_type), "_trend_line.png")),
-  #p_trend_line, width = 9, height = 5.5, dpi = 150)
 ```
 
 ### 
