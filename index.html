@@ -276,9 +276,10 @@ div.csl-indent {
   <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">Background</a></li>
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a>
   <ul class="collapse">
-  <li><a href="#diet-data-national-food-survey-1974-to-2000" id="toc-diet-data-national-food-survey-1974-to-2000" class="nav-link" data-scroll-target="#diet-data-national-food-survey-1974-to-2000">Diet data: National Food Survey (1974 to 2000)</a>
+  <li><a href="#diet-data-national-food-survey-1974-to-2000" id="toc-diet-data-national-food-survey-1974-to-2000" class="nav-link" data-scroll-target="#diet-data-national-food-survey-1974-to-2000">Diet data: National Food Survey (1974 to 2000)</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a>
   <ul class="collapse">
-  <li><a href="#dietary-unit-transformation" id="toc-dietary-unit-transformation" class="nav-link" data-scroll-target="#dietary-unit-transformation">Dietary Unit Transformation</a></li>
+  <li><a href="#dietary-feature-engineering" id="toc-dietary-feature-engineering" class="nav-link" data-scroll-target="#dietary-feature-engineering">Dietary Feature Engineering</a></li>
   </ul></li>
   <li><a href="#disease-data-global-burden-of-disease-1990-to-2023" id="toc-disease-data-global-burden-of-disease-1990-to-2023" class="nav-link" data-scroll-target="#disease-data-global-burden-of-disease-1990-to-2023">Disease data: Global Burden of Disease (1990 to 2023)</a></li>
   <li><a href="#pipeline" id="toc-pipeline" class="nav-link" data-scroll-target="#pipeline">Pipeline</a>
@@ -291,7 +292,7 @@ div.csl-indent {
   </ul></li>
   <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a>
   <ul class="collapse">
-  <li><a href="#food-groups-1" id="toc-food-groups-1" class="nav-link" data-scroll-target="#food-groups-1">FOOD GROUPS</a>
+  <li><a href="#food-groups" id="toc-food-groups" class="nav-link" data-scroll-target="#food-groups">FOOD GROUPS</a>
   <ul class="collapse">
   <li><a href="#pca-principal-component-analysis" id="toc-pca-principal-component-analysis" class="nav-link" data-scroll-target="#pca-principal-component-analysis">PCA (principal component analysis)</a></li>
   <li><a href="#k-means-clustering" id="toc-k-means-clustering" class="nav-link" data-scroll-target="#k-means-clustering">k-means clustering</a></li>
@@ -304,8 +305,8 @@ div.csl-indent {
   <li><a href="#analysis---clusters-over-time" id="toc-analysis---clusters-over-time" class="nav-link" data-scroll-target="#analysis---clusters-over-time">Analysis - Clusters over Time</a>
   <ul class="collapse">
   <li><a href="#composition-clusters-with-bar-graphs-and-line-plots" id="toc-composition-clusters-with-bar-graphs-and-line-plots" class="nav-link" data-scroll-target="#composition-clusters-with-bar-graphs-and-line-plots">Composition Clusters with Bar Graphs and Line Plots</a></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
   <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"></a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2"></a></li>
   <li><a href="#stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" id="toc-stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" class="nav-link" data-scroll-target="#stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time">Stats for Proportions Confirming the Significance of Changing Clusters Over Time</a></li>
   <li><a href="#cochran-armitage-test" id="toc-cochran-armitage-test" class="nav-link" data-scroll-target="#cochran-armitage-test">Cochran-Armitage Test</a></li>
   <li><a href="#ldl-cholesterol-and-chronic-disease-data" id="toc-ldl-cholesterol-and-chronic-disease-data" class="nav-link" data-scroll-target="#ldl-cholesterol-and-chronic-disease-data">LDL cholesterol and chronic disease data</a>
@@ -365,16 +366,42 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="diet-data-national-food-survey-1974-to-2000">Diet data: National Food Survey (1974 to 2000)</h2>
 <p>The UK’s National Food Suvery (NFS) started in 1940 and eventually evolved into the Living Costs and Food Survey. which is active today . However, not all of the associated data is publicly available.</p>
 <p>For interested parties with institutional credentials, the UK Data Service, does provide a curated batch of NFS data that spans from 1974-2000. https://ukdataservice.ac.uk</p>
-<p>Each year, approximately 7,000 households across the UK were chosen at random from voting roles and asked to participate. From 1974 to 2000, almost 190,000 households participated. Consenting households tracked all food purchases (what food and how much of it) for one week in a ‘diet diary’.</p>
-<p>The raw diet diary entries listed foods as one of about 400 options (minor food codes, or ‘minfd’), which could be associated with various levels of food groupings.</p>
+<p>Each year, approximately 7,000 households across the UK were chosen at random from voting roles and asked to participate. From 1974 to 2000, almost 190,000 households participated.</p>
+<p>Consenting households tracked all food purchases (what food and how much of it) for one week in a ‘diet diary’.</p>
+<p>The raw diet diary entries list foods as one of over 300 minor food codes, or ‘minfd’, which can be mapped to one of 184 major food codes ‘majfd’. There are several native food group mappings included with the NFS data, but those food groupings tend to focus on economic details more than nutrition oriented details. So, this study assigned each row in the diet diary to one of sixteen food groups based on an iterative literature informed (CITATIONS) manual review of all reported foods. This food group mapping is included in the Appendix.</p>
 <p>Additionally, the NFS included annually adjusted nutrient conversion information for each of the minor food codes, allowing the recorded type and quantity to be converted into a nutrient profile for that purchase, and aggregated to a nutrient profile for each household.</p>
-<p>Demographic and economic information is also included with the NFS data. However, this analysis assesses diet composition per calorie, not diet quantity per capita. So, the only demographic information that was really used in this analysis is the regional location of each household.</p>
-<section id="dietary-unit-transformation" class="level3">
-<h3 class="anchored" data-anchor-id="dietary-unit-transformation">Dietary Unit Transformation</h3>
-<section id="food-groups" class="level4">
-<h4 class="anchored" data-anchor-id="food-groups">Food groups</h4>
-<p>Each diary row was assigned to one of sixteen food groups based on an iterative literature informed (CITATION) manual review of all reported minimal food codes. Then row wise quantities of each food group were aggregated and converted to calories from that food group.</p>
-<p>household’s total food purchases were converted to total calories</p>
+<p>Demographic and economic information is also included with the NFS data. However, this analysis assesses diet composition per calorie, not diet quantity per capita. So, the only demographic information that was ultimately used in this analysis is the regional location of each household.</p>
+</section>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"></h2>
+<section id="dietary-feature-engineering" class="level3">
+<h3 class="anchored" data-anchor-id="dietary-feature-engineering">Dietary Feature Engineering</h3>
+<section id="household-food-group-profiles" class="level4">
+<h4 class="anchored" data-anchor-id="household-food-group-profiles">Household food group profiles</h4>
+<p>For each diet diary row, calories were calculated based on NFS provided nutrient conversion factor for Energy (kCal) for the given food multiplied by the consumable quantity reported.</p>
+<ul>
+<li>MATH EQYATION 1 -</li>
+</ul>
+<p>Then, for each household, calories were aggregated for each of the assigned food groups, and then divided by total calories for that household.</p>
+<ul>
+<li>MATH EQUATION 2 -</li>
+</ul>
+<p>This resulted in a ‘calorie ratio’ for each food group for that household for that week. This normalized metric cancels out quantity, and purely examines the qualitative composition of each household’s reported food acquisition for the week. Therefore, the number of people in the household do not factor into this metric, and further demographic considerations did not need to be calculated.</p>
+<p>Finally, calorie ratios for all food groups were normalized by Standard Scaler and z-scored, with the means set to zero and the standard deviations set to plus or minus one.</p>
+</section>
+<section id="household-nutrient-profiles" class="level4">
+<h4 class="anchored" data-anchor-id="household-nutrient-profiles">Household nutrient profiles</h4>
+<p>Total calories were calculated for each household as with the food group feature engineering (Eq 1). Then, each minor food code ‘minfd’ was converted to the nutrient profile for that food multipled by the quantity reported. This effectively expanded each diary entry row into twenty rows, one for each of the twenty nutrients tracked throughout the data, with the appropriate unit quantity for each nutrient reported.</p>
+<ul>
+<li>MATH EQYATION 3 -</li>
+</ul>
+<p>Maintaining each nutrient’s native unit (grams, milligrams, micrograms, etc), the total quantity of each nutrient across all food purchases was aggregated for each household. Those quantities were then divided by total calories for that household.</p>
+<ul>
+<li>MATH EQUATION - ?</li>
+</ul>
+<p>The resultant nutrient profile metric, ‘quantity per total calories,’ is similar in spirit to the ‘calorie-ratio’ metric from the food groups.</p>
+<p>However, a pure calorie comparison for nutrients would not be viable, as certain nutrients (carbohydrates, fats) have abundant calories while other nutrients (vitamins) have essentially zero calories. Hence, native nutrient units were maintained and divided by the common total calories. This might preclude comparison amongst nutrients, but this analysis assesses household nutrient profiles, so the variation in fundamental units was not problematic.</p>
+<p>Furthermore, the nutrient quanity-per-total-calorie unit was also subjected to the Standared Scaler and z-scored before further analysis.</p>
 </section>
 </section>
 </section>
@@ -409,8 +436,8 @@ div.csl-indent {
 <h1>Analysis</h1>
 <p>Aggregations by food group and aggregations by nutrient were assessed with principle component analysis (PCA) and k-means clustering.</p>
 <p>The entire set of ~190,000 household were analyzed for PCA and k-means clustering, but t-SNE visual renderings use a smaller sample size to enable more rapid report iteration.</p>
-<section id="food-groups-1" class="level2">
-<h2 class="anchored" data-anchor-id="food-groups-1">FOOD GROUPS</h2>
+<section id="food-groups" class="level2">
+<h2 class="anchored" data-anchor-id="food-groups">FOOD GROUPS</h2>
 <section id="pca-principal-component-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="pca-principal-component-analysis">PCA (principal component analysis)</h3>
 <div id="cell-fig-scree-plot" class="cell">
@@ -605,11 +632,11 @@ Figure&nbsp;11: Nutrient cluster proportions over time as line plot.
 </div>
 </div>
 </section>
-<section id="section" class="level3">
-<h3 class="anchored" data-anchor-id="section"></h3>
-</section>
 <section id="section-1" class="level3">
 <h3 class="anchored" data-anchor-id="section-1"></h3>
+</section>
+<section id="section-2" class="level3">
+<h3 class="anchored" data-anchor-id="section-2"></h3>
 </section>
 <section id="stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" class="level3">
 <h3 class="anchored" data-anchor-id="stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time">Stats for Proportions Confirming the Significance of Changing Clusters Over Time</h3>
@@ -787,6 +814,24 @@ Figure&nbsp;16: Not consistent l;a against blood proessure in the same time
 </div>
 </div>
 <p>There is some regional variation in SEV risk rates over time for these chronic disease symptoms, but the only notable anomaly is the rate of high BMI in Wales compared to other regions. Wales has about 50% high BMI SEV risk for the whole dataset, whereas other regions do not approach that level of risk until later years, if at all.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>     majfd                                majfddesc          group_55 group_17
+0        4             LIQUID WHOLEMILK, FULL PRICE              Milk     Milk
+1        5                      MILK LIQUID WELFARE              Milk     Milk
+2        6                       MILK LIQUID SCHOOL              Milk     Milk
+3        9                           MILK CONDENSED              Milk     Milk
+4       10                      MILK DRIED NATIONAL              Milk     Milk
+..     ...                                      ...               ...      ...
+179    385  LA WINE, WINE AND SPIRITS WITH ADDITION              Wine  Alcohol
+180    386                          FORTIFIED WINES              Wine  Alcohol
+181    387                                  SPIRITS  Spirits/Liqueurs  Alcohol
+182    388                                 LIQUEURS  Spirits/Liqueurs  Alcohol
+183    389                     ALCOHOLIC CARBONATES  Spirits/Liqueurs  Alcohol
+
+[184 rows x 4 columns]</code></pre>
+</div>
+</div>
 </section>
 <section id="references" class="level1">
 <h1>References</h1>

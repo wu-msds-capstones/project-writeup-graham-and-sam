@@ -6,22 +6,50 @@ The UK's National Food Suvery (NFS) started in 1940 and eventually evolved into 
 
 For interested parties with institutional credentials, the UK Data Service, does provide a curated batch of NFS data that spans from 1974-2000.  https://ukdataservice.ac.uk
 
-Each year, approximately 7,000 households across the UK were chosen at random from voting roles and asked to participate. From 1974 to 2000, almost 190,000 households participated. Consenting households tracked all food purchases (what food and how much of it) for one week in a 'diet diary'.  
+Each year, approximately 7,000 households across the UK were chosen at random from voting roles and asked to participate. From 1974 to 2000, almost 190,000 households participated. 
 
-The raw diet diary entries listed foods as one of about 400 options (minor food codes, or 'minfd'), which could be associated with various levels of food groupings.  
+Consenting households tracked all food purchases (what food and how much of it) for one week in a 'diet diary'.  
+
+The raw diet diary entries list foods as one of over 300 minor food codes, or 'minfd', which can be mapped to one of 184 major food codes 'majfd'.  There are several native food group mappings included with the NFS data, but those food groupings tend to focus on economic details more than nutrition oriented details.  So, this study assigned each row in the diet diary to one of sixteen food groups based on an iterative literature informed (CITATIONS) manual review of all reported foods. This food group mapping is included in the Appendix.
 
 Additionally, the NFS included annually adjusted nutrient conversion information for each of the minor food codes, allowing the recorded type and quantity to be converted into a nutrient profile for that purchase, and aggregated to a nutrient profile for each household.
 
-Demographic and economic information is also included with the NFS data. However, this analysis assesses diet composition per calorie, not diet quantity per capita.  So, the only demographic information that was really used in this analysis is the regional location of each household.
+Demographic and economic information is also included with the NFS data. However, this analysis assesses diet composition per calorie, not diet quantity per capita.  So, the only demographic information that was ultimately used in this analysis is the regional location of each household.
 
-### Dietary Unit Transformation
-
-#### Food groups
-
-Each diary row was assigned to one of sixteen food groups based on an iterative literature informed (CITATION) manual review of all reported minimal food codes. Then row wise quantities of each food group were aggregated and converted to calories from that food group.
+##
 
 
- household's total food purchases were converted to total calories
+### Dietary Feature Engineering
+
+#### Household food group profiles
+
+For each diet diary row, calories were calculated based on NFS provided nutrient conversion factor for Energy (kCal) for the given food multiplied by the consumable quantity reported.  
+
+- MATH EQYATION 1 -
+ 
+Then, for each household, calories were aggregated for each of the assigned food groups, and then divided by total calories for that household.
+
+- MATH EQUATION 2 -
+
+This resulted in a 'calorie ratio' for each food group for that household for that week.  This normalized metric cancels out quantity, and purely examines the qualitative composition of each household's reported food acquisition for the week.  Therefore, the number of people in the household do not factor into this metric, and further demographic considerations did not need to be calculated.
+
+Finally, calorie ratios for all food groups were normalized by Standard Scaler and z-scored, with the means set to zero and the standard deviations set to plus or minus one.
+
+#### Household nutrient profiles
+
+Total calories were calculated for each household as with the food group feature engineering (Eq 1).  Then, each minor food code 'minfd' was converted to the nutrient profile for that food multipled by the quantity reported. This effectively expanded each diary entry row into twenty rows, one for each of the twenty nutrients tracked throughout the data, with the appropriate unit quantity for each nutrient reported.  
+
+- MATH EQYATION 3 -
+
+ Maintaining each nutrient's native unit (grams, milligrams, micrograms, etc), the total quantity of each nutrient across all food purchases was aggregated for each household. Those quantities were then divided by total calories for that household.
+
+- MATH EQUATION - ?
+
+The resultant nutrient profile metric, 'quantity per total calories,' is similar in spirit to the 'calorie-ratio' metric from the food groups. 
+
+However, a pure calorie comparison for nutrients would not be viable, as certain nutrients (carbohydrates, fats) have abundant calories while other nutrients (vitamins) have essentially zero calories. Hence, native nutrient units were maintained and divided by the common total calories.  This might preclude comparison amongst nutrients, but this analysis assesses household nutrient profiles, so the variation in fundamental units was not problematic.
+
+Furthermore, the nutrient quanity-per-total-calorie unit was also subjected to the Standared Scaler and z-scored before further analysis.
 
 
 

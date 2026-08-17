@@ -17,3 +17,10 @@ plt.show()
 ```
 
 There is some regional variation in SEV risk rates over time for these chronic disease symptoms, but the only notable anomaly is the rate of high BMI in Wales compared to other regions. Wales has about 50% high BMI SEV risk for the whole dataset, whereas other regions do not approach that level of risk until later years, if at all.
+
+
+
+```{python}
+food_group_csv = pd.read_csv('shared_data/food_group_reference.csv')
+food_group_csv
+```
