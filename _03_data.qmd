@@ -100,9 +100,9 @@ As described in detail below:
 
 The NFS evolved over time, and this evolution prompted several data cleaning decisions for this analysis.  
 
-To start, alcohol, confectioneries, and soft drinks were added as reportable food options in 1992. Previous to 1992, it is presumed that some UK households did purchase alcohol, confectioneries, and soft drinks though the records cannot show this.  All three of these are considered high calorie, so their sudden appearance does skew calorie adjusted calculations. In order to maintain consistency over time, all diet diary rows from these three categories were dropped from analysis, though the related households and all their other diet diary entries were retained.
+Alcohol, confectioneries, and soft drinks were added as reportable food options in 1992. It is presumed that some UK households did purchase alcohol, confectioneries, and soft drinks before 1992, but the diet diaries cannot show this.  All three categories are considered high-calorie, so their sudden appearance does skew calorie-adjusted calculations. In order to maintain consistency over time, all diet diary rows from these three categories were dropped from analysis, though the related households and all their other diet diary entries were retained.
 
-Initial analysis before dropping alochol had designated alochol as its own food group, for 17 total food groups.  After dropping all alochol rows, this analysis looked at 16 total foodgroups.
+Initial analysis before dropping alcohol had designated alcohol as its own food group, for 17 total food groups.  After dropping all alcohol rows, this analysis looked at 16 total foodgroups.
 
 Northern Ireland was only included in the survey starting in 1996. So, in the interest of consistency, Northern Ireland households were excluded from this analysis altogether.
 
