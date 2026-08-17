@@ -409,17 +409,17 @@ print(p_metabolic)
 
 ### Stats for Proportions Confirming the Significance of Changing Clusters Over Time
 
-A two proportion test was conducted to investigate the year by year trends for each cluster to determine their significance.
+A series of two-proportion z-tests assessed the significance of the year-over-year nutrient group cluster composition changes over the 27 year time period.
 
-Cluster 0 shows multiple statistically significant decline scattered throughout the time span. There are no significant reversals of this trend, so this cluster demonstrates slow, step-wise decline.
+Cluster 0 demonstrated a gradual contraction over the time period. It had 8 statistically significant annual shifts (30.8% of transitions). There was a scattered, but downward aiming shift without stark reversals upward.
 
-Cluster 1 stayed stable. It had few significant shifts and the overall proportion of its diet ownership suggests it has no strong directional trend.
+Cluster 1 exhibits consistent stability with the lowest volatility among the clusters. It only had 6 statistically significant transitions (23.1% of the shifts). There was not a specific trajectory instead, there were both positive and negative changes during the time span.
 
-Cluster 2 starts tiny and continuously grows to end with a diet proportion of 40%. It is the most dynamic cluster with string of statistically significant upward changes. It can confidently be said there is a significant strong positive trend in in its dietary proportion represented in households.
+Cluster 2 was the most dynamic cluster, noting a robust upward trend. Beginning with a baseline composition of around 3%, there was a leap to 40% of household diet share by the end of the period. A majority of year-over-year changes reach statistical significance (15 transitions or 57.7%) confirming a strong continued expansion.
 
-Cluster 3 fluctuates around 25-28%, it has volatility in 1990s, but beyond these outliers, it remains generally stable with fewer significant year to year changes.
+Cluster 3 fluctuates around 25-28% of household share. It was heavily influenced in the early 1990s (plausibly to a recession in the UK during this time period) with some volatility. Beyond this disruption, the trend remained broadly stable with 8 statistically significant transitions (30.8%).
 
-Cluster 4 has the largest initial share of diet. It consistently has downward trends, when disregarding the shock during 1990-1992. It has a sustained statistically significant downward trend over the time period.
+Cluster 4 began with the largest share of household diet share, but experienced consistent downward pressure. Disregarding the market shock in the early 1990s, the group had 11 statistically significant year-over-year transitions (42.3%) backing this claim..
 
 ```{r}
 data_source = qual_pca_nute    # your dataset
