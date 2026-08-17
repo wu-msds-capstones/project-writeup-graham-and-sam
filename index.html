@@ -305,14 +305,12 @@ window.Quarto = {
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">Background</a></li>
-  <li><a href="#data-engineering" id="toc-data-engineering" class="nav-link" data-scroll-target="#data-engineering">Data Engineering</a>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a>
   <ul class="collapse">
-  <li><a href="#diet-data-national-food-survey-1974-to-2000" id="toc-diet-data-national-food-survey-1974-to-2000" class="nav-link" data-scroll-target="#diet-data-national-food-survey-1974-to-2000">Diet data: <br> National Food Survey <br> (1974 to 2000)</a>
-  <ul class="collapse">
-  <li><a href="#dietary-data-feature-engineering" id="toc-dietary-data-feature-engineering" class="nav-link" data-scroll-target="#dietary-data-feature-engineering">Dietary Data Feature Engineering</a></li>
-  </ul></li>
+  <li><a href="#diet-data-national-food-survey-1974-to-2000" id="toc-diet-data-national-food-survey-1974-to-2000" class="nav-link" data-scroll-target="#diet-data-national-food-survey-1974-to-2000">Diet data: <br> National Food Survey <br> (1974 to 2000)</a></li>
+  <li><a href="#dietary-data-engineering" id="toc-dietary-data-engineering" class="nav-link" data-scroll-target="#dietary-data-engineering">Dietary Data Engineering</a></li>
   <li><a href="#disease-data-global-burden-of-disease-1990-to-2023" id="toc-disease-data-global-burden-of-disease-1990-to-2023" class="nav-link" data-scroll-target="#disease-data-global-burden-of-disease-1990-to-2023">Disease data: <br> Global Burden of Disease <br> (1990 to 2023)</a></li>
-  <li><a href="#pipeline-overview" id="toc-pipeline-overview" class="nav-link" data-scroll-target="#pipeline-overview">Pipeline Overview</a>
+  <li><a href="#data-pipeline-overview" id="toc-data-pipeline-overview" class="nav-link" data-scroll-target="#data-pipeline-overview">Data Pipeline Overview <br></a>
   <ul class="collapse">
   <li><a href="#diet-data-cleaning" id="toc-diet-data-cleaning" class="nav-link" data-scroll-target="#diet-data-cleaning">Diet data cleaning</a></li>
   <li><a href="#diet-data-aggregation" id="toc-diet-data-aggregation" class="nav-link" data-scroll-target="#diet-data-aggregation">Diet data aggregation</a></li>
@@ -389,8 +387,8 @@ window.Quarto = {
 <p>While the results presented herein are explicitly pertinent to aggregate population-level trends, it would not be unreasonable for an individual person to take some inspiration from these findings. A population is a collection of individuals, after all.</p>
 <p>More importantly though, population-level statistical findings are certainly appropriate for public health officials. Better information about time-lagged population-level diet and disease correlations can be used to inform policy making and progress monitoring for diet oriented public health initiatives.</p>
 </section>
-<section id="data-engineering" class="level1">
-<h1>Data Engineering</h1>
+<section id="data" class="level1">
+<h1>Data</h1>
 <section id="diet-data-national-food-survey-1974-to-2000" class="level2">
 <h2 class="anchored" data-anchor-id="diet-data-national-food-survey-1974-to-2000">Diet data: <br> National Food Survey <br> (1974 to 2000)</h2>
 <p>All dietary data for this project originates from the UK government’s National Food Suvery (NFS). The NFS started in 1940 and eventually evolved into the Living Costs and Food Survey, which is active in 2026.</p>
@@ -403,8 +401,9 @@ window.Quarto = {
 <p>Additionally, the NFS included annually adjusted nutrient conversion information for each of the minor food codes, allowing the recorded type and quantity to be converted into a nutrient profile for that purchase, and in turn aggregated to an overall nutrient profile for each household.</p>
 <p>Demographic and economic information is also included with the NFS data. However, this analysis assesses diet composition per calorie, not diet quantity per capita. While calorie-per-person-per-day was used to cull data devoid households in the data cleaning (discussed below), the food group and nutrient profile metrics carried forward into the analysis are quantity agnostic.</p>
 <p>So, the only demographic information that was ultimately used in this analysis is the regional location of each household.</p>
-<section id="dietary-data-feature-engineering" class="level3">
-<h3 class="anchored" data-anchor-id="dietary-data-feature-engineering">Dietary Data Feature Engineering</h3>
+</section>
+<section id="dietary-data-engineering" class="level2">
+<h2 class="anchored" data-anchor-id="dietary-data-engineering">Dietary Data Engineering</h2>
 <section id="household-food-group-profiles" class="level4">
 <h4 class="anchored" data-anchor-id="household-food-group-profiles">Household food group profiles</h4>
 <p>For each diet diary row, calories were calculated based on NFS provided nutrient conversion factor for Energy (kCal) for the given food multiplied by the consumable quantity <code>cq</code> reported (<a href="#eq-row-calories" class="quarto-xref">Equation&nbsp;1</a>).</p>
@@ -434,7 +433,6 @@ nutrient\_quantity\_per\_total\_cal_{row} =  \frac{\text{total quantity per nutr
 <p>Furthermore, variations in magnitude amongst the derived nutrient-quanity-per-total-calorie unit was also subjected to the Standared Scaler and z-scored before analysis.</p>
 </section>
 </section>
-</section>
 <section id="disease-data-global-burden-of-disease-1990-to-2023" class="level2">
 <h2 class="anchored" data-anchor-id="disease-data-global-burden-of-disease-1990-to-2023">Disease data: <br> Global Burden of Disease <br> (1990 to 2023)</h2>
 <p>Population-level disease risk rates for High LDL cholesterol and other metabolic-disease associated risk factors were acquired from the Institute for Health Metrics and Evaluation (IHME), using their <a href="https://vizhub.healthdata.org/gbd-results/">Global Burden of Disease (GBD) Results tool</a>.</p>
@@ -443,18 +441,20 @@ nutrient\_quantity\_per\_total\_cal_{row} =  \frac{\text{total quantity per nutr
 <p>From there, the chronic disease risk factors and conditions for which SEV information were metabolic risks: High LDL Cholesterol, High Body Mass Index, High Fasting Plasma Glucose Systolic Blood Pressure, Kidney Dysfunction, Low Bone Mineral Density, and overall Metabolic Risks.</p>
 <p>These risk rates were hand-selected and obtained preaggreagted at a population level, grouped by UK region and by year. For the scope of this project, all ages and both sexes were included in SEV information.</p>
 </section>
-<section id="pipeline-overview" class="level2">
-<h2 class="anchored" data-anchor-id="pipeline-overview">Pipeline Overview</h2>
-<p>As described in detail below: * diet diary data was cleaned and aggregated by food group and by nutrient profile for each household in the dataset.</p>
-<pre><code>* This yielded a sixteen-dimensional food group vector and a twenty-dimensional nutrient vector for each household.  
-
-* Those vectors were subjected to a machine learning pipeline that assigned a food group cluster label and a nutrient cluster label to each household.  Principle component analysis was used to understand and visualize the clustering.  
-
-* Changing proportions of those clusters in the total population were assessed over time using a variety of statistical tests, in addition to visual inspection of time-based line plots.  
-
-* Population-level SEV risk rates were then joined at varying time-lags on year and region.
-
-* The year-on-year rate of change for a given cluster proportion was correlated with year-on-year rate of change for metabolic disease risk factors at varying time lags.   </code></pre>
+<section id="data-pipeline-overview" class="level2">
+<h2 class="anchored" data-anchor-id="data-pipeline-overview">Data Pipeline Overview <br></h2>
+<p>As described in detail below:</p>
+<ul>
+<li>Diet diary data was cleaned and aggregated by food group and by nutrient profile for each household in the dataset.</li>
+<li>This yielded a sixteen-dimensional food group vector and a twenty-dimensional nutrient vector for each household.<br>
+</li>
+<li>Those vectors were subjected to a machine learning pipeline that assigned a food group cluster label and a nutrient cluster label to each household. Principle component analysis was used to understand and visualize the clustering.<br>
+</li>
+<li>Changing proportions of those clusters in the total population were assessed over time using a variety of statistical tests, in addition to visual inspection of time-based line plots.<br>
+</li>
+<li>Population-level SEV risk rates were then joined at varying time-lags on year and region.</li>
+<li>The year-on-year rate of change for a given cluster proportion was correlated with year-on-year rate of change for metabolic disease risk factors at varying time lags.</li>
+</ul>
 <section id="diet-data-cleaning" class="level3">
 <h3 class="anchored" data-anchor-id="diet-data-cleaning">Diet data cleaning</h3>
 <p>The NFS evolved over time, and this evolution prompted several data cleaning decisions for this analysis.</p>
@@ -467,18 +467,19 @@ nutrient\_quantity\_per\_total\_cal_{row} =  \frac{\text{total quantity per nutr
 </section>
 <section id="diet-data-aggregation" class="level3">
 <h3 class="anchored" data-anchor-id="diet-data-aggregation">Diet data aggregation</h3>
-<p>Dietary data aggregation was undertaken to generate the features described with <a href="#eq-food-groups-calorie-ratio" class="quarto-xref">Equation&nbsp;2</a>, <a href="#eq-row-calories" class="quarto-xref">Equation&nbsp;1</a>, <strong>?@eq-food-groups-calorie-ratio-3</strong>, and <strong>?@eq-food-groups-calorie-ratio-4</strong> above. The raw download from the UK Data Service has a folder for each year between 1974 and 2000, with space separated text files for diet diary, household information, and nutrient conversion factors. All years of the NFS data share minor to major food code look up tables with consistent food code descriptions.</p>
+<p>Dietary data aggregation was undertaken to generate the features described with <a href="#eq-row-calories" class="quarto-xref">Equation&nbsp;1</a>, <a href="#eq-food-groups-calorie-ratio" class="quarto-xref">Equation&nbsp;2</a>, <a href="#eq-nutrient-calorie-ratio-3" class="quarto-xref">Equation&nbsp;3</a>, and <a href="#eq-nutrient-quantity-calorie-ratio-4" class="quarto-xref">Equation&nbsp;4</a> above.</p>
+<p>The raw download from the UK Data Service has a folder for each year between 1974 and 2000, with space separated text files for diet diary, household information, and nutrient conversion factors. All years of the NFS data share minor to major food code look up tables with consistent food code descriptions.</p>
 <section id="household-food-group-profile-aggregation" class="level4">
 <h4 class="anchored" data-anchor-id="household-food-group-profile-aggregation">Household food group profile aggregation</h4>
-<p>On a year by year basis, calorie-specific nutrient conversion information was joined to each row of the diet diary (on minor food code, ‘minfd’), multiplied by consumable quantity ‘cq’, and then summed per household to calculate total calories for that household (<a href="#eq-row-calories" class="quarto-xref">Equation&nbsp;1</a>). Total household calories was later joined back to un-aggregated data as needed.</p>
+<p>On a year by year basis, calorie-specific nutrient conversion information was joined to each row of the diet diary (on minor food code, <code>minfd</code>), multiplied by consumable quantity <code>cq</code>, and then summed per household to calculate total calories for that household (<a href="#eq-row-calories" class="quarto-xref">Equation&nbsp;1</a>). Total household calories was later joined back to un-aggregated data as needed.</p>
 <p>Minor food codes were mapped to major food codes, which were then mapped to custom food group labels (see Appendix). Then each row was grouped by household and by foodgroup, aggregating total calories for each food group and for each household. From there, every household could be assigned a proportion of total calories that was attributable to each foodgroup <a href="#eq-food-groups-calorie-ratio" class="quarto-xref">Equation&nbsp;2</a>.</p>
-<p>Household information was then joined on household number (‘hhno’) to obtain the correct goverment office region for each household.</p>
+<p>Household information was then joined on household number (<code>hhno</code>) to obtain the correct goverment office region for each household.</p>
 <p>Finally, each year’s processed aggregated food group profile data was appended to a list of dataframes and vertically concatenated.</p>
 </section>
 <section id="household-nutrient-profile-aggregation" class="level4">
 <h4 class="anchored" data-anchor-id="household-nutrient-profile-aggregation">Household nutrient profile aggregation</h4>
-<p>Year by year, nutrient conversion information for all included nutrients was joined to each row of the diet diary (on minor food code, ‘minfd’), multiplied by consumable quantity ‘cq’, and then summed by household to calculate quantity of that nutrient for that household (<a href="#eq-nutrient-calorie-ratio-3" class="quarto-xref">Equation&nbsp;3</a>). This automatically included total calories for that household, which was then used to create quantity-per-total-calorie metrics for each household and each nutrient <a href="#eq-nutrient-quantity-calorie-ratio-4" class="quarto-xref">Equation&nbsp;4</a>.</p>
-<p>Household information was then joined on household number <code>hhno</code> to obtain the correct goverment office region ‘gor’ for each household.</p>
+<p>Year by year, nutrient conversion information for all included nutrients was joined to each row of the diet diary (on minor food code, <code>minfd</code>), multiplied by consumable quantity <code>cq</code>, and then summed by household to calculate quantity of that nutrient for that household (<a href="#eq-nutrient-calorie-ratio-3" class="quarto-xref">Equation&nbsp;3</a>). This automatically included total calories for that household, which was then used to create quantity-per-total-calorie metrics for each household and each nutrient <a href="#eq-nutrient-quantity-calorie-ratio-4" class="quarto-xref">Equation&nbsp;4</a>.</p>
+<p>Household information was then joined on household number <code>hhno</code> to obtain the correct goverment office region <code>gor</code> for each household.</p>
 <p>Finally, each year’s processed aggregated nutrient profile data was appended to a list of dataframes and vertically concatenated.</p>
 </section>
 <section id="machine-learning-pipeline" class="level4">
@@ -868,6 +869,7 @@ Table&nbsp;1: Cochran-Armitage trend test results, by nutrient cluster
 </section>
 <section id="companion-robustness-kendall-tau-trend-test" class="level3">
 <h3 class="anchored" data-anchor-id="companion-robustness-kendall-tau-trend-test">Companion Robustness: Kendall Tau Trend Test</h3>
+<p>The Kendall’s Tau trend test was employed as a companion check to the Cochran-Armitage test. The Cochran-Armitage test models trends through a counts structure that was approximately linear. The Kendall test does not operate with the same assumptions, thus it is a warranted robustness check for clusters with a nonconforming structure. The Kendall test ranked the years and determined if the direction of the change was consistent. It was applied to each cluster’s composition proportion. It looked at more than just year-to-year changes and worked to give a more comprehensive view of the trends. It found the same pattern as the Cochran-Armitage test: every cluster except for Cluster 1 showed expressed consistent monotonic movement with the corresponding sign to the previous test. The agreement of the tests support the conclusion that there are compositional shifts in the diet clusters, namely that Cluster 2 increased for this UK population.</p>
 <div class="cell">
 <div id="tbl-kendall-tau" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
