@@ -316,8 +316,6 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#diet-data-cleaning" id="toc-diet-data-cleaning" class="nav-link" data-scroll-target="#diet-data-cleaning">Diet data cleaning</a></li>
   <li><a href="#diet-data-aggregation" id="toc-diet-data-aggregation" class="nav-link" data-scroll-target="#diet-data-aggregation">Diet data aggregation</a></li>
-  <li><a href="#household-food-group-profile-aggregation" id="toc-household-food-group-profile-aggregation" class="nav-link" data-scroll-target="#household-food-group-profile-aggregation">Household food group profile aggregation</a></li>
-  <li><a href="#household-nutrient-profile-aggregation" id="toc-household-nutrient-profile-aggregation" class="nav-link" data-scroll-target="#household-nutrient-profile-aggregation">Household nutrient profile aggregation</a></li>
   </ul></li>
   <li><a href="#project-scalability" id="toc-project-scalability" class="nav-link" data-scroll-target="#project-scalability">Project scalability</a></li>
   <li><a href="#ethics-and-responsible-use" id="toc-ethics-and-responsible-use" class="nav-link" data-scroll-target="#ethics-and-responsible-use">Ethics and Responsible Use</a></li>
@@ -457,22 +455,38 @@ calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
 <section id="diet-data-aggregation" class="level3">
 <h3 class="anchored" data-anchor-id="diet-data-aggregation">Diet data aggregation</h3>
 <p>Dietary data aggregation was undertaken to generate the features described with <a href="#eq-food-groups-calorie-ratio" class="quarto-xref">Equation&nbsp;2</a>, <a href="#eq-row-calories" class="quarto-xref">Equation&nbsp;1</a>, <a href="#eq-food-groups-calorie-ratio-3" class="quarto-xref">Equation&nbsp;3</a>, and <a href="#eq-food-groups-calorie-ratio-4" class="quarto-xref">Equation&nbsp;4</a> above. The raw download from the UK Data Service has a folder for each year between 1974 and 2000, with space separated text files for diet diary, household information, and nutrient conversion factors. All years of the NFS data share minor to major food code look up tables with consistent food code descriptions.</p>
-</section>
-<section id="household-food-group-profile-aggregation" class="level3">
-<h3 class="anchored" data-anchor-id="household-food-group-profile-aggregation">Household food group profile aggregation</h3>
+<section id="household-food-group-profile-aggregation" class="level4">
+<h4 class="anchored" data-anchor-id="household-food-group-profile-aggregation">Household food group profile aggregation</h4>
 <p>Year by year, calories nutrient conversion information (Energy kCal) was joined to each row of the diet diary (on minor food code, ‘minfd’), multiplied by consumable quantity ‘cq’, and then summed by household to calculate total calories for that household (<a href="#eq-row-calories" class="quarto-xref">Equation&nbsp;1</a>). Total household calories was later joined back to un-aggregated data as needed.</p>
 <p>Minor food codes were mapped to major food codes, which were then mapped to custom food group labels (see Appendix). Then each row was grouped by household and by foodgroup, aggregating total calories for each food group and for each household. From there, everyhouse hold could be assigned a proportion of total calories that was attributable to each foodgroup <a href="#eq-food-groups-calorie-ratio" class="quarto-xref">Equation&nbsp;2</a>.</p>
 <p>Household information was then joined on household number (‘hhno’) to obtain the correct goverment office region for each household.</p>
+<p>Finally, each year’s processed aggregated food group profile data was appended to a list of dataframes and vertically concatenated.</p>
 </section>
-<section id="household-nutrient-profile-aggregation" class="level3">
-<h3 class="anchored" data-anchor-id="household-nutrient-profile-aggregation">Household nutrient profile aggregation</h3>
+<section id="household-nutrient-profile-aggregation" class="level4">
+<h4 class="anchored" data-anchor-id="household-nutrient-profile-aggregation">Household nutrient profile aggregation</h4>
+<p>Year by year, nutrient conversion information for all included nutrients was joined to each row of the diet diary (on minor food code, ‘minfd’), multiplied by consumable quantity ‘cq’, and then summed by household to calculate quantity of that nutrient for that household (<a href="#eq-food-groups-calorie-ratio-3" class="quarto-xref">Equation&nbsp;3</a>). This automatically included total calories for that household, which was then used to create quantity-per-total-calorie metrics for each household and each nutrient <a href="#eq-food-groups-calorie-ratio-4" class="quarto-xref">Equation&nbsp;4</a>.</p>
+<p>Household information was then joined on household number (‘hhno’) to obtain the correct goverment office region ‘gor’ for each household.</p>
+<p>Finally, each year’s processed aggregated nutrient profile data was appended to a list of dataframes and vertically concatenated.</p>
+</section>
+<section id="machine-learning-pipeline" class="level4">
+<h4 class="anchored" data-anchor-id="machine-learning-pipeline">Machine Learning Pipeline</h4>
+<p>The data for both food group and nutrient profiles were pivoted to a wide format, with each household retaining a row, and each column becoming one of the foodgroups or nutrients. The values in the wide pivot table were the household’s calorie ratio or quantity-per-total-calorie for that food group or nutrient, respectively. The wide tables were then z-score normalized.</p>
+<p>The machine learning pipeline (descibed in detail in the Analysis section) assigned food group profile cluster labels and nutrient profile cluster labels to each household.</p>
+<p>Proportions of each cluster type amongst all households was then plotted and assessed over time, nationally and regionally. Changes in these proportions is the fundamental explanatory variable of this analysis.</p>
+</section>
+<section id="joining-disease-data" class="level4">
+<h4 class="anchored" data-anchor-id="joining-disease-data">Joining disease data</h4>
+<p>Once food group and nutrient profile cluster labels were assigned and population-level proportions of those clusters were tracked over time, the IHME data with SEV rates for several metabolic risk factors was joined on region and year.</p>
+<p>Since this analysis assesses time-lag, the IHME data was joined across a sweep of lag years, so that for a given diet data year, columns for corresponding SEV rates for a range of lag years (zero years to up to 49 years) were added.</p>
+</section>
 </section>
 </section>
 <section id="project-scalability" class="level2">
 <h2 class="anchored" data-anchor-id="project-scalability">Project scalability</h2>
 <p>The exact aggregation scripts that transform the raw diet diary data into usuable machine learning inputs are specific to the conventions of the 1974 to 2000 NFS data collection process. Ingestion of other similar dietary data would not automatically work with those scripts.</p>
-<p>That said, modifications to the ingestion and aggregation scripts could facilitate ingestion of applicable similar data. Once ingested and aggregated according to the feature engineering steps described above, harmonizable diet data from other sources (the UK in later years, the United States, or other countries) could be integrated into the analysis.</p>
+<p>That said, modifications to the ingestion and aggregation scripts could facilitate ingestion of applicable similar data. Once ingested and aggregated according to the feature engineering steps described above, harmonizable diet data from other sources (the UK in later years, the United States, or other countries) could be integrated into the analysis. If appropriately prepared, it could potentially be clustered by the ML pipeline in this project and analyzed downstream as if it were from the original data.</p>
 <p>The chronic disease data from the GBD Results tool is easily scalable, and compatible chronic disease SEV data for other developed nations could be obtained and integegrated into this analysis.</p>
+<p>All that said, due diligence would be required to make sure any new dietary data was actually harmonizable, and potential external confounding factors would have to be sought and ruled out.</p>
 </section>
 <section id="ethics-and-responsible-use" class="level2">
 <h2 class="anchored" data-anchor-id="ethics-and-responsible-use">Ethics and Responsible Use</h2>

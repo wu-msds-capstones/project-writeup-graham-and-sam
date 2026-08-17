@@ -98,7 +98,7 @@ Dietary data aggregation was undertaken to generate the features described with 
 The raw download from the UK Data Service has a folder for each year between 1974 and 2000, with space separated text files for diet diary, household information, and nutrient conversion factors.  All years of the NFS data share minor to major food code look up tables with consistent food code descriptions.
 
 
-### Household food group profile aggregation
+#### Household food group profile aggregation
 
 Year by year, calories nutrient conversion information (Energy kCal) was joined to each row of the diet diary (on minor food code, 'minfd'), multiplied by consumable quantity 'cq', and then summed by household to calculate total calories for that household (@eq-row-calories). Total household calories was later joined back to un-aggregated data as needed.
 
@@ -106,19 +106,43 @@ Minor food codes were mapped to major food codes, which were then mapped to cust
 
 Household information was then joined on household number ('hhno') to obtain the correct goverment office region for each household. 
 
+Finally, each year's processed aggregated food group profile data was appended to a list of dataframes and vertically concatenated.
 
 
-### Household nutrient profile aggregation
+#### Household nutrient profile aggregation
+
+Year by year, nutrient conversion information for all included nutrients was joined to each row of the diet diary (on minor food code, 'minfd'), multiplied by consumable quantity 'cq', and then summed by household to calculate quantity of that nutrient for that household (@eq-food-groups-calorie-ratio-3).  This automatically included total calories for that household, which was then used to create quantity-per-total-calorie metrics for each household and each nutrient @eq-food-groups-calorie-ratio-4.
+
+Household information was then joined on household number ('hhno') to obtain the correct goverment office region 'gor' for each household. 
+
+Finally, each year's processed aggregated nutrient profile data was appended to a list of dataframes and vertically concatenated.
+
+
+#### Machine Learning Pipeline
+
+The data for both food group and nutrient profiles were pivoted to a wide format, with each household retaining a row, and each column becoming one of the foodgroups or nutrients.  The values in the wide pivot table were the household's calorie ratio or quantity-per-total-calorie for that food group or nutrient, respectively. The wide tables were then z-score normalized.
+
+The machine learning pipeline (descibed in detail in the Analysis section) assigned food group profile cluster labels and nutrient profile cluster labels to each household.  
+
+Proportions of each cluster type amongst all households was then plotted and assessed over time,  nationally and regionally.  Changes in these proportions is the fundamental explanatory variable of this analysis.
+
+
+#### Joining disease data
+
+Once food group and nutrient profile cluster labels were assigned and population-level proportions of those clusters were tracked over time, the IHME data with SEV rates for several metabolic risk factors was joined on region and year. 
+
+Since this analysis assesses time-lag, the IHME data was joined across a sweep of lag years, so that for a given diet data year, columns for corresponding SEV rates for a range of lag years (zero years to up to 49 years) were added.
 
 
 ## Project scalability
 
 The exact aggregation scripts that transform the raw diet diary data into usuable machine learning inputs are specific to the conventions of the 1974 to 2000 NFS data collection process. Ingestion of other similar dietary data would not automatically work with those scripts. 
 
-That said, modifications to the ingestion and aggregation scripts could facilitate ingestion of applicable similar data. Once ingested and aggregated according to the feature engineering steps described above, harmonizable diet data from other sources (the UK in later years, the United States, or other countries) could be integrated into the analysis. 
+That said, modifications to the ingestion and aggregation scripts could facilitate ingestion of applicable similar data. Once ingested and aggregated according to the feature engineering steps described above, harmonizable diet data from other sources (the UK in later years, the United States, or other countries) could be integrated into the analysis.  If appropriately prepared, it could potentially be clustered by the ML pipeline in this project and analyzed downstream as if it were from the original data.
 
-The chronic disease data from the GBD Results tool is easily scalable, and compatible chronic disease SEV data for other developed nations could be obtained and integegrated into this analysis.
+The chronic disease data from the GBD Results tool is easily scalable, and compatible chronic disease SEV data for other developed nations could be obtained and integegrated into this analysis.  
 
+All that said, due diligence would be required to make sure any new dietary data was actually harmonizable, and potential external confounding factors would have to be sought and ruled out.
 
 
 ## Ethics and Responsible Use
