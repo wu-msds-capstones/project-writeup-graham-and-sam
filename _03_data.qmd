@@ -8,15 +8,19 @@ However, not all of the associated data is publicly available.
 
 For interested parties with institutional credentials, the [UK Data Service](https://ukdataservice.ac.uk) does provide a curated batch of NFS data that spans from 1974-2000.  
 
-Each year, approximately 7,000 households across the UK were chosen at random from voting roles and asked to participate by keeping a one week diet diary. From 1974 to 2000, almost 190,000 households participated. 
+Each year, approximately 7,000 households across the UK were chosen at random from voting roles and asked to participate by keeping a one week diet diary. From 1974 to 2000, almost 190,000 total households participated. 
 
-Consenting households tracked all food purchases for one week, recording the consumable quantity ('cq') of each purchase and assigning it to one of over 300 minor food codes ('minfd'). Each minor food codeh can be mapped to one of 184 major food codes ('majfd').  
+Consenting households tracked all food purchases for one week, recording the consumable quantity ('cq') of each purchase and assigning it to one of over 300 minor food codes ('minfd'). Each minor food code can be mapped to one of 184 major food codes ('majfd').  
 
-There are several native food group mappings included with the NFS data, but those food groupings tend to focus on economic details more than nutrition oriented details.  So, this study assigned each row in the diet diary to one of sixteen food groups based on an iterative literature informed (CITATIONS) manual review of all reported foods. This food group mapping is included in the Appendix.
+There are several native food group mappings included with the NFS data, but those food groupings tend to focus on economic details more than nutrition oriented details.  So, based on an iterative manual review of all reported foods in the data, a custom set of sixteen foodgroups was selected, based on literature[REFERNECES] and in order to assess the data from a nutritional perspective. Each row in the diet diaries was assigned a custom food group label, enabling food group profiling of each household.
 
-Additionally, the NFS included annually adjusted nutrient conversion information for each of the minor food codes, allowing the recorded type and quantity to be converted into a nutrient profile for that purchase, and aggregated to a nutrient profile for each household.
+A full printout of the custom food group mapping [insert link when reference availabe] is included in the Appendix.
 
-Demographic and economic information is also included with the NFS data. However, this analysis assesses diet composition per calorie, not diet quantity per capita.  So, the only demographic information that was ultimately used in this analysis is the regional location of each household.
+Additionally, the NFS included annually adjusted nutrient conversion information for each of the minor food codes, allowing the recorded type and quantity to be converted into a nutrient profile for that purchase, and in turn aggregated to an overall nutrient profile for each household.
+
+Demographic and economic information is also included with the NFS data. However, this analysis assesses diet composition per calorie, not diet quantity per capita.  While calorie-per-person-per-day was used to cull data devoid households in the data cleaning (discussed below),  the food group and nutrient profile metrics carried forward into the analysis are quantity agnostic.
+
+So, the only demographic information that was ultimately used in this analysis is the regional location of each household. 
 
 
 ### Dietary Data Feature Engineering
@@ -33,7 +37,7 @@ $$ {#eq-row-calories}
 Then, for each household, calories were aggregated for each of the assigned food groups, and then divided by total calories for that household.
 
 $$
-{calorie_ratio}_{food group} = \frac{\text{total calories per food group}}{\text{total calories per household}}
+{calorie\_ratio}_{food group} = \frac{\text{total calories per food group}}{\text{total calories per household}}
 $$ {#eq-food-groups-calorie-ratio}
 
 
@@ -43,13 +47,14 @@ Finally, calorie ratios for all food groups were normalized by Standard Scaler a
 
 #### Household nutrient profiles
 
-Total calories were calculated for each household as with the food group feature engineering (Eq 1).  Then, each minor food code 'minfd' was converted to the nutrient profile for that food multipled by the quantity reported. This effectively expanded each diary entry row into twenty rows, one for each of the twenty nutrients tracked throughout the data, with the appropriate unit quantity for each nutrient reported.  
+Total calories were calculated for each household as with the food group feature engineering @eq-food-groups-calorie-ratio.  
 
+Then, each minor food code 'minfd' was converted to the nutrient profile for that food multipled by the quantity reported 'cq'. This effectively expanded each diary entry row into twenty rows, one for each of the twenty nutrients tracked throughout the data, with the appropriate unit quantity for each nutrient reported.  
 
 
 $$
-calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
-$$ {#eq-food-groups-calorie-ratio-3}
+quantity_{nutrient} = cq_{row} \times \text{nutrient conversion factor}_{minfd}_row
+$$ {#eq-nutrient-calorie-ratio-3}
 
  Maintaining each nutrient's native unit (grams, milligrams, micrograms, etc), the total quantity of each nutrient across all food purchases was aggregated for each household. Those quantities were then divided by total calories for that household.
 
@@ -68,13 +73,13 @@ Furthermore, variations in magnitude amongst the derived nutrient-quanity-per-to
 
 Population-level disease risk rates for High LDL cholesterol and other metabolic-disease associated risk factors were acquired from the Institute for Health Metrics and Evaluation (IHME), using their [Global Burden of Disease (GBD) Results tool](https://vizhub.healthdata.org/gbd-results/).
 
-The data was specifically selected from this open API to find the summary exposure value (SEV) risk rates.  [The IHME defines SEV](https://www.healthdata.org/sites/default/files/files/policy_report/GBD/2016/IHME_GBD2015_Report_Glossary-of-terms_2016.pdf) as "A measure of a population’s exposure to a risk factor that takes into account the extent of exposure by risk level and the severity of that risk’s contribution to disease burden." 
+The data was specifically selected from this open API to find the summary exposure value (SEV).  [The IHME defines SEV](https://www.healthdata.org/sites/default/files/files/policy_report/GBD/2016/IHME_GBD2015_Report_Glossary-of-terms_2016.pdf) as a "... measure of a population’s exposure to a risk factor that takes into account the extent of exposure by risk level and the severity of that risk’s contribution to disease burden."
 
-Other metics such as disability-adjusted life years (DALYs) or simple mortality rates would be confounded by chronic disease management and treatment: society developing better medical management of chronic diseases might decrease mortality rates from associated risk factors, even if the prevelance of the risk factor is increasing. SEV was the best available metric from the GBD results tool to assess risk factor prevelance.  
+SEV appears to be the best available metric from the GBD results tool to assess risk factor prevelance.  
 
 From there, the chronic disease risk factors and conditions for which SEV information were metabolic risks: High LDL Cholesterol, High Body Mass Index, High Fasting Plasma Glucose Systolic Blood Pressure, Kidney Dysfunction, Low Bone Mineral Density, and overall Metabolic Risks. 
 
-These risk rates were obtained preaggreagted at a population level, grouped by UK region and by year.
+These risk rates were hand-selected and obtained preaggreagted at a population level, grouped by UK region and by year.  For the scope of this project, all ages and both sexes were included in SEV information. 
 
 ## Pipeline Overview
 
