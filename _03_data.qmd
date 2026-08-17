@@ -61,19 +61,18 @@ The resultant nutrient profile metric, 'quantity per total calories,' is similar
 
 However, a pure calorie comparison for nutrients would not be viable, as certain nutrients (carbohydrates, fats) have abundant calories while other nutrients (vitamins) have essentially zero calories. Hence, native nutrient units were maintained and divided by the common total calories.  This might preclude comparison amongst nutrients, but this analysis assesses household nutrient profiles, so the variation in fundamental units was not problematic.
 
-Furthermore, the nutrient quanity-per-total-calorie unit was also subjected to the Standared Scaler and z-scored before further analysis.
+Furthermore, variations in magnitude amongst the derived nutrient-quanity-per-total-calorie unit was also subjected to the Standared Scaler and z-scored before analysis.
 
 
+## Disease data: <br> Global Burden of Disease <br> (1990 to 2023)
 
-## Disease data: Global Burden of Disease (1990 to 2023)
+Population-level disease risk rates for High LDL cholesterol and other metabolic-disease associated risk factors were acquired from the Institute for Health Metrics and Evaluation (IHME), using their Global Burden of Disease (GBD) Results tool (https://vizhub.healthdata.org/gbd-results/).
 
-Population-level disease risk rates for High LDL cholesterol and other metabolic-disease associated risk factors were acquired from the Institute for Health Metrics and Evaluation (IHME), using their GBD Results tool (https://vizhub.healthdata.org/gbd-results/).
+The data was specifically selected from this open API to find the summary exposure value (SEV) risk rates.  The IHME defines SEV as "A measure of a population’s exposure to a risk factor that takes into account the extent of exposure by risk level and the severity of that risk’s contribution to disease burden." https://www.healthdata.org/sites/default/files/files/policy_report/GBD/2016/IHME_GBD2015_Report_Glossary-of-terms_2016.pdf
 
+Other metics such as disability-adjusted life years (DALYs) or simple mortality rates would be confounded by chronic disease management and treatment: society developing better medical management of chronic diseases might decrease mortality rates from associated risk factors, even if the prevelance of the risk factor is increasing. SEV was the best available metric from the GBD results tool to assess risk factor prevelance.  From there, the chronic disease risk factors and conditions for which SEV information were metabolic risks: High LDL Cholesterol, High Body Mass Index, High Fasting Plasma Glucose Systolic Blood Pressure, Kidney Dysfunction, Low Bone Mineral Density, and overall Metabolic Risks. 
 
-
-The data was specifically selected from an open API to find the summary exposure value risk rates: LDL Cholesterol, Body Mass Index, Fasting Plasma Glucose Systolic Blood Pressure, Kidney Dysfunction, Low Bone Mineral Density, and Metabolic Risks. 
-
-These rates were preaggregated with the API ingestion by year, government region in the UK and to population per region.
+These risk rates were obtained preaggreagted at a population level, grouped by UK region and by year.
 
 ## Pipeline
 
