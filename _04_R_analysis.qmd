@@ -599,9 +599,7 @@ kable(
 
 ### Companion Robustness: Kendall Tau Trend Test
 
-``` r
-    {r}
-
+```{r}
 #| label: tbl-kendall-tau
 #| tbl-cap: "Kendall's tau rank-correlation trend test, by nutrient cluster"
 
