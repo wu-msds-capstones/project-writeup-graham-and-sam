@@ -22,6 +22,8 @@ library(gganimate)
 library(rstatix)
 library(coin)
 library(nnet)
+library(kableExtra)
+library(scales)
 library(reticulate)
 
 #setwd("/Users/samcooper/Documents/GitHub/project-writeup-graham-and-sam/") x
@@ -420,8 +422,36 @@ for (clust in clusters) {
 
 pairwise_table = bind_rows(pairwise_results) %>% arrange(cluster, year_prev)
 
-cat("\n==== Year-over-Year Cluster Proportion Tests ====\n")
-#print(kable(pairwise_table, digits = 4))
+#| label: tbl-cluster-change-summary
+#| tbl-cap: "Significance of year-by-year changes, by cluster"
+
+cluster_change_summary = cluster_props %>%
+  group_by(.data[[cluster_col]]) %>%
+  summarise(n_years_present = n_distinct(.data[[year_col]]), .groups = "drop") %>%
+  rename(cluster = !!cluster_col) %>%
+  left_join(
+    pairwise_table %>%
+      group_by(cluster) %>%
+      summarise(
+        n_transitions_tested = n(),
+        n_significant        = sum(significant == "Yes"),
+        .groups = "drop"
+      ),
+    by = "cluster"
+  ) %>%
+  mutate(pct_significant = percent(n_significant / n_transitions_tested, accuracy = 0.1)) %>%
+  arrange(cluster) %>%
+  select(cluster, n_years_present, n_transitions_tested, n_significant, pct_significant)
+
+kable(
+  cluster_change_summary,
+  col.names = c("Cluster", "Years Present", "Year-to-Year Transitions Tested",
+                "# Significant Transitions", "% of Year ChangesSignificant"),
+  align = "c",
+  caption = "Significance of year-by-year changes, by nutrient cluster"
+) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE) %>%
+  column_spec(4, bold = TRUE)
 
 
 ```
@@ -432,9 +462,12 @@ The Cochran-Armitage trend test was applied separately to each of the five clust
 
 ```{r}
 
-# Trend test across ALL years, PER CLUSTER
-# (Cochran-Armitage: is there a consistent up/down trend in this cluster's share across the full time span?)
+#| label: tbl-cochran-armitage
+#| tbl-cap: "Cochran-Armitage trend test results, by nutrient cluster"
 
+# Trend test across ALL years, PER CLUSTER
+# (Cochran-Armitage: is there a consistent up/down trend in this cluster's
+#  share across the full time span?)
 
 trend_results = list()
 
@@ -461,8 +494,24 @@ for (clust in clusters) {
 
 trend_table = bind_rows(trend_results)
 
-cat("\n==== Overall Trend Test (Cochran-Armitage), Per Cluster ====\n")
-print(kable(trend_table, digits = 4))
+kable(
+  trend_table %>%
+    mutate(
+      prop_first = percent(prop_first, accuracy = 0.1),
+      prop_last  = percent(prop_last, accuracy = 0.1),
+      p_value    = pvalue(p_value, accuracy = 0.001, add_p = TRUE),
+      chi_sq     = round(chi_sq, 2)
+    ) %>%
+    select(cluster, n_years, first_year, last_year, prop_first, prop_last, chi_sq, p_value, significant_trend),
+  col.names = c("Cluster", "# Years", "First Year", "Last Year",
+                "Proportion (First Year)", "Proportion (Last Year)",
+                "Chi-sq Statistic", "p-value", "Significant Trend?"),
+  align = "c",
+  caption = "Cochran-Armitage trend test results, by nutrient cluster"
+) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE) %>%
+  row_spec(which(trend_table$significant_trend == "Yes"), bold = TRUE, background = "#eaf7ea") %>%
+  column_spec(9, bold = TRUE)
 
 # Multinomial model: cluster membership ~ year
 
