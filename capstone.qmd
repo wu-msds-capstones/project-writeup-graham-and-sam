@@ -1,6 +1,6 @@
 ---
-title: "Capstone Project"
-subtitle: Population-level plant-based dietary trends correlate with time-lagged LDL cholesterol decrease
+title: "Diet and Disease in the UK"
+subtitle: Population-level plant-based dietary trends correlate <br> with time-lagged population-level LDL cholesterol decrease
 authors:
   - Graham
   - Sam

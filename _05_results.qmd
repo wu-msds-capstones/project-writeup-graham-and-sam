@@ -1,12 +1,3 @@
----
-title: "UK Diet and Disease Analysis"
-format: html
-jupyter: python3
-execute:
-  echo: false
----
-
-
 # Results
 
 
