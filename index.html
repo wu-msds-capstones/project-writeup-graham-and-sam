@@ -355,7 +355,14 @@ window.Quarto = {
   </ul></li>
   <li><a href="#ldl-cholesterol-and-chronic-disease-data" id="toc-ldl-cholesterol-and-chronic-disease-data" class="nav-link" data-scroll-target="#ldl-cholesterol-and-chronic-disease-data">LDL cholesterol and chronic disease data</a></li>
   </ul></li>
-  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
+  <ul class="collapse">
+  <li><a href="#diet-and-disease-lag-analysis" id="toc-diet-and-disease-lag-analysis" class="nav-link" data-scroll-target="#diet-and-disease-lag-analysis">Diet and Disease lag analysis</a>
+  <ul class="collapse">
+  <li><a href="#cross-correlation-function" id="toc-cross-correlation-function" class="nav-link" data-scroll-target="#cross-correlation-function">Cross correlation function</a></li>
+  <li><a href="#correlation-validation-1" id="toc-correlation-validation-1" class="nav-link" data-scroll-target="#correlation-validation-1">Correlation validation</a></li>
+  </ul></li>
+  </ul></li>
   <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a>
   <ul class="collapse">
   <li><a href="#overall-conclusion" id="toc-overall-conclusion" class="nav-link" data-scroll-target="#overall-conclusion">Overall conclusion</a></li>
@@ -1017,6 +1024,19 @@ Figure&nbsp;11: High LDL cholesterol declined between 1990 and 2023, although it
 </section>
 <section id="results" class="level1">
 <h1>Results</h1>
+<p>While exploratory analysis ranged beyond the final figures included above in this report, time-lag correlation studies were focused on population-level changes in the proportion of nutrient cluster 2, and on population-level LDL cholesterol SEV scores. The results reported below are in reference to the correlative association between those two selected variables.</p>
+<section id="diet-and-disease-lag-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="diet-and-disease-lag-analysis">Diet and Disease lag analysis</h2>
+<p>With population-level year-on-year changes in nutrient cluster 2 selected to be the explanatory variable, and with population-level year-on-year changes in high LDL cholesterol SEV selected to be the response variable, a correlation analysis was conducted from 0 to 20 years of time lag using a cross correlation function (CCF). For each lag year pair, a Pearson correlation coefficient <em>r</em> was generated.</p>
+<p>A perfect correlation would have a Pearson correlation coefficient <em>r</em> of 1.0, whereas a non-correlation would be expected to have a coefficient <em>r</em> closer to 0.0. The CCF swept through 20 years of lag options, resulting in n = 21 year-lag year pairs for the CCF. Based on this number of assessed year-lag year pairs, the 95% significance threshold was calculated to be approximately <em>r</em> = 0.43, and the 99% percent confidence interval was calculated to be approximately <em>r</em> = 0.562.</p>
+<p><span id="eq-sig-band-95"><span class="math display">\[
+r_{crit,\,95\%} = \frac{1.96}{\sqrt{n}}
+\tag{5}\]</span></span></p>
+<p><span id="eq-sig-band-99"><span class="math display">\[
+r_{crit,\,99\%} = \frac{5.67}{\sqrt{n}}
+\tag{6}\]</span></span></p>
+<section id="cross-correlation-function" class="level3">
+<h3 class="anchored" data-anchor-id="cross-correlation-function">Cross correlation function</h3>
 <div id="cell-fig-correlation-sweep-vs-LDL" class="cell">
 <div class="cell-output-display">
 <div id="fig-correlation-sweep-vs-LDL" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1031,53 +1051,51 @@ Figure&nbsp;12: Lag correlation sweeps for cluster 2 against High LDL cholestero
 </div>
 </div>
 </div>
-<div id="cell-fig-correlation-sweep-for-other-disease" class="cell">
-<div class="cell-output-display">
-<div id="fig-correlation-sweep-for-other-disease" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-correlation-sweep-for-other-disease-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-correlation-sweep-for-other-disease-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Figure&nbsp;13: Lag correlation sweeps for all nutrient clusters against LDL"><img src="capstone_files/figure-html/fig-correlation-sweep-for-other-disease-5.png" class="img-fluid figure-img" width="2400"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-correlation-sweep-for-other-disease-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;13: Lag correlation sweeps for all nutrient clusters against LDL
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
+<p>As seen in <a href="#fig-correlation-sweep-vs-LDL" class="quarto-xref">Figure&nbsp;12</a>, there was a sustained correlation above the 95% significance threshold between 2.5 and 7.5 years, and a distinct peak above the 99% significance threshold at 5 years.</p>
+<p>Proceeding with a 5 year time-lag, there are 15 possible years of overlap between the diet and disease data sets: NFS diet data from 1985 to 2000 corresponds at a five year time lag with GBD disease data from 1990 to 2005.</p>
+</section>
+<section id="correlation-validation-1" class="level3">
+<h3 class="anchored" data-anchor-id="correlation-validation-1">Correlation validation</h3>
+<p>This finding was tested against thousands of random permutations to investigate if the apparent correlation was random conincidence. The order of SEV scores for the 15 years of time-lagged GBD disease data was held constant, and the corresponding 15 years of nutrient cluster 2 proportions were randomly shuffled. Correlation was assessed with each permutation, and the observed <em>r</em> from <a href="#fig-correlation-sweep-vs-LDL" class="quarto-xref">Figure&nbsp;12</a> of 0.679 was found to be more extreme a result than over 99% of correlations.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Observed r = 0.679, n = 15, permutation p-value = 0.0065</code></pre>
 </div>
 </div>
+<p>To visualize this finding, the five year time lag correlation between population-level increase in nutrient cluster 2 and population-level decrease in high LDL cholesterol SEV score was plotted in a choropleth of the UK, encoded at the regional level.</p>
 <div id="cell-fig-map-neg-corr-ldl-nute-cluster-2" class="cell">
 <div class="cell-output-display">
 <div id="fig-map-neg-corr-ldl-nute-cluster-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-map-neg-corr-ldl-nute-cluster-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-map-neg-corr-ldl-nute-cluster-2-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Figure&nbsp;14: Consistent negative correlation at five year lag across the UK"><img src="capstone_files/figure-html/fig-map-neg-corr-ldl-nute-cluster-2-7.png" class="img-fluid figure-img" width="768"></a>
+<a href="capstone_files/figure-html/fig-map-neg-corr-ldl-nute-cluster-2-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Figure&nbsp;13: Consistent negative correlation at five year lag across the UK"><img src="capstone_files/figure-html/fig-map-neg-corr-ldl-nute-cluster-2-5.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-map-neg-corr-ldl-nute-cluster-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;14: Consistent negative correlation at five year lag across the UK
+Figure&nbsp;13: Consistent negative correlation at five year lag across the UK
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
+<p>As seen in <a href="#fig-map-neg-corr-ldl-nute-cluster-2" class="quarto-xref">Figure&nbsp;13</a>, the five-year time lag correlation between population-level nutrient cluster 2 and the decrease in population-level LDL cholesterol SEV score is consistent across the UK.</p>
+<p>In contrast, a choropleth of a less statistically robust correlation not appear consistent across the UK.</p>
 <div id="cell-fig-map-no-corr-blood-pressure-nute-cluster-2" class="cell">
 <div class="cell-output-display">
 <div id="fig-map-no-corr-blood-pressure-nute-cluster-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-map-no-corr-blood-pressure-nute-cluster-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-map-no-corr-blood-pressure-nute-cluster-2-9.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="Figure&nbsp;15: Not consistent l;a against blood proessure in the same time"><img src="capstone_files/figure-html/fig-map-no-corr-blood-pressure-nute-cluster-2-9.png" class="img-fluid figure-img" width="768"></a>
+<a href="capstone_files/figure-html/fig-map-no-corr-blood-pressure-nute-cluster-2-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Figure&nbsp;14: Not consistent l;a against blood proessure in the same time"><img src="capstone_files/figure-html/fig-map-no-corr-blood-pressure-nute-cluster-2-7.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-map-no-corr-blood-pressure-nute-cluster-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;15: Not consistent l;a against blood proessure in the same time
+Figure&nbsp;14: Not consistent l;a against blood proessure in the same time
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
+<p>The five-year-time-lag correlation between population-level increase in proportion of nutrient cluster 2 and population-level high systolic blood pressure as depicted in <a href="#fig-map-no-corr-blood-pressure-nute-cluster-2" class="quarto-xref">Figure&nbsp;14</a> shows a much more varied and much less consistent correlation. All such choropleths looked about the same, with correlative scores hovering near zero, except <a href="#fig-map-neg-corr-ldl-nute-cluster-2" class="quarto-xref">Figure&nbsp;13</a>.</p>
+</section>
+</section>
 </section>
 <section id="conclusions" class="level1">
 <h1>Conclusions</h1>
