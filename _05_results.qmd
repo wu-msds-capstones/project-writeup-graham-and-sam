@@ -107,7 +107,7 @@ os.makedirs('../_scratch/EDA_correlation', exist_ok=True)
 #| label: fig-correlation-sweep-for-other-disease
 #| fig-cap: "Lag correlation sweeps for all nutrient clusters against LDL"
 
-ccf_df.head(1000)
+# ccf_df.head(1000)
 
 n_clusters =  df_diet_national[cluster_type].nunique()
 fig, axes = plt.subplots(1, n_clusters, figsize=(5 * n_clusters, 4), sharey=True)
