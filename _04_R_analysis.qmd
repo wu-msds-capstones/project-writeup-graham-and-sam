@@ -22,6 +22,8 @@ library(gganimate)
 library(rstatix)
 library(coin)
 library(nnet)
+library(kableExtra)
+library(scales)
 library(reticulate)
 
 #setwd("/Users/samcooper/Documents/GitHub/project-writeup-graham-and-sam/") x
