@@ -2,7 +2,7 @@
 
 ## Diet data: <br> National Food Survey <br> (1974 to 2000)
 
-All dietary data for this project originates from the UK government's National Food Suvery (NFS).
+All dietary data for this project originates from the UK government's National Food Survey (NFS).
 
 The NFS started in 1940 and eventually evolved into the Living Costs and Food Survey, which is active in 2026. However, not all of the associated data is publicly available.
 
@@ -33,11 +33,11 @@ The specific metric chosen for disease risk rate was summary exposure value, or 
 
 [The IHME defines SEV](https://www.healthdata.org/sites/default/files/files/policy_report/GBD/2016/IHME_GBD2015_Report_Glossary-of-terms_2016.pdf) as a "... measure of a population’s exposure to a risk factor that takes into account the extent of exposure by risk level and the severity of that risk’s contribution to disease burden."
 
-SEV appeared to be the best available metric from the GBD results tool to assess risk factor prevelance.  
+SEV appeared to be the best available metric from the GBD results tool to assess risk factor prevalance.  
 
 From there, the chronic disease risk factors and conditions for which SEV information were metabolic risks: High LDL Cholesterol, High Body Mass Index, High Fasting Plasma Glucose Systolic Blood Pressure, Kidney Dysfunction, Low Bone Mineral Density, and overall Metabolic Risks. 
 
-These risk rates were hand-selected and obtained preaggreagted at a population level, grouped by UK region and by year.  For the scope of this project, all ages and both sexes were included in SEV information. 
+These risk rates were hand-selected and obtained preaggregted at a population level, grouped by UK region and by year.  For the scope of this project, all ages and both sexes were included in SEV information. 
 
 
 ## Dietary Data Engineering
@@ -66,7 +66,7 @@ Finally, calorie ratios for all food groups were normalized by Standard Scaler a
 
 Total calories were calculated for each household as with the food group feature engineering.
 
-Then, each minor food code `minfd` was converted to the nutrient profile for that food multipled by the quantity reported `cq`. This effectively expanded each diary entry row into twenty rows, one for each of the twenty nutrients tracked throughout the data, with the appropriate unit quantity for each nutrient reported.  
+Then, each minor food code `minfd` was converted to the nutrient profile for that food multiplied by the quantity reported `cq`. This effectively expanded each diary entry row into twenty rows, one for each of the twenty nutrients tracked throughout the data, with the appropriate unit quantity for each nutrient reported.  
 
 $$
 nutrient\_quantity_{row} = cq_{row} \times \text{nutrient conversion factor}_{row}
@@ -82,7 +82,7 @@ The resultant nutrient profile metric, 'quantity per total calories,' is similar
 
 However, a pure calorie comparison for nutrients would not be viable, as certain nutrients (carbohydrates, fats) have abundant calories while other nutrients (vitamins) have essentially zero calories. Hence, native nutrient units were maintained and divided by the common total calories.  This might preclude comparison amongst nutrients, but this analysis assesses household nutrient profiles, so the variation in fundamental units was not problematic.
 
-Furthermore, variations in magnitude amongst the derived nutrient-quanity-per-total-calorie unit was also subjected to the Standared Scaler and z-scored before analysis.
+Furthermore, variations in magnitude amongst the derived nutrient-quantity-per-total-calorie unit was also subjected to the Standard Scaler and z-scored before analysis.
 
 
 ## Data Pipeline Overview <br> 
@@ -100,15 +100,15 @@ As described in detail below:
 
 The NFS evolved over time, and this evolution prompted several data cleaning decisions for this analysis.  
 
-To start, alcohol, confectioneries, and soft drinks were added as reportable food options in 1992. Previous to 1992, it is presumed that some UK households did purchase alochol, confectioneries, and soft drinks though the records cannot show this.  All three of these are considered high calorie, so their sudden appearance does skew calorie adjusted calculations. In order to maintain consistency over time, all diet diary rows from these three categories were dropped from analysis, though the related households and all their other diet diary entries were retained.
+To start, alcohol, confectioneries, and soft drinks were added as reportable food options in 1992. Previous to 1992, it is presumed that some UK households did purchase alcohol, confectioneries, and soft drinks though the records cannot show this.  All three of these are considered high calorie, so their sudden appearance does skew calorie adjusted calculations. In order to maintain consistency over time, all diet diary rows from these three categories were dropped from analysis, though the related households and all their other diet diary entries were retained.
 
-Initial analysis before dropping alochol had desiginated alochol as its own food group, for 17 total food groups.  After dropping all alochol rows, this analysis looked at 16 total foodgroups.
+Initial analysis before dropping alochol had designated alochol as its own food group, for 17 total food groups.  After dropping all alochol rows, this analysis looked at 16 total foodgroups.
 
 Northern Ireland was only included in the survey starting in 1996. So, in the interest of consistency, Northern Ireland households were excluded from this analysis altogether.
 
 The nutrient conversion information evolved over time as well, tracking 21 nutrients in 1974 and over 40 nutrients by 2000.  As with pruning rows from late-added foods and locations, nutrient trends were only assessed for the nutrients that were tracked throughout the entire dataset.  One of the included nutrients was Energy in megaJoules (MJ), which was collinear with Energy in kCal, so Energy in MJ was also dropped from nutrient analysis, resulting in 20 assessed nutrients.
 
-The NSF and IHME data have a discrepancy in UK government office regions as well: the 1974 to 2000 NFS data list Merseyside as a distinct region, while the 1990 to 2023 IHME data includes that some geographical area as part of North West England.  So, before aggregation, all NFS households from Merseyside were reassigned as being part of North West England, for consistency between datasets.
+The NFS and IHME data have a discrepancy in UK government office regions as well: the 1974 to 2000 NFS data list Merseyside as a distinct region, while the 1990 to 2023 IHME data includes that some geographical area as part of North West England.  So, before aggregation, all NFS households from Merseyside were reassigned as being part of North West England, for consistency between datasets.
 
 A final cleaning step was to prune households that reported a physiologically unrealistic amount of calories, below a threshold that people require to live.  These households were considered to have provided unreliable data and were excluded from analysis.  The caloric floor threshold was set to two standard deviations below the mean of log-space per capita calorie intake, inspired by similar approaches in the literature [@black_critical_2000].  While the overall analysis does not rely on per capita calculations, this pruning step does. Per capita per household calculations were adjusted for age and sex (adult males = 1, adult females = 0.8, children = 0.5, elderly adults = 0.85), consistent with the literature [@noauthor_sacn_nodate].
 
@@ -124,7 +124,7 @@ On a year by year basis, calorie-specific nutrient conversion information was jo
 
 Minor food codes were mapped to major food codes, which were then mapped to custom food group labels (see Appendix).  Then each row was grouped by household and by foodgroup, aggregating total calories for each food group and for each household.  From there, every household could be assigned a proportion of total calories that was attributable to each foodgroup @eq-food-groups-calorie-ratio.
 
-Household information was then joined on household number (`hhno`) to obtain the correct goverment office region for each household. 
+Household information was then joined on household number (`hhno`) to obtain the correct government office region for each household. 
 
 Finally, each year's processed aggregated food group profile data was appended to a list of dataframes and vertically concatenated.
 
@@ -133,7 +133,7 @@ Finally, each year's processed aggregated food group profile data was appended t
 
 Year by year, nutrient conversion information for all included nutrients was joined to each row of the diet diary (on minor food code, `minfd`), multiplied by consumable quantity `cq`, and then summed by household to calculate quantity of that nutrient for that household (@eq-nutrient-calorie-ratio-3).  This automatically included total calories for that household, which was then used to create quantity-per-total-calorie metrics for each household and each nutrient @eq-nutrient-quantity-calorie-ratio-4.
 
-Household information was then joined on household number `hhno` to obtain the correct goverment office region `gor` for each household. 
+Household information was then joined on household number `hhno` to obtain the correct government office region `gor` for each household. 
 
 Finally, each year's processed aggregated nutrient profile data was appended to a list of dataframes and vertically concatenated.
 
@@ -142,9 +142,9 @@ Finally, each year's processed aggregated nutrient profile data was appended to 
 
 The data for both food group and nutrient profiles were pivoted to a wide format, with each household retaining a row, and each column becoming one of the foodgroups or nutrients.  The values in the wide pivot table were the household's calorie ratio or quantity-per-total-calorie for that food group or nutrient, respectively. The wide tables were then z-score normalized.
 
-The machine learning pipeline (descibed in detail in the Analysis section) assigned food group profile cluster labels and nutrient profile cluster labels to each household.  
+The machine learning pipeline (described in detail in the Analysis section) assigned food group profile cluster labels and nutrient profile cluster labels to each household.  
 
-Proportions of each cluster type amongst all households was then plotted and assessed over time,  nationally and regionally.  Changes in these proportions is the fundamental explanatory variable of this analysis.
+Proportions of each cluster type amongst all households were then plotted and assessed over time,  nationally and regionally.  Changes in these proportions is the fundamental explanatory variable of this analysis.
 
 
 #### Joining disease data
@@ -156,11 +156,11 @@ Since this analysis assesses time-lag, the IHME data was joined across a sweep o
 
 ## Project scalability
 
-The exact aggregation scripts that transform the raw diet diary data into usuable machine learning inputs are specific to the conventions of the 1974 to 2000 NFS data collection process. Ingestion of other similar dietary data would not automatically work with those scripts. 
+The exact aggregation scripts that transform the raw diet diary data into usable machine learning inputs are specific to the conventions of the 1974 to 2000 NFS data collection process. Ingestion of other similar dietary data would not automatically work with those scripts. 
 
 That said, modifications to the ingestion and aggregation scripts could facilitate ingestion of applicable similar data. Once ingested and aggregated according to the feature engineering steps described above, harmonizable diet data from other sources (the UK in later years, the United States, or other countries) could be integrated into the analysis.  If appropriately prepared, it could potentially be clustered by the ML pipeline in this project and analyzed downstream as if it were from the original data.
 
-The chronic disease data from the GBD Results tool is easily scalable, and compatible chronic disease SEV data for other developed nations could be obtained and integegrated into this analysis.  
+The chronic disease data from the GBD Results tool is easily scalable, and compatible chronic disease SEV data for other developed nations could be obtained and integrated into this analysis.  
 
 All that said, due diligence would be required to make sure any new dietary data was actually harmonizable, and potential external confounding factors would have to be sought and ruled out.
 
