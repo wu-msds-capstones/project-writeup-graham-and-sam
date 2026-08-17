@@ -520,7 +520,6 @@ kable(
 The Cochran-Armitage trend test was applied separately to each of the five clusters, testing whether that cluster's share of the population trended consistently upward or downward across the ordered sequence of survey years (1974-2000). It binary checked if the change in households was significantly different between the initial and final years to mark long-term trends. It found that all but cluster 1 experience significant change during the time frame. The confirms the listed trends, focusing on cluster 2 are not defined by noise in the data.Together, these results indicate a substantial compositional shift in the population's cluster membership over the 27-year period, with Cluster 2 gaining population share at the expense of Clusters 0, 3, and 4, while Cluster 1 remained a stable, low-prevalence group throughout.
 
 ```{r}
-
 #| label: tbl-cochran-armitage
 #| tbl-cap: "Cochran-Armitage trend test results, by nutrient cluster"
 
