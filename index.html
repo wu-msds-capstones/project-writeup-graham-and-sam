@@ -347,17 +347,13 @@ window.Quarto = {
   <li><a href="#pca-1" id="toc-pca-1" class="nav-link" data-scroll-target="#pca-1">PCA</a></li>
   <li><a href="#k-means-clustering-2" id="toc-k-means-clustering-2" class="nav-link" data-scroll-target="#k-means-clustering-2">k-means clustering</a></li>
   </ul></li>
-  <li><a href="#clusters-over-time" id="toc-clusters-over-time" class="nav-link" data-scroll-target="#clusters-over-time">Clusters over time</a>
+  <li><a href="#nutrient-cluster-proportions-over-time" id="toc-nutrient-cluster-proportions-over-time" class="nav-link" data-scroll-target="#nutrient-cluster-proportions-over-time">Nutrient cluster proportions over time</a>
   <ul class="collapse">
-  <li><a href="#composition-clusters-with-bar-graphs-and-line-plots" id="toc-composition-clusters-with-bar-graphs-and-line-plots" class="nav-link" data-scroll-target="#composition-clusters-with-bar-graphs-and-line-plots">Composition Clusters with Bar Graphs and Line Plots</a></li>
   <li><a href="#stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" id="toc-stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" class="nav-link" data-scroll-target="#stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time">Stats for Proportions Confirming the Significance of Changing Clusters Over Time</a></li>
   <li><a href="#cochran-armitage-test" id="toc-cochran-armitage-test" class="nav-link" data-scroll-target="#cochran-armitage-test">Cochran-Armitage Test</a></li>
   <li><a href="#companion-robustness-kendall-tau-trend-test" id="toc-companion-robustness-kendall-tau-trend-test" class="nav-link" data-scroll-target="#companion-robustness-kendall-tau-trend-test">Companion Robustness: Kendall Tau Trend Test</a></li>
   </ul></li>
-  <li><a href="#ldl-cholesterol-and-chronic-disease-data" id="toc-ldl-cholesterol-and-chronic-disease-data" class="nav-link" data-scroll-target="#ldl-cholesterol-and-chronic-disease-data">LDL cholesterol and chronic disease data</a>
-  <ul class="collapse">
-  <li><a href="#rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020" id="toc-rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020" class="nav-link" data-scroll-target="#rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020">Rates of metabolic syndrom related chronic disease symptoms in the UK from 1990 to 2020</a></li>
-  </ul></li>
+  <li><a href="#ldl-cholesterol-and-chronic-disease-data" id="toc-ldl-cholesterol-and-chronic-disease-data" class="nav-link" data-scroll-target="#ldl-cholesterol-and-chronic-disease-data">LDL cholesterol and chronic disease data</a></li>
   </ul></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
   <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a>
@@ -754,11 +750,10 @@ Figure&nbsp;9: Orientations of the first two principal components of the diet da
 <p>Assessed against PC 1, cluster 0 is closer to the high fat pole, while cluster 2 is closely associated with the plant-like pole.</p>
 </section>
 </section>
-<section id="clusters-over-time" class="level2">
-<h2 class="anchored" data-anchor-id="clusters-over-time">Clusters over time</h2>
-<section id="composition-clusters-with-bar-graphs-and-line-plots" class="level3">
-<h3 class="anchored" data-anchor-id="composition-clusters-with-bar-graphs-and-line-plots">Composition Clusters with Bar Graphs and Line Plots</h3>
-<p>These visualizations detail the change in proportion of each nutrient cluster over time. They demonstrate a slight decrease for cluster 0 from around 25% to 15%. Cluster 1 was relatively stable at around 3%. Cluster 2 showed an increase in proportion from around 3% to 40% with a relatively steep slope. Cluster 3 hobbled around the 20% proportion area, starting a few points above and then ending at a value right around 15%. Lastly, we saw cluster 4 start as the highest proportion, nearly 50% and slowly reduce to 30%. This informs us, as time continued, the trends mapped to cluster 2 becoming more prevalent as 0, 3, and 4 fell. This initial model motivated statistical checks to be ran to ensure the changes in proportion over timer (1974-2000) were statistically significant and not simply attributed to random noise.</p>
+<section id="nutrient-cluster-proportions-over-time" class="level2">
+<h2 class="anchored" data-anchor-id="nutrient-cluster-proportions-over-time">Nutrient cluster proportions over time</h2>
+<p>The most striking finding from k-means clustering paired with PCA for interpretability was that nutrient cluster 2, the more plant-oriented cluster, increased its proportional share of the UK population dramatically from 1974 to 2000. Insofar as this analysis was seeking a strong diet-cluster signal to serve as the explanatory variable, nutrient cluster 2 seemed to be the best candidate.</p>
+<p>Therefore, the rest of this analysis focus on nutrient-profile clustering, and not food-group clustering.</p>
 <div id="cell-fig-R--line" class="cell">
 <div class="cell-output-display">
 <div id="fig-R--line" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -773,15 +768,10 @@ Figure&nbsp;10: Nutrient cluster proportions over time as line plot.
 </div>
 </div>
 </div>
-</section>
-<section id="stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" class="level3">
-<h3 class="anchored" data-anchor-id="stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time">Stats for Proportions Confirming the Significance of Changing Clusters Over Time</h3>
-<p>A series of two-proportion z-tests assessed the significance of the year-over-year nutrient group cluster composition changes over the 27 year time period.</p>
-<p>Cluster 0 demonstrated a gradual contraction over the time period. It had 8 statistically significant annual shifts (30.8% of transitions). There was a scattered, but downward aiming shift without stark reversals upward.</p>
-<p>Cluster 1 exhibits consistent stability with the lowest volatility among the clusters. It only had 6 statistically significant transitions (23.1% of the shifts). There was not a specific trajectory instead, there were both positive and negative changes during the time span.</p>
-<p>Cluster 2 was the most dynamic cluster, noting a robust upward trend. Beginning with a baseline composition of around 3%, there was a leap to 40% of household diet share by the end of the period. A majority of year-over-year changes reach statistical significance (15 transitions or 57.7%) confirming a strong continued expansion.</p>
-<p>Cluster 3 fluctuates around 25-28% of household share. It was heavily influenced in the early 1990s (plausibly to a recession in the UK during this time period) with some volatility. Beyond this disruption, the trend remained broadly stable with 8 statistically significant transitions (30.8%).</p>
-<p>Cluster 4 began with the largest share of household diet share, but experienced consistent downward pressure. Disregarding the market shock in the early 1990s, the group had 11 statistically significant year-over-year transitions (42.3%) backing this claim.</p>
+<p>The visualization <strong>?@fig-R-stacked-bar-and-line</strong> details the change in proportion of each nutrient cluster over time.</p>
+<p>There is a slight decrease for cluster 0 from around 25% to 15%. Cluster 1 was relatively stable at around 3%. Cluster 2 showed an increase in proportion from around 3% to 40% with a relatively steep slope. Cluster 3 remained around the 20% proportion area, starting a few points above and then ending at a value right around 15%. Lastly, cluster 4 starts as the highest proportion, nearly 50%, and slowly reduces to 30%.</p>
+<p>This suggests that as as time continued, the trends mapped to cluster 2 became more prevalent as proportions of clusters 0, 3, and 4 fell.</p>
+<p>This initial model motivated statistical checks to ensure the changes in proportion over time (1974-2000) were statistically significant and not simply attributed to random noise.</p>
 <div class="cell">
 <div id="tbl-cluster-change-summary" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -844,10 +834,14 @@ Table&nbsp;1: Significance of year-by-year changes, by cluster
 </figure>
 </div>
 </div>
-</section>
-<section id="cochran-armitage-test" class="level3">
-<h3 class="anchored" data-anchor-id="cochran-armitage-test">Cochran-Armitage Test</h3>
-<p>The Cochran-Armitage trend test was selected because it is designed to detect whether a proportion moved consistently in one direction across an ordered sequence of groups. The cluster membership was essentially binary, a household either belonged to a given cluster or did not, and the survey years followed a natural chronological order, this test was suited for the data . It was applied separately to each of the five clusters, to see whether that cluster’s share of the population trended consistently either upward or downward across the survey years (1974-2000). The test incorporated every year to determine whether the year-to-year movement followed a single consistent direction, as opposed to random fluctuation. It found that all but Cluster 1 experienced significant change during the time frame, confirming that the trends observed in these clusters reflected a real, sustained shift rather than noise in the data. These results demonstrated a substantial compositional shift in the UK population’s cluster membership over the 27-year period, with Cluster 2 gaining population share at the expense of Clusters 0, 3, and 4, while Cluster 1 remained a stable, low-prevalence group throughout.</p>
+<section id="stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" class="level3">
+<h3 class="anchored" data-anchor-id="stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time">Stats for Proportions Confirming the Significance of Changing Clusters Over Time</h3>
+<p>A series of two-proportion z-tests assessed the significance of the year-over-year nutrient group cluster composition changes over the 27 year time period.</p>
+<p>Cluster 0 demonstrated a gradual contraction over the time period. It had 8 statistically significant annual shifts (30.8% of transitions). There was a scattered, but downward aiming shift without stark reversals upward.</p>
+<p>Cluster 1 exhibits consistent stability with the lowest volatility among the clusters. It only had 6 statistically significant transitions (23.1% of the shifts). There was not a specific trajectory instead, there were both positive and negative changes during the time span.</p>
+<p>Cluster 2 was the most dynamic cluster, noting a robust upward trend. Beginning with a baseline composition of around 3%, there was a leap to 40% of household diet share by the end of the period. A majority of year-over-year changes reach statistical significance (15 transitions or 57.7%) confirming a strong continued expansion.</p>
+<p>Cluster 3 fluctuates around 25-28% of household share. It was heavily influenced in the early 1990s (plausibly to a recession in the UK during this time period) with some volatility. Beyond this disruption, the trend remained broadly stable with 8 statistically significant transitions (30.8%).</p>
+<p>Cluster 4 began with the largest share of household diet share, but experienced consistent downward pressure. Disregarding the market shock in the early 1990s, the group had 11 statistically significant year-over-year transitions (42.3%) backing this claim.</p>
 <div class="cell">
 <div id="tbl-cochran-armitage" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -935,9 +929,9 @@ Table&nbsp;2: Cochran-Armitage trend test results, by nutrient cluster
 </div>
 </div>
 </section>
-<section id="companion-robustness-kendall-tau-trend-test" class="level3">
-<h3 class="anchored" data-anchor-id="companion-robustness-kendall-tau-trend-test">Companion Robustness: Kendall Tau Trend Test</h3>
-<p>The Kendall’s Tau trend test was employed as a companion check to the Cochran-Armitage test. The Cochran-Armitage test models trends through a counts structure that was approximately linear. The Kendall test does not operate with the same assumptions, thus it is a warranted robustness check for clusters with a nonconforming structure. The Kendall test ranked the years and determined if the direction of the change was consistent. It was applied to each cluster’s composition proportion. It looked at more than just year-to-year changes and worked to give a more comprehensive view of the trends. It found the same pattern as the Cochran-Armitage test: every cluster except for Cluster 1 showed expressed consistent monotonic movement with the corresponding sign to the previous test. The agreement of the tests support the conclusion that there are compositional shifts in the diet clusters, namely that Cluster 2 increased for this UK population.</p>
+<section id="cochran-armitage-test" class="level3">
+<h3 class="anchored" data-anchor-id="cochran-armitage-test">Cochran-Armitage Test</h3>
+<p>The Cochran-Armitage trend test was selected because it is designed to detect whether a proportion moved consistently in one direction across an ordered sequence of groups. The cluster membership was essentially binary, a household either belonged to a given cluster or did not, and the survey years followed a natural chronological order, this test was suited for the data . It was applied separately to each of the five clusters, to see whether that cluster’s share of the population trended consistently either upward or downward across the survey years (1974-2000). The test incorporated every year to determine whether the year-to-year movement followed a single consistent direction, as opposed to random fluctuation. It found that all but Cluster 1 experienced significant change during the time frame, confirming that the trends observed in these clusters reflected a real, sustained shift rather than noise in the data. These results demonstrated a substantial compositional shift in the UK population’s cluster membership over the 27-year period, with Cluster 2 gaining population share at the expense of Clusters 0, 3, and 4, while Cluster 1 remained a stable, low-prevalence group throughout.</p>
 <div class="cell">
 <div id="tbl-kendall-tau" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -995,26 +989,30 @@ Table&nbsp;3: Kendall’s tau rank-correlation trend test, by nutrient cluster
 </div>
 </div>
 </section>
+<section id="companion-robustness-kendall-tau-trend-test" class="level3">
+<h3 class="anchored" data-anchor-id="companion-robustness-kendall-tau-trend-test">Companion Robustness: Kendall Tau Trend Test</h3>
+<p>The Kendall’s Tau trend test was employed as a companion check to the Cochran-Armitage test. The Cochran-Armitage test models trends through a counts structure that was approximately linear. The Kendall test does not operate with the same assumptions, thus it is a warranted robustness check for clusters with a nonconforming structure. The Kendall test ranked the years and determined if the direction of the change was consistent. It was applied to each cluster’s composition proportion. It looked at more than just year-to-year changes and worked to give a more comprehensive view of the trends. It found the same pattern as the Cochran-Armitage test: every cluster except for Cluster 1 showed expressed consistent monotonic movement with the corresponding sign to the previous test. The agreement of the tests support the conclusion that there are compositional shifts in the diet clusters, namely that Cluster 2 increased for this UK population.</p>
+</section>
 </section>
 <section id="ldl-cholesterol-and-chronic-disease-data" class="level2">
 <h2 class="anchored" data-anchor-id="ldl-cholesterol-and-chronic-disease-data">LDL cholesterol and chronic disease data</h2>
-<section id="rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020" class="level3">
-<h3 class="anchored" data-anchor-id="rates-of-metabolic-syndrom-related-chronic-disease-symptoms-in-the-uk-from-1990-to-2020">Rates of metabolic syndrom related chronic disease symptoms in the UK from 1990 to 2020</h3>
+<p>Chronic metabolic disease SEV rates for the UK at large were plotted over time.</p>
 <div id="cell-fig-metabolic-rates-over-time-all-region" class="cell">
 <div class="cell-output-display">
 <div id="fig-metabolic-rates-over-time-all-region" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-metabolic-rates-over-time-all-region-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-metabolic-rates-over-time-all-region-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Figure&nbsp;11: High LDL cholesterol across regions."><img src="capstone_files/figure-html/fig-metabolic-rates-over-time-all-region-1.png" class="img-fluid figure-img" width="960"></a>
+<a href="capstone_files/figure-html/fig-metabolic-rates-over-time-all-region-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Figure&nbsp;11: High LDL cholesterol declined between 1990 and 2023, although it still remains the biggest metabolic disease risk factor for the UK population."><img src="capstone_files/figure-html/fig-metabolic-rates-over-time-all-region-1.png" class="img-fluid figure-img" width="960"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-metabolic-rates-over-time-all-region-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;11: High LDL cholesterol across regions.
+Figure&nbsp;11: High LDL cholesterol declined between 1990 and 2023, although it still remains the biggest metabolic disease risk factor for the UK population.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-</section>
+<p>As seen in <a href="#fig-metabolic-rates-over-time-all-region" class="quarto-xref">Figure&nbsp;11</a>, high LDL cholestrol decreased between 1990 and 2023. Based on this visualization, year-or-year change in population-level high LDL cholesterol SEV was selected as the response variable for analysis. Population level SEV for high systolic blood pressure also went down from 1990 to 2010, but then started increasing again afterward, suggesting confounding factors and ruling it out for further exploration in this study.</p>
+<p>Notably, despite the decrease in population SEV for high LDL cholesterol, overall metabolic risk in the UK has steadily climbed over this timespan.</p>
 </section>
 </section>
 <section id="results" class="level1">
