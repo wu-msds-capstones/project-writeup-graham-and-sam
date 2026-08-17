@@ -155,6 +155,14 @@ cluster_props1 = data_source %>%
   ) %>%
   ungroup()
 
+cluster_colors = c(
+  "0" = "#E69F00",
+  "1" = "#56B4E9",
+  "2" = "#009E73",
+  "3" = "#0072B2",
+  "4" = "#CC79A7"
+)
+
 p_trend_line = ggplot(
   cluster_props1,
   aes(
@@ -163,7 +171,6 @@ p_trend_line = ggplot(
     color = factor(.data[[cluster_col]])
   )
 ) +
-
   # Recession period around 1992
   annotate(
     "rect",
@@ -174,7 +181,6 @@ p_trend_line = ggplot(
     fill = "grey60",
     alpha = 0.15
   ) +
-
   annotate(
     "text",
     x = 1992,
@@ -185,84 +191,48 @@ p_trend_line = ggplot(
     fontface = "bold",
     size = 3.5
   ) +
-
+  # 95% CI as a shaded band (uses lower/upper computed above)
+  geom_ribbon(
+    aes(ymin = lower, ymax = upper, fill = factor(.data[[cluster_col]])),
+    alpha = 0.12,
+    color = NA
+  ) +
   # Cluster trend lines
   geom_line(linewidth = 0.9) +
-
   # Nutrient cluster colors
-  scale_color_manual(
-    values = c(
-      "0" = "#E69F00",
-      "1" = "#56B4E9",
-      "2" = "#009E73",
-      "3" = "#0072B2",
-      "4" = "#CC79A7"
-    )
-  ) +
-
+  scale_color_manual(values = cluster_colors) +
+  scale_fill_manual(values = cluster_colors, guide = "none") +
   # Axes
   scale_x_continuous(
     breaks = seq(1974, 2020, by = 2),
     expand = expansion(mult = c(0.015, 0.015))
   ) +
-
   scale_y_continuous(
     labels = scales::percent_format(accuracy = 1),
     expand = expansion(mult = c(0.01, 0.04))
   ) +
-
-  # Labels
   labs(
     title = "Nutrient Cluster Proportions by Survey Year",
     x = "Survey Year",
     y = "Households (%)",
     color = "Nutrient Cluster"
   ) +
-
-  # Match disease graph styling
   theme_bw(base_size = 12) +
   theme(
     legend.position = "right",
     legend.title = element_blank(),
     legend.key = element_blank(),
     legend.key.width = unit(0.9, "cm"),
-    legend.background = element_rect(
-      color = "grey75",
-      linewidth = 0.3
-    ),
+    legend.background = element_rect(color = "grey75", linewidth = 0.3),
     legend.text = element_text(size = 9),
-
     panel.grid = element_blank(),
-    panel.border = element_rect(
-      color = "black",
-      fill = NA,
-      linewidth = 0.6
-    ),
-
-    axis.title = element_text(
-      face = "plain",
-      size = 10,
-      color = "grey30"
-    ),
-    axis.text = element_text(
-      size = 9,
-      color = "grey20"
-    ),
-    axis.text.x = element_text(
-  angle = 45,
-  hjust = 1,
-  size = 8,
-  color = "grey20"
-),
-    plot.title = element_text(
-      face = "bold",
-      size = 16,
-      hjust = 0,
-      color = "grey20"
-    ),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 0.6),
+    axis.title = element_text(face = "plain", size = 10, color = "grey30"),
+    axis.text = element_text(size = 9, color = "grey20"),
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 8, color = "grey20"),
+    plot.title = element_text(face = "bold", size = 16, hjust = 0, color = "grey20"),
     plot.title.position = "plot"
   )
-
 print(p_trend_line)
 ```
 
@@ -523,7 +493,7 @@ kable(
 
 ### Cochran-Armitage Test
 
-The Cochran-Armitage trend test was applied separately to each of the five clusters, testing whether that cluster's share of the population trended consistently upward or downward across the ordered sequence of survey years (1974-2000). It binary checked if the change in households was significantly different between the initial and final years to mark long-term trends. It found that all but cluster 1 experience significant change during the time frame. The confirms the listed trends, focusing on cluster 2 are not defined by noise in the data.Together, these results indicate a substantial compositional shift in the population's cluster membership over the 27-year period, with Cluster 2 gaining population share at the expense of Clusters 0, 3, and 4, while Cluster 1 remained a stable, low-prevalence group throughout.
+The Cochran-Armitage trend test was selected because it is designed to detect whether a proportion moved consistently in one direction across an ordered sequence of groups. The cluster membership was essentially binary, a household either belonged to a given cluster or did not, and the survey years followed a natural chronological order, this test was suited for the data . It was applied separately to each of the five clusters, to see whether that cluster's share of the population trended consistently either upward or downward across the survey years (1974-2000). The test incorporated every year to determine whether the year-to-year movement followed a single consistent direction, as opposed to random fluctuation. It found that all but Cluster 1 experienced significant change during the time frame, confirming that the trends observed in these clusters reflected a real, sustained shift rather than noise in the data. These results demonstrated a substantial compositional shift in the UK population's cluster membership over the 27-year period, with Cluster 2 gaining population share at the expense of Clusters 0, 3, and 4, while Cluster 1 remained a stable, low-prevalence group throughout.
 
 ```{r}
 #| label: tbl-cochran-armitage
