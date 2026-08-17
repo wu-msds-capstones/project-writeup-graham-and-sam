@@ -277,6 +277,7 @@ loadings_df2.to_parquet(f"{run_folder}/pc2_loadings_{run_name}.parquet", index=F
 
 #fig, ax = plt.subplots(figsize=(6, 8))
 loadings_sorted2 = loadings_df2.sort_values('PC2_loading', ascending=True)  # ascending so most-positive plots at top
+colors = ['#B2182B' if v >= 0 else 'steelblue' for v in loadings_sorted2['PC2_loading']]
 ax2.barh(loadings_sorted2['feature'], loadings_sorted2['PC2_loading'], color=colors)
 ax2.set_xlabel('PC2 Orientation')
 #ax2.set_title('PC2 Orientation — Food groups')
