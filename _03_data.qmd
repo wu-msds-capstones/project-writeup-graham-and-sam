@@ -37,7 +37,7 @@ SEV appeared to be the best available metric from the GBD results tool to assess
 
 From there, the chronic disease risk factors and conditions for which SEV information were metabolic risks: High LDL Cholesterol, High Body Mass Index, High Fasting Plasma Glucose Systolic Blood Pressure, Kidney Dysfunction, Low Bone Mineral Density, and overall Metabolic Risks. 
 
-These risk rates were hand-selected and obtained preaggregted at a population level, grouped by UK region and by year.  For the scope of this project, all ages and both sexes were included in SEV information. 
+These risk rates were hand-selected and obtained preaggregated at a population level, grouped by UK region and by year.  For the scope of this project, all ages and both sexes were included in SEV information. 
 
 
 ## Dietary Data Engineering

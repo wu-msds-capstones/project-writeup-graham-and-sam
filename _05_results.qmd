@@ -155,7 +155,7 @@ Proceeding with a 5 year time-lag, there are 15 possible years of overlap betwee
 
 ### Correlation validation
 
-This finding was tested against thousands of random permutations to investigate if the apparent correlation might just be conincidence.  The order of SEV scores for the 15 years of time-lagged GBD disease data was held constant, and the corresponding 15 years of nutrient cluster 2 proportions were randomly shuffled. Correlation was assessed with each permutation, and the observed *r* from @fig-correlation-sweep-vs-LDL of 0.679 was found to be a more extreme result than over 99% of correlations. 
+This finding was tested against thousands of random permutations to investigate if the apparent correlation might just be coincidence.  The order of SEV scores for the 15 years of time-lagged GBD disease data was held constant, and the corresponding 15 years of nutrient cluster 2 proportions were randomly shuffled. Correlation was assessed with each permutation, and the observed *r* from @fig-correlation-sweep-vs-LDL of 0.679 was found to be a more extreme result than over 99% of correlations. 
 
 ```{python}
 lag = 5
@@ -319,7 +319,7 @@ In contrast, a choropleth of a less statistically robust correlation did not app
 ```{python}
 #| results: 'hide'
 #| label: fig-map-no-corr-blood-pressure-nute-cluster-2
-#| fig-cap: "Nutrient Cluster 2 did not show a consistent correlation at a five-year time lag against blood proessure across regions of the UK."
+#| fig-cap: "Nutrient Cluster 2 did not show a consistent correlation at a five-year time lag against blood pressure across regions of the UK."
 fg17fg55nute = 'nute'
 cluster_type = f'{fg17fg55nute}_cluster'
 rei_name = 'High systolic blood pressure'
