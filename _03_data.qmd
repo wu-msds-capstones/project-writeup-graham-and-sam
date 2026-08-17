@@ -27,7 +27,7 @@ So, the only demographic information that was ultimately used in this analysis i
 
 #### Household food group profiles
 
-For each diet diary row, calories were calculated based on NFS provided nutrient conversion factor for Energy (kCal) for the given food multiplied by the consumable quantity (cq) reported, as depicted in @eq-row-calories
+For each diet diary row, calories were calculated based on NFS provided nutrient conversion factor for Energy (kCal) for the given food multiplied by the consumable quantity `cq` reported (@eq-row-calories).
 
 $$
 calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
@@ -47,20 +47,19 @@ Finally, calorie ratios for all food groups were normalized by Standard Scaler a
 
 #### Household nutrient profiles
 
-Total calories were calculated for each household as with the food group feature engineering @eq-food-groups-calorie-ratio.  
+Total calories were calculated for each household as with the food group feature engineering.
 
-Then, each minor food code 'minfd' was converted to the nutrient profile for that food multipled by the quantity reported 'cq'. This effectively expanded each diary entry row into twenty rows, one for each of the twenty nutrients tracked throughout the data, with the appropriate unit quantity for each nutrient reported.  
-
+Then, each minor food code `minfd` was converted to the nutrient profile for that food multipled by the quantity reported `cq`. This effectively expanded each diary entry row into twenty rows, one for each of the twenty nutrients tracked throughout the data, with the appropriate unit quantity for each nutrient reported.  
 
 $$
-quantity_{nutrient} = cq_{row} \times \text{nutrient conversion factor}_{minfd}_row
+nutrient\_quantity_{row} = cq_{row} \times \text{nutrient conversion factor}_{row}
 $$ {#eq-nutrient-calorie-ratio-3}
 
- Maintaining each nutrient's native unit (grams, milligrams, micrograms, etc), the total quantity of each nutrient across all food purchases was aggregated for each household. Those quantities were then divided by total calories for that household.
+ Maintaining each nutrient's native unit (grams, milligrams, micrograms, etc.), the total quantity of each nutrient across all food purchases was aggregated for each household. Those quantities were then divided by total calories for that household.
 
 $$
-calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
-$$ {#eq-food-groups-calorie-ratio-4}
+nutrient\_quantity\_per\_total\_cal_{row} =  \frac{\text{total quantity per nutrient}}{\text{total calories per household}}
+$$ {#eq-nutrient-quantity-calorie-ratio-4}
 
 The resultant nutrient profile metric, 'quantity per total calories,' is similar in spirit to the 'calorie-ratio' metric from the food groups. 
 
@@ -83,17 +82,18 @@ These risk rates were hand-selected and obtained preaggreagted at a population l
 
 ## Pipeline Overview
 
-As described in detail below, diet diary data was cleaned and aggregated by food group and by nutrient profile for each household in the dataset.
+As described in detail below:
+    * diet diary data was cleaned and aggregated by food group and by nutrient profile for each household in the dataset.
 
-This yielded a sixteen-dimensional food group vector and a twenty-dimensional nutrient vector for each household.  
+    * This yielded a sixteen-dimensional food group vector and a twenty-dimensional nutrient vector for each household.  
 
-Those vectors were subjected to a machine learning pipeline that assigned a food group cluster label and a nutrient cluster label to each household.  Principle component analysis was used to understand and visualize the clustering.  
+    * Those vectors were subjected to a machine learning pipeline that assigned a food group cluster label and a nutrient cluster label to each household.  Principle component analysis was used to understand and visualize the clustering.  
 
-Changing proportions of those clusters in the total population were assessed over time using a variety of statistical tests, in addition to visual inspection of time-based line plots.  
+    * Changing proportions of those clusters in the total population were assessed over time using a variety of statistical tests, in addition to visual inspection of time-based line plots.  
 
-Population-level SEV risk rates were then joined at varying time-lags on year and region.
+    * Population-level SEV risk rates were then joined at varying time-lags on year and region.
 
-The year-on-year rate of change for a given cluster proportion was correlated with year-on-year rate of change for metabolic disease risk factors at varying time lags.   
+    * The year-on-year rate of change for a given cluster proportion was correlated with year-on-year rate of change for metabolic disease risk factors at varying time lags.   
 
 ### Diet data cleaning
 
@@ -130,9 +130,9 @@ Finally, each year's processed aggregated food group profile data was appended t
 
 #### Household nutrient profile aggregation
 
-Year by year, nutrient conversion information for all included nutrients was joined to each row of the diet diary (on minor food code, 'minfd'), multiplied by consumable quantity 'cq', and then summed by household to calculate quantity of that nutrient for that household (@eq-food-groups-calorie-ratio-3).  This automatically included total calories for that household, which was then used to create quantity-per-total-calorie metrics for each household and each nutrient @eq-food-groups-calorie-ratio-4.
+Year by year, nutrient conversion information for all included nutrients was joined to each row of the diet diary (on minor food code, 'minfd'), multiplied by consumable quantity 'cq', and then summed by household to calculate quantity of that nutrient for that household (@eq-nutrient-calorie-ratio-3).  This automatically included total calories for that household, which was then used to create quantity-per-total-calorie metrics for each household and each nutrient @eq-nutrient-quantity-calorie-ratio-4.
 
-Household information was then joined on household number ('hhno') to obtain the correct goverment office region 'gor' for each household. 
+Household information was then joined on household number `hhno` to obtain the correct goverment office region 'gor' for each household. 
 
 Finally, each year's processed aggregated nutrient profile data was appended to a list of dataframes and vertically concatenated.
 
