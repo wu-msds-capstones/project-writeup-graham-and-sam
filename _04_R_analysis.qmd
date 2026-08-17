@@ -225,7 +225,7 @@ print(p_trend_line)
 ### Disease Line Plot (Rename)
 
 ```{r}
-disease = read_csv("shared_data/IHME-GBD_2023_SEV_metabolic_regions.csv")
+disease = read_csv("../shared_data/IHME-GBD_2023_SEV_metabolic_regions.csv")
 
 uk_label = "United Kingdom"
 
