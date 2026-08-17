@@ -136,7 +136,7 @@ region_col    = "ihme_gor"  # part of the uk # needed for by region plots
 ```
 
 ```{r}
-#| label: fig-R--line
+#| label: fig-R-line
 #| fig-cap: "Nutrient cluster proportions over time as line plot."
 
 cluster_props1 = data_source %>%
@@ -238,7 +238,7 @@ print(p_trend_line)
 ```
 
 
-The visualization @fig-R--line details the change in proportion of each nutrient cluster over time. 
+The visualization @fig-R-line details the change in proportion of each nutrient cluster over time. 
 
 There is a slight decrease for cluster 0 from around 25% to 15%. Cluster 1 was relatively stable at around 3%. Cluster 2 showed an increase in proportion from around 3% to 40% with a relatively steep slope. Cluster 3 remained around the 20% proportion area, starting a few points above and then ending at a value right around 15%. Lastly, cluster 4 starts as the highest proportion, nearly 50%, and slowly reduces to 30%. 
 
@@ -455,7 +455,7 @@ pairwise_table = bind_rows(pairwise_results) %>% arrange(cluster, year_prev)
 ```
 
 
-
+### Statistics
 
 ```{r}
 #| label: tbl-cluster-change-summary
@@ -484,7 +484,7 @@ kable(
   col.names = c("Cluster", "Years Present", "Year-to-Year Transitions Tested",
                 "# Significant Transitions", "% of Year ChangesSignificant"),
   align = "c",
-  caption = "Significance of year-by-year changes, by nutrient cluster"
+  #caption = "Significance of year-by-year changes, by nutrient cluster"
 ) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE) %>%
   column_spec(4, bold = TRUE)
@@ -492,7 +492,6 @@ kable(
 
 ```
 
-### Stats for Proportions Confirming the Significance of Changing Clusters Over Time
 
 A series of two-proportion z-tests assessed the significance of the year-over-year nutrient group cluster composition changes over the 27 year time period.
 
@@ -506,7 +505,7 @@ Cluster 3 fluctuates around 25-28% of household share. It was heavily influenced
 
 Cluster 4 began with the largest share of household diet share, but experienced consistent downward pressure. Disregarding the market shock in the early 1990s, the group had 11 statistically significant year-over-year transitions (42.3%) backing this claim.
 
-
+### Cochran-Armitage Test
 
 ```{r}
 #| label: tbl-cochran-armitage
@@ -554,7 +553,7 @@ kable(
                 "Proportion (First Year)", "Proportion (Last Year)",
                 "Chi-sq Statistic", "p-value", "Significant Trend?"),
   align = "c",
-  caption = "Cochran-Armitage trend test results, by nutrient cluster"
+  #caption = "Cochran-Armitage trend test results, by nutrient cluster"
 ) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE) %>%
   row_spec(which(trend_table$significant_trend == "Yes"), bold = TRUE, background = "#eaf7ea") %>%
@@ -586,11 +585,11 @@ kable(
 ```
 
 
-### Cochran-Armitage Test
+
 
 The Cochran-Armitage trend test was selected because it is designed to detect whether a proportion moved consistently in one direction across an ordered sequence of groups. The cluster membership was essentially binary, a household either belonged to a given cluster or did not, and the survey years followed a natural chronological order, this test was suited for the data . It was applied separately to each of the five clusters, to see whether that cluster's share of the population trended consistently either upward or downward across the survey years (1974-2000). The test incorporated every year to determine whether the year-to-year movement followed a single consistent direction, as opposed to random fluctuation. It found that all but Cluster 1 experienced significant change during the time frame, confirming that the trends observed in these clusters reflected a real, sustained shift rather than noise in the data. These results demonstrated a substantial compositional shift in the UK population's cluster membership over the 27-year period, with Cluster 2 gaining population share at the expense of Clusters 0, 3, and 4, while Cluster 1 remained a stable, low-prevalence group throughout.
 
-
+### Companion Robustness: Kendall Tau Trend Test
 ```{r}
 #| label: tbl-kendall-tau
 #| tbl-cap: "Kendall's tau rank-correlation trend test, by nutrient cluster"
@@ -618,12 +617,12 @@ kable(
     mutate(tau = round(tau, 3), p_value = pvalue(p_value, accuracy = 0.001, add_p = TRUE)),
   col.names = c("Cluster", "Kendall's tau", "p-value", "Significant Trend?"),
   align = "c",
-  caption = "Kendall's tau rank-correlation trend test, by nutrient cluster"
+  #caption = "Kendall's tau rank-correlation trend test, by nutrient cluster"
 ) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE) %>%
   row_spec(which(kendall_table$significant == "Yes"), bold = TRUE, background = "#eaf7ea")
 ```
 
-### Companion Robustness: Kendall Tau Trend Test
+
 
 The Kendall's Tau trend test was employed as a companion check to the Cochran-Armitage test. The Cochran-Armitage test models trends through a counts structure that was approximately linear. The Kendall test does not operate with the same assumptions, thus it is a warranted robustness check for clusters with a nonconforming structure. The Kendall test ranked the years and determined if the direction of the change was consistent. It was applied to each cluster's composition proportion. It looked at more than just year-to-year changes and worked to give a more comprehensive view of the trends. It found the same pattern as the Cochran-Armitage test: every cluster except for Cluster 1 showed expressed consistent monotonic movement with the corresponding sign to the previous test. The agreement of the tests support the conclusion that there are compositional shifts in the diet clusters, namely that Cluster 2 increased for this UK population.

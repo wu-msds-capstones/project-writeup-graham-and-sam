@@ -248,7 +248,9 @@ fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 10))
 #fig, ax = plt.subplots(figsize=(6, 8))
 
 loadings_sorted1 = loadings_df1.sort_values('PC1_loading', ascending=True)  # ascending so most-positive plots at top
-ax1.barh(loadings_sorted1['feature'], loadings_sorted1['PC1_loading'], color='steelblue')
+
+colors = ['#B2182B' if v >= 0 else 'steelblue' for v in loadings_sorted1['PC1_loading']]
+ax1.barh(loadings_sorted1['feature'], loadings_sorted1['PC1_loading'], color=colors)
 ax1.set_xlabel('PC1 Orientation')
 #ax1.set_title('PC1 Orientation — Nutrients')
 
@@ -271,7 +273,7 @@ loadings_df2.to_parquet(f"{run_folder}/pc2_loadings_{run_name}.parquet", index=F
 
 #fig, ax = plt.subplots(figsize=(6, 8))
 loadings_sorted2 = loadings_df2.sort_values('PC2_loading', ascending=True)  # ascending so most-positive plots at top
-ax2.barh(loadings_sorted2['feature'], loadings_sorted2['PC2_loading'], color='steelblue')
+ax2.barh(loadings_sorted2['feature'], loadings_sorted2['PC2_loading'], color=colors)
 ax2.set_xlabel('PC2 Orientation')
 #ax2.set_title('PC2 Orientation — Nutrients')
 

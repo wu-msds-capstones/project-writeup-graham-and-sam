@@ -349,7 +349,7 @@ window.Quarto = {
   </ul></li>
   <li><a href="#nutrient-cluster-proportions-over-time" id="toc-nutrient-cluster-proportions-over-time" class="nav-link" data-scroll-target="#nutrient-cluster-proportions-over-time">Nutrient cluster proportions over time</a>
   <ul class="collapse">
-  <li><a href="#stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" id="toc-stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" class="nav-link" data-scroll-target="#stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time">Stats for Proportions Confirming the Significance of Changing Clusters Over Time</a></li>
+  <li><a href="#statistics" id="toc-statistics" class="nav-link" data-scroll-target="#statistics">Statistics</a></li>
   <li><a href="#cochran-armitage-test" id="toc-cochran-armitage-test" class="nav-link" data-scroll-target="#cochran-armitage-test">Cochran-Armitage Test</a></li>
   <li><a href="#companion-robustness-kendall-tau-trend-test" id="toc-companion-robustness-kendall-tau-trend-test" class="nav-link" data-scroll-target="#companion-robustness-kendall-tau-trend-test">Companion Robustness: Kendall Tau Trend Test</a></li>
   </ul></li>
@@ -761,24 +761,26 @@ Figure&nbsp;9: Orientations of the first two principal components of the diet da
 <h2 class="anchored" data-anchor-id="nutrient-cluster-proportions-over-time">Nutrient cluster proportions over time</h2>
 <p>The most striking finding from k-means clustering paired with PCA for interpretability was that nutrient cluster 2, the more plant-oriented cluster, increased its proportional share of the UK population dramatically from 1974 to 2000. Insofar as this analysis was seeking a strong diet-cluster signal to serve as the explanatory variable, nutrient cluster 2 seemed to be the best candidate.</p>
 <p>Therefore, the rest of this analysis focus on nutrient-profile clustering, and not food-group clustering.</p>
-<div id="cell-fig-R--line" class="cell">
+<div id="cell-fig-R-line" class="cell">
 <div class="cell-output-display">
-<div id="fig-R--line" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-R-line" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-R--line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-R--line-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Figure&nbsp;10: Nutrient cluster proportions over time as line plot."><img src="capstone_files/figure-html/fig-R--line-1.png" class="img-fluid figure-img" width="672"></a>
+<div aria-describedby="fig-R-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="capstone_files/figure-html/fig-R-line-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Figure&nbsp;10: Nutrient cluster proportions over time as line plot."><img src="capstone_files/figure-html/fig-R-line-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-R--line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-R-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;10: Nutrient cluster proportions over time as line plot.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>The visualization <strong>?@fig-R</strong>–line details the change in proportion of each nutrient cluster over time.</p>
+<p>The visualization <a href="#fig-R-line" class="quarto-xref">Figure&nbsp;10</a> details the change in proportion of each nutrient cluster over time.</p>
 <p>There is a slight decrease for cluster 0 from around 25% to 15%. Cluster 1 was relatively stable at around 3%. Cluster 2 showed an increase in proportion from around 3% to 40% with a relatively steep slope. Cluster 3 remained around the 20% proportion area, starting a few points above and then ending at a value right around 15%. Lastly, cluster 4 starts as the highest proportion, nearly 50%, and slowly reduces to 30%.</p>
 <p>This suggests that as as time continued, the trends mapped to cluster 2 became more prevalent as proportions of clusters 0, 3, and 4 fell.</p>
 <p>This initial model motivated statistical checks to ensure the changes in proportion over time (1974-2000) were statistically significant and not simply attributed to random noise.</p>
+<section id="statistics" class="level3">
+<h3 class="anchored" data-anchor-id="statistics">Statistics</h3>
 <div class="cell">
 <div id="tbl-cluster-change-summary" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -788,7 +790,6 @@ Table&nbsp;1: Significance of year-by-year changes, by cluster
 <div aria-describedby="tbl-cluster-change-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 <table class="table table-striped table-hover table-condensed do-not-create-environment cell caption-top table-sm small" data-quarto-postprocess="true">
-<caption>Significance of year-by-year changes, by nutrient cluster</caption>
 <thead>
 <tr class="header">
 <th style="text-align: center;" data-quarto-table-cell-role="th">Cluster</th>
@@ -841,14 +842,15 @@ Table&nbsp;1: Significance of year-by-year changes, by cluster
 </figure>
 </div>
 </div>
-<section id="stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" class="level3">
-<h3 class="anchored" data-anchor-id="stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time">Stats for Proportions Confirming the Significance of Changing Clusters Over Time</h3>
 <p>A series of two-proportion z-tests assessed the significance of the year-over-year nutrient group cluster composition changes over the 27 year time period.</p>
 <p>Cluster 0 demonstrated a gradual contraction over the time period. It had 8 statistically significant annual shifts (30.8% of transitions). There was a scattered, but downward aiming shift without stark reversals upward.</p>
 <p>Cluster 1 exhibits consistent stability with the lowest volatility among the clusters. It only had 6 statistically significant transitions (23.1% of the shifts). There was not a specific trajectory instead, there were both positive and negative changes during the time span.</p>
 <p>Cluster 2 was the most dynamic cluster, noting a robust upward trend. Beginning with a baseline composition of around 3%, there was a leap to 40% of household diet share by the end of the period. A majority of year-over-year changes reach statistical significance (15 transitions or 57.7%) confirming a strong continued expansion.</p>
 <p>Cluster 3 fluctuates around 25-28% of household share. It was heavily influenced in the early 1990s (plausibly to a recession in the UK during this time period) with some volatility. Beyond this disruption, the trend remained broadly stable with 8 statistically significant transitions (30.8%).</p>
 <p>Cluster 4 began with the largest share of household diet share, but experienced consistent downward pressure. Disregarding the market shock in the early 1990s, the group had 11 statistically significant year-over-year transitions (42.3%) backing this claim.</p>
+</section>
+<section id="cochran-armitage-test" class="level3">
+<h3 class="anchored" data-anchor-id="cochran-armitage-test">Cochran-Armitage Test</h3>
 <div class="cell">
 <div id="tbl-cochran-armitage" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -858,7 +860,6 @@ Table&nbsp;2: Cochran-Armitage trend test results, by nutrient cluster
 <div aria-describedby="tbl-cochran-armitage-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 <table class="table table-striped table-hover table-condensed do-not-create-environment cell caption-top table-sm small" data-quarto-postprocess="true">
-<caption>Cochran-Armitage trend test results, by nutrient cluster</caption>
 <thead>
 <tr class="header">
 <th style="text-align: center;" data-quarto-table-cell-role="th">Cluster</th>
@@ -935,10 +936,10 @@ Table&nbsp;2: Cochran-Armitage trend test results, by nutrient cluster
 </figure>
 </div>
 </div>
-</section>
-<section id="cochran-armitage-test" class="level3">
-<h3 class="anchored" data-anchor-id="cochran-armitage-test">Cochran-Armitage Test</h3>
 <p>The Cochran-Armitage trend test was selected because it is designed to detect whether a proportion moved consistently in one direction across an ordered sequence of groups. The cluster membership was essentially binary, a household either belonged to a given cluster or did not, and the survey years followed a natural chronological order, this test was suited for the data . It was applied separately to each of the five clusters, to see whether that cluster’s share of the population trended consistently either upward or downward across the survey years (1974-2000). The test incorporated every year to determine whether the year-to-year movement followed a single consistent direction, as opposed to random fluctuation. It found that all but Cluster 1 experienced significant change during the time frame, confirming that the trends observed in these clusters reflected a real, sustained shift rather than noise in the data. These results demonstrated a substantial compositional shift in the UK population’s cluster membership over the 27-year period, with Cluster 2 gaining population share at the expense of Clusters 0, 3, and 4, while Cluster 1 remained a stable, low-prevalence group throughout.</p>
+</section>
+<section id="companion-robustness-kendall-tau-trend-test" class="level3">
+<h3 class="anchored" data-anchor-id="companion-robustness-kendall-tau-trend-test">Companion Robustness: Kendall Tau Trend Test</h3>
 <div class="cell">
 <div id="tbl-kendall-tau" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -948,7 +949,6 @@ Table&nbsp;3: Kendall’s tau rank-correlation trend test, by nutrient cluster
 <div aria-describedby="tbl-kendall-tau-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 <table class="table table-striped table-hover table-condensed do-not-create-environment cell caption-top table-sm small" data-quarto-postprocess="true">
-<caption>Kendall's tau rank-correlation trend test, by nutrient cluster</caption>
 <thead>
 <tr class="header">
 <th style="text-align: center;" data-quarto-table-cell-role="th">Cluster</th>
@@ -995,9 +995,6 @@ Table&nbsp;3: Kendall’s tau rank-correlation trend test, by nutrient cluster
 </figure>
 </div>
 </div>
-</section>
-<section id="companion-robustness-kendall-tau-trend-test" class="level3">
-<h3 class="anchored" data-anchor-id="companion-robustness-kendall-tau-trend-test">Companion Robustness: Kendall Tau Trend Test</h3>
 <p>The Kendall’s Tau trend test was employed as a companion check to the Cochran-Armitage test. The Cochran-Armitage test models trends through a counts structure that was approximately linear. The Kendall test does not operate with the same assumptions, thus it is a warranted robustness check for clusters with a nonconforming structure. The Kendall test ranked the years and determined if the direction of the change was consistent. It was applied to each cluster’s composition proportion. It looked at more than just year-to-year changes and worked to give a more comprehensive view of the trends. It found the same pattern as the Cochran-Armitage test: every cluster except for Cluster 1 showed expressed consistent monotonic movement with the corresponding sign to the previous test. The agreement of the tests support the conclusion that there are compositional shifts in the diet clusters, namely that Cluster 2 increased for this UK population.</p>
 </section>
 </section>
