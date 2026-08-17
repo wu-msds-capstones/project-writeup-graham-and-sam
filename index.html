@@ -396,11 +396,13 @@ window.Quarto = {
 <p>All dietary data for this project originates from the UK government’s National Food Suvery (NFS). The NFS started in 1940 and eventually evolved into the Living Costs and Food Survey, which is active in 2026.</p>
 <p>However, not all of the associated data is publicly available.</p>
 <p>For interested parties with institutional credentials, the <a href="https://ukdataservice.ac.uk">UK Data Service</a> does provide a curated batch of NFS data that spans from 1974-2000.</p>
-<p>Each year, approximately 7,000 households across the UK were chosen at random from voting roles and asked to participate by keeping a one week diet diary. From 1974 to 2000, almost 190,000 households participated.</p>
-<p>Consenting households tracked all food purchases for one week, recording the consumable quantity (‘cq’) of each purchase and assigning it to one of over 300 minor food codes (‘minfd’). Each minor food codeh can be mapped to one of 184 major food codes (‘majfd’).</p>
-<p>There are several native food group mappings included with the NFS data, but those food groupings tend to focus on economic details more than nutrition oriented details. So, this study assigned each row in the diet diary to one of sixteen food groups based on an iterative literature informed (CITATIONS) manual review of all reported foods. This food group mapping is included in the Appendix.</p>
-<p>Additionally, the NFS included annually adjusted nutrient conversion information for each of the minor food codes, allowing the recorded type and quantity to be converted into a nutrient profile for that purchase, and aggregated to a nutrient profile for each household.</p>
-<p>Demographic and economic information is also included with the NFS data. However, this analysis assesses diet composition per calorie, not diet quantity per capita. So, the only demographic information that was ultimately used in this analysis is the regional location of each household.</p>
+<p>Each year, approximately 7,000 households across the UK were chosen at random from voting roles and asked to participate by keeping a one week diet diary. From 1974 to 2000, almost 190,000 total households participated.</p>
+<p>Consenting households tracked all food purchases for one week, recording the consumable quantity (‘cq’) of each purchase and assigning it to one of over 300 minor food codes (‘minfd’). Each minor food code can be mapped to one of 184 major food codes (‘majfd’).</p>
+<p>There are several native food group mappings included with the NFS data, but those food groupings tend to focus on economic details more than nutrition oriented details. So, based on an iterative manual review of all reported foods in the data, a custom set of sixteen foodgroups was selected, based on literature[REFERNECES] and in order to assess the data from a nutritional perspective. Each row in the diet diaries was assigned a custom food group label, enabling food group profiling of each household.</p>
+<p>A full printout of the custom food group mapping [insert link when reference availabe] is included in the Appendix.</p>
+<p>Additionally, the NFS included annually adjusted nutrient conversion information for each of the minor food codes, allowing the recorded type and quantity to be converted into a nutrient profile for that purchase, and in turn aggregated to an overall nutrient profile for each household.</p>
+<p>Demographic and economic information is also included with the NFS data. However, this analysis assesses diet composition per calorie, not diet quantity per capita. While calorie-per-person-per-day was used to cull data devoid households in the data cleaning (discussed below), the food group and nutrient profile metrics carried forward into the analysis are quantity agnostic.</p>
+<p>So, the only demographic information that was ultimately used in this analysis is the regional location of each household.</p>
 <section id="dietary-data-feature-engineering" class="level3">
 <h3 class="anchored" data-anchor-id="dietary-data-feature-engineering">Dietary Data Feature Engineering</h3>
 <section id="household-food-group-profiles" class="level4">
@@ -411,16 +413,17 @@ calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
 \tag{1}\]</span></span></p>
 <p>Then, for each household, calories were aggregated for each of the assigned food groups, and then divided by total calories for that household.</p>
 <p><span id="eq-food-groups-calorie-ratio"><span class="math display">\[
-{calorie_ratio}_{food group} = \frac{\text{total calories per food group}}{\text{total calories per household}}
+{calorie\_ratio}_{food group} = \frac{\text{total calories per food group}}{\text{total calories per household}}
 \tag{2}\]</span></span></p>
 <p>This resulted in a ‘calorie ratio’ for each food group for that household for that week. This normalized metric cancels out quantity, and purely examines the qualitative composition of each household’s reported food acquisition for the week. Therefore, the number of people in the household do not factor into this metric, and further demographic considerations did not need to be calculated.</p>
 <p>Finally, calorie ratios for all food groups were normalized by Standard Scaler and z-scored, with the means set to zero and the standard deviations set to plus or minus one.</p>
 </section>
 <section id="household-nutrient-profiles" class="level4">
 <h4 class="anchored" data-anchor-id="household-nutrient-profiles">Household nutrient profiles</h4>
-<p>Total calories were calculated for each household as with the food group feature engineering (Eq 1). Then, each minor food code ‘minfd’ was converted to the nutrient profile for that food multipled by the quantity reported. This effectively expanded each diary entry row into twenty rows, one for each of the twenty nutrients tracked throughout the data, with the appropriate unit quantity for each nutrient reported.</p>
-<p><span id="eq-food-groups-calorie-ratio-3"><span class="math display">\[
-calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
+<p>Total calories were calculated for each household as with the food group feature engineering <a href="#eq-food-groups-calorie-ratio" class="quarto-xref">Equation&nbsp;2</a>.</p>
+<p>Then, each minor food code ‘minfd’ was converted to the nutrient profile for that food multipled by the quantity reported ‘cq’. This effectively expanded each diary entry row into twenty rows, one for each of the twenty nutrients tracked throughout the data, with the appropriate unit quantity for each nutrient reported.</p>
+<p><span id="eq-nutrient-calorie-ratio-3"><span class="math display">\[
+quantity_{nutrient} = cq_{row} \times \text{nutrient conversion factor}_{minfd}_row
 \tag{3}\]</span></span></p>
 <p>Maintaining each nutrient’s native unit (grams, milligrams, micrograms, etc), the total quantity of each nutrient across all food purchases was aggregated for each household. Those quantities were then divided by total calories for that household.</p>
 <p><span id="eq-food-groups-calorie-ratio-4"><span class="math display">\[
@@ -435,10 +438,10 @@ calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
 <section id="disease-data-global-burden-of-disease-1990-to-2023" class="level2">
 <h2 class="anchored" data-anchor-id="disease-data-global-burden-of-disease-1990-to-2023">Disease data: <br> Global Burden of Disease <br> (1990 to 2023)</h2>
 <p>Population-level disease risk rates for High LDL cholesterol and other metabolic-disease associated risk factors were acquired from the Institute for Health Metrics and Evaluation (IHME), using their <a href="https://vizhub.healthdata.org/gbd-results/">Global Burden of Disease (GBD) Results tool</a>.</p>
-<p>The data was specifically selected from this open API to find the summary exposure value (SEV) risk rates. <a href="https://www.healthdata.org/sites/default/files/files/policy_report/GBD/2016/IHME_GBD2015_Report_Glossary-of-terms_2016.pdf">The IHME defines SEV</a> as “A measure of a population’s exposure to a risk factor that takes into account the extent of exposure by risk level and the severity of that risk’s contribution to disease burden.”</p>
-<p>Other metics such as disability-adjusted life years (DALYs) or simple mortality rates would be confounded by chronic disease management and treatment: society developing better medical management of chronic diseases might decrease mortality rates from associated risk factors, even if the prevelance of the risk factor is increasing. SEV was the best available metric from the GBD results tool to assess risk factor prevelance.</p>
+<p>The data was specifically selected from this open API to find the summary exposure value (SEV). <a href="https://www.healthdata.org/sites/default/files/files/policy_report/GBD/2016/IHME_GBD2015_Report_Glossary-of-terms_2016.pdf">The IHME defines SEV</a> as a “… measure of a population’s exposure to a risk factor that takes into account the extent of exposure by risk level and the severity of that risk’s contribution to disease burden.”</p>
+<p>SEV appears to be the best available metric from the GBD results tool to assess risk factor prevelance.</p>
 <p>From there, the chronic disease risk factors and conditions for which SEV information were metabolic risks: High LDL Cholesterol, High Body Mass Index, High Fasting Plasma Glucose Systolic Blood Pressure, Kidney Dysfunction, Low Bone Mineral Density, and overall Metabolic Risks.</p>
-<p>These risk rates were obtained preaggreagted at a population level, grouped by UK region and by year.</p>
+<p>These risk rates were hand-selected and obtained preaggreagted at a population level, grouped by UK region and by year. For the scope of this project, all ages and both sexes were included in SEV information.</p>
 </section>
 <section id="pipeline-overview" class="level2">
 <h2 class="anchored" data-anchor-id="pipeline-overview">Pipeline Overview</h2>
@@ -460,7 +463,7 @@ calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
 </section>
 <section id="diet-data-aggregation" class="level3">
 <h3 class="anchored" data-anchor-id="diet-data-aggregation">Diet data aggregation</h3>
-<p>Dietary data aggregation was undertaken to generate the features described with <a href="#eq-food-groups-calorie-ratio" class="quarto-xref">Equation&nbsp;2</a>, <a href="#eq-row-calories" class="quarto-xref">Equation&nbsp;1</a>, <a href="#eq-food-groups-calorie-ratio-3" class="quarto-xref">Equation&nbsp;3</a>, and <a href="#eq-food-groups-calorie-ratio-4" class="quarto-xref">Equation&nbsp;4</a> above. The raw download from the UK Data Service has a folder for each year between 1974 and 2000, with space separated text files for diet diary, household information, and nutrient conversion factors. All years of the NFS data share minor to major food code look up tables with consistent food code descriptions.</p>
+<p>Dietary data aggregation was undertaken to generate the features described with <a href="#eq-food-groups-calorie-ratio" class="quarto-xref">Equation&nbsp;2</a>, <a href="#eq-row-calories" class="quarto-xref">Equation&nbsp;1</a>, <strong>?@eq-food-groups-calorie-ratio-3</strong>, and <a href="#eq-food-groups-calorie-ratio-4" class="quarto-xref">Equation&nbsp;4</a> above. The raw download from the UK Data Service has a folder for each year between 1974 and 2000, with space separated text files for diet diary, household information, and nutrient conversion factors. All years of the NFS data share minor to major food code look up tables with consistent food code descriptions.</p>
 <section id="household-food-group-profile-aggregation" class="level4">
 <h4 class="anchored" data-anchor-id="household-food-group-profile-aggregation">Household food group profile aggregation</h4>
 <p>On a year by year basis, calorie-specific nutrient conversion information was joined to each row of the diet diary (on minor food code, ‘minfd’), multiplied by consumable quantity ‘cq’, and then summed per household to calculate total calories for that household (<a href="#eq-row-calories" class="quarto-xref">Equation&nbsp;1</a>). Total household calories was later joined back to un-aggregated data as needed.</p>
@@ -470,7 +473,7 @@ calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
 </section>
 <section id="household-nutrient-profile-aggregation" class="level4">
 <h4 class="anchored" data-anchor-id="household-nutrient-profile-aggregation">Household nutrient profile aggregation</h4>
-<p>Year by year, nutrient conversion information for all included nutrients was joined to each row of the diet diary (on minor food code, ‘minfd’), multiplied by consumable quantity ‘cq’, and then summed by household to calculate quantity of that nutrient for that household (<a href="#eq-food-groups-calorie-ratio-3" class="quarto-xref">Equation&nbsp;3</a>). This automatically included total calories for that household, which was then used to create quantity-per-total-calorie metrics for each household and each nutrient <a href="#eq-food-groups-calorie-ratio-4" class="quarto-xref">Equation&nbsp;4</a>.</p>
+<p>Year by year, nutrient conversion information for all included nutrients was joined to each row of the diet diary (on minor food code, ‘minfd’), multiplied by consumable quantity ‘cq’, and then summed by household to calculate quantity of that nutrient for that household (<strong>?@eq-food-groups-calorie-ratio-3</strong>). This automatically included total calories for that household, which was then used to create quantity-per-total-calorie metrics for each household and each nutrient <a href="#eq-food-groups-calorie-ratio-4" class="quarto-xref">Equation&nbsp;4</a>.</p>
 <p>Household information was then joined on household number (‘hhno’) to obtain the correct goverment office region ‘gor’ for each household.</p>
 <p>Finally, each year’s processed aggregated nutrient profile data was appended to a list of dataframes and vertically concatenated.</p>
 </section>
