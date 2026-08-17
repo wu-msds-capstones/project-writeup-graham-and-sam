@@ -145,16 +145,3 @@ The chronic disease data from the GBD Results tool is easily scalable, and compa
 All that said, due diligence would be required to make sure any new dietary data was actually harmonizable, and potential external confounding factors would have to be sought and ruled out.
 
 
-## Ethics and Responsible Use
-
-The data is used under a non-commercial educational license, and comes both anonymized and pre-aggregated by the service providers to remove personally identifiable information (PII) and ensure confidentiality. 
-
-Data Ethics
-Considerations
-(x2)
-Thoroughly addresses
-data ethics
-considerations,
-including privacy,
-bias, and ethical
-implication
