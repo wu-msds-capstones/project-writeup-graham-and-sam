@@ -1,6 +1,6 @@
 ## LDL cholesterol and chronic disease data
 
-### Rates of metabolic syndrom related chronic disease symptoms in the UK from 1990 to 2020
+Chronic metabolic disease SEV rates for the UK at large were plotted over time.
 
 ```{python}
 gor_to_ihme = {
@@ -165,18 +165,24 @@ disease_colors = {
 ```
 ```{python}
 #| label: fig-metabolic-rates-over-time-all-region
-#| fig-cap: "High LDL cholesterol across regions."
+#| fig-cap: "High LDL cholesterol declined  between 1990 and 2023, although it still remains the biggest metabolic disease risk factor for the UK population. "
 
 df_plot = df_metabolic_5yr[
     (df_metabolic_5yr['metric'] == 'Rate') &
     (df_metabolic_5yr['year'] >= 1990) &
-    (df_metabolic_5yr['year'] <= 2020)
+    (df_metabolic_5yr['year'] <= 2023)
 ]
 fig, ax = plt.subplots(figsize=(10, 7), constrained_layout=True)
 ax = sns.lineplot(df_plot, x='year', y='val', hue='rei', palette=disease_colors)
 ax.xaxis.set_major_locator(plt.MaxNLocator(integer=True))
+ax.set_ylabel("Summary Exposure Value")
 ax.legend(bbox_to_anchor=(1.02, 1), loc='upper left', borderaxespad=0)
 plt.show()
 ```
+
+As seen in @fig-metabolic-rates-over-time-all-region, high LDL cholestrol decreased between 1990 and 2023.  Based on this visualization, year-or-year change in population-level high LDL cholesterol SEV was selected as the response variable for analysis.  Population level SEV for high systolic blood pressure also went down from 1990 to 2010, but then started increasing again afterward, suggesting confounding factors and ruling it out for further exploration in this study.
+
+Notably, despite the decrease in population SEV for high LDL cholesterol, overall metabolic risk in the UK has steadily climbed over this timespan.
+
 
 
