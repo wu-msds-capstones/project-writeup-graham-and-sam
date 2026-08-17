@@ -141,7 +141,7 @@ scaled_df = pd.DataFrame(
 ```{python}
 #| results: 'hide'
 #| label: fig-scree-plot
-#| fig-cap: "Explained variance ratio by principle component for PCA of household diet data examined by food group calories to total calorie ratios."
+#| fig-cap: "Explained variance ratio by principle component for PCA of household diet data examined by food group calories/total calorie ratios."
 
 #######
 ### PCA TIME!
@@ -180,6 +180,7 @@ plt.show()
 plt.close()
 
 ```
+
 ```{python}
 #| results: 'hide'
 #| fig.show: 'hide'
@@ -235,7 +236,7 @@ The most explanatory component (PC 1) accounted for about 11% of variance in the
 The other components only explained about 5% variance each, leading to 14 components required to cumulatively explain 95% of variance.
 
 ```{python}
-#| label: fig-pca_nutes-plot
+#| label: fig-pca_foodgroups-plot
 #| fig-cap: "Orientations of the first two principal components of the food group orientated diet data."
 
 ##############
@@ -290,7 +291,7 @@ plt.tight_layout()
 plt.show()
 
 ```
-The axis of greatest variance, PC 1, orients to a more plant-based pole, and a more meat and refined food based-pole. PC 2 appears to orient to a more processed and refined foods pole, and a whole foods pole.
+As seen in @fig-pca_foodgroups-plot, the axis of greatest variance for all households by food group calorie ratios orients to a more plant-based pole (higher in 'Other Fruits & Vegetables' and 'Whole Grains'), and a more meat and refined food based-pole (higher in'Saturated Fat' and "Refined Grains"). PC 2 for all households by food group calorie ratios also appears to orient to a more processed and refined foods pole, and a whole foods pole.
 
 
 ### k-means clustering
@@ -446,7 +447,7 @@ pca_2 = PCA(n_components=2, random_state=42)
 pcs_2 = pca_2.fit_transform(pcs_95)
 ```
 
-The principal components that were required to explain 95% variance in the aggregated foodgroup data were fed into an additional round of PCA to produce two derivative principal compenents, which were in turn fed into a t-distributed stochastic neighbor emedding (t-SNE) visualization. The t-SNE plot projects 20 dimensional nutrient space in 2 dimensions, enabling visualization of the k-means cluster assignments for each household.
+
 
 ```{python}
 
@@ -531,15 +532,14 @@ ax.set_ylabel('PC2 of PCA(95%)')
 plt.show()
 ```
 
-
-This heatmap combines information from PCA and k-means clustering.  The two columns represent the two clusters that were assigned in k-means clustering.  The axis of the heatmap is oriented along PC 1 for food group aggregations.  Cell color indicates cluster centroid similarity to each dimension of PC 1. Gray cells are dissimilar, white cells are nuetral, colorful cells are more similar. 
+A two dimensional projection of the household clustering from sixteen dimensional food-group calorie ratio space is presented in @fig-cluster-2D-food-groups-plot. The principal components that were required to explain 95% variance in the aggregated foodgroup data were fed into an additional round of PCA to produce two derivative principal compenents.  These two components serve as the x and y axes in @fig-cluster-2D-food-groups-plot.  There are twice as many households assigned to Cluster 0.  The data is continuous, so the clusters appear adjacent, though the boundary between the two is rather distinct.
 
 
 ```{python}
 #| fig-align: center
 #| results: 'hide'
 #| label: fig-heat-map-food-groups-plot
-#| fig-cap: "A visualization of the cluster centroid z score for each of the food group dimensions, originally calculated as proportion of total calories for each food group."
+#| fig-cap: "A visualization of the cluster centroid z score for each of the food group dimensions, originally calculated as proportion of total calories for each food group. Cluster 0 is encoded purple, and Cluster 1 is encoded red.  Blue cells depcit negative z-scores, while more vibrant cluster colors indicate increasingly positive z-scores. "
 
 ###########
 # Heat map stuff
@@ -590,3 +590,7 @@ ax_heat.set_xticklabels(['Cluster 0', 'Cluster 1'])
 fig.subplots_adjust(left=0.4, right=0.95, top=0.95, bottom=0.05)
 
 ```
+
+The heatmap in @fig-heat-map-food-groups-plot combines information from PCA and k-means clustering.  The two columns represent the two clusters that were assigned in k-means clustering.  The axis of the heatmap is oriented along PC 1 for food group aggregations.  Cell color and printed number inside the cell indicate cluster centroid z-score for each dimension. Blue cells are dissimilar, white cells are nuetral, colorful cells are more similar. 
+
+The axis of greatest variance only explained 11% of variance in the food group model, so this finding is taken cautiously.  That said, it is notable that the axis of greater variance appears to orient along a 'healthy food' and an 'unhealthy food' pole.

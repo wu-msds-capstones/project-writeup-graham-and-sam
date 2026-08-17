@@ -8,9 +8,9 @@ This study examines the population of the United Kingdom (UK), drawing on diet d
 
 Diet diary data is assessed by both food group profile and nutrient profile. Each household's reported food acquisition is aggregated and normalized against that household's total calories, painting a quantity-agnostic picture of that household's diet composition. 
 
-A machine-learning pipeline is then applied to the household level data, with a cross-validated stability optimized k-means clustering algorithm designating a cluster identity for each household, and with principal component analysis (PCA) being used to orient and explain the findings.  
+A machine-learning pipeline is then applied to the household level data, with a cross-validated stability optimized k-means clustering algorithm designating a cluster identity for each household, and with principal component analysis being used to orient and characterize the clustering.  
 
-The year-on-year changes to the population-level proportion of households assigned to any of these k-means clusters over time serves as the explanatory variable for the correlative analysis against downstream population level LDL cholesterol risk rates.
+The year-on-year changes to the population-level proportion of households assigned to any of these clusters over time can serve as the explanatory variable for cross-correlative analysis against downstream population-level disease risk rates.
 
 Ultimately, this study identifies a statistically significant inverse correlation between population-level year-on-year changes in relatively-plant-based diet patterns and risk of high LDL cholesterol, at a five-year-time lag.  
 

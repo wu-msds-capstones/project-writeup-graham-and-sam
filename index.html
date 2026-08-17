@@ -411,8 +411,8 @@ window.Quarto = {
 <p>Specifically, can a population’s increase in a relatively plant-based dietary pattern be correlated with a time-lagged decrease in that population’s elevated LDL cholesterol risk level? If so, at how long a time lag?</p>
 <p>This study examines the population of the United Kingdom (UK), drawing on diet diary data from a representative sample of nearly 190,000 UK households from 1974 to 2000, and population-level chronic disease risk factor rates (especially high LDL cholesterol) from 1990 to 2023.</p>
 <p>Diet diary data is assessed by both food group profile and nutrient profile. Each household’s reported food acquisition is aggregated and normalized against that household’s total calories, painting a quantity-agnostic picture of that household’s diet composition.</p>
-<p>A machine-learning pipeline is then applied to the household level data, with a cross-validated stability optimized k-means clustering algorithm designating a cluster identity for each household, and with principal component analysis (PCA) being used to orient and explain the findings.</p>
-<p>The year-on-year changes to the population-level proportion of households assigned to any of these k-means clusters over time serves as the explanatory variable for the correlative analysis against downstream population level LDL cholesterol risk rates.</p>
+<p>A machine-learning pipeline is then applied to the household level data, with a cross-validated stability optimized k-means clustering algorithm designating a cluster identity for each household, and with principal component analysis being used to orient and characterize the clustering.</p>
+<p>The year-on-year changes to the population-level proportion of households assigned to any of these clusters over time can serve as the explanatory variable for cross-correlative analysis against downstream population-level disease risk rates.</p>
 <p>Ultimately, this study identifies a statistically significant inverse correlation between population-level year-on-year changes in relatively-plant-based diet patterns and risk of high LDL cholesterol, at a five-year-time lag.</p>
 </section>
 <section id="background" class="level1">
@@ -433,15 +433,16 @@ window.Quarto = {
 <h1>Data</h1>
 <section id="diet-data-national-food-survey-1974-to-2000" class="level2">
 <h2 class="anchored" data-anchor-id="diet-data-national-food-survey-1974-to-2000">Diet data: <br> National Food Survey <br> (1974 to 2000)</h2>
-<p>All dietary data for this project originates from the UK government’s National Food Suvery (NFS). The NFS started in 1940 and eventually evolved into the Living Costs and Food Survey, which is active in 2026.</p>
-<p>However, not all of the associated data is publicly available.</p>
+<p>All dietary data for this project originates from the UK government’s National Food Suvery (NFS).</p>
+<p>The NFS started in 1940 and eventually evolved into the Living Costs and Food Survey, which is active in 2026. However, not all of the associated data is publicly available.</p>
 <p>For interested parties with institutional credentials, the <a href="https://ukdataservice.ac.uk">UK Data Service</a> does provide a curated batch of NFS data that spans from 1974-2000.</p>
-<p>Each year, approximately 7,000 households across the UK were chosen at random from voting roles and asked to participate by keeping a one week diet diary. From 1974 to 2000, almost 190,000 total households participated.</p>
+<p>In this data, approximately 7,000 households per year across the UK were chosen at random from voting roles and asked to participate by keeping a one week diet diary. From 1974 to 2000, almost 190,000 total households participated.</p>
 <p>Consenting households tracked all food purchases for one week, recording the consumable quantity (<code>cq</code>) of each purchase and assigning it to one of over 300 minor food codes (<code>minfd</code>). Each minor food code can be mapped to one of 184 major food codes (<code>majfd</code>).</p>
-<p>There are several native food group mappings included with the NFS data, but those food groupings tend to focus on economic details more than nutrition oriented details. So, based on an iterative manual review of all reported foods in the data, a custom set of sixteen foodgroups was selected, based on literature <span class="citation" data-cites="schulz_advances_2021 perraud_plant_2022 gaesser_whole_2020">(<a href="#ref-schulz_advances_2021" role="doc-biblioref">Schulz, Oluwagbemigun, and Nöthlings 2021</a>; <a href="#ref-perraud_plant_2022" role="doc-biblioref">Perraud et al. 2022</a>; <a href="#ref-gaesser_whole_2020" role="doc-biblioref">Gaesser 2020</a>)</span> and in order to assess the data from a nutritional perspective. Each row in the diet diaries was assigned a custom food group label, enabling food group profiling of each household.</p>
-<p>A full printout of the custom food group mappings is included in the Appendix.</p>
+<p>There are several native food group mappings included with the NFS data, but those food groupings tend to focus on economic details more than nutrition oriented details.</p>
+<p>An iterative manual review of all reported foods in the data was conducted, and a custom set of sixteen foodgroups was designated based on literature <span class="citation" data-cites="schulz_advances_2021 perraud_plant_2022 gaesser_whole_2020">(<a href="#ref-schulz_advances_2021" role="doc-biblioref">Schulz, Oluwagbemigun, and Nöthlings 2021</a>; <a href="#ref-perraud_plant_2022" role="doc-biblioref">Perraud et al. 2022</a>; <a href="#ref-gaesser_whole_2020" role="doc-biblioref">Gaesser 2020</a>)</span> in order to assess the data from a nutritional perspective.</p>
+<p>Each row in the diet diaries was assigned one of these custom food group labels, enabling food group profiling of each household. A full printout of the custom food group mappings is included in the Appendix .</p>
 <p>Additionally, the NFS included annually adjusted nutrient conversion information for each of the minor food codes, allowing the recorded type and quantity to be converted into a nutrient profile for that purchase, and in turn aggregated to an overall nutrient profile for each household.</p>
-<p>Demographic and economic information is also included with the NFS data. However, this analysis assesses diet composition per calorie, not diet quantity per capita. While calorie-per-person-per-day was used to cull data devoid households in the data cleaning (discussed below), the food group and nutrient profile metrics carried forward into the analysis are quantity agnostic.</p>
+<p>Demographic and economic information is also included with the NFS data. However, this analysis assesses diet composition per calorie, not diet quantity per capita. While calorie-per-person-per-day was used to cull data-devoid households in the data cleaning (discussed below), the food group and nutrient profile metrics carried forward into the analysis are quantity-agnostic.</p>
 <p>So, the only demographic information that was ultimately used in this analysis is the regional location of each household.</p>
 </section>
 <section id="disease-data-global-burden-of-disease-1990-to-2023" class="level2">
@@ -626,10 +627,10 @@ nutrient\_quantity\_per\_total\_cal_{row} =  \frac{\text{total quantity per nutr
 <div id="fig-scree-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-scree-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-scree-plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Explained variance ratio by principle component for PCA of household diet data examined by food group calories to total calorie ratios."><img src="capstone_files/figure-html/fig-scree-plot-1.png" class="img-fluid figure-img" width="768"></a>
+<a href="capstone_files/figure-html/fig-scree-plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Explained variance ratio by principle component for PCA of household diet data examined by food group calories/total calorie ratios."><img src="capstone_files/figure-html/fig-scree-plot-1.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scree-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Explained variance ratio by principle component for PCA of household diet data examined by food group calories to total calorie ratios.
+Figure&nbsp;1: Explained variance ratio by principle component for PCA of household diet data examined by food group calories/total calorie ratios.
 </figcaption>
 </figure>
 </div>
@@ -637,25 +638,24 @@ Figure&nbsp;1: Explained variance ratio by principle component for PCA of househ
 </div>
 <p>The most explanatory component (PC 1) accounted for about 11% of variance in the food group aggregations. <a href="#fig-scree-plot" class="quarto-xref">Figure&nbsp;1</a></p>
 <p>The other components only explained about 5% variance each, leading to 14 components required to cumulatively explain 95% of variance.</p>
-<div id="cell-fig-pca_nutes-plot" class="cell">
+<div id="cell-fig-pca_foodgroups-plot" class="cell">
 <div class="cell-output-display">
-<div id="fig-pca_nutes-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-pca_foodgroups-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-pca_nutes-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-pca_nutes-plot-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Orientations of the first two principal components of the food group orientated diet data."><img src="capstone_files/figure-html/fig-pca_nutes-plot-4.png" class="img-fluid figure-img" width="1344"></a>
+<div aria-describedby="fig-pca_foodgroups-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="capstone_files/figure-html/fig-pca_foodgroups-plot-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Orientations of the first two principal components of the food group orientated diet data."><img src="capstone_files/figure-html/fig-pca_foodgroups-plot-4.png" class="img-fluid figure-img" width="1344"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pca_nutes-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pca_foodgroups-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2: Orientations of the first two principal components of the food group orientated diet data.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>The axis of greatest variance, PC 1, orients to a more plant-based pole, and a more meat and refined food based-pole. PC 2 appears to orient to a more processed and refined foods pole, and a whole foods pole.</p>
+<p>As seen in <a href="#fig-pca_foodgroups-plot" class="quarto-xref">Figure&nbsp;2</a>, the axis of greatest variance for all households by food group calorie ratios orients to a more plant-based pole (higher in ‘Other Fruits &amp; Vegetables’ and ‘Whole Grains’), and a more meat and refined food based-pole (higher in’Saturated Fat’ and “Refined Grains”). PC 2 for all households by food group calorie ratios also appears to orient to a more processed and refined foods pole, and a whole foods pole.</p>
 </section>
 <section id="k-means-clustering-1" class="level3">
 <h3 class="anchored" data-anchor-id="k-means-clustering-1">k-means clustering</h3>
-<p>The principal components that were required to explain 95% variance in the aggregated foodgroup data were fed into an additional round of PCA to produce two derivative principal compenents, which were in turn fed into a t-distributed stochastic neighbor emedding (t-SNE) visualization. The t-SNE plot projects 20 dimensional nutrient space in 2 dimensions, enabling visualization of the k-means cluster assignments for each household.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Number of households per cluster</code></pre>
@@ -681,21 +681,23 @@ Figure&nbsp;3: A 2-D projection of the k-means clustering of the households base
 </div>
 </div>
 </div>
-<p>This heatmap combines information from PCA and k-means clustering. The two columns represent the two clusters that were assigned in k-means clustering. The axis of the heatmap is oriented along PC 1 for food group aggregations. Cell color indicates cluster centroid similarity to each dimension of PC 1. Gray cells are dissimilar, white cells are nuetral, colorful cells are more similar.</p>
+<p>A two dimensional projection of the household clustering from sixteen dimensional food-group calorie ratio space is presented in <a href="#fig-cluster-2D-food-groups-plot" class="quarto-xref">Figure&nbsp;3</a>. The principal components that were required to explain 95% variance in the aggregated foodgroup data were fed into an additional round of PCA to produce two derivative principal compenents. These two components serve as the x and y axes in <a href="#fig-cluster-2D-food-groups-plot" class="quarto-xref">Figure&nbsp;3</a>. There are twice as many households assigned to Cluster 0. The data is continuous, so the clusters appear adjacent, though the boundary between the two is rather distinct.</p>
 <div id="cell-fig-heat-map-food-groups-plot" class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-heat-map-food-groups-plot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-heat-map-food-groups-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-heat-map-food-groups-plot-8.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;4: A visualization of the cluster centroid z score for each of the food group dimensions, originally calculated as proportion of total calories for each food group."><img src="capstone_files/figure-html/fig-heat-map-food-groups-plot-8.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></a>
+<a href="capstone_files/figure-html/fig-heat-map-food-groups-plot-8.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;4: A visualization of the cluster centroid z score for each of the food group dimensions, originally calculated as proportion of total calories for each food group. Cluster 0 is encoded purple, and Cluster 1 is encoded red. Blue cells depcit negative z-scores, while more vibrant cluster colors indicate increasingly positive z-scores."><img src="capstone_files/figure-html/fig-heat-map-food-groups-plot-8.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-heat-map-food-groups-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4: A visualization of the cluster centroid z score for each of the food group dimensions, originally calculated as proportion of total calories for each food group.
+Figure&nbsp;4: A visualization of the cluster centroid z score for each of the food group dimensions, originally calculated as proportion of total calories for each food group. Cluster 0 is encoded purple, and Cluster 1 is encoded red. Blue cells depcit negative z-scores, while more vibrant cluster colors indicate increasingly positive z-scores.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
+<p>The heatmap in <a href="#fig-heat-map-food-groups-plot" class="quarto-xref">Figure&nbsp;4</a> combines information from PCA and k-means clustering. The two columns represent the two clusters that were assigned in k-means clustering. The axis of the heatmap is oriented along PC 1 for food group aggregations. Cell color and printed number inside the cell indicate cluster centroid z-score for each dimension. Blue cells are dissimilar, white cells are nuetral, colorful cells are more similar.</p>
+<p>The axis of greatest variance only explained 11% of variance in the food group model, so this finding is taken cautiously. That said, it is notable that the axis of greater variance appears to orient along a ‘healthy food’ and an ‘unhealthy food’ pole.</p>
 </section>
 </section>
 <section id="by-nutrients" class="level2">
