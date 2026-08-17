@@ -434,9 +434,12 @@ The Cochran-Armitage trend test was applied separately to each of the five clust
 
 ```{r}
 
-# Trend test across ALL years, PER CLUSTER
-# (Cochran-Armitage: is there a consistent up/down trend in this cluster's share across the full time span?)
+#| label: tbl-cochran-armitage
+#| tbl-cap: "Cochran-Armitage trend test results, by nutrient cluster"
 
+# Trend test across ALL years, PER CLUSTER
+# (Cochran-Armitage: is there a consistent up/down trend in this cluster's
+#  share across the full time span?)
 
 trend_results = list()
 
@@ -463,8 +466,24 @@ for (clust in clusters) {
 
 trend_table = bind_rows(trend_results)
 
-cat("\n==== Overall Trend Test (Cochran-Armitage), Per Cluster ====\n")
-print(kable(trend_table, digits = 4))
+kable(
+  trend_table %>%
+    mutate(
+      prop_first = percent(prop_first, accuracy = 0.1),
+      prop_last  = percent(prop_last, accuracy = 0.1),
+      p_value    = pvalue(p_value, accuracy = 0.001, add_p = TRUE),
+      chi_sq     = round(chi_sq, 2)
+    ) %>%
+    select(cluster, n_years, first_year, last_year, prop_first, prop_last, chi_sq, p_value, significant_trend),
+  col.names = c("Cluster", "# Years", "First Year", "Last Year",
+                "Proportion (First Year)", "Proportion (Last Year)",
+                "Chi-sq Statistic", "p-value", "Significant Trend?"),
+  align = "c",
+  caption = "Cochran-Armitage trend test results, by nutrient cluster"
+) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE) %>%
+  row_spec(which(trend_table$significant_trend == "Yes"), bold = TRUE, background = "#eaf7ea") %>%
+  column_spec(9, bold = TRUE)
 
 # Multinomial model: cluster membership ~ year
 
