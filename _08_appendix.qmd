@@ -22,5 +22,30 @@ There is some regional variation in SEV risk rates over time for these chronic d
 
 ```{python}
 food_group_csv = pd.read_csv('shared_data/food_group_reference.csv')
-food_group_csv
+#food_group_csv
+```
+
+
+```{python}
+#| output: asis
+# styled_food_group_table = food_group_csv.style \
+#     .set_table_styles([
+#         {'selector': 'th', 'props': [('background-color', '#4a4a4a'), ('color', 'white'), ('padding', '6px')]},
+#         {'selector': 'td', 'props': [('padding', '6px')]}
+#     ]) \
+#     .set_properties(**{'text-align': 'left'}) \
+#     .hide(axis='index')
+
+# print(styled_food_group_table.to_html())
+```
+
+
+```{r}
+library(kableExtra)
+library(tidyverse)
+food_group_csv <- read.csv("shared_data/food_group_reference.csv")
+
+kable(food_group_csv) %>%
+  kable_styling(full_width = FALSE) %>%
+  row_spec(0, background = "#4a4a4a", color = "white")
 ```

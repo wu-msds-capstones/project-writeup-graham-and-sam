@@ -60,7 +60,38 @@ div.csl-indent {
 <script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <meta name="citation_title" content="Capstone Project">
 <meta name="citation_author" content="Graham ">
@@ -276,8 +307,7 @@ div.csl-indent {
   <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">Background</a></li>
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a>
   <ul class="collapse">
-  <li><a href="#diet-data-national-food-survey-1974-to-2000" id="toc-diet-data-national-food-survey-1974-to-2000" class="nav-link" data-scroll-target="#diet-data-national-food-survey-1974-to-2000">Diet data: National Food Survey (1974 to 2000)</a></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a>
+  <li><a href="#diet-data-national-food-survey-1974-to-2000" id="toc-diet-data-national-food-survey-1974-to-2000" class="nav-link" data-scroll-target="#diet-data-national-food-survey-1974-to-2000">Diet data: <br> National Food Survey <br> (1974 to 2000)</a>
   <ul class="collapse">
   <li><a href="#dietary-feature-engineering" id="toc-dietary-feature-engineering" class="nav-link" data-scroll-target="#dietary-feature-engineering">Dietary Feature Engineering</a></li>
   </ul></li>
@@ -305,8 +335,8 @@ div.csl-indent {
   <li><a href="#analysis---clusters-over-time" id="toc-analysis---clusters-over-time" class="nav-link" data-scroll-target="#analysis---clusters-over-time">Analysis - Clusters over Time</a>
   <ul class="collapse">
   <li><a href="#composition-clusters-with-bar-graphs-and-line-plots" id="toc-composition-clusters-with-bar-graphs-and-line-plots" class="nav-link" data-scroll-target="#composition-clusters-with-bar-graphs-and-line-plots">Composition Clusters with Bar Graphs and Line Plots</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
   <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"></a></li>
-  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2"></a></li>
   <li><a href="#stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" id="toc-stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" class="nav-link" data-scroll-target="#stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time">Stats for Proportions Confirming the Significance of Changing Clusters Over Time</a></li>
   <li><a href="#cochran-armitage-test" id="toc-cochran-armitage-test" class="nav-link" data-scroll-target="#cochran-armitage-test">Cochran-Armitage Test</a></li>
   <li><a href="#ldl-cholesterol-and-chronic-disease-data" id="toc-ldl-cholesterol-and-chronic-disease-data" class="nav-link" data-scroll-target="#ldl-cholesterol-and-chronic-disease-data">LDL cholesterol and chronic disease data</a>
@@ -363,42 +393,40 @@ div.csl-indent {
 <section id="data" class="level1">
 <h1>Data</h1>
 <section id="diet-data-national-food-survey-1974-to-2000" class="level2">
-<h2 class="anchored" data-anchor-id="diet-data-national-food-survey-1974-to-2000">Diet data: National Food Survey (1974 to 2000)</h2>
-<p>The UK’s National Food Suvery (NFS) started in 1940 and eventually evolved into the Living Costs and Food Survey. which is active today . However, not all of the associated data is publicly available.</p>
+<h2 class="anchored" data-anchor-id="diet-data-national-food-survey-1974-to-2000">Diet data: <br> National Food Survey <br> (1974 to 2000)</h2>
+<p>The UK government’s National Food Suvery (NFS) started in 1940 and eventually evolved into the Living Costs and Food Survey, which is active today.</p>
+<p>However, not all of the associated data is publicly available.</p>
 <p>For interested parties with institutional credentials, the UK Data Service, does provide a curated batch of NFS data that spans from 1974-2000. https://ukdataservice.ac.uk</p>
 <p>Each year, approximately 7,000 households across the UK were chosen at random from voting roles and asked to participate. From 1974 to 2000, almost 190,000 households participated.</p>
 <p>Consenting households tracked all food purchases (what food and how much of it) for one week in a ‘diet diary’.</p>
 <p>The raw diet diary entries list foods as one of over 300 minor food codes, or ‘minfd’, which can be mapped to one of 184 major food codes ‘majfd’. There are several native food group mappings included with the NFS data, but those food groupings tend to focus on economic details more than nutrition oriented details. So, this study assigned each row in the diet diary to one of sixteen food groups based on an iterative literature informed (CITATIONS) manual review of all reported foods. This food group mapping is included in the Appendix.</p>
 <p>Additionally, the NFS included annually adjusted nutrient conversion information for each of the minor food codes, allowing the recorded type and quantity to be converted into a nutrient profile for that purchase, and aggregated to a nutrient profile for each household.</p>
 <p>Demographic and economic information is also included with the NFS data. However, this analysis assesses diet composition per calorie, not diet quantity per capita. So, the only demographic information that was ultimately used in this analysis is the regional location of each household.</p>
-</section>
-<section id="section" class="level2">
-<h2 class="anchored" data-anchor-id="section"></h2>
 <section id="dietary-feature-engineering" class="level3">
 <h3 class="anchored" data-anchor-id="dietary-feature-engineering">Dietary Feature Engineering</h3>
 <section id="household-food-group-profiles" class="level4">
 <h4 class="anchored" data-anchor-id="household-food-group-profiles">Household food group profiles</h4>
-<p>For each diet diary row, calories were calculated based on NFS provided nutrient conversion factor for Energy (kCal) for the given food multiplied by the consumable quantity reported.</p>
-<ul>
-<li>MATH EQYATION 1 -</li>
-</ul>
+<p>For each diet diary row, calories were calculated based on NFS provided nutrient conversion factor for Energy (kCal) for the given food multiplied by the consumable quantity (cq) reported, as depicted in <a href="#eq-row-calories" class="quarto-xref">Equation&nbsp;1</a></p>
+<p><span id="eq-row-calories"><span class="math display">\[
+calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
+\tag{1}\]</span></span></p>
 <p>Then, for each household, calories were aggregated for each of the assigned food groups, and then divided by total calories for that household.</p>
-<ul>
-<li>MATH EQUATION 2 -</li>
-</ul>
+<p><span id="eq-food-groups-calorie-ratio"><span class="math display">\[
+calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
+\tag{2}\]</span></span></p>
 <p>This resulted in a ‘calorie ratio’ for each food group for that household for that week. This normalized metric cancels out quantity, and purely examines the qualitative composition of each household’s reported food acquisition for the week. Therefore, the number of people in the household do not factor into this metric, and further demographic considerations did not need to be calculated.</p>
 <p>Finally, calorie ratios for all food groups were normalized by Standard Scaler and z-scored, with the means set to zero and the standard deviations set to plus or minus one.</p>
 </section>
 <section id="household-nutrient-profiles" class="level4">
 <h4 class="anchored" data-anchor-id="household-nutrient-profiles">Household nutrient profiles</h4>
 <p>Total calories were calculated for each household as with the food group feature engineering (Eq 1). Then, each minor food code ‘minfd’ was converted to the nutrient profile for that food multipled by the quantity reported. This effectively expanded each diary entry row into twenty rows, one for each of the twenty nutrients tracked throughout the data, with the appropriate unit quantity for each nutrient reported.</p>
-<ul>
-<li>MATH EQYATION 3 -</li>
-</ul>
+<p><span id="eq-food-groups-calorie-ratio-3"><span class="math display">\[
+calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
+\tag{3}\]</span></span></p>
 <p>Maintaining each nutrient’s native unit (grams, milligrams, micrograms, etc), the total quantity of each nutrient across all food purchases was aggregated for each household. Those quantities were then divided by total calories for that household.</p>
-<ul>
-<li>MATH EQUATION - ?</li>
-</ul>
+<p><span id="eq-food-groups-calorie-ratio-4"><span class="math display">\[
+calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
+\tag{4}\]</span></span></p>
 <p>The resultant nutrient profile metric, ‘quantity per total calories,’ is similar in spirit to the ‘calorie-ratio’ metric from the food groups.</p>
 <p>However, a pure calorie comparison for nutrients would not be viable, as certain nutrients (carbohydrates, fats) have abundant calories while other nutrients (vitamins) have essentially zero calories. Hence, native nutrient units were maintained and divided by the common total calories. This might preclude comparison amongst nutrients, but this analysis assesses household nutrient profiles, so the variation in fundamental units was not problematic.</p>
 <p>Furthermore, the nutrient quanity-per-total-calorie unit was also subjected to the Standared Scaler and z-scored before further analysis.</p>
@@ -632,11 +660,11 @@ Figure&nbsp;11: Nutrient cluster proportions over time as line plot.
 </div>
 </div>
 </section>
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section"></h3>
+</section>
 <section id="section-1" class="level3">
 <h3 class="anchored" data-anchor-id="section-1"></h3>
-</section>
-<section id="section-2" class="level3">
-<h3 class="anchored" data-anchor-id="section-2"></h3>
 </section>
 <section id="stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time" class="level3">
 <h3 class="anchored" data-anchor-id="stats-for-proportions-confirming-the-significance-of-changing-clusters-over-time">Stats for Proportions Confirming the Significance of Changing Clusters Over Time</h3>
@@ -815,21 +843,1123 @@ Figure&nbsp;16: Not consistent l;a against blood proessure in the same time
 </div>
 <p>There is some regional variation in SEV risk rates over time for these chronic disease symptoms, but the only notable anomaly is the rate of high BMI in Wales compared to other regions. Wales has about 50% high BMI SEV risk for the whole dataset, whereas other regions do not approach that level of risk until later years, if at all.</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>     majfd                                majfddesc          group_55 group_17
-0        4             LIQUID WHOLEMILK, FULL PRICE              Milk     Milk
-1        5                      MILK LIQUID WELFARE              Milk     Milk
-2        6                       MILK LIQUID SCHOOL              Milk     Milk
-3        9                           MILK CONDENSED              Milk     Milk
-4       10                      MILK DRIED NATIONAL              Milk     Milk
-..     ...                                      ...               ...      ...
-179    385  LA WINE, WINE AND SPIRITS WITH ADDITION              Wine  Alcohol
-180    386                          FORTIFIED WINES              Wine  Alcohol
-181    387                                  SPIRITS  Spirits/Liqueurs  Alcohol
-182    388                                 LIQUEURS  Spirits/Liqueurs  Alcohol
-183    389                     ALCOHOLIC CARBONATES  Spirits/Liqueurs  Alcohol
-
-[184 rows x 4 columns]</code></pre>
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: right; color: white !important; background-color: rgba(74, 74, 74, 1) !important;">majfd</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; color: white !important; background-color: rgba(74, 74, 74, 1) !important;">majfddesc</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; color: white !important; background-color: rgba(74, 74, 74, 1) !important;">group_55</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; color: white !important; background-color: rgba(74, 74, 74, 1) !important;">group_17</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">LIQUID WHOLEMILK, FULL PRICE</td>
+<td style="text-align: left;">Milk</td>
+<td style="text-align: left;">Milk</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">MILK LIQUID WELFARE</td>
+<td style="text-align: left;">Milk</td>
+<td style="text-align: left;">Milk</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">MILK LIQUID SCHOOL</td>
+<td style="text-align: left;">Milk</td>
+<td style="text-align: left;">Milk</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">MILK CONDENSED</td>
+<td style="text-align: left;">Milk</td>
+<td style="text-align: left;">Milk</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">MILK DRIED NATIONAL</td>
+<td style="text-align: left;">Milk</td>
+<td style="text-align: left;">Milk</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">INFANT MILKS</td>
+<td style="text-align: left;">Milk</td>
+<td style="text-align: left;">Milk</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">MILK INSTANT</td>
+<td style="text-align: left;">Milk</td>
+<td style="text-align: left;">Milk</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">YOGHURT AND FROMAGE FRAIS</td>
+<td style="text-align: left;">Yogurt</td>
+<td style="text-align: left;">Milk</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">SKIMMED MILKS</td>
+<td style="text-align: left;">Milk</td>
+<td style="text-align: left;">Milk</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">OTHER MILKS AND DAIRY DESSERTS</td>
+<td style="text-align: left;">Milk</td>
+<td style="text-align: left;">Milk</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17</td>
+<td style="text-align: left;">CREAM</td>
+<td style="text-align: left;">Cream</td>
+<td style="text-align: left;">Cheese &amp; Cream</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">CHEESE NATURAL</td>
+<td style="text-align: left;">Cheese</td>
+<td style="text-align: left;">Cheese &amp; Cream</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">CHEESE PROCESSED</td>
+<td style="text-align: left;">Cheese</td>
+<td style="text-align: left;">Cheese &amp; Cream</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">31</td>
+<td style="text-align: left;">BEEF AND VEAL</td>
+<td style="text-align: left;">Red Meat</td>
+<td style="text-align: left;">Red Meat</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">36</td>
+<td style="text-align: left;">MUTTON AND LAMB</td>
+<td style="text-align: left;">Red Meat</td>
+<td style="text-align: left;">Red Meat</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">41</td>
+<td style="text-align: left;">PORK</td>
+<td style="text-align: left;">Red Meat</td>
+<td style="text-align: left;">Red Meat</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">46</td>
+<td style="text-align: left;">LIVER</td>
+<td style="text-align: left;">Organ Meat</td>
+<td style="text-align: left;">Red Meat</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">51</td>
+<td style="text-align: left;">OFFALS (OTHER THAN LIVER)</td>
+<td style="text-align: left;">Organ Meat</td>
+<td style="text-align: left;">Red Meat</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">55</td>
+<td style="text-align: left;">BACON AND HAM UNCOOKED</td>
+<td style="text-align: left;">Processed/Cured Meat</td>
+<td style="text-align: left;">Red Meat</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">58</td>
+<td style="text-align: left;">BACON AND HAM COOKED (INCL CANNED)</td>
+<td style="text-align: left;">Processed/Cured Meat</td>
+<td style="text-align: left;">Red Meat</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">62</td>
+<td style="text-align: left;">CORNED MEAT</td>
+<td style="text-align: left;">Processed/Cured Meat</td>
+<td style="text-align: left;">Red Meat</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">66</td>
+<td style="text-align: left;">OTHER COOKED MEAT (NOT PURCH IN CANS)</td>
+<td style="text-align: left;">Processed/Cured Meat</td>
+<td style="text-align: left;">Red Meat</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">79</td>
+<td style="text-align: left;">SAUSAGES UNCOOKED PORK</td>
+<td style="text-align: left;">Processed/Cured Meat</td>
+<td style="text-align: left;">Red Meat</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">80</td>
+<td style="text-align: left;">SAUSAGES UNCOOKED BEEF</td>
+<td style="text-align: left;">Processed/Cured Meat</td>
+<td style="text-align: left;">Red Meat</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">83</td>
+<td style="text-align: left;">MEAT PIES AND SAUSAGE ROLLS READY TO EAT</td>
+<td style="text-align: left;">Processed/Cured Meat</td>
+<td style="text-align: left;">Red Meat</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">93</td>
+<td style="text-align: left;">PATE AND DELICATESSEN-TYPE SAUSAGE</td>
+<td style="text-align: left;">Processed/Cured Meat</td>
+<td style="text-align: left;">Red Meat</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">59</td>
+<td style="text-align: left;">COOKED POULTRY NOT PURCHASED IN CANS</td>
+<td style="text-align: left;">Poultry</td>
+<td style="text-align: left;">Poultry</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">73</td>
+<td style="text-align: left;">BROILER CHICKEN UNCOOKED (INCL FROZEN)</td>
+<td style="text-align: left;">Poultry</td>
+<td style="text-align: left;">Poultry</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">77</td>
+<td style="text-align: left;">OTHER POULTRY UNCOOKED (INCL FROZEN)</td>
+<td style="text-align: left;">Poultry</td>
+<td style="text-align: left;">Poultry</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">78</td>
+<td style="text-align: left;">RABBIT AND OTHER MEAT</td>
+<td style="text-align: left;">Poultry</td>
+<td style="text-align: left;">Poultry</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">71</td>
+<td style="text-align: left;">OTHER CANNED MEAT AND CANNED MEAT PRODS</td>
+<td style="text-align: left;">Canned/Convenience Meat</td>
+<td style="text-align: left;">Red Meat</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">88</td>
+<td style="text-align: left;">TOTAL FROZEN CONV MEAT AND MEAT PRODS</td>
+<td style="text-align: left;">Canned/Convenience Meat</td>
+<td style="text-align: left;">Red Meat</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">94</td>
+<td style="text-align: left;">OTHER MEAT PRODUCTS</td>
+<td style="text-align: left;">Canned/Convenience Meat</td>
+<td style="text-align: left;">Red Meat</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">100</td>
+<td style="text-align: left;">FISH WHITE FILLETED FRESH</td>
+<td style="text-align: left;">White Fish</td>
+<td style="text-align: left;">Fish</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">105</td>
+<td style="text-align: left;">FISH WHITE UNFILLETED FRESH</td>
+<td style="text-align: left;">White Fish</td>
+<td style="text-align: left;">Fish</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">110</td>
+<td style="text-align: left;">FISH WHITE UNCOOKED FROZEN</td>
+<td style="text-align: left;">White Fish</td>
+<td style="text-align: left;">Fish</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">114</td>
+<td style="text-align: left;">FISH WHITE PROCESSED</td>
+<td style="text-align: left;">White Fish</td>
+<td style="text-align: left;">Fish</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">111</td>
+<td style="text-align: left;">FISH HERRING FILLETED FRESH</td>
+<td style="text-align: left;">Fatty Fish</td>
+<td style="text-align: left;">Fish</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">112</td>
+<td style="text-align: left;">FISH HERRING UNFILLETED FRESH</td>
+<td style="text-align: left;">Fatty Fish</td>
+<td style="text-align: left;">Fish</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">113</td>
+<td style="text-align: left;">FISH FAT OTHER THAN HERRING FRESH</td>
+<td style="text-align: left;">Fatty Fish</td>
+<td style="text-align: left;">Fish</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">115</td>
+<td style="text-align: left;">FISH FAT PROCESSED FILLETED</td>
+<td style="text-align: left;">Fatty Fish</td>
+<td style="text-align: left;">Fish</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">116</td>
+<td style="text-align: left;">FISH FAT PROCESSED UNFILLETED</td>
+<td style="text-align: left;">Fatty Fish</td>
+<td style="text-align: left;">Fish</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">119</td>
+<td style="text-align: left;">SALMON CANNED</td>
+<td style="text-align: left;">Fatty Fish</td>
+<td style="text-align: left;">Fish</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">117</td>
+<td style="text-align: left;">FISH SHELL</td>
+<td style="text-align: left;">Shellfish</td>
+<td style="text-align: left;">Fish</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">118</td>
+<td style="text-align: left;">FISH COOKED</td>
+<td style="text-align: left;">Processed/Convenience Fish</td>
+<td style="text-align: left;">Fish</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">120</td>
+<td style="text-align: left;">OTHER CANNED OR BOTTLED FISH</td>
+<td style="text-align: left;">Processed/Convenience Fish</td>
+<td style="text-align: left;">Fish</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">123</td>
+<td style="text-align: left;">FISH PRODUCTS NOT FROZEN</td>
+<td style="text-align: left;">Processed/Convenience Fish</td>
+<td style="text-align: left;">Fish</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">127</td>
+<td style="text-align: left;">FROZEN CONV FISH PRODUCTS</td>
+<td style="text-align: left;">Processed/Convenience Fish</td>
+<td style="text-align: left;">Fish</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">129</td>
+<td style="text-align: left;">EGGS</td>
+<td style="text-align: left;">Eggs</td>
+<td style="text-align: left;">Eggs</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">135</td>
+<td style="text-align: left;">BUTTER</td>
+<td style="text-align: left;">Saturated Fat</td>
+<td style="text-align: left;">Saturated Fat</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">138</td>
+<td style="text-align: left;">MARGARINE</td>
+<td style="text-align: left;">Saturated Fat</td>
+<td style="text-align: left;">Saturated Fat</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">139</td>
+<td style="text-align: left;">LARD &amp; COMPOUND COOKING FAT</td>
+<td style="text-align: left;">Saturated Fat</td>
+<td style="text-align: left;">Saturated Fat</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">143</td>
+<td style="text-align: left;">VEGETABLE &amp; SALAD OILS</td>
+<td style="text-align: left;">Unsaturated Fat</td>
+<td style="text-align: left;">Unsaturated Fat</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">148</td>
+<td style="text-align: left;">ALL OTHER FATS</td>
+<td style="text-align: left;">Other Fat</td>
+<td style="text-align: left;">Unsaturated Fat</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">150</td>
+<td style="text-align: left;">SUGAR</td>
+<td style="text-align: left;">Sugars &amp; Syrups</td>
+<td style="text-align: left;">Sugars &amp; Sweets</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">152</td>
+<td style="text-align: left;">MARMALADE</td>
+<td style="text-align: left;">Sugars &amp; Syrups</td>
+<td style="text-align: left;">Sugars &amp; Sweets</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">153</td>
+<td style="text-align: left;">SYRUP AND TREACLE</td>
+<td style="text-align: left;">Sugars &amp; Syrups</td>
+<td style="text-align: left;">Sugars &amp; Sweets</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">154</td>
+<td style="text-align: left;">HONEY</td>
+<td style="text-align: left;">Sugars &amp; Syrups</td>
+<td style="text-align: left;">Sugars &amp; Sweets</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">151</td>
+<td style="text-align: left;">JAMS JELLIES &amp; FRUIT CURDS</td>
+<td style="text-align: left;">Jams &amp; Preserves</td>
+<td style="text-align: left;">Sugars &amp; Sweets</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">267</td>
+<td style="text-align: left;">BUNS SCONES AND TEACAKES</td>
+<td style="text-align: left;">Baked Sweets</td>
+<td style="text-align: left;">Sugars &amp; Sweets</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">270</td>
+<td style="text-align: left;">CAKES AND PASTRIES</td>
+<td style="text-align: left;">Baked Sweets</td>
+<td style="text-align: left;">Sugars &amp; Sweets</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">271</td>
+<td style="text-align: left;">CRISPBREAD</td>
+<td style="text-align: left;">Baked Sweets</td>
+<td style="text-align: left;">Sugars &amp; Sweets</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">274</td>
+<td style="text-align: left;">BISCUITS OTHER THAN CHOCOLATE</td>
+<td style="text-align: left;">Baked Sweets</td>
+<td style="text-align: left;">Sugars &amp; Sweets</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">277</td>
+<td style="text-align: left;">BISCUITS CHOCOLATE</td>
+<td style="text-align: left;">Baked Sweets</td>
+<td style="text-align: left;">Sugars &amp; Sweets</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">350</td>
+<td style="text-align: left;">SOLID CHOCOLATE</td>
+<td style="text-align: left;">Confectionery</td>
+<td style="text-align: left;">Sugars &amp; Sweets</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">351</td>
+<td style="text-align: left;">CHOCOLATE COATED FILLED BAR/SWEETS</td>
+<td style="text-align: left;">Confectionery</td>
+<td style="text-align: left;">Sugars &amp; Sweets</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">352</td>
+<td style="text-align: left;">CHEWING GUM</td>
+<td style="text-align: left;">Confectionery</td>
+<td style="text-align: left;">Sugars &amp; Sweets</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">353</td>
+<td style="text-align: left;">MINTS AND BOILED SWEETS</td>
+<td style="text-align: left;">Confectionery</td>
+<td style="text-align: left;">Sugars &amp; Sweets</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">354</td>
+<td style="text-align: left;">FUDGE, TOFFEES, CARAMELS</td>
+<td style="text-align: left;">Confectionery</td>
+<td style="text-align: left;">Sugars &amp; Sweets</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">285</td>
+<td style="text-align: left;">CANNED MILK PUDDINGS</td>
+<td style="text-align: left;">Frozen/Dairy Desserts</td>
+<td style="text-align: left;">Sugars &amp; Sweets</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">286</td>
+<td style="text-align: left;">OTHER PUDDINGS</td>
+<td style="text-align: left;">Frozen/Dairy Desserts</td>
+<td style="text-align: left;">Sugars &amp; Sweets</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">332</td>
+<td style="text-align: left;">ICECREAM (+MOUSSE PRE-92)</td>
+<td style="text-align: left;">Frozen/Dairy Desserts</td>
+<td style="text-align: left;">Sugars &amp; Sweets</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">333</td>
+<td style="text-align: left;">ICECREAM PRODUCTS &amp; OTH FROZEN DAIRY FDS</td>
+<td style="text-align: left;">Frozen/Dairy Desserts</td>
+<td style="text-align: left;">Sugars &amp; Sweets</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">312</td>
+<td style="text-align: left;">COCOA AND DRINKING CHOCOLATE</td>
+<td style="text-align: left;">Sweet Spreads/Other</td>
+<td style="text-align: left;">Sugars &amp; Sweets</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">329</td>
+<td style="text-align: left;">TABLE JELLY SQUARES AND CRYSTALS</td>
+<td style="text-align: left;">Sweet Spreads/Other</td>
+<td style="text-align: left;">Sugars &amp; Sweets</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">155</td>
+<td style="text-align: left;">POTATOES</td>
+<td style="text-align: left;">Potatoes</td>
+<td style="text-align: left;">Potatoes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">156</td>
+<td style="text-align: left;">POTS PREV YRS CROP NOT P/P PURCH JAN/AUG</td>
+<td style="text-align: left;">Potatoes</td>
+<td style="text-align: left;">Potatoes</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">157</td>
+<td style="text-align: left;">POTS PREV YRS CROP P/P PURCH JAN/AUG</td>
+<td style="text-align: left;">Potatoes</td>
+<td style="text-align: left;">Potatoes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">158</td>
+<td style="text-align: left;">POTS CURR YRS CROP NOT P/P PURCH JAN/AUG</td>
+<td style="text-align: left;">Potatoes</td>
+<td style="text-align: left;">Potatoes</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">159</td>
+<td style="text-align: left;">POTS CURR YRS CROP P/P PURCH JAN/AUG</td>
+<td style="text-align: left;">Potatoes</td>
+<td style="text-align: left;">Potatoes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">160</td>
+<td style="text-align: left;">POTS CURR YRS CROP NOT P/P PURCH SEP/DEC</td>
+<td style="text-align: left;">Potatoes</td>
+<td style="text-align: left;">Potatoes</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">161</td>
+<td style="text-align: left;">POTS CURR YRS CROP P/P PURCH SEP/DEC</td>
+<td style="text-align: left;">Potatoes</td>
+<td style="text-align: left;">Potatoes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">197</td>
+<td style="text-align: left;">CHIPS EXCL FROZEN</td>
+<td style="text-align: left;">Potatoes</td>
+<td style="text-align: left;">Potatoes</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">198</td>
+<td style="text-align: left;">INSTANT POTATO</td>
+<td style="text-align: left;">Potatoes</td>
+<td style="text-align: left;">Potatoes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">199</td>
+<td style="text-align: left;">CANNED POTATO</td>
+<td style="text-align: left;">Potatoes</td>
+<td style="text-align: left;">Potatoes</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">200</td>
+<td style="text-align: left;">CRISPS &amp; OTHER POTATO PRODS NOT FROZEN</td>
+<td style="text-align: left;">Potatoes</td>
+<td style="text-align: left;">Potatoes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">205</td>
+<td style="text-align: left;">FROZEN CHIPS &amp; OTHER FROZEN POTATO PRODS</td>
+<td style="text-align: left;">Potatoes</td>
+<td style="text-align: left;">Potatoes</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">162</td>
+<td style="text-align: left;">CABBAGES FRESH</td>
+<td style="text-align: left;">Leafy/Cruciferous</td>
+<td style="text-align: left;">Leafy Greens</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">163</td>
+<td style="text-align: left;">BRUSSELS FRESH</td>
+<td style="text-align: left;">Leafy/Cruciferous</td>
+<td style="text-align: left;">Leafy Greens</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">164</td>
+<td style="text-align: left;">CAULIFLOWERS FRESH</td>
+<td style="text-align: left;">Leafy/Cruciferous</td>
+<td style="text-align: left;">Leafy Greens</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">167</td>
+<td style="text-align: left;">LEAFY SALADS FRESH</td>
+<td style="text-align: left;">Leafy/Cruciferous</td>
+<td style="text-align: left;">Leafy Greens</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">172</td>
+<td style="text-align: left;">CARROTS FRESH</td>
+<td style="text-align: left;">Root Vegetables</td>
+<td style="text-align: left;">Other Fruits &amp; Vegetables</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">173</td>
+<td style="text-align: left;">TURNIPS &amp; SWEDES FRESH</td>
+<td style="text-align: left;">Root Vegetables</td>
+<td style="text-align: left;">Other Fruits &amp; Vegetables</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">174</td>
+<td style="text-align: left;">OTHER ROOT VEG FRESH</td>
+<td style="text-align: left;">Root Vegetables</td>
+<td style="text-align: left;">Other Fruits &amp; Vegetables</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">175</td>
+<td style="text-align: left;">ONIONS LEEKS SHALLOTS FRESH</td>
+<td style="text-align: left;">Root Vegetables</td>
+<td style="text-align: left;">Other Fruits &amp; Vegetables</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">168</td>
+<td style="text-align: left;">PEAS FRESH</td>
+<td style="text-align: left;">Legumes</td>
+<td style="text-align: left;">Plant Protein</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">169</td>
+<td style="text-align: left;">BEANS FRESH</td>
+<td style="text-align: left;">Legumes</td>
+<td style="text-align: left;">Plant Protein</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">185</td>
+<td style="text-align: left;">PEAS CANNED</td>
+<td style="text-align: left;">Legumes</td>
+<td style="text-align: left;">Plant Protein</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">188</td>
+<td style="text-align: left;">BEANS CANNED</td>
+<td style="text-align: left;">Legumes</td>
+<td style="text-align: left;">Plant Protein</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">192</td>
+<td style="text-align: left;">DRIED PULSES OTHER THAN AIR-DRIED</td>
+<td style="text-align: left;">Legumes</td>
+<td style="text-align: left;">Plant Protein</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">203</td>
+<td style="text-align: left;">FROZEN PEAS</td>
+<td style="text-align: left;">Legumes</td>
+<td style="text-align: left;">Plant Protein</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">204</td>
+<td style="text-align: left;">FROZEN BEANS</td>
+<td style="text-align: left;">Legumes</td>
+<td style="text-align: left;">Plant Protein</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">176</td>
+<td style="text-align: left;">CUCUMBERS FRESH</td>
+<td style="text-align: left;">Tomatoes &amp; Cucumbers</td>
+<td style="text-align: left;">Other Fruits &amp; Vegetables</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">178</td>
+<td style="text-align: left;">TOMATOES FRESH</td>
+<td style="text-align: left;">Tomatoes &amp; Cucumbers</td>
+<td style="text-align: left;">Other Fruits &amp; Vegetables</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">184</td>
+<td style="text-align: left;">TOMATOES CANNED AND BOTTLED</td>
+<td style="text-align: left;">Tomatoes &amp; Cucumbers</td>
+<td style="text-align: left;">Other Fruits &amp; Vegetables</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">177</td>
+<td style="text-align: left;">MUSHROOMS FRESH</td>
+<td style="text-align: left;">Mushrooms</td>
+<td style="text-align: left;">Other Fruits &amp; Vegetables</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">196</td>
+<td style="text-align: left;">VEGETABLE JUICES</td>
+<td style="text-align: left;">Vegetable Juices</td>
+<td style="text-align: left;">Other Fruits &amp; Vegetables</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">171</td>
+<td style="text-align: left;">OTHER FRESH GREEN VEGETABLES</td>
+<td style="text-align: left;">Other/Misc Vegetables</td>
+<td style="text-align: left;">Other Fruits &amp; Vegetables</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">183</td>
+<td style="text-align: left;">MISC FRESH VEGTABLES</td>
+<td style="text-align: left;">Other/Misc Vegetables</td>
+<td style="text-align: left;">Other Fruits &amp; Vegetables</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">191</td>
+<td style="text-align: left;">OTHER CANNED VEG (NOT POTS TOMS PULSES)</td>
+<td style="text-align: left;">Other/Misc Vegetables</td>
+<td style="text-align: left;">Other Fruits &amp; Vegetables</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">195</td>
+<td style="text-align: left;">AIR-DRIED VEGETABLES</td>
+<td style="text-align: left;">Other/Misc Vegetables</td>
+<td style="text-align: left;">Other Fruits &amp; Vegetables</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">202</td>
+<td style="text-align: left;">OTHER VEGETABLE PRODUCTS</td>
+<td style="text-align: left;">Other/Misc Vegetables</td>
+<td style="text-align: left;">Other Fruits &amp; Vegetables</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">208</td>
+<td style="text-align: left;">ALL FROZEN VEG/VEG PRODS NSE</td>
+<td style="text-align: left;">Other/Misc Vegetables</td>
+<td style="text-align: left;">Other Fruits &amp; Vegetables</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">210</td>
+<td style="text-align: left;">ORANGES FRESH</td>
+<td style="text-align: left;">Fruits</td>
+<td style="text-align: left;">Other Fruits &amp; Vegetables</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">214</td>
+<td style="text-align: left;">OTHER CITRUS FRUIT FRESH</td>
+<td style="text-align: left;">Fruits</td>
+<td style="text-align: left;">Other Fruits &amp; Vegetables</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">217</td>
+<td style="text-align: left;">APPLES FRESH</td>
+<td style="text-align: left;">Fruits</td>
+<td style="text-align: left;">Other Fruits &amp; Vegetables</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">218</td>
+<td style="text-align: left;">PEARS FRESH</td>
+<td style="text-align: left;">Fruits</td>
+<td style="text-align: left;">Other Fruits &amp; Vegetables</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">221</td>
+<td style="text-align: left;">STONE FRUIT FRESH</td>
+<td style="text-align: left;">Fruits</td>
+<td style="text-align: left;">Other Fruits &amp; Vegetables</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">222</td>
+<td style="text-align: left;">GRAPES FRESH</td>
+<td style="text-align: left;">Fruits</td>
+<td style="text-align: left;">Other Fruits &amp; Vegetables</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">227</td>
+<td style="text-align: left;">SOFT FRUIT FRESH, OTHER THAN GRAPES</td>
+<td style="text-align: left;">Fruits</td>
+<td style="text-align: left;">Other Fruits &amp; Vegetables</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">228</td>
+<td style="text-align: left;">BANANAS FRESH</td>
+<td style="text-align: left;">Fruits</td>
+<td style="text-align: left;">Other Fruits &amp; Vegetables</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">229</td>
+<td style="text-align: left;">RHUBARB FRESH</td>
+<td style="text-align: left;">Fruits</td>
+<td style="text-align: left;">Other Fruits &amp; Vegetables</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">231</td>
+<td style="text-align: left;">OTHER FRESH FRUIT</td>
+<td style="text-align: left;">Fruits</td>
+<td style="text-align: left;">Other Fruits &amp; Vegetables</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">233</td>
+<td style="text-align: left;">CANNED PEACHES PEARS AND PINEAPPLES</td>
+<td style="text-align: left;">Fruits</td>
+<td style="text-align: left;">Other Fruits &amp; Vegetables</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">236</td>
+<td style="text-align: left;">OTHER CANNED OR BOTTLED FRUIT</td>
+<td style="text-align: left;">Fruits</td>
+<td style="text-align: left;">Other Fruits &amp; Vegetables</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">240</td>
+<td style="text-align: left;">DRIED FRUIT AND DRIED FRUIT PRODS</td>
+<td style="text-align: left;">Fruits</td>
+<td style="text-align: left;">Other Fruits &amp; Vegetables</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">241</td>
+<td style="text-align: left;">FROZEN FRUIT/FRUIT PRODS</td>
+<td style="text-align: left;">Fruits</td>
+<td style="text-align: left;">Other Fruits &amp; Vegetables</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">245</td>
+<td style="text-align: left;">NUTS AND NUT PRODUCTS</td>
+<td style="text-align: left;">Nuts</td>
+<td style="text-align: left;">Plant Protein</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">248</td>
+<td style="text-align: left;">FRUIT JUICES</td>
+<td style="text-align: left;">Juice</td>
+<td style="text-align: left;">Other Fruits &amp; Vegetables</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">249</td>
+<td style="text-align: left;">WELFARE ORANGE JUICE</td>
+<td style="text-align: left;">Juice</td>
+<td style="text-align: left;">Other Fruits &amp; Vegetables</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">251</td>
+<td style="text-align: left;">BREAD WHITE UNSLICED (LARGE ONLY PRE-92)</td>
+<td style="text-align: left;">White Bread</td>
+<td style="text-align: left;">Refined Grains</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">252</td>
+<td style="text-align: left;">BREAD WHITE SLICED (LARGE ONLY PRE-92)</td>
+<td style="text-align: left;">White Bread</td>
+<td style="text-align: left;">Refined Grains</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">253</td>
+<td style="text-align: left;">BREAD WHITE SMALL UNSLICED (PRE-1992)</td>
+<td style="text-align: left;">White Bread</td>
+<td style="text-align: left;">Refined Grains</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">254</td>
+<td style="text-align: left;">BREAD WHITE SMALL SLICED (PRE-1992)</td>
+<td style="text-align: left;">White Bread</td>
+<td style="text-align: left;">Refined Grains</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">257</td>
+<td style="text-align: left;">BREAD WHITE SLICED PREMIUM</td>
+<td style="text-align: left;">White Bread</td>
+<td style="text-align: left;">Refined Grains</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">258</td>
+<td style="text-align: left;">BREAD WHITE SLICED SOFTGRAIN</td>
+<td style="text-align: left;">White Bread</td>
+<td style="text-align: left;">Refined Grains</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">263</td>
+<td style="text-align: left;">TOTAL OTHER BREAD</td>
+<td style="text-align: left;">White Bread</td>
+<td style="text-align: left;">Refined Grains</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">255</td>
+<td style="text-align: left;">BREAD BROWN (PRE-1992)</td>
+<td style="text-align: left;">Wholegrain Bread</td>
+<td style="text-align: left;">Whole Grains</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">256</td>
+<td style="text-align: left;">BREAD WHOLEWHEAT &amp; WHOLEMEAL (PRE-1992)</td>
+<td style="text-align: left;">Wholegrain Bread</td>
+<td style="text-align: left;">Whole Grains</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">259</td>
+<td style="text-align: left;">BREAD BROWN SLICED</td>
+<td style="text-align: left;">Wholegrain Bread</td>
+<td style="text-align: left;">Whole Grains</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">260</td>
+<td style="text-align: left;">BREAD WHOLEMEAL SLICED</td>
+<td style="text-align: left;">Wholegrain Bread</td>
+<td style="text-align: left;">Whole Grains</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">261</td>
+<td style="text-align: left;">BREAD BROWN UNSLICED</td>
+<td style="text-align: left;">Wholegrain Bread</td>
+<td style="text-align: left;">Whole Grains</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">262</td>
+<td style="text-align: left;">BREAD WHOLEMEAL UNSLICED</td>
+<td style="text-align: left;">Wholegrain Bread</td>
+<td style="text-align: left;">Whole Grains</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">264</td>
+<td style="text-align: left;">FLOUR</td>
+<td style="text-align: left;">Cereal</td>
+<td style="text-align: left;">Refined Grains</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">282</td>
+<td style="text-align: left;">BREAKFAST CEREALS</td>
+<td style="text-align: left;">Cereal</td>
+<td style="text-align: left;">Refined Grains</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">290</td>
+<td style="text-align: left;">CEREAL-BASED INVALID-INCL SLIMMING-FOODS</td>
+<td style="text-align: left;">Cereal</td>
+<td style="text-align: left;">Refined Grains</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">294</td>
+<td style="text-align: left;">TOTAL FROZEN CONVENIENCE CEREAL FOODS</td>
+<td style="text-align: left;">Cereal</td>
+<td style="text-align: left;">Refined Grains</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">299</td>
+<td style="text-align: left;">TOTAL CEREAL CONVENIENCE FOODS NSE</td>
+<td style="text-align: left;">Cereal</td>
+<td style="text-align: left;">Refined Grains</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">301</td>
+<td style="text-align: left;">OTHER CEREAL FOODS</td>
+<td style="text-align: left;">Cereal</td>
+<td style="text-align: left;">Refined Grains</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">281</td>
+<td style="text-align: left;">OATMEAL AND OAT PRODUCTS</td>
+<td style="text-align: left;">Oats</td>
+<td style="text-align: left;">Whole Grains</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">287</td>
+<td style="text-align: left;">RICE</td>
+<td style="text-align: left;">Rice</td>
+<td style="text-align: left;">Whole Grains</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">291</td>
+<td style="text-align: left;">INFANT FOODS</td>
+<td style="text-align: left;">Baby food</td>
+<td style="text-align: left;">Other/Misc</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">315</td>
+<td style="text-align: left;">BABY FOODS CANNED OR BOTTLED</td>
+<td style="text-align: left;">Baby food</td>
+<td style="text-align: left;">Other/Misc</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">304</td>
+<td style="text-align: left;">TEA</td>
+<td style="text-align: left;">Tea</td>
+<td style="text-align: left;">Other/Misc</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">307</td>
+<td style="text-align: left;">COFFEE BEAN AND GROUND</td>
+<td style="text-align: left;">Coffee</td>
+<td style="text-align: left;">Other/Misc</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">308</td>
+<td style="text-align: left;">COFFEE INSTANT (INCL AFD)</td>
+<td style="text-align: left;">Coffee</td>
+<td style="text-align: left;">Other/Misc</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">309</td>
+<td style="text-align: left;">COFFEE ESSENCES</td>
+<td style="text-align: left;">Coffee</td>
+<td style="text-align: left;">Other/Misc</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">313</td>
+<td style="text-align: left;">BRANDED FOOD DRINKS</td>
+<td style="text-align: left;">Branded Milk Drinks</td>
+<td style="text-align: left;">Other/Misc</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">314</td>
+<td style="text-align: left;">MINERAL WATER</td>
+<td style="text-align: left;">Water</td>
+<td style="text-align: left;">Other/Misc</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">320</td>
+<td style="text-align: left;">AFD FOODS (EXCL COFFEE)</td>
+<td style="text-align: left;">Freeze-Dried-Foods</td>
+<td style="text-align: left;">Other/Misc</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">323</td>
+<td style="text-align: left;">SPREADS AND DRESSINGS</td>
+<td style="text-align: left;">Condiments</td>
+<td style="text-align: left;">Other/Misc</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">327</td>
+<td style="text-align: left;">PICKLES AND SAUCES</td>
+<td style="text-align: left;">Condiments</td>
+<td style="text-align: left;">Other/Misc</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">328</td>
+<td style="text-align: left;">MEAT AND YEAST EXTRACTS</td>
+<td style="text-align: left;">Condiments</td>
+<td style="text-align: left;">Other/Misc</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">318</td>
+<td style="text-align: left;">SOUPS CANNED</td>
+<td style="text-align: left;">Prepared soups</td>
+<td style="text-align: left;">Other/Misc</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">319</td>
+<td style="text-align: left;">SOUPS DEHYDRATED AND POWDERED</td>
+<td style="text-align: left;">Prepared soups</td>
+<td style="text-align: left;">Other/Misc</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">334</td>
+<td style="text-align: left;">SALT</td>
+<td style="text-align: left;">Salt</td>
+<td style="text-align: left;">Other/Misc</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">335</td>
+<td style="text-align: left;">ARTIFICIAL SWEETENERS - EXP ONLY</td>
+<td style="text-align: left;">Misc</td>
+<td style="text-align: left;">Other/Misc</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">336</td>
+<td style="text-align: left;">MISCELLANEOUS - EXP ONLY</td>
+<td style="text-align: left;">Misc</td>
+<td style="text-align: left;">Other/Misc</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">339</td>
+<td style="text-align: left;">NOVEL PROTEIN FOODS</td>
+<td style="text-align: left;">Protein products</td>
+<td style="text-align: left;">Plant Protein</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">340</td>
+<td style="text-align: left;">SOFT DRINKS CONCENTRATED</td>
+<td style="text-align: left;">Regular Soft Drinks</td>
+<td style="text-align: left;">Other/Misc</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">341</td>
+<td style="text-align: left;">SOFT DRINKS UNCONCENTRATED</td>
+<td style="text-align: left;">Regular Soft Drinks</td>
+<td style="text-align: left;">Other/Misc</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">342</td>
+<td style="text-align: left;">SOFT DRINKS LOW CALORIE</td>
+<td style="text-align: left;">Low-Calorie Soft Drinks</td>
+<td style="text-align: left;">Other/Misc</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">343</td>
+<td style="text-align: left;">LOW CALORIE SOFT DRINKS CONCENTRATED</td>
+<td style="text-align: left;">Low-Calorie Soft Drinks</td>
+<td style="text-align: left;">Other/Misc</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">344</td>
+<td style="text-align: left;">LOW CALORIE SOFT DRINKS UNCONCENTRATED</td>
+<td style="text-align: left;">Low-Calorie Soft Drinks</td>
+<td style="text-align: left;">Other/Misc</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">380</td>
+<td style="text-align: left;">LOW ALCOHOL BEERS, LAGERS AND CIDERS</td>
+<td style="text-align: left;">Beer/Cider</td>
+<td style="text-align: left;">Alcohol</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">381</td>
+<td style="text-align: left;">BEERS</td>
+<td style="text-align: left;">Beer/Cider</td>
+<td style="text-align: left;">Alcohol</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">382</td>
+<td style="text-align: left;">LAGERS AND CONTINENTAL BEERS</td>
+<td style="text-align: left;">Beer/Cider</td>
+<td style="text-align: left;">Alcohol</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">383</td>
+<td style="text-align: left;">CIDERS AND PERRY</td>
+<td style="text-align: left;">Beer/Cider</td>
+<td style="text-align: left;">Alcohol</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">384</td>
+<td style="text-align: left;">WINE</td>
+<td style="text-align: left;">Wine</td>
+<td style="text-align: left;">Alcohol</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">385</td>
+<td style="text-align: left;">LA WINE, WINE AND SPIRITS WITH ADDITION</td>
+<td style="text-align: left;">Wine</td>
+<td style="text-align: left;">Alcohol</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">386</td>
+<td style="text-align: left;">FORTIFIED WINES</td>
+<td style="text-align: left;">Wine</td>
+<td style="text-align: left;">Alcohol</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">387</td>
+<td style="text-align: left;">SPIRITS</td>
+<td style="text-align: left;">Spirits/Liqueurs</td>
+<td style="text-align: left;">Alcohol</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">388</td>
+<td style="text-align: left;">LIQUEURS</td>
+<td style="text-align: left;">Spirits/Liqueurs</td>
+<td style="text-align: left;">Alcohol</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">389</td>
+<td style="text-align: left;">ALCOHOLIC CARBONATES</td>
+<td style="text-align: left;">Spirits/Liqueurs</td>
+<td style="text-align: left;">Alcohol</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </section>
