@@ -33,7 +33,7 @@ While exploratory analysis ranged beyond the final figures included above in thi
 
 With population-level year-on-year changes in nutrient cluster 2 selected to be the explanatory variable, and with population-level year-on-year changes in high LDL cholesterol SEV selected to be the response variable, a correlation analysis was conducted from 0 to 20 years of time lag using a cross correlation function (CCF).  For each lag year pair, a Pearson correlation coefficient *r* was generated. 
 
-A perfect correlation would have a Pearson correlation coefficient *r* of 1.0, whereas a non-correlation would be expected to have a coefficient *r* closer to 0.0.  The CCF swept through 20 years of lag options, resulting in n = 21 year-lag year pairs for the CCF.  Based on this number of assessed year-lag year pairs, the 95% significance threshold was calculated to be approximately *r* = 0.43, and the 99% percent confidence interval was calculated to be approximately *r* = 0.562.
+A perfect correlation would have a Pearson correlation coefficient *r* of 1.0, whereas a non-correlation would be expected to have a coefficient *r* closer to 0.0.  The CCF swept through 20 years of lag options, resulting in n = 21 year-lag year pairs for the CCF.  Based on this number of assessed year-lag year pairs, the 95% significance threshold was calculated to be approximately *r* = 0.43, and the 99% significant threshold was calculated to be approximately *r* = 0.562.
 
 $$
 r_{crit,\,95\%} = \frac{1.96}{\sqrt{n}}
@@ -155,7 +155,7 @@ Proceeding with a 5 year time-lag, there are 15 possible years of overlap betwee
 
 ### Correlation validation
 
-This finding was tested against thousands of random permutations to investigate if the apparent correlation was random conincidence.  The order of SEV scores for the 15 years of time-lagged GBD disease data was held constant, and the corresponding 15 years of nutrient cluster 2 proportions were randomly shuffled. Correlation was assessed with each permutation, and the observed *r* from @fig-correlation-sweep-vs-LDL of 0.679 was found to be more extreme a result than over 99% of correlations. 
+This finding was tested against thousands of random permutations to investigate if the apparent correlation might just be conincidence.  The order of SEV scores for the 15 years of time-lagged GBD disease data was held constant, and the corresponding 15 years of nutrient cluster 2 proportions were randomly shuffled. Correlation was assessed with each permutation, and the observed *r* from @fig-correlation-sweep-vs-LDL of 0.679 was found to be a more extreme result than over 99% of correlations. 
 
 ```{python}
 lag = 5
@@ -315,11 +315,11 @@ plt.close()
 
 As seen in @fig-map-neg-corr-ldl-nute-cluster-2, the five-year time lag correlation between population-level nutrient cluster 2 and the decrease in population-level LDL cholesterol SEV score is consistent across the UK.
 
-In contrast, a choropleth of a less statistically robust correlation not appear consistent across the UK.
+In contrast, a choropleth of a less statistically robust correlation did not appear consistent across the UK.
 ```{python}
 #| results: 'hide'
 #| label: fig-map-no-corr-blood-pressure-nute-cluster-2
-#| fig-cap: "Not consistent l;a against blood proessure in the same time"
+#| fig-cap: "Nutrient Cluster 2 did not show a consistent correlation at a five-year time lag against blood proessure across regions of the UK."
 fg17fg55nute = 'nute'
 cluster_type = f'{fg17fg55nute}_cluster'
 rei_name = 'High systolic blood pressure'
