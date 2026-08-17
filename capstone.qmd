@@ -4,7 +4,7 @@ subtitle: Population-level plant-based dietary trends correlate with time-lagged
 authors:
   - Graham
   - Sam
-bibliography: references.bib
+bibliography: capstone_UK_references.bib
 title-block-banner: true
 format: 
   html:
