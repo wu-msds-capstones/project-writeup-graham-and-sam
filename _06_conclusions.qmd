@@ -3,18 +3,25 @@
 
 ### Overall conclusion
 
-There appears to be a statistically significant inverse correlation between nutrient profile cluster 2 and five-year time lag SEV risk rates for high LDL cholesterol. Nutrient profile cluster 2 is characterized by higher levels of nutrients most associated with plant-based foods, so we conclude that there is a detectable correlative association between plant-based food trends and lowering LDL cholesterol rates in the UK population.
+There appears to be a statistically-significant inverse correlation between year-on-year changes in population proportion of nutrient-profile Cluster 2 and year-on-year changes in population-level high LDL cholesterol SEV scores, at a five-year time lag. Nutrient profile cluster 2 is characterized by higher levels of nutrients most associated with plant-based foods, so we conclude that there appears to be a detectable time-lagged correlative association between increasing plant-based food trends and lowering LDL cholesterol rates in the UK population. 
 
-Of course, this is consistent with years of literature and medical advice.  The innovation of this project, if any, is the identification of a five year time lag specifically between plant-based diet trends and LDL cholestrol rates. This information is potentially useful to any individual tracking their own health, and to public health officials assessing the effectiveness of policiies related to food and metabolic disease. 
+Of course, this is consistent with years of literature and medical advice.  The innovation of this project, if any, is the identification of the five-year time lag specifically. This information is potentially useful to any individual tracking their own health, and to public health officials assessing the effectiveness of policies related to food and metabolic disease. 
 
 ### Limitations
 
- It might be expected that this five year time lag finding would apply to any population, not just the UK.  That said, there are certainly many confounding variables involved in human health outcomes  --genetics, poverty, food access, education, environmental exposures, other lifestyle factors, and more -- so a strong proclaimation about the universal applicability of this finding is not warranted.  Even looking only at the UK only, there are many caveats to consider in this data. The food diaries were self reported, so the information might be of varying reliability.  Also, the diet diaries tracked the food that was purchased. It is assumed that the purchased food was consumed, but that could be inaccurate.  Relatedly, some households might be bulk shoppers who buy a lot of food every other week. For such a bulk shopping household, the timing of the diet diary week could make them appear to consume way too much or way too little.
+The most significant limitation of this study is that it is not longitudinal.  It would be ideal to track high numbers of individual people in a scientifically controlled manner, over many years of analysis. In that case, varying dietary habits and health outcomes could be mapped to individual people and then aggregated for statistical power.  Unfortunately, longitudinal data like this is rare and hard to obtain.  So, the best option for this realm of investigation was to find aggregatable data with large numbers of subjects, and to make statistically cautious population level claims from there.  Future investigation in this direction would be buoyed by access to longitudinal diet and health data.
+
+It might be expected that this five year time lag finding would apply to any population, not just the UK.  That said, there are certainly many confounding variables involved in human health outcomes - genetics, poverty, food access, education, environmental exposures, other lifestyle factors, and more - so a strong proclamation about the universal applicability of this finding is not warranted.  
+ 
+Even looking at the UK only, there are many caveats to consider in this data. The food diaries were self-reported, so the information might be of varying reliability.  
+ 
+Also, the diet diaries tracked quantities of consumable food that was purchased. It is assumed that all of this purchased food was actually consumed, but that could be inaccurate.  
+ 
+Relatedly, some households might be bulk shoppers who buy a lot of food every other week. For such a bulk shopping household, the timing of the diet diary week could make them appear to consume way too much or way too little.
 
 ### Final thoughts
 
- Human health is complex, the association with diet, while well studied, is also complex.  Any additional insight into connections between food and health can bolster individuals and society in general to improve their longevity and reduce their risk of chroic disease.  While there are mixed messages from online influencers about these food health connections, this analysis suggests that the mainstream medical messaging is right: a more plant based diet can help lower LDL cholesterol.
+ Human health is complex, the association with diet, while well studied, is also complex.  Any additional insight into connections between food and health can bolster individuals and society in general to improve their longevity and reduce their risk of chronic disease.  While there are mixed messages from online influencers about these food health connections, this analysis suggests that the mainstream medical messaging is right: a more plant-based diet might help lower LDL cholesterol. 
+ 
+To be very clear, this study makes no claims about diet and health for individual people. That said, this study does conclude that at least in the UK from 1985 to 2000, there was a statistically significant correlation between the year-on-year rate of change of the population proportion of nutrient-profile Cluster 2 (as designated by k-means clustering) and the year-on-year rate of change for high LDL cholesterol SEV score. 
 
- So once again:
-
- Eat more plants now, have lower cholesterol later.  Specifically LDL cholesterol, and specifically five years later. 
