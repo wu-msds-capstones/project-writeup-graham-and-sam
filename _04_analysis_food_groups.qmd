@@ -231,13 +231,13 @@ print(f"PCA required {n_components_95} components to cumulatively explain 95% va
 
 ```
 
-The most explanatory component (PC 1) accounted for about 11% of variance in the food group aggregations. @fig-scree-plot
+The most explanatory component (PC 1) accounted for about 11% of variance in the food group aggregations as seen in @fig-scree-plot. 
 
 The other components only explained about 5% variance each, leading to 14 components required to cumulatively explain 95% of variance.
 
 ```{python}
 #| label: fig-pca_foodgroups-plot
-#| fig-cap: "Orientations of the first two principal components of the food group orientated diet data."
+#| fig-cap: "Orientations of the first two principal components of the food group orientated diet data. PC 1 appears to orient to a 'healthy foods' pole with fruits and vegetables and whole grains, and an 'unhealthy foods pole' with saturated fat and refined grains. PC 2 has a similar set of poles, but with general 'whole foods' at one end and 'refined foods' at the other. "
 
 ##############
 # This is the "what does PC1 mean figure"
@@ -277,6 +277,7 @@ loadings_df2.to_parquet(f"{run_folder}/pc2_loadings_{run_name}.parquet", index=F
 
 #fig, ax = plt.subplots(figsize=(6, 8))
 loadings_sorted2 = loadings_df2.sort_values('PC2_loading', ascending=True)  # ascending so most-positive plots at top
+colors = ['#B2182B' if v >= 0 else 'steelblue' for v in loadings_sorted2['PC2_loading']]
 ax2.barh(loadings_sorted2['feature'], loadings_sorted2['PC2_loading'], color=colors)
 ax2.set_xlabel('PC2 Orientation')
 #ax2.set_title('PC2 Orientation — Food groups')
@@ -291,7 +292,7 @@ plt.tight_layout()
 plt.show()
 
 ```
-As seen in @fig-pca_foodgroups-plot, the axis of greatest variance for all households by food group calorie ratios orients to a more plant-based pole (higher in 'Other Fruits & Vegetables' and 'Whole Grains'), and a more meat and refined food based-pole (higher in'Saturated Fat' and "Refined Grains"). PC 2 for all households by food group calorie ratios also appears to orient to a more processed and refined foods pole, and a whole foods pole.
+As seen in @fig-pca_foodgroups-plot, the axis of greatest variance for all households by food group calorie ratios orients to a more plant-based pole (higher in 'Other Fruits & Vegetables' and 'Whole Grains'), and a more meat and refined food based-pole (higher in'Saturated Fat' and "Refined Grains"). PC 2 for all households by food group calorie ratios also appears to orient to a more processed and refined foods pole, and to a whole foods pole.
 
 
 ### k-means clustering
@@ -593,4 +594,4 @@ fig.subplots_adjust(left=0.4, right=0.95, top=0.95, bottom=0.05)
 
 The heatmap in @fig-heat-map-food-groups-plot combines information from PCA and k-means clustering.  The two columns represent the two clusters that were assigned in k-means clustering.  The axis of the heatmap is oriented along PC 1 for food group aggregations.  Cell color and printed number inside the cell indicate cluster centroid z-score for each dimension. Blue cells are dissimilar, white cells are nuetral, colorful cells are more similar. 
 
-The axis of greatest variance only explained 11% of variance in the food group model, so this finding is taken cautiously.  That said, it is notable that the axis of greater variance appears to orient along a 'healthy food' and an 'unhealthy food' pole.
+The axis of greatest variance only explained 11% of variance in the food group model, so this visualization is presented with some caution.  That said, it is notable that the axis of greater variance appears to orient along a 'healthy food' and an 'unhealthy food' pole.
