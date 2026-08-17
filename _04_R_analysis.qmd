@@ -8,7 +8,7 @@ execute:
 ---
 ## Nutrient cluster proportions over time
 
-The most striking finding from k-means clustering paired with PCA for interpretability was that nutrient cluster 2, the more plant-oriented cluster, increased its proportional share of the UK population dramatically from 1974 to 2000.  Insofar as this analysis was seeking a strong diet-cluster signal to serve as the explanatory variable, nutrient cluster 2 seemed to be the best candidate. 
+The most striking finding from k-means clustering paired with PCA for interpretability was that nutrient Cluster 2, the more plant-oriented cluster, increased its proportional share of the UK population dramatically from 1974 to 2000.  Insofar as this analysis was seeking a strong diet-cluster signal to serve as the explanatory variable, nutrient cluster 2 seemed to be the best candidate. 
 
 Therefore, the rest of this analysis focus on nutrient-profile clustering, and not food-group clustering. 
 
@@ -137,7 +137,7 @@ region_col    = "ihme_gor"  # part of the uk # needed for by region plots
 
 ```{r}
 #| label: fig-R-line
-#| fig-cap: "Nutrient cluster proportions over time as line plot."
+#| fig-cap: "Nutrient cluster proportions over time. The main cluster often interest, Cluster 2, is represented by the green line. It ascends from under 5% in 1974 to over 40% in 2000.  The notable discontinuity of clusters 3 and 4 in 1992 is suspected to be related to an economic recession in the UK in 1992, indicated by the gray band.  Cluster 3 is higher meat-related nutrients, while Cluster 4 is higher in carbohydrates.  It is speculated that many UK households stared purchasing less meat and more simple staples like potatoes in response to the recession."
 
 cluster_props1 = data_source %>%
   filter(!is.na(.data[[cluster_col]])) %>%
@@ -240,7 +240,7 @@ print(p_trend_line)
 
 @fig-R-line details the change in proportion of each nutrient cluster over time. 
 
-There is a slight decrease for cluster 0 from around 25% to 15%. Cluster 1 was relatively stable at around 3%. Cluster 2 showed an increase in proportion from around 3% to 40% with a relatively steep slope. Cluster 3 remained around the 20% proportion area, starting a few points above and then ending at a value right around 15%. Lastly, cluster 4 starts as the highest proportion, nearly 50%, and slowly reduces to 30%. 
+There is a slight decrease for Cluster 0 from around 25% to 15%. Cluster 1 was relatively stable at around 3%. Cluster 2 showed an increase in proportion from around 3% to 40% with a relatively steep slope. Cluster 3 remained around the 20% proportion area, starting a few points above and then ending at a value right around 15%. Lastly, cluster 4 starts as the highest proportion, nearly 50%, and slowly reduces to 30%. 
 
 This suggests that as as time continued, the trends mapped to cluster 2 became more prevalent as proportions of clusters 0, 3, and 4 fell. 
 
