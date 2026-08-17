@@ -311,7 +311,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#dietary-feature-engineering" id="toc-dietary-feature-engineering" class="nav-link" data-scroll-target="#dietary-feature-engineering">Dietary Feature Engineering</a></li>
   </ul></li>
-  <li><a href="#disease-data-global-burden-of-disease-1990-to-2023" id="toc-disease-data-global-burden-of-disease-1990-to-2023" class="nav-link" data-scroll-target="#disease-data-global-burden-of-disease-1990-to-2023">Disease data: Global Burden of Disease (1990 to 2023)</a></li>
+  <li><a href="#disease-data-global-burden-of-disease-1990-to-2023" id="toc-disease-data-global-burden-of-disease-1990-to-2023" class="nav-link" data-scroll-target="#disease-data-global-burden-of-disease-1990-to-2023">Disease data: <br> Global Burden of Disease <br> (1990 to 2023)</a></li>
   <li><a href="#pipeline" id="toc-pipeline" class="nav-link" data-scroll-target="#pipeline">Pipeline</a>
   <ul class="collapse">
   <li><a href="#diet-data-cleaning" id="toc-diet-data-cleaning" class="nav-link" data-scroll-target="#diet-data-cleaning">Diet data cleaning</a></li>
@@ -429,15 +429,16 @@ calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
 \tag{4}\]</span></span></p>
 <p>The resultant nutrient profile metric, ‘quantity per total calories,’ is similar in spirit to the ‘calorie-ratio’ metric from the food groups.</p>
 <p>However, a pure calorie comparison for nutrients would not be viable, as certain nutrients (carbohydrates, fats) have abundant calories while other nutrients (vitamins) have essentially zero calories. Hence, native nutrient units were maintained and divided by the common total calories. This might preclude comparison amongst nutrients, but this analysis assesses household nutrient profiles, so the variation in fundamental units was not problematic.</p>
-<p>Furthermore, the nutrient quanity-per-total-calorie unit was also subjected to the Standared Scaler and z-scored before further analysis.</p>
+<p>Furthermore, variations in magnitude amongst the derived nutrient-quanity-per-total-calorie unit was also subjected to the Standared Scaler and z-scored before analysis.</p>
 </section>
 </section>
 </section>
 <section id="disease-data-global-burden-of-disease-1990-to-2023" class="level2">
-<h2 class="anchored" data-anchor-id="disease-data-global-burden-of-disease-1990-to-2023">Disease data: Global Burden of Disease (1990 to 2023)</h2>
-<p>Population-level disease risk rates for High LDL cholesterol and other metabolic-disease associated risk factors were acquired from the Institute for Health Metrics and Evaluation (IHME), using their GBD Results tool (https://vizhub.healthdata.org/gbd-results/).</p>
-<p>The data was specifically selected from an open API to find the summary exposure value risk rates: LDL Cholesterol, Body Mass Index, Fasting Plasma Glucose Systolic Blood Pressure, Kidney Dysfunction, Low Bone Mineral Density, and Metabolic Risks.</p>
-<p>These rates were preaggregated with the API ingestion by year, government region in the UK and to population per region.</p>
+<h2 class="anchored" data-anchor-id="disease-data-global-burden-of-disease-1990-to-2023">Disease data: <br> Global Burden of Disease <br> (1990 to 2023)</h2>
+<p>Population-level disease risk rates for High LDL cholesterol and other metabolic-disease associated risk factors were acquired from the Institute for Health Metrics and Evaluation (IHME), using their Global Burden of Disease (GBD) Results tool (https://vizhub.healthdata.org/gbd-results/).</p>
+<p>The data was specifically selected from this open API to find the summary exposure value (SEV) risk rates. The IHME defines SEV as “A measure of a population’s exposure to a risk factor that takes into account the extent of exposure by risk level and the severity of that risk’s contribution to disease burden.” https://www.healthdata.org/sites/default/files/files/policy_report/GBD/2016/IHME_GBD2015_Report_Glossary-of-terms_2016.pdf</p>
+<p>Other metics such as disability-adjusted life years (DALYs) or simple mortality rates would be confounded by chronic disease management and treatment: society developing better medical management of chronic diseases might decrease mortality rates from associated risk factors, even if the prevelance of the risk factor is increasing. SEV was the best available metric from the GBD results tool to assess risk factor prevelance. From there, the chronic disease risk factors and conditions for which SEV information were metabolic risks: High LDL Cholesterol, High Body Mass Index, High Fasting Plasma Glucose Systolic Blood Pressure, Kidney Dysfunction, Low Bone Mineral Density, and overall Metabolic Risks.</p>
+<p>These risk rates were obtained preaggreagted at a population level, grouped by UK region and by year.</p>
 </section>
 <section id="pipeline" class="level2">
 <h2 class="anchored" data-anchor-id="pipeline">Pipeline</h2>
@@ -675,9 +676,56 @@ Figure&nbsp;11: Nutrient cluster proportions over time as line plot.
 <p>Cluster 3 fluctuates around 25-28%, it has volatility in 1990s, but beyond these outliers, it remains generally stable with fewer significant year to year changes.</p>
 <p>Cluster 4 has the largest initial share of diet. It consistently has downward trends, when disregarding the shock during 1990-1992. It has a sustained statistically significant downward trend over the time period.</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>
-==== Year-over-Year Cluster Proportion Tests ====</code></pre>
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed caption-top table-sm small" data-quarto-postprocess="true">
+<caption>Significance of year-by-year changes, by nutrient cluster</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;" data-quarto-table-cell-role="th">Cluster</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Years Present</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Year-to-Year Transitions Tested</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th"># Significant Transitions</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">% of Year ChangesSignificant</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">27</td>
+<td style="text-align: center;">26</td>
+<td style="text-align: center; font-weight: bold;">8</td>
+<td style="text-align: center;">30.8%</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">27</td>
+<td style="text-align: center;">26</td>
+<td style="text-align: center; font-weight: bold;">6</td>
+<td style="text-align: center;">23.1%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">27</td>
+<td style="text-align: center;">26</td>
+<td style="text-align: center; font-weight: bold;">15</td>
+<td style="text-align: center;">57.7%</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">27</td>
+<td style="text-align: center;">26</td>
+<td style="text-align: center; font-weight: bold;">8</td>
+<td style="text-align: center;">30.8%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">27</td>
+<td style="text-align: center;">26</td>
+<td style="text-align: center; font-weight: bold;">11</td>
+<td style="text-align: center;">42.3%</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </section>
@@ -685,20 +733,80 @@ Figure&nbsp;11: Nutrient cluster proportions over time as line plot.
 <h3 class="anchored" data-anchor-id="cochran-armitage-test">Cochran-Armitage Test</h3>
 <p>The Cochran-Armitage trend test was applied separately to each of the five clusters, testing whether that cluster’s share of the population trended consistently upward or downward across the ordered sequence of survey years (1974-2000). It binary checked if the change in households was significantly different between the initial and final years to mark long-term trends. It found that all but cluster 1 experience significant change during the time frame. The confirms the listed trends, focusing on cluster 2 are not defined by noise in the data.Together, these results indicate a substantial compositional shift in the population’s cluster membership over the 27-year period, with Cluster 2 gaining population share at the expense of Clusters 0, 3, and 4, while Cluster 1 remained a stable, low-prevalence group throughout.</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>
-==== Overall Trend Test (Cochran-Armitage), Per Cluster ====</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-
-| cluster| n_years| first_year| last_year| prop_first| prop_last|     chi_sq| p_value|significant_trend |
-|-------:|-------:|----------:|---------:|----------:|---------:|----------:|-------:|:-----------------|
-|       0|      27|       1974|      2000|     0.2518|    0.1411|   419.9309|   0.000|Yes               |
-|       1|      27|       1974|      2000|     0.0048|    0.0102|     0.7422|   0.389|No                |
-|       2|      27|       1974|      2000|     0.0325|    0.3993| 14406.6027|   0.000|Yes               |
-|       3|      27|       1974|      2000|     0.2167|    0.1451|  2183.9434|   0.000|Yes               |
-|       4|      27|       1974|      2000|     0.4943|    0.3043|  1218.6112|   0.000|Yes               |</code></pre>
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed caption-top table-sm small" data-quarto-postprocess="true">
+<caption>Cochran-Armitage trend test results, by nutrient cluster</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;" data-quarto-table-cell-role="th">Cluster</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th"># Years</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">First Year</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Last Year</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Proportion (First Year)</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Proportion (Last Year)</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Chi-sq Statistic</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">p-value</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Significant Trend?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">0</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">27</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">1974</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">2000</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">25.2%</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">14.1%</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">419.93</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">p&lt;0.001</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important; font-weight: bold;">Yes</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">27</td>
+<td style="text-align: center;">1974</td>
+<td style="text-align: center;">2000</td>
+<td style="text-align: center;">0.5%</td>
+<td style="text-align: center;">1.0%</td>
+<td style="text-align: center;">0.74</td>
+<td style="text-align: center;">p=0.389</td>
+<td style="text-align: center; font-weight: bold;">No</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">2</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">27</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">1974</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">2000</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">3.2%</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">39.9%</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">14406.60</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">p&lt;0.001</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important; font-weight: bold;">Yes</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">3</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">27</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">1974</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">2000</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">21.7%</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">14.5%</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">2183.94</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">p&lt;0.001</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important; font-weight: bold;">Yes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">4</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">27</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">1974</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">2000</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">49.4%</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">30.4%</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">1218.61</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important;">p&lt;0.001</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(234, 247, 234, 1) !important; font-weight: bold;">Yes</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </section>
