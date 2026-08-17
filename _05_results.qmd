@@ -36,7 +36,23 @@ disease_colors = {
 ```
 
 
+While exploratory analysis ranged beyond the final figures included above in this report, time-lag correlation studies were focused on population-level changes in the proportion of nutrient cluster 2, and on population-level LDL cholesterol SEV scores. The results reported below are in reference to the correlative association between those two selected variables.  
 
+## Diet and Disease lag analysis
+
+With population-level year-on-year changes in nutrient cluster 2 selected to be the explanatory variable, and with population-level year-on-year changes in high LDL cholesterol SEV selected to be the response variable, a correlation analysis was conducted from 0 to 20 years of time lag using a cross correlation function (CCF).  For each lag year pair, a Pearson correlation coefficient *r* was generated. 
+
+A perfect correlation would have a Pearson correlation coefficient *r* of 1.0, whereas a non-correlation would be expected to have a coefficient *r* closer to 0.0.  The CCF swept through 20 years of lag options, resulting in n = 21 year-lag year pairs for the CCF.  Based on this number of assessed year-lag year pairs, the 95% significance threshold was calculated to be approximately *r* = 0.43, and the 99% percent confidence interval was calculated to be approximately *r* = 0.562.
+
+$$
+r_{crit,\,95\%} = \frac{1.96}{\sqrt{n}}
+$$ {#eq-sig-band-95}
+
+$$
+r_{crit,\,99\%} = \frac{5.67}{\sqrt{n}}
+$$ {#eq-sig-band-99}
+
+### Cross correlation function
 
 ```{python}
 #| label: fig-correlation-sweep-vs-LDL
@@ -92,7 +108,7 @@ plt.axhline(-band1, color='red', linestyle='--', linewidth=1)
 plt.axhline(-band2, color='blue', linestyle='--', linewidth=1)
 plt.axhline(0, color='black', linewidth=0.5)
 plt.xlabel('lag')
-plt.ylabel('r')
+plt.ylabel('Pearson correlation coefficient r')
 #plt.title(f'{diet_label} vs {disease_label}: cross-correlation by lag')
 plt.legend()
 plt.show()
@@ -103,44 +119,52 @@ os.makedirs('../_scratch/EDA_correlation', exist_ok=True)
 
 #plt.savefig(file_name_for_export, dpi=150, bbox_inches='tight')
 ```
+
+
+As seen in @fig-correlation-sweep-vs-LDL, there was a sustained correlation above the 95% significance threshold between 2.5 and 7.5 years, and a distinct peak above the 99% significance threshold at 5 years. 
+
+Proceeding with a 5 year time-lag, there are 15 possible years of overlap between the diet and disease data sets: NFS diet data from 1985 to 2000 corresponds at a five year time lag with GBD disease data from 1990 to 2005.
+
 ```{python}
 #| label: fig-correlation-sweep-for-other-disease
 #| fig-cap: "Lag correlation sweeps for all nutrient clusters against LDL"
 
 # ccf_df.head(1000)
 
-n_clusters =  df_diet_national[cluster_type].nunique()
-fig, axes = plt.subplots(1, n_clusters, figsize=(5 * n_clusters, 4), sharey=True)
+# n_clusters =  df_diet_national[cluster_type].nunique()
+# fig, axes = plt.subplots(1, n_clusters, figsize=(5 * n_clusters, 4), sharey=True)
 
-for ax, cluster_number in zip(axes, sorted(df_diet_national[cluster_type].unique())):
-    df_diet_series = df_diet_national[df_diet_national[cluster_type] == cluster_number]
-    x = df_diet_series.set_index('styr')['proportion'].diff().dropna()
+# for ax, cluster_number in zip(axes, sorted(df_diet_national[cluster_type].unique())):
+#     df_diet_series = df_diet_national[df_diet_national[cluster_type] == cluster_number]
+#     x = df_diet_series.set_index('styr')['proportion'].diff().dropna()
 
-    results = []
-    for lag in range(0, 21):
-        y_target = y.reindex(x.index + lag)
-        r = pd.Series(x.values).corr(pd.Series(y_target.values))
-        results.append({'lag': lag, 'r': r})
-    ccf_df = pd.DataFrame(results)
+#     results = []
+#     for lag in range(0, 21):
+#         y_target = y.reindex(x.index + lag)
+#         r = pd.Series(x.values).corr(pd.Series(y_target.values))
+#         results.append({'lag': lag, 'r': r})
+#     ccf_df = pd.DataFrame(results)
 
-    ax.plot(ccf_df['lag'], ccf_df['r'], color='orange')
-    ax.axhline(band1, color='red', linestyle='--', linewidth=1)
-    ax.axhline(-band2, color='red', linestyle='--', linewidth=1)
-    ax.axhline(0, color='black', linewidth=0.5)
-#    ax.set_title(f'{cluster_type}_{cluster_number}')
-    ax.set_xlabel('lag')
+#     ax.plot(ccf_df['lag'], ccf_df['r'], color='orange')
+#     ax.axhline(band1, color='red', linestyle='--', linewidth=1)
+#     ax.axhline(-band2, color='red', linestyle='--', linewidth=1)
+#     ax.axhline(0, color='black', linewidth=0.5)
+# #    ax.set_title(f'{cluster_type}_{cluster_number}')
+#     ax.set_xlabel('lag')
 
-axes[0].set_ylabel('r')
-plt.suptitle(f'vs {rei_name}')
+# axes[0].set_ylabel('r')
+# plt.suptitle(f'vs {rei_name}')
 
-file_name_for_export_facet = f'../_scratch/EDA_correlation/facet_{diet_label}_vs_{disease_label.replace(" ", "_")}_ccf.png'
-plt.savefig(file_name_for_export_facet, dpi=150, bbox_inches='tight')
-plt.tight_layout()
-plt.show()
-plt.close()
+# file_name_for_export_facet = f'../_scratch/EDA_correlation/facet_{diet_label}_vs_{disease_label.replace(" ", "_")}_ccf.png'
+# plt.savefig(file_name_for_export_facet, dpi=150, bbox_inches='tight')
+# plt.tight_layout()
+# plt.show()
+# plt.close()
 ```
 
+### Correlation validation
 
+This finding was tested against thousands of random permutations to investigate if the apparent correlation was random conincidence.  The order of SEV scores for the 15 years of time-lagged GBD disease data was held constant, and the corresponding 15 years of nutrient cluster 2 proportions were randomly shuffled. Correlation was assessed with each permutation, and the observed *r* from @fig-correlation-sweep-vs-LDL of 0.679 was found to be more extreme a result than over 99% of correlations. 
 
 ```{python}
 lag = 5
@@ -173,7 +197,7 @@ print(f"Observed r = {observed_r:.3f}, n = {len(x_valid)}, permutation p-value =
 
 ```
 
-
+To visualize this finding, the five year time lag correlation between population-level increase in nutrient cluster 2 and population-level decrease in high LDL cholesterol SEV score was plotted in a choropleth of the UK, encoded at the regional level.
 
 ```{python}
 #| results: 'hide'
@@ -298,12 +322,9 @@ plt.close()
 ```
 
 
+As seen in @fig-map-neg-corr-ldl-nute-cluster-2, the five-year time lag correlation between population-level nutrient cluster 2 and the decrease in population-level LDL cholesterol SEV score is consistent across the UK.
 
-
-
-
-
-
+In contrast, a choropleth of a less statistically robust correlation not appear consistent across the UK.
 ```{python}
 #| results: 'hide'
 #| label: fig-map-no-corr-blood-pressure-nute-cluster-2
@@ -425,3 +446,5 @@ plt.savefig(f'{save_dir}/choropleth_lag5_{diet_label}_vs_{disease_label.replace(
 plt.show()
 plt.close()
 ```
+
+The five-year-time-lag correlation between population-level increase in proportion of nutrient cluster 2 and population-level high systolic blood pressure as depicted in  @fig-map-no-corr-blood-pressure-nute-cluster-2 shows a much more varied and much less consistent correlation.  All such choropleths looked about the same, with correlative scores hovering near zero, except @fig-map-neg-corr-ldl-nute-cluster-2.
