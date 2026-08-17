@@ -1,13 +1,12 @@
 ---
 format: html
-editor: visual
+editor: source
 execute:
   echo: false
   warning: false
   message: false
 ---
-
-# Analysis - Clusters over Time
+## Clusters over time
 
 ```{r}
 library(tidyverse)
