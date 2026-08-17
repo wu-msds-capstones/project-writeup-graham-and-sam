@@ -8,7 +8,7 @@ Python packages that were used in the final analysis include pandas and numpy fo
 
 ## Principal component analysis
 
-Z-scored household diet data was subjected to dimensionality reduction in both the food group dimension space and the nutrient dimension space using principlal component analysis (PCA).  PCA finds the multi-dimensional axis of greatest variance for all the data in a dataset, and multiple iterations of PCA can cumulatively explain increasing amounts of variance in the data.  
+Z-scored household diet data was subjected to dimensionality reduction in both the food group dimension space and the nutrient dimension space using principlal component analysis, or PCA.  PCA finds the multi-dimensional axis of greatest variance for all the data in a dataset, and multiple iterations of PCA can cumulatively explain increasing amounts of variance in the data.  
 
 For both food group and nutrients dimensionspace, PCA was successively run until 95% percent of the variance was explained.  
 
@@ -24,24 +24,40 @@ In order to select the most stable number of clusters in a rigorous manner, a cr
 The `best-k-selector` repeats the process as it sweeps from two clusters upward as many times as instructed.  Eventually, the ARI scores for each number of clusters is averaged, and the number of clusters with the highest average ARI amongst all repeats is considered the 'best k' number of clusters for that dataset.
 
 
-### k-means clustering
+## k-means clustering
 
 Once the 'best k' number of clusters was consistently discovered for food group and nutrient dimensions, clustering of the all households in the data could take place.  
 
 The k-means clustering algorithm places the desired number of cluster centroids randomly in the data, assigns each data point a cluster label based on the nearest centroid, shifts the centroids to average position of their respective assigned data points.  This is repeated over and over until the centroids effectively stop moving. The k-means algorithm reinitializes numerous times (hundreds or more) to assess cluster label consistency before determining the final designiated cluster labels for each data point.
 
 
+## PCA to visualize clusters
 
-### PCA to visualize clusters
+In order to visualize household cluster labels in 16 dimensional food group space or 20 dimensional nutrient space, the principal components required to cumulatively explain 95% of variance of the data were but through an additional round of PCA, this time aiming for exactly two new principal components. These new components were used as the X and Y axes along which to plot all households in a two dimensional scatter plot projection.  
 
-
-
-### PCA used for heat map interpretation
-
-
-### Heat map interpretation used to characterize clusters.
+This double PCA approach does not directly inform the k-means clustering, but it does allow the datapoints to be visualized in human-friendly two dimensions, and along reasonably human-interperable axes.
 
 
-### Cluster proportions over time
+## PCA used for heat map interpretation
 
-### Correlation with LDL rates over time
+Heatmaps are used to visualize the z-scores of cluster centroids.
+
+The most explanatory principal components (PC 1 and PC 2) from upstream analysis are used to order the axes of heatmaps for each cluster.
+
+## Cluster proportions over time
+
+Analysis of changes in the proportions of clusters over time was conducted using two proportion z-tests, Cochran-Armitage tests, and Kendall Tau Trend tests.  Additionally, the cluster proportions were visualized as lineplots. 
+
+## Correlation with LDL rates over time
+
+After k-means clustering, each UK region's proportion of each assigned cluster per year were exported into a parquet file which was loaded into a new pandas dataframe. That dataframe was extended with many lag year columns onto which IMHE disease SEV data could be joined on region and year, with given diet lag year corresponding to actual IMHE disease SEV year. 
+
+This enabled rate of change correlation assessment, with year-on-year changes in cluster proportions and in SEV for a given metabolic risk being assigned a Pearson correlation coefficient *r*, with high correlation being closer to 1, and no correlation being closer to zero.
+
+The main explanatory variable (changes in population level proportion of a particularly plant-oriented nutrient cluster over time) and the main response variable (changes in SEV for High LDL cholesterol) were specifically selected based on their visual appearance in lineplots, and not based on more rigorous mathematical means.  This is noted in the Methods section because an important part of this lag correlation analysis is that it was primarily informed by a visibly remarkable pair of trends in the lineplots. 
+
+## Correlation validation
+
+After identifying stastically significant correlation between the explanatory and response variables at a particular time lag, the order of SEV rates by year was held constant, and tested for correlation against thousands of permutations of the pertinent diet cluster data years. If the identified correlation was actually a product of random chance, it would be expected that other permutations of the data would randomly produce similar appearance of correlation some of the time.
+
+Additionally and finally, correlation rates at the identified time lag were plotted in a choropleth of the UK, showing how consistently nutrient cluster proportion changes and metabolic risk factor SEVs are correlated at the identified time lag over the time span of the data.

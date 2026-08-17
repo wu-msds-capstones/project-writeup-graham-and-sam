@@ -1,4 +1,4 @@
-#Analysis
+# Analysis
 
 ## Food group clustering
 ```{python}
@@ -230,9 +230,9 @@ print(f"PCA required {n_components_95} components to cumulatively explain 95% va
 
 ```
 
-The most explanatory component (PC 1) accounted for about 11% of variance in the food group aggregations. 
+The most explanatory component (PC 1) accounted for about 11% of variance in the food group aggregations. @fig-scree-plot
 
-The other components only explained ~5% variance, leading to 14 components required to cumulatively explain 95% of variance.
+The other components only explained about 5% variance each, leading to 14 components required to cumulatively explain 95% of variance.
 
 ```{python}
 #| label: fig-pca_nutes-plot
@@ -548,11 +548,11 @@ order = pcX_order_list[pc_index][group_17_or_group_55_or_Nutrient_name]
 heat_map_data_ordered = heat_map_data.reindex(order)
 
 #fg17_cluster_colors = {0: '#762A83', 1: '#B2182B'}
-vmax = 2
+vmax = 3
 
 def col_to_rgb(colname):
     cmap = LinearSegmentedColormap.from_list(
-        'c', ['#B0B0B0', 'white', cluster_colors[colname]]  # negative=gray, 0=white, positive=cluster color
+        'c', ['#00429D', 'white', cluster_colors[colname]]  # negative=darker gray, 0=white, positive=cluster color
     )
     norm = TwoSlopeNorm(vmin=-vmax, vcenter=0, vmax=vmax)
     vals = heat_map_data_ordered[colname].clip(-vmax, vmax)
@@ -562,6 +562,12 @@ rgb_image = np.stack([col_to_rgb(0), col_to_rgb(1)], axis=1)  # (n_rows, 2, 3)
 
 fig, ax_heat = plt.subplots(figsize=(6, heat_map_data_ordered.shape[0]*0.4))
 ax_heat.imshow(rgb_image, aspect='auto')
+
+for row_idx, food_group in enumerate(heat_map_data_ordered.index):
+    for col_idx, cid in enumerate([0, 1]):
+        value = heat_map_data_ordered.loc[food_group, cid]
+        ax_heat.text(col_idx, row_idx, f'{value:.1f}',
+                     ha='center', va='center', fontsize=8, color='black')
 
 for i, cid in enumerate([0, 1]):
     ax_heat.add_patch(plt.Rectangle((i - 0.5, -1.5), 1, 1,
@@ -574,6 +580,6 @@ ax_heat.set_yticklabels(heat_map_data_ordered.index)
 ax_heat.set_xticks([0, 1])
 ax_heat.set_xticklabels(['Cluster 0', 'Cluster 1'])
 
-fig.subplots_adjust(left=0.5, right=0.95, top=0.95, bottom=0.05)
+fig.subplots_adjust(left=0.4, right=0.95, top=0.95, bottom=0.05)
 
 ```
