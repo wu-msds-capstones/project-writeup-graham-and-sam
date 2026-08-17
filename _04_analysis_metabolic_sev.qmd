@@ -180,7 +180,7 @@ ax.legend(bbox_to_anchor=(1.02, 1), loc='upper left', borderaxespad=0)
 plt.show()
 ```
 
-As seen in @fig-metabolic-rates-over-time-all-region, high LDL cholestrol decreased between 1990 and 2023.  Based on this visualization, year-or-year change in population-level high LDL cholesterol SEV was selected as the response variable for analysis.  Population level SEV for high systolic blood pressure also went down from 1990 to 2010, but then started increasing again afterward, suggesting confounding factors and ruling it out for further exploration in this study.
+As seen in @fig-metabolic-rates-over-time-all-region, high LDL cholesterol decreased between 1990 and 2023.  Based on this visualization, year-on-year change in population-level high LDL cholesterol SEV was selected as the response variable for analysis.  Population-level SEV for high systolic blood pressure also went down from 1990 to 2010, but then started increasing again afterward, suggesting confounding factors and ruling it out for further exploration in this study.
 
 Notably, despite the decrease in population SEV for high LDL cholesterol, overall metabolic risk in the UK has steadily climbed over this timespan.
 
