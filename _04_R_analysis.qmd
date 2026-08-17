@@ -6,6 +6,7 @@ execute:
   warning: false
   message: false
 ---
+
 # Analysis - Clusters over Time
 
 ```{r}
@@ -131,7 +132,6 @@ print(p_trend)
 
 ```
 
-
 ```{r}
 #| label: fig-R--line
 #| fig-cap: "Nutrient cluster proportions over time as line plot."
@@ -160,7 +160,6 @@ print(p_trend_line)
  # file.path(save_dir, paste0(label_name, "_", tolower(analysis_type), "_trend_line.png")),
   #p_trend_line, width = 9, height = 5.5, dpi = 150)
 ```
-
 
 ### 
 
