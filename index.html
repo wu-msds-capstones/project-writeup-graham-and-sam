@@ -371,6 +371,7 @@ window.Quarto = {
   <li><a href="#nutrient-cluster-proportions-over-time" id="toc-nutrient-cluster-proportions-over-time" class="nav-link" data-scroll-target="#nutrient-cluster-proportions-over-time">Nutrient cluster proportions over time</a></li>
   <li><a href="#statistics" id="toc-statistics" class="nav-link" data-scroll-target="#statistics">Statistics</a>
   <ul class="collapse">
+  <li><a href="#cluster-change-summary" id="toc-cluster-change-summary" class="nav-link" data-scroll-target="#cluster-change-summary">Cluster change summary</a></li>
   <li><a href="#cochran-armitage-test" id="toc-cochran-armitage-test" class="nav-link" data-scroll-target="#cochran-armitage-test">Cochran-Armitage Test</a></li>
   <li><a href="#companion-robustness-kendall-tau-trend-test" id="toc-companion-robustness-kendall-tau-trend-test" class="nav-link" data-scroll-target="#companion-robustness-kendall-tau-trend-test">Companion Robustness: Kendall Tau Trend Test</a></li>
   </ul></li>
@@ -378,7 +379,7 @@ window.Quarto = {
   </ul></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
   <ul class="collapse">
-  <li><a href="#diet-and-disease-lag-analysis" id="toc-diet-and-disease-lag-analysis" class="nav-link" data-scroll-target="#diet-and-disease-lag-analysis">Diet and Disease lag analysis</a>
+  <li><a href="#diet-and-disease-time-lag-correlation" id="toc-diet-and-disease-time-lag-correlation" class="nav-link" data-scroll-target="#diet-and-disease-time-lag-correlation">Diet and Disease time-lag correlation</a>
   <ul class="collapse">
   <li><a href="#cross-correlation-function" id="toc-cross-correlation-function" class="nav-link" data-scroll-target="#cross-correlation-function">Cross correlation function</a></li>
   <li><a href="#correlation-validation-1" id="toc-correlation-validation-1" class="nav-link" data-scroll-target="#correlation-validation-1">Correlation validation</a></li>
@@ -810,6 +811,8 @@ Figure&nbsp;10: Nutrient cluster proportions over time. The main cluster often i
 </section>
 <section id="statistics" class="level2">
 <h2 class="anchored" data-anchor-id="statistics">Statistics</h2>
+<section id="cluster-change-summary" class="level3">
+<h3 class="anchored" data-anchor-id="cluster-change-summary">Cluster change summary</h3>
 <div class="cell">
 <div id="tbl-cluster-change-summary" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -877,6 +880,7 @@ Table&nbsp;1: Significance of year-by-year changes, by cluster
 <p>Cluster 2 was the most dynamic cluster, noting a robust upward trend. Beginning with a baseline composition of around 3%, there was a leap to 40% of household diet share by the end of the period. A majority of year-over-year changes reach statistical significance (15 transitions or 57.7%) confirming a strong continued expansion.</p>
 <p>Cluster 3 fluctuates around 25-28% of household share. It was heavily influenced in the early 1990s (plausibly to a recession in the UK during this time period) with some volatility. Beyond this disruption, the trend remained broadly stable with 8 statistically significant transitions (30.8%).</p>
 <p>Cluster 4 began with the largest share of household diet share, but experienced consistent downward pressure. Disregarding the market shock in the early 1990s, the group had 11 statistically significant year-over-year transitions (42.3%) backing this claim.</p>
+</section>
 <section id="cochran-armitage-test" class="level3">
 <h3 class="anchored" data-anchor-id="cochran-armitage-test">Cochran-Armitage Test</h3>
 <div class="cell">
@@ -1050,8 +1054,8 @@ Figure&nbsp;11: High LDL cholesterol declined between 1990 and 2023, although it
 <section id="results" class="level1">
 <h1>Results</h1>
 <p>While exploratory analysis ranged beyond the final figures included above in this report, time-lag correlation studies were focused on population-level changes in the proportion of nutrient cluster 2, and on population-level LDL cholesterol SEV scores. The results reported below are in reference to the correlative association between those two selected variables.</p>
-<section id="diet-and-disease-lag-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="diet-and-disease-lag-analysis">Diet and Disease lag analysis</h2>
+<section id="diet-and-disease-time-lag-correlation" class="level2">
+<h2 class="anchored" data-anchor-id="diet-and-disease-time-lag-correlation">Diet and Disease time-lag correlation</h2>
 <p>With population-level year-on-year changes in nutrient cluster 2 selected to be the explanatory variable, and with population-level year-on-year changes in high LDL cholesterol SEV selected to be the response variable, a correlation analysis was conducted from 0 to 20 years of time lag using a cross correlation function (CCF). For each lag year pair, a Pearson correlation coefficient <em>r</em> was generated.</p>
 <p>A perfect correlation would have a Pearson correlation coefficient <em>r</em> of 1.0, whereas a non-correlation would be expected to have a coefficient <em>r</em> closer to 0.0. The CCF swept through 20 years of lag options, resulting in n = 21 year-lag year pairs for the CCF. Based on this number of assessed year-lag year pairs, the 95% significance threshold was calculated to be approximately <em>r</em> = 0.43, and the 99% percent confidence interval was calculated to be approximately <em>r</em> = 0.562.</p>
 <p><span id="eq-sig-band-95"><span class="math display">\[

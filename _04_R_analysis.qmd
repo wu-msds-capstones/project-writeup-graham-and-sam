@@ -457,6 +457,8 @@ pairwise_table = bind_rows(pairwise_results) %>% arrange(cluster, year_prev)
 
 ## Statistics
 
+### Cluster change summary
+
 ```{r}
 #| label: tbl-cluster-change-summary
 #| tbl-cap: "Significance of year-by-year changes, by cluster"

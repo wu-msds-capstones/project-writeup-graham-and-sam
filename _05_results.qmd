@@ -29,7 +29,7 @@ disease_colors = {
 
 While exploratory analysis ranged beyond the final figures included above in this report, time-lag correlation studies were focused on population-level changes in the proportion of nutrient cluster 2, and on population-level LDL cholesterol SEV scores. The results reported below are in reference to the correlative association between those two selected variables.  
 
-## Diet and Disease lag analysis
+## Diet and Disease time-lag correlation
 
 With population-level year-on-year changes in nutrient cluster 2 selected to be the explanatory variable, and with population-level year-on-year changes in high LDL cholesterol SEV selected to be the response variable, a correlation analysis was conducted from 0 to 20 years of time lag using a cross correlation function (CCF).  For each lag year pair, a Pearson correlation coefficient *r* was generated. 
 
