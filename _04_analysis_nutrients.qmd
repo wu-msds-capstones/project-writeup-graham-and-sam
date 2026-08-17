@@ -543,7 +543,7 @@ heat_map_2 = heat_map_data.reindex(order_2)
 
 def col_to_rgb(data, colname):
     cmap = LinearSegmentedColormap.from_list(
-        'c', ['#00429D', 'white', cluster_colors[colname]]
+        'c', ['#8C510A', 'white', cluster_colors[colname]]
     )
     norm = TwoSlopeNorm(vmin=-vmax, vcenter=0, vmax=vmax)
     vals = data[colname].clip(-vmax, vmax)
