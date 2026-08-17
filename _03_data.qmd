@@ -1,8 +1,10 @@
 # Data
 
-## Diet data: National Food Survey (1974 to 2000)
+## Diet data: <br> National Food Survey <br> (1974 to 2000)
 
-The UK's National Food Suvery (NFS) started in 1940 and eventually evolved into the Living Costs and Food Survey. which is active today . However, not all of the associated data is publicly available.
+The UK government's National Food Suvery (NFS) started in 1940 and eventually evolved into the Living Costs and Food Survey, which is active today. 
+
+However, not all of the associated data is publicly available.
 
 For interested parties with institutional credentials, the UK Data Service, does provide a curated batch of NFS data that spans from 1974-2000.  https://ukdataservice.ac.uk
 
@@ -16,20 +18,24 @@ Additionally, the NFS included annually adjusted nutrient conversion information
 
 Demographic and economic information is also included with the NFS data. However, this analysis assesses diet composition per calorie, not diet quantity per capita.  So, the only demographic information that was ultimately used in this analysis is the regional location of each household.
 
-##
-
 
 ### Dietary Feature Engineering
 
 #### Household food group profiles
 
-For each diet diary row, calories were calculated based on NFS provided nutrient conversion factor for Energy (kCal) for the given food multiplied by the consumable quantity reported.  
+For each diet diary row, calories were calculated based on NFS provided nutrient conversion factor for Energy (kCal) for the given food multiplied by the consumable quantity (cq) reported, as depicted in @eq-row-calories
 
-- MATH EQYATION 1 -
+$$
+calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
+$$ {#eq-row-calories}
+
  
 Then, for each household, calories were aggregated for each of the assigned food groups, and then divided by total calories for that household.
 
-- MATH EQUATION 2 -
+$$
+calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
+$$ {#eq-food-groups-calorie-ratio}
+
 
 This resulted in a 'calorie ratio' for each food group for that household for that week.  This normalized metric cancels out quantity, and purely examines the qualitative composition of each household's reported food acquisition for the week.  Therefore, the number of people in the household do not factor into this metric, and further demographic considerations did not need to be calculated.
 
@@ -39,11 +45,17 @@ Finally, calorie ratios for all food groups were normalized by Standard Scaler a
 
 Total calories were calculated for each household as with the food group feature engineering (Eq 1).  Then, each minor food code 'minfd' was converted to the nutrient profile for that food multipled by the quantity reported. This effectively expanded each diary entry row into twenty rows, one for each of the twenty nutrients tracked throughout the data, with the appropriate unit quantity for each nutrient reported.  
 
-- MATH EQYATION 3 -
+
+
+$$
+calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
+$$ {#eq-food-groups-calorie-ratio-3}
 
  Maintaining each nutrient's native unit (grams, milligrams, micrograms, etc), the total quantity of each nutrient across all food purchases was aggregated for each household. Those quantities were then divided by total calories for that household.
 
-- MATH EQUATION - ?
+$$
+calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
+$$ {#eq-food-groups-calorie-ratio-4}
 
 The resultant nutrient profile metric, 'quantity per total calories,' is similar in spirit to the 'calorie-ratio' metric from the food groups. 
 
