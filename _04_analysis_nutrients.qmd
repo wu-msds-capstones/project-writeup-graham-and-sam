@@ -235,7 +235,7 @@ As seen in @fig-scree-nutrients-plot, PC 1 and PC 2 for household nutrient-quant
 
 ```{python}
 #| label: fig-pca-orientations-nutrients
-#| fig-cap: "Orientations of the first two principal components of the diet data by nutrient in dimension space."
+#| fig-cap: "Orientations of the first two principal components of the diet data by nutrient profile. PC 1 has a high fat pole juxtapose with a pole higher in plant-associated nutrients. PC 2 has a high carbohydrate and vegetable protein pole, juxatoposed against a pole with high animal protein and associated nutrients."
 ##############
 # This is the "what does PC1 mean figure"
 loadings_df1 = pd.DataFrame({
@@ -292,7 +292,7 @@ plt.show()
 
 ```
 
-PC 1 for household nutrient profiles has a fat (saturated and unsaturated) pole and a "plant-food" pole (vegetable protein and carbohydrates and vitamins).  PC 2 for household nutrient profiles has a high carbohydrate pole juxtaposed against a high animal protein pole.
+As seen in @fig-pca-orientations-nutrients, PC 1 for household nutrient profiles has a fat (saturated and unsaturated) pole and a "plant-food" pole (vegetable protein and carbohydrates and vitamins).  PC 2 for household nutrient profiles has a high carbohydrate pole juxtaposed against a high animal protein pole.  These nutrient profile principal components are more compelling than the food group comonents, as they each explained over 20% of household variance.
 
 
 ### k-means clustering
@@ -494,7 +494,7 @@ For household nutrient profiles, best k number of clusters was consistently foun
 
 ```{python}
 #| label: fig-clusteres-nutrients
-#| fig-cap: "A 2-D rendering of all households by nutrient profile clusters."
+#| fig-cap: "A two dimensional rendering of all households by nutrient profile clusters. This rendering is the product of two rounds of PCA, with the 11 components required to explain 95% of variance in the original data being channeled into 2 components, which are the axes of this figure.  The clusers are continuous, but with distinct boundaries."
 
 cluster_colors = {0:'#E69F00', 1:'#56B4E9', 2:'#009E73', 3:'#0072B2', 4:'#CC79A7'}
 df_hh_per_cluster = wide_df['cluster'].value_counts()
@@ -520,14 +520,14 @@ plt.show()
 
 ```
 
-
+The clusters depicted in @fig-clusteres-nutrients show most of the UK households falling into Clusters 0, 2, 3, and 4, with a slim minority being assigned to Cluster 1.  This study chose to focus on Cluster 2 going forward, but exploration of the outlier Cluster 1 did reveal that these were households that reported purchasing organ meats (such as kidney and liver).
 
 
 
 ```{python}
 #| output: true
-#| label: fig-heatmaps-nutrients
-#| fig-cap: "Orientations of the first two principal components of the diet data by nutrient in dimension space."
+#| label: fig-heatmaps-nutrients-1
+#| fig-cap: "Orientations along PC 1 of nutrient-profile clusters. Cluster 0 appears to be high in fats and low in plant-related nutrients, while Cluster 2 is low in fat and high in plant-related nutrients."
 ###########
 # Heat map stuff
 ###
@@ -581,10 +581,17 @@ heat_by_cluster_pc2 = {cid: heat_map_2 for cid in cluster_ids}
 
 fig1 = plot_all_heatmaps_faceted(heat_by_cluster_pc1, cluster_ids, "PC1 order")
 plt.show()
+```
+```{python}
+#| output: true
+#| label: fig-heatmaps-nutrients-2
+#| fig-cap: "Orientations along PC 2 of nutrient-profile clusters. Cluster 3 appears to be animal-related nutrients, and low in carbohydrates, while Cluster 4 is high in carbohydrates and low in all other nutrients."
 fig2 = plot_all_heatmaps_faceted(heat_by_cluster_pc2, cluster_ids, "PC2 order")
 plt.show()
 
 ```
-Assessed against PC 1, cluster 0 is closer to the high fat pole, while cluster 2 is closely associated with the plant-like pole. 
 
+The heatmaps in @fig-heatmaps-nutrients-1 and @fig-heatmaps-nutrients-2 allow characterization of the five nutrient profile clusters. Cluster 0 appears to be defined by the high fat pole of PC 1.  Cluster 2 is defined by negative values in the high fat pole of PC 1, and by positive values in the plant-nutrient pole of PC 1.  Cluster 3 appears to be oriented to the high animal nutrient pole of PC 2, while being lower in carbohydrates.  Cluster 4 is characterized by high carbohydrates, while being relatively low in other nutrients.
+
+As noted above, Cluster 1, characterized by high retinol, was found to be households that purchased organ meats.
 
