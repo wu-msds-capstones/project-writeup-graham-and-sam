@@ -6,7 +6,7 @@ The UK government's National Food Suvery (NFS) started in 1940 and eventually ev
 
 However, not all of the associated data is publicly available.
 
-For interested parties with institutional credentials, the UK Data Service, does provide a curated batch of NFS data that spans from 1974-2000.  https://ukdataservice.ac.uk
+For interested parties with institutional credentials, the UK Data Service (https://ukdataservice.ac.uk) does provide a curated batch of NFS data that spans from 1974-2000.  
 
 Each year, approximately 7,000 households across the UK were chosen at random from voting roles and asked to participate. From 1974 to 2000, almost 190,000 households participated. 
 
@@ -19,7 +19,7 @@ Additionally, the NFS included annually adjusted nutrient conversion information
 Demographic and economic information is also included with the NFS data. However, this analysis assesses diet composition per calorie, not diet quantity per capita.  So, the only demographic information that was ultimately used in this analysis is the regional location of each household.
 
 
-### Dietary Feature Engineering
+### Dietary Data Feature Engineering
 
 #### Household food group profiles
 
@@ -78,11 +78,25 @@ These risk rates were obtained preaggreagted at a population level, grouped by U
 
 ### Diet data cleaning
 
+The NFS evolved over time, and this evolution prompted several data cleaning decisions.  
+
+To start, alcohol, confectioneries, and soft drinks were added as reportable food options in 1992. Previous to 1992, it is presumed that some UK households did purchase alochol, confectioneries, and soft drinks though the records cannot show this.  All three of these are considered high calorie, so their sudden appearance does skew calorie adjusted calculations. In order to maintain consistency over time, all diet diary rows from these three categories were dropped from analysis, though the related households and all their other diet diary entries were retained.
+
+Initial analysis before dropping alochol had desiginated alochol as its own food group, for 17 total food groups.  After dropping all alochol rows, this analysis looked at 16 total foodgroups, as depicted in the Heatmaps in Figs X and Y.
+
+Northern Ireland was only included in the survey starting in 1996. So, in the interest of consistency, Northern Ireland households were excluded from this analysis altogether.
+
+The nutrient conversion information evolved over time as well, tracking 21 nutrients in 1974 and over 40 nutrients by 2000.  As with pruning rows from late-added foods and locations, nutrient trends were only assessed for the nutrients that were tracked throughout the entire dataset.  One of the included nutrients was Energy in megaJoules (MJ), which was collinear with Energy in kCal, so Energy in MJ was also dropped from nutrient analysis, resulting in 20 assessed nutrients.
+
+The NSF and IHME data have a discrepancy in UK government office regions as well: the 1974 to 2000 NFS data list Merseyside as a distinct region, while the 1990 to 2023 IHME data includes that some geographical area as part of North West England.  So, before aggregation, all NFS households from Merseyside were reassigned as being part of North West England, for consistency between datasets.
+
+A final cleaning step was to prune households that reported a physiologically unrealistic amount of calories, below a threshold that people require to live.  These households were considered to have provided unreliable data and were excluded from analysis.  The caloric floor threshold was set to two standard deviations below the mean of log-space per capita calorie intake, inspired by similar approaches in the literature [REFERENCE].  While the overall analysis does not rely on per capita calculations, this pruning step does. Per capita per household calculations were adjusted for age and sex (adult males = 1, adult females = 0.8, children = 0.5, elderly adults = 0.85), consistent with the literature [REFERENCE].
+
 
 ### Diet data aggregation
 
 
-National Food Survey diet diaries, household information, and nutrient conversion information are obtained as .txt files in folders by year.  Row-wise, each diet diary entry contains a household number (hhno), a log day (the survey)
+National Food Survey diet diaries, household information, and nutrient conversion information are obtained as .txt files in folders by year.  
 
 
 
