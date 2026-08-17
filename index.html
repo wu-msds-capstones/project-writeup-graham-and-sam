@@ -337,13 +337,15 @@ window.Quarto = {
   </ul></li>
   <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a>
   <ul class="collapse">
-  <li><a href="#food-group-clustering" id="toc-food-group-clustering" class="nav-link" data-scroll-target="#food-group-clustering">Food group clustering</a>
+  <li><a href="#by-food-groups" id="toc-by-food-groups" class="nav-link" data-scroll-target="#by-food-groups">By food groups</a>
   <ul class="collapse">
-  <li><a href="#pca-principal-component-analysis" id="toc-pca-principal-component-analysis" class="nav-link" data-scroll-target="#pca-principal-component-analysis">PCA (principal component analysis)</a></li>
+  <li><a href="#pca" id="toc-pca" class="nav-link" data-scroll-target="#pca">PCA</a></li>
+  <li><a href="#k-means-clustering-1" id="toc-k-means-clustering-1" class="nav-link" data-scroll-target="#k-means-clustering-1">k-means clustering</a></li>
   </ul></li>
-  <li><a href="#nutrients" id="toc-nutrients" class="nav-link" data-scroll-target="#nutrients">NUTRIENTS</a>
+  <li><a href="#by-nutrients" id="toc-by-nutrients" class="nav-link" data-scroll-target="#by-nutrients">By nutrients</a>
   <ul class="collapse">
-  <li><a href="#pca-for-nutrient-profiles" id="toc-pca-for-nutrient-profiles" class="nav-link" data-scroll-target="#pca-for-nutrient-profiles">PCA for nutrient profiles</a></li>
+  <li><a href="#pca-1" id="toc-pca-1" class="nav-link" data-scroll-target="#pca-1">PCA</a></li>
+  <li><a href="#k-means-clustering-2" id="toc-k-means-clustering-2" class="nav-link" data-scroll-target="#k-means-clustering-2">k-means clustering</a></li>
   </ul></li>
   <li><a href="#clusters-over-time" id="toc-clusters-over-time" class="nav-link" data-scroll-target="#clusters-over-time">Clusters over time</a>
   <ul class="collapse">
@@ -591,10 +593,10 @@ nutrient\_quantity\_per\_total\_cal_{row} =  \frac{\text{total quantity per nutr
 </section>
 <section id="analysis" class="level1">
 <h1>Analysis</h1>
-<section id="food-group-clustering" class="level2">
-<h2 class="anchored" data-anchor-id="food-group-clustering">Food group clustering</h2>
-<section id="pca-principal-component-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="pca-principal-component-analysis">PCA (principal component analysis)</h3>
+<section id="by-food-groups" class="level2">
+<h2 class="anchored" data-anchor-id="by-food-groups">By food groups</h2>
+<section id="pca" class="level3">
+<h3 class="anchored" data-anchor-id="pca">PCA</h3>
 <div id="cell-fig-scree-plot" class="cell">
 <div class="cell-output-display">
 <div id="fig-scree-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -626,6 +628,9 @@ Figure&nbsp;2: Orientations of the first two principal components of the food gr
 </div>
 </div>
 <p>The axis of greatest variance, PC 1, orients to a more plant-based pole, and a more meat and refined food based-pole. PC 2 appears to orient to a more processed and refined foods pole, and a whole foods pole.</p>
+</section>
+<section id="k-means-clustering-1" class="level3">
+<h3 class="anchored" data-anchor-id="k-means-clustering-1">k-means clustering</h3>
 <p>The principal components that were required to explain 95% variance in the aggregated foodgroup data were fed into an additional round of PCA to produce two derivative principal compenents, which were in turn fed into a t-distributed stochastic neighbor emedding (t-SNE) visualization. The t-SNE plot projects 20 dimensional nutrient space in 2 dimensions, enabling visualization of the k-means cluster assignments for each household.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -669,10 +674,10 @@ Figure&nbsp;4: A visualization of the cluster centroid z score for each of the f
 </div>
 </section>
 </section>
-<section id="nutrients" class="level2">
-<h2 class="anchored" data-anchor-id="nutrients">NUTRIENTS</h2>
-<section id="pca-for-nutrient-profiles" class="level3">
-<h3 class="anchored" data-anchor-id="pca-for-nutrient-profiles">PCA for nutrient profiles</h3>
+<section id="by-nutrients" class="level2">
+<h2 class="anchored" data-anchor-id="by-nutrients">By nutrients</h2>
+<section id="pca-1" class="level3">
+<h3 class="anchored" data-anchor-id="pca-1">PCA</h3>
 <div id="cell-fig-scree-nutrients-plot" class="cell">
 <div class="cell-output-display">
 <div id="fig-scree-nutrients-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -703,6 +708,9 @@ Figure&nbsp;6: Orientations of the first two principal components of the diet da
 </div>
 </div>
 <p>PC 1 for household nutrient profiles has a fat (saturated and unsaturated) pole and a “plant-food” pole (vegetable protein and carbohydrates and vitamins). PC 2 for household nutrient profiles has a high carbohydrate pole juxtaposed against a high animal protein pole.</p>
+</section>
+<section id="k-means-clustering-2" class="level3">
+<h3 class="anchored" data-anchor-id="k-means-clustering-2">k-means clustering</h3>
 <p>For household nutrient profiles, best k number of clusters was consistently found to be 5. Notably, one of the five clusters has only about 5,000 household throughout the dataset. This small cluster turns out to be households that consumed a lot of organ meat.</p>
 <div id="cell-fig-clusteres-nutrients" class="cell">
 <div class="cell-output-display">
