@@ -1,4 +1,4 @@
-# Data Engineering
+# Data 
 
 ## Diet data: <br> National Food Survey <br> (1974 to 2000)
 
@@ -23,7 +23,7 @@ Demographic and economic information is also included with the NFS data. However
 So, the only demographic information that was ultimately used in this analysis is the regional location of each household. 
 
 
-### Dietary Data Feature Engineering
+## Dietary Data Engineering
 
 #### Household food group profiles
 
@@ -80,7 +80,7 @@ From there, the chronic disease risk factors and conditions for which SEV inform
 
 These risk rates were hand-selected and obtained preaggreagted at a population level, grouped by UK region and by year.  For the scope of this project, all ages and both sexes were included in SEV information. 
 
-## Pipeline Overview
+## Data Pipeline Overview <br> 
 
 As described in detail below:
 
@@ -115,20 +115,20 @@ The raw download from the UK Data Service has a folder for each year between 197
 
 #### Household food group profile aggregation
 
-On a year by year basis, calorie-specific nutrient conversion information was joined to each row of the diet diary (on minor food code, 'minfd'), multiplied by consumable quantity 'cq', and then summed per household to calculate total calories for that household (@eq-row-calories). Total household calories was later joined back to un-aggregated data as needed.
+On a year by year basis, calorie-specific nutrient conversion information was joined to each row of the diet diary (on minor food code, `minfd`), multiplied by consumable quantity `cq`, and then summed per household to calculate total calories for that household (@eq-row-calories). Total household calories was later joined back to un-aggregated data as needed.
 
 Minor food codes were mapped to major food codes, which were then mapped to custom food group labels (see Appendix).  Then each row was grouped by household and by foodgroup, aggregating total calories for each food group and for each household.  From there, every household could be assigned a proportion of total calories that was attributable to each foodgroup @eq-food-groups-calorie-ratio.
 
-Household information was then joined on household number ('hhno') to obtain the correct goverment office region for each household. 
+Household information was then joined on household number (`hhno`) to obtain the correct goverment office region for each household. 
 
 Finally, each year's processed aggregated food group profile data was appended to a list of dataframes and vertically concatenated.
 
 
 #### Household nutrient profile aggregation
 
-Year by year, nutrient conversion information for all included nutrients was joined to each row of the diet diary (on minor food code, 'minfd'), multiplied by consumable quantity 'cq', and then summed by household to calculate quantity of that nutrient for that household (@eq-nutrient-calorie-ratio-3).  This automatically included total calories for that household, which was then used to create quantity-per-total-calorie metrics for each household and each nutrient @eq-nutrient-quantity-calorie-ratio-4.
+Year by year, nutrient conversion information for all included nutrients was joined to each row of the diet diary (on minor food code, `minfd`), multiplied by consumable quantity `cq`, and then summed by household to calculate quantity of that nutrient for that household (@eq-nutrient-calorie-ratio-3).  This automatically included total calories for that household, which was then used to create quantity-per-total-calorie metrics for each household and each nutrient @eq-nutrient-quantity-calorie-ratio-4.
 
-Household information was then joined on household number `hhno` to obtain the correct goverment office region 'gor' for each household. 
+Household information was then joined on household number `hhno` to obtain the correct goverment office region `gor` for each household. 
 
 Finally, each year's processed aggregated nutrient profile data was appended to a list of dataframes and vertically concatenated.
 
