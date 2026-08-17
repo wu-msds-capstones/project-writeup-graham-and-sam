@@ -1,21 +1,22 @@
-## Ethics and Responsible Use
+
+## Data Ethics
+
+### Responsible Use
 
 The diet data is used under a non-commercial educational license, and comes both anonymized and pre-aggregated at a household level by the service providers to remove personally identifiable information (PII) and ensure confidentiality. The disease data, sourced from the Institute for Health Metrics and Evaluation (IHME) is anonymized at a government region level and is void of any PII. Both datasets are without risks of re-identification.
 
-## Bias
+### Bias
 
-The National Food Survey primarily tracks household food purchases intended for home preparation, which historically could undercount the food consumed outside the household. Additionally, during the 27 year period, there were food-category definitions and houshold participation which would change. This means some portions of the observed cluster trends could reflect changes in the methodology as opposed to genuine diet transition. As well, some houshold types could be over or under surveyed and the resulting data could have patterns more specified to those unique areas as opposed to a holistic view of the UK. The survey data itself was self-reported, and therefore is open to social desirability bias, food groups with a negative connotation may be underrepresented and vice verse for foods with a positive one. 
+The National Food Survey primarily tracks household food purchases intended for home preparation, which historically could undercount the food consumed outside the household. Additionally, during the 27 year period, there were food-category definitions and houshold participation which would change. This means some portions of the observed cluster trends could reflect changes in the methodology as opposed to genuine diet transition. 
 
-## Ethical Implications
+As well, some houshold types could be over or under surveyed and the resulting data could have patterns more specified to those unique areas as opposed to a holistic view of the UK. The survey data itself was self-reported, and therefore is open to social desirability bias, food groups with a negative connotation may be underrepresented and vice verse for foods with a positive one. 
 
-Diet data can be easily connected to judgements about socioeconomic status, and other hereditary health situations. The findings from this study are presented as described trends as opposed to evaluative claims. For this reason, no causal claims can be made, only correlative suggestions can presented. Additionally, no casual claim can be made linking the early 1990s recession to the change in the respective nutrient cluster groups. The findings in this report work to suggest dietary trends that may introduce benefits to health at a population wide scale. The findings are not for commercial application or targeted marketing. Since the data utilized in this study followed guidelines and restrictions, these guidlines should continue with any further use of the analysis produced.
+### Ethical Implications
 
-Data Ethics
-Considerations
-(x2)
-Thoroughly addresses
-data ethics
-considerations,
-including privacy,
-bias, and ethical
-implication
+Diet data can be easily connected to judgements about socioeconomic status, and other hereditary health situations. The findings from this study are presented as described trends as opposed to evaluative claims. For this reason, no causal claims can be made, only correlative suggestions can presented. 
+
+Additionally, no casual claim can be made linking the early 1990s recession (discussed below) to the change in the respective nutrient cluster groups. 
+
+The findings in this report work to suggest dietary trends that may introduce benefits to health at a population wide scale. 
+
+The findings are not for commercial application or targeted marketing. Since the data utilized in this study followed guidelines and restrictions, these guidlines should continue with any further use of the analysis produced.

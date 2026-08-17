@@ -23,6 +23,19 @@ Demographic and economic information is also included with the NFS data. However
 So, the only demographic information that was ultimately used in this analysis is the regional location of each household. 
 
 
+## Disease data: <br> Global Burden of Disease <br> (1990 to 2023)
+
+Population-level disease risk rates for High LDL cholesterol and other metabolic-disease associated risk factors were acquired from the Institute for Health Metrics and Evaluation (IHME), using their [Global Burden of Disease (GBD) Results tool](https://vizhub.healthdata.org/gbd-results/).
+
+The data was specifically selected from this open API to find the summary exposure value (SEV).  [The IHME defines SEV](https://www.healthdata.org/sites/default/files/files/policy_report/GBD/2016/IHME_GBD2015_Report_Glossary-of-terms_2016.pdf) as a "... measure of a population’s exposure to a risk factor that takes into account the extent of exposure by risk level and the severity of that risk’s contribution to disease burden."
+
+SEV appears to be the best available metric from the GBD results tool to assess risk factor prevelance.  
+
+From there, the chronic disease risk factors and conditions for which SEV information were metabolic risks: High LDL Cholesterol, High Body Mass Index, High Fasting Plasma Glucose Systolic Blood Pressure, Kidney Dysfunction, Low Bone Mineral Density, and overall Metabolic Risks. 
+
+These risk rates were hand-selected and obtained preaggreagted at a population level, grouped by UK region and by year.  For the scope of this project, all ages and both sexes were included in SEV information. 
+
+
 ## Dietary Data Engineering
 
 #### Household food group profiles
@@ -67,18 +80,6 @@ However, a pure calorie comparison for nutrients would not be viable, as certain
 
 Furthermore, variations in magnitude amongst the derived nutrient-quanity-per-total-calorie unit was also subjected to the Standared Scaler and z-scored before analysis.
 
-
-## Disease data: <br> Global Burden of Disease <br> (1990 to 2023)
-
-Population-level disease risk rates for High LDL cholesterol and other metabolic-disease associated risk factors were acquired from the Institute for Health Metrics and Evaluation (IHME), using their [Global Burden of Disease (GBD) Results tool](https://vizhub.healthdata.org/gbd-results/).
-
-The data was specifically selected from this open API to find the summary exposure value (SEV).  [The IHME defines SEV](https://www.healthdata.org/sites/default/files/files/policy_report/GBD/2016/IHME_GBD2015_Report_Glossary-of-terms_2016.pdf) as a "... measure of a population’s exposure to a risk factor that takes into account the extent of exposure by risk level and the severity of that risk’s contribution to disease burden."
-
-SEV appears to be the best available metric from the GBD results tool to assess risk factor prevelance.  
-
-From there, the chronic disease risk factors and conditions for which SEV information were metabolic risks: High LDL Cholesterol, High Body Mass Index, High Fasting Plasma Glucose Systolic Blood Pressure, Kidney Dysfunction, Low Bone Mineral Density, and overall Metabolic Risks. 
-
-These risk rates were hand-selected and obtained preaggreagted at a population level, grouped by UK region and by year.  For the scope of this project, all ages and both sexes were included in SEV information. 
 
 ## Data Pipeline Overview <br> 
 
