@@ -12,7 +12,7 @@ The National Food Survey primarily tracks household food purchases intended for 
 
 As well, some household types could be over or under surveyed and the resulting data could have patterns more specified to those unique areas as opposed to a holistic view of the UK. The survey data itself was self-reported, and therefore is open to social desirability bias. Food groups with a negative connotation may be underrepresented and conversely, foods with a positive connotation may be overrepresented. 
 
-The clustering methodology introduced an additional source of bias worth addressing. The clusters, the principal component, the normalization per calorie and the esclusion of alcohol and confections were all modeling choices that shaped the found patterns. It should be understood that the specified clusters were produced by the listed choices and are not clinically validated diet categories. 
+The clustering methodology introduced an additional source of bias worth addressing. The clusters, the principal component, the normalization per calorie and the exclusion of alcohol and confections were all modeling choices that shaped the found patterns. It should be understood that the specified clusters were produced by the listed choices and are not clinically validated diet categories. 
 
 ### Ethical Implications
 

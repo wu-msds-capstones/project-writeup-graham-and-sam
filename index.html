@@ -560,7 +560,7 @@ nutrient\_quantity\_per\_total\_cal_{row} = \frac{\text{total quantity per nutri
 <h3 class="anchored" data-anchor-id="bias">Bias</h3>
 <p>The National Food Survey primarily tracks household food purchases intended for home preparation, which historically could undercount the food consumed outside the household. Additionally, during the 27-year period, food-category definitions and household participation patterns may have changed. This means some portions of the observed cluster trends could reflect changes in the methodology as opposed to genuine diet transition.</p>
 <p>As well, some household types could be over or under surveyed and the resulting data could have patterns more specified to those unique areas as opposed to a holistic view of the UK. The survey data itself was self-reported, and therefore is open to social desirability bias. Food groups with a negative connotation may be underrepresented and conversely, foods with a positive connotation may be overrepresented.</p>
-<p>The clustering methodology introduced an additional source of bias worth addressing. The clusters, the principal component, the normalization per calorie and the esclusion of alcohol and confections were all modeling choices that shaped the found patterns. It should be understood that the specified clusters were produced by the listed choices and are not clinically validated diet categories.</p>
+<p>The clustering methodology introduced an additional source of bias worth addressing. The clusters, the principal component, the normalization per calorie and the exclusion of alcohol and confections were all modeling choices that shaped the found patterns. It should be understood that the specified clusters were produced by the listed choices and are not clinically validated diet categories.</p>
 </section>
 <section id="ethical-implications" class="level3">
 <h3 class="anchored" data-anchor-id="ethical-implications">Ethical Implications</h3>
@@ -666,6 +666,7 @@ Figure&nbsp;2: Orientations of the first two principal components of the food gr
 </section>
 <section id="k-means-clustering-1" class="level3">
 <h3 class="anchored" data-anchor-id="k-means-clustering-1">k-means clustering</h3>
+<p>Repeated and extensive applications of the <code>best-k-selector</code> function found that 2 was the most stable number of clusters when households were characterized by z-scored food-group-calorie-ratio profiles.</p>
 <div id="cell-fig-cluster-2D-food-groups-plot" class="cell">
 <div class="cell-output-display">
 <div id="fig-cluster-2D-food-groups-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -736,6 +737,7 @@ Figure&nbsp;6: Orientations of the first two principal components of the diet da
 </section>
 <section id="k-means-clustering-2" class="level3">
 <h3 class="anchored" data-anchor-id="k-means-clustering-2">k-means clustering</h3>
+<p>Repeated and extensive applications of the <code>best-k-selector</code> function found that 5 was the most stable number of clusters when households were characterized by z-scored nutrient-quatity-per-total-calorie profiles.</p>
 <p>For household nutrient profiles, best k number of clusters was consistently found to be 5. Notably, one of the five clusters has only about 5,000 households amongst the almost 190,000 households in the dataset. This small cluster turns out to be households that consumed a lot of organ meat.</p>
 <div id="cell-fig-clusteres-nutrients" class="cell">
 <div class="cell-output-display">
@@ -1160,6 +1162,7 @@ Figure&nbsp;15: This choropleth is included to demonstrate what a lack of correl
 <p>Beyond that, there is the fact that the diet diaries were self-reported. There could be inconsistencies, inaccuracies, and intentional misrepresentations included in the data. The impact of this limitation might be mitigated in our study by the fact that such potential data unreliability would likely have been consistent, if existent. That is to say that if people are bad at being accurate about tracking what they bought to eat, they probably used to be bad at that in the past as well. If so, that unreliability is consistent, and so an analysis based on relative changes over time might still be viable.</p>
 <p>Additionaly, the diet diaries tracked quantities of consumable food that was purchased. It is assumed that all of this purchased food was actually consumed, but that could be inaccurate. People might have bought food and not eaten it, meaning the inferred correlation between diet and disease might be somewhat miscalculated. While this cannot be ruled out, it does bear suggestion that many people are budget conscious, and might actively avoiding wasting money on food they will not eat.</p>
 <p>Relatedly though, some households might be bulk shoppers who buy a lot of food every other week, or every month. For such a bulk shopping household, the timing of the diet diary week could make them appear to consume way too much or way too little. Those who reported buying nothing might have been pruned by the calorie filter, but those who reported buying a large amount might erroneously seem to be gluttons, skewing calculated aggregations.</p>
+<p>A final limitation of this correlative analysis is that, based on the timeframes of the available diet and disease data, there were a limited number of overlapping years to assess. Based on the five-year-time lag, there were only 15 analyzable years, and n = 15 is not ideal. However, compared on the lack of any apparent correlation when other clusters and disease risk factors were analyzed in a similar manner, the discovered correlation reported herein is not entirely discountable.</p>
 </section>
 <section id="final-thoughts" class="level3">
 <h3 class="anchored" data-anchor-id="final-thoughts">Final thoughts</h3>
