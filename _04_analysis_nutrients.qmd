@@ -297,6 +297,9 @@ As seen in @fig-pca-orientations-nutrients, PC 1 for household nutrient profiles
 
 
 ### k-means clustering
+
+Repeated and extensive applications of the `best-k-selector` function found that 5 was the most stable number of clusters when households were characterized by z-scored nutrient-quatity-per-total-calorie profiles.
+
 ```{python}
 
 #  /-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\-/-\

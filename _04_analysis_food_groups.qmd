@@ -301,6 +301,8 @@ As seen in @fig-pca_foodgroups-plot, the axis of greatest variance for all house
 
 ### k-means clustering
 
+Repeated and extensive applications of the `best-k-selector` function found that 2 was the most stable number of clusters when households were characterized by z-scored food-group-calorie-ratio profiles.
+
 ```{python}
 ################################################################
 # k-means clustering part starts here ##########################
