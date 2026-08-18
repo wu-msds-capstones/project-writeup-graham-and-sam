@@ -51,7 +51,7 @@ calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
 $$ {#eq-row-calories}
 
  
-Then, for each household, calories were aggregated for each of the assigned food groups, and then divided by total calories for that household.
+Then, for each household, calories were aggregated for each of the assigned food groups, and then divided by total calories for that household (@eq-food-groups-calorie-ratio).
 
 $$
 {calorie\_ratio}_{food group} = \frac{\text{total calories per food group}}{\text{total calories per household}}
@@ -66,13 +66,13 @@ Finally, calorie ratios for all food groups were normalized by Standard Scaler a
 
 Total calories were calculated for each household as with the food group feature engineering.
 
-Then, each minor food code `minfd` was converted to the nutrient profile for that food multiplied by the quantity reported `cq`. This effectively expanded each diary entry row into twenty rows, one for each of the twenty nutrients tracked throughout the data, with the appropriate unit quantity for each nutrient reported.  
+Then, each minor food code `minfd` was converted to the nutrient profile for that food multiplied by the quantity reported `cq`. This effectively expanded each diary entry row into twenty rows, one for each of the twenty nutrients tracked throughout the data, with the appropriate unit quantity for each nutrient reported (@eq-nutrient-calorie-ratio-3).  
 
 $$
 nutrient\_quantity_{row} = cq_{row} \times \text{nutrient conversion factor}_{row}
 $$ {#eq-nutrient-calorie-ratio-3}
 
- Maintaining each nutrient's native unit (grams, milligrams, micrograms, etc.), the total quantity of each nutrient across all food purchases was aggregated for each household. Those quantities were then divided by total calories for that household.
+ Maintaining each nutrient's native unit (grams, milligrams, micrograms, etc.), the total quantity of each nutrient across all food purchases was aggregated for each household. Those quantities were then divided by total calories for that household(@eq-nutrient-quantity-calorie-ratio-4).
 
 $$
 nutrient\_quantity\_per\_total\_cal_{row} =  \frac{\text{total quantity per nutrient}}{\text{total calories per household}}
