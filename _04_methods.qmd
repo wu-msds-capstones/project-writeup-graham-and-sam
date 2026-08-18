@@ -33,7 +33,7 @@ The k-means clustering algorithm places the desired number of cluster centroids 
 
 ### PCA to visualize clusters
 
-In order to visualize household cluster labels from 16-dimensional food group space or 20-dimensional nutrient space, the principal components required to cumulatively explain 95% of variance of the data were put through an additional round of PCA, this time aiming for exactly two new principal components. These new components were used as the X and Y axes along which to plot all households in a 2-dimensional scatter plot projection.  
+In order to visualize household cluster labels from 16-dimensional food group space or 20-dimensional nutrient space, the principal components required to cumulatively explain 95% of variance of the data were put through an additional round of PCA, this time aiming for exactly two new principal components. These new components were used as the x and y axes for a 2-D scatterplot of all households, colored by cluster label.
 
 This double PCA approach does not directly inform the k-means clustering, but it does allow the datapoints to be visualized in human-friendly two dimensions, and along reasonably human-interpretable axes.
 
