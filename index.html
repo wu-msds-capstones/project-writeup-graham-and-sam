@@ -493,7 +493,7 @@ nutrient\_quantity\_per\_total\_cal_{row} = \frac{\text{total quantity per nutri
 <li><p>This yielded a sixteen-dimensional food group vector and a twenty-dimensional nutrient vector for each household.</p></li>
 <li><p>Those vectors were subjected to a machine learning pipeline that assigned a food group cluster label and a nutrient cluster label to each household. Principal component analysis was used to understand and visualize the clustering.</p></li>
 <li><p>Changing proportions of those clusters in the total population were assessed over time using a variety of statistical tests, in addition to visual inspection of time-based line plots.</p></li>
-<li><p>Population-level SEV risk rates were then joined at varying time-lags on year and region.</p></li>
+<li><p>Population-level SEV scores were then joined at varying time-lags on year and region.</p></li>
 <li><p>The year-on-year rate of change for a given cluster proportion could be correlated with year-on-year rate of change for metabolic disease risk factors at varying time lags.</p></li>
 </ul>
 <section id="diet-data-cleaning" class="level3">
@@ -670,10 +670,10 @@ Figure&nbsp;2: Orientations of the first two principal components of the food gr
 <div id="fig-cluster-2D-food-groups-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-cluster-2D-food-groups-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-cluster-2D-food-groups-plot-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: A 2-D projection of k-means clustering in 16-dimensional food-group space. Each dot represents one household. The 14 principal components required to explain 95% of the variance in the food-group-profile household diet data were further reduced to 2 principal components, which serve as the axes of this visualization. The cluster assignmwnts and corresponding colors are entirely the product of k-means clustering. PCA is only used for visualization and interpretability."><img src="capstone_files/figure-html/fig-cluster-2D-food-groups-plot-6.png" class="img-fluid figure-img" width="960"></a>
+<a href="capstone_files/figure-html/fig-cluster-2D-food-groups-plot-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: A 2-D projection of k-means clustering in 16-dimensional food-group space. Each dot represents one household. The 14 principal components required to explain 95% of the variance in the food-group-profile household diet data were further reduced to 2 principal components, which serve as the axes of this visualization. The cluster assignments and corresponding colors are entirely the product of k-means clustering. PCA is only used for visualization and interpretability."><img src="capstone_files/figure-html/fig-cluster-2D-food-groups-plot-6.png" class="img-fluid figure-img" width="960"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cluster-2D-food-groups-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: A 2-D projection of k-means clustering in 16-dimensional food-group space. Each dot represents one household. The 14 principal components required to explain 95% of the variance in the food-group-profile household diet data were further reduced to 2 principal components, which serve as the axes of this visualization. The cluster assignmwnts and corresponding colors are entirely the product of k-means clustering. PCA is only used for visualization and interpretability.
+Figure&nbsp;3: A 2-D projection of k-means clustering in 16-dimensional food-group space. Each dot represents one household. The 14 principal components required to explain 95% of the variance in the food-group-profile household diet data were further reduced to 2 principal components, which serve as the axes of this visualization. The cluster assignments and corresponding colors are entirely the product of k-means clustering. PCA is only used for visualization and interpretability.
 </figcaption>
 </figure>
 </div>
@@ -707,10 +707,10 @@ Figure&nbsp;4: A visualization of the cluster centroid z-score for each of the f
 <div id="fig-scree-nutrients-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-scree-nutrients-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-scree-nutrients-plot-10.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure&nbsp;5: Explained variance ratio by principal component for PCA of household diet data examined by nutrient quantity per total household calories. The first two principal componenets, PC 1 and PC 2, each explain over 20% of the variance in the data. A total of 11 components were required to cumulatively explain 95% of the variance in the data."><img src="capstone_files/figure-html/fig-scree-nutrients-plot-10.png" class="img-fluid figure-img" width="768"></a>
+<a href="capstone_files/figure-html/fig-scree-nutrients-plot-10.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure&nbsp;5: Explained variance ratio by principal component for PCA of household diet data examined by nutrient quantity per total household calories. The first two principal components, PC 1 and PC 2, each explain over 20% of the variance in the data. A total of 11 components were required to cumulatively explain 95% of the variance in the data."><img src="capstone_files/figure-html/fig-scree-nutrients-plot-10.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scree-nutrients-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5: Explained variance ratio by principal component for PCA of household diet data examined by nutrient quantity per total household calories. The first two principal componenets, PC 1 and PC 2, each explain over 20% of the variance in the data. A total of 11 components were required to cumulatively explain 95% of the variance in the data.
+Figure&nbsp;5: Explained variance ratio by principal component for PCA of household diet data examined by nutrient quantity per total household calories. The first two principal components, PC 1 and PC 2, each explain over 20% of the variance in the data. A total of 11 components were required to cumulatively explain 95% of the variance in the data.
 </figcaption>
 </figure>
 </div>
@@ -735,7 +735,7 @@ Figure&nbsp;6: Orientations of the first two principal components of the diet da
 </section>
 <section id="k-means-clustering-2" class="level3">
 <h3 class="anchored" data-anchor-id="k-means-clustering-2">k-means clustering</h3>
-<p>Repeated and extensive applications of the <code>best-k-selector</code> function found that 5 was the most stable number of clusters when households were characterized by z-scored nutrient-quatity-per-total-calorie profiles.</p>
+<p>Repeated and extensive applications of the <code>best-k-selector</code> function found that 5 was the most stable number of clusters when households were characterized by z-scored nutrient-quantity-per-total-calorie profiles.</p>
 <p>For household nutrient profiles, best k number of clusters was consistently found to be 5. Notably, one of the five clusters has only about 5,000 households amongst the almost 190,000 households in the dataset. This small cluster turns out to be households that consumed a lot of organ meat.</p>
 <div id="cell-fig-clusteres-nutrients" class="cell">
 <div class="cell-output-display">

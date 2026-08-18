@@ -137,7 +137,7 @@ scaled_df = pd.DataFrame(
 ```{python}
 #| results: 'hide'
 #| label: fig-scree-nutrients-plot
-#| fig-cap: "Explained variance ratio by principal component for PCA of household diet data examined by nutrient quantity per total household calories. The first two principal componenets, PC 1 and PC 2, each explain over 20% of the variance in the data. A total of 11 components were required to cumulatively explain 95% of the variance in the data."
+#| fig-cap: "Explained variance ratio by principal component for PCA of household diet data examined by nutrient quantity per total household calories. The first two principal components, PC 1 and PC 2, each explain over 20% of the variance in the data. A total of 11 components were required to cumulatively explain 95% of the variance in the data."
 #######
 ### PCA TIME!
 
@@ -298,7 +298,7 @@ As seen in @fig-pca-orientations-nutrients, PC 1 for household nutrient profiles
 
 ### k-means clustering
 
-Repeated and extensive applications of the `best-k-selector` function found that 5 was the most stable number of clusters when households were characterized by z-scored nutrient-quatity-per-total-calorie profiles.
+Repeated and extensive applications of the `best-k-selector` function found that 5 was the most stable number of clusters when households were characterized by z-scored nutrient-quantity-per-total-calorie profiles.
 
 ```{python}
 
