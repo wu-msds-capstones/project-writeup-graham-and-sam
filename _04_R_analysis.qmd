@@ -6,11 +6,12 @@ execute:
   warning: false
   message: false
 ---
+
 ## Nutrient cluster proportions over time
 
-The most striking finding from k-means clustering (paired with PCA for interpretability) was that nutrient-profile Cluster 2, the more plant-oriented cluster, increased its proportional share of the UK population dramatically from 1974 to 2000.  Insofar as this analysis was seeking a strong diet-cluster signal to serve as the explanatory variable, nutrient-profile Cluster 2 seemed to be the best candidate. 
+The most striking finding from k-means clustering (paired with PCA for interpretability) was that nutrient-profile Cluster 2, the more plant-oriented cluster, increased its proportional share of the UK population dramatically from 1974 to 2000. Insofar as this analysis was seeking a strong diet-cluster signal to serve as the explanatory variable, nutrient-profile Cluster 2 seemed to be the best candidate.
 
-Therefore, the rest of this analysis focuses on nutrient-profile clustering, and not food-group clustering. 
+Therefore, the rest of this analysis focuses on nutrient-profile clustering, and not food-group clustering.
 
 ```{r}
 library(tidyverse)
@@ -69,69 +70,6 @@ analysis_type = "Composition"   # used in all
 year_col      = "styr"  # used in all
 value_cols    = c("PC1_score", "PC2_score")   # loop through PC1 and PC2 # needed for ridge/boxplot
 region_col    = "ihme_gor"  # part of the uk # needed for by region plots
-
-```
-
-
-
-```{r}
-##| label: fig-R-stacked-bar-and-line
-##| fig-cap: "Nutrient cluster proportions over time as stacked bar plot."
-
-## Composition fg 17, then nute, the corresponding dataset will need to be switched
-
-#save_dir = "output_plots"
-#dir.create(save_dir, showWarnings = FALSE, recursive = TRUE)
-
-# -------------------------------------------------------------------
-# 1. Prep data
-# -------------------------------------------------------------------
-
-# cluster_data1 = data_source %>%
-#   select(hhno, all_of(year_col), all_of(cluster_col)) %>%
-#   filter(!is.na(.data[[cluster_col]]))
-
-# cluster_props1 = cluster_data1 %>%
-#   group_by(.data[[year_col]], .data[[cluster_col]]) %>%
-#   summarise(n = n(), .groups = "drop") %>%
-#   group_by(.data[[year_col]]) %>%
-#   mutate(
-#     total = sum(n),
-#     proportion = n / total
-#   ) %>%
-#   ungroup() %>%
-#   arrange(.data[[year_col]], .data[[cluster_col]])
-
-# #print(kable(cluster_props1, digits = 3))
-
-
-# # -------------------------------------------------------------------
-# # 2. Stacked bar chart — cluster proportions by year
-# # -------------------------------------------------------------------
-
-# p_trend = ggplot(
-#   cluster_props1,
-#   aes(x = factor(.data[[year_col]]), y = proportion, fill = factor(.data[[cluster_col]]))
-# ) +
-#   geom_col(position = "stack", color = "white") +
-#   labs(
-#     title = paste0(label_name, " Cluster Proportions (", analysis_type, ") by Year"),
-#     x = "Survey Year",
-#     y = "Proportion of Households",
-#     fill = paste0(label_name, " Cluster")
-#   ) +
-#   theme_minimal(base_size = 12) +
-#   theme(legend.position = "top", axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
-
-# print(p_trend)
-# #ggsave(
-#  # file.path(save_dir, paste0(label_name, "_", tolower(analysis_type), "_stacked_bar.png")),
-#   #p_trend, width = 9, height = 5.5, dpi = 150)
-
-
-
-
-
 
 ```
 
@@ -237,15 +175,13 @@ p_trend_line = ggplot(
 print(p_trend_line)
 ```
 
+@fig-R-line details the change in proportion of each nutrient cluster over time.
 
-@fig-R-line details the change in proportion of each nutrient cluster over time. 
+There is a slight decrease for Cluster 0 from around 25% to 15%. Cluster 1 was relatively stable at around 3%. Cluster 2 showed an increase in proportion from around 3% to 40% with a relatively steep slope. Cluster 3 remained around the 20% proportion area, starting a few points above and then ending at a value right around 15%. Lastly, cluster 4 starts as the highest proportion, nearly 50%, and slowly reduces to 30%.
 
-There is a slight decrease for Cluster 0 from around 25% to 15%. Cluster 1 was relatively stable at around 3%. Cluster 2 showed an increase in proportion from around 3% to 40% with a relatively steep slope. Cluster 3 remained around the 20% proportion area, starting a few points above and then ending at a value right around 15%. Lastly, cluster 4 starts as the highest proportion, nearly 50%, and slowly reduces to 30%. 
-
-This suggests that as time continued, the trends mapped to cluster 2 became more prevalent as proportions of clusters 0, 3, and 4 fell. 
+This suggests that as time continued, the trends mapped to cluster 2 became more prevalent as proportions of clusters 0, 3, and 4 fell.
 
 This initial model motivated statistical checks to ensure the changes in proportion over time (1974-2000) were statistically significant and not simply attributed to random noise.
-
 
 ```{r}
 # disease = read_csv("shared_data/IHME-GBD_SEV_metabolic_regions.csv")
@@ -386,7 +322,6 @@ This initial model motivated statistical checks to ensure the changes in proport
 
 ```
 
-
 ```{r}
 data_source = qual_pca_nute    # your dataset
 cluster_col = "cluster"        # categorical cluster membership (0:4)
@@ -454,7 +389,6 @@ for (clust in clusters) {
 pairwise_table = bind_rows(pairwise_results) %>% arrange(cluster, year_prev)
 ```
 
-
 ## Statistics
 
 ### Cluster change summary
@@ -493,7 +427,6 @@ kable(
 
 
 ```
-
 
 A series of two-proportion z-tests assessed the significance of the year-over-year nutrient group cluster composition changes over the 27-year time period, as displayed in @tbl-cluster-change-summary.
 
@@ -586,14 +519,12 @@ kable(
   #print()
 ```
 
-
-
-
-The Cochran-Armitage trend test, displayed in @tbl-cochran-armitage, was selected because it is designed to detect whether a proportion moved consistently in one direction across an ordered sequence of groups. The cluster membership was essentially binary (a household either belonged to a given cluster or did not), and survey years followed a natural chronological order, making this data well suited for this test. 
+The Cochran-Armitage trend test, displayed in @tbl-cochran-armitage, was selected because it is designed to detect whether a proportion moved consistently in one direction across an ordered sequence of groups. The cluster membership was essentially binary (a household either belonged to a given cluster or did not), and survey years followed a natural chronological order, making this data well suited for this test.
 
 The test was applied separately to each of the five clusters, to see whether that cluster's share of the population trended consistently either upward or downward across the survey years (1974-2000). The test incorporated every year to determine whether the year-to-year movement followed a single consistent direction, as opposed to random fluctuation. It found that all but Cluster 1 experienced significant change during the time frame, confirming that the trends observed in these clusters reflected a real, sustained shift rather than noise in the data. These results demonstrated a substantial compositional shift in the UK population's cluster membership over the 27-year period, with Cluster 2 gaining population share at the expense of Clusters 0, 3, and 4, while Cluster 1 remained a stable, low-prevalence group throughout.
 
 ### Companion Robustness: Kendall Tau Trend Test
+
 ```{r}
 #| label: tbl-kendall-tau
 #| tbl-cap: "Kendall's tau rank-correlation trend test, by nutrient cluster"
@@ -627,8 +558,6 @@ kable(
   row_spec(which(kendall_table$significant == "Yes"), bold = TRUE, background = "#eaf7ea")
 ```
 
-
-
-The Kendall's Tau trend test, depicted in @tbl-kendall-tau, was employed as a companion check to the Cochran-Armitage test. The Cochran-Armitage test models trends through a counts structure that was approximately linear. The Kendall test does not operate with the same assumptions, thus it is a warranted robustness check for clusters with a nonconforming structure. The Kendall test ranked the years and determined if the direction of the change was consistent. It was applied to each cluster's composition proportion. It looked at more than just year-to-year changes and worked to give a more comprehensive view of the trends. It found the same pattern as the Cochran-Armitage test: every cluster except for Cluster 1 showed consistent monotonic movement with the corresponding sign to the previous test. 
+The Kendall's Tau trend test, depicted in @tbl-kendall-tau, was employed as a companion check to the Cochran-Armitage test. The Cochran-Armitage test models trends through a counts structure that was approximately linear. The Kendall test does not operate with the same assumptions, thus it is a warranted robustness check for clusters with a nonconforming structure. The Kendall test ranked the years and determined if the direction of the change was consistent. It was applied to each cluster's composition proportion. It looked at more than just year-to-year changes and worked to give a more comprehensive view of the trends. It found the same pattern as the Cochran-Armitage test: every cluster except for Cluster 1 showed consistent monotonic movement with the corresponding sign to the previous test.
 
 The agreement of the tests supports the conclusion that there are compositional shifts in the diet clusters, namely that Cluster 2 increased for this UK population during the years of analysis.
