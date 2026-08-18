@@ -52,7 +52,7 @@ The two proportion z-test was applied to each pair of consecutive years survey y
 
 Because the two proportion z-tests are not meant to characterize a trend across the 27 year period, the Cochran-Armitage test was applied to cover this shortfall. It was applied to each cluster's proportion change over the full time frame. The test was specifically selected because cluster membership was effectively binary at each point in time and the survey years followed a chronological order so the conditions were optimal for this test. Once more, it was used to determine if a cluster's proportion moved consistently in one direction across the study as opposed to looking at noise driven changes.
 
-
+The Kendall's tau rank correlation was introduced as a distribution-free companion check for the Cochran-Armitage test which relies on a count-based and approximately linear structure. When these two tests agree on the direction and significance of a trend, that agreement acts as strengthened confidence that such a pattern is genuine.
 
 ### Time lag cross correlation function (CCF)
 
