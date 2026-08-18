@@ -92,7 +92,7 @@ As described in detail below:
 
 - Changing proportions of those clusters in the total population were assessed over time using a variety of statistical tests, in addition to visual inspection of time-based line plots.  
 
-- Population-level SEV risk rates were then joined at varying time-lags on year and region.
+- Population-level SEV scores were then joined at varying time-lags on year and region.
 
 - The year-on-year rate of change for a given cluster proportion could be correlated with year-on-year rate of change for metabolic disease risk factors at varying time lags.   
 
