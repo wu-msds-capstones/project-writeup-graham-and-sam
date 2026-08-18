@@ -137,7 +137,7 @@ region_col    = "ihme_gor"  # part of the uk # needed for by region plots
 
 ```{r}
 #| label: fig-R-line
-#| fig-cap: "Nutrient cluster proportions over time. The main cluster of interest, Cluster 2, is represented by the green line. It ascends from under 5% in 1974 to over 40% in 2000.  The notable discontinuity of clusters 3 and 4 in 1992 is suspected to be related to an economic recession in the UK in 1992, indicated by the gray band.  Cluster 3 is higher meat-related nutrients, while Cluster 4 is higher in carbohydrates.  It is speculated that many UK households started purchasing less meat and more simple staples like potatoes in response to the recession."
+#| fig-cap: "Nutrient cluster proportions over time. The main cluster of interest, Cluster 2, is represented by the green line. It ascends from under 5% in 1974 to over 40% in 2000.  The notable discontinuity of clusters 3 and 4 in 1992 is suspected to be related to an economic recession in the UK in 1992, indicated by the gray band.  Cluster 3 is higher in meat-related nutrients, while Cluster 4 is higher in carbohydrates.  It is speculated that many UK households started purchasing less meat and more simple staples like potatoes in response to the recession."
 
 cluster_props1 = data_source %>%
   filter(!is.na(.data[[cluster_col]])) %>%
@@ -589,7 +589,7 @@ kable(
 
 
 
-The Cochran-Armitage trend test, displayed in @tbl-cochran-armitage, was selected because it is designed to detect whether a proportion moved consistently in one direction across an ordered sequence of groups. The cluster membership was essentially binary (a household either belonged to a given cluster or did not), and survey years followed a natural chronological order. making this data well suited for this test. 
+The Cochran-Armitage trend test, displayed in @tbl-cochran-armitage, was selected because it is designed to detect whether a proportion moved consistently in one direction across an ordered sequence of groups. The cluster membership was essentially binary (a household either belonged to a given cluster or did not), and survey years followed a natural chronological order, making this data well suited for this test. 
 
 The test was applied separately to each of the five clusters, to see whether that cluster's share of the population trended consistently either upward or downward across the survey years (1974-2000). The test incorporated every year to determine whether the year-to-year movement followed a single consistent direction, as opposed to random fluctuation. It found that all but Cluster 1 experienced significant change during the time frame, confirming that the trends observed in these clusters reflected a real, sustained shift rather than noise in the data. These results demonstrated a substantial compositional shift in the UK population's cluster membership over the 27-year period, with Cluster 2 gaining population share at the expense of Clusters 0, 3, and 4, while Cluster 1 remained a stable, low-prevalence group throughout.
 

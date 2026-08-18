@@ -292,7 +292,7 @@ plt.tight_layout()
 plt.show()
 
 ```
-As seen in @fig-pca_foodgroups-plot, the axis of greatest variance for all households by food group calorie ratios orients to a more plant-based pole (higher in fruits and vegetables and whole grains), and a more meat and refined food based pole (higher in saturated fat and refined grains). PC 2 for all households by food group calorie ratios also appears to orient to a more processed and refined foods pole, and to a whole foods pole.
+As seen in @fig-pca_foodgroups-plot, the axis of greatest variance for all households by food group calorie ratios orients to a more plant-based pole (higher in fruits and vegetables and whole grains), and a more meat and refined-food-based pole (higher in saturated fat and refined grains). PC 2 for all households by food group calorie ratios also appears to orient to a more processed and refined foods pole, and to a whole foods pole.
 
 
 ### k-means clustering
