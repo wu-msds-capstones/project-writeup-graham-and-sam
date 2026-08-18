@@ -353,7 +353,7 @@ window.Quarto = {
   <li><a href="#pca-to-visualize-clusters" id="toc-pca-to-visualize-clusters" class="nav-link" data-scroll-target="#pca-to-visualize-clusters">PCA to visualize clusters</a></li>
   <li><a href="#pca-used-for-heat-map-interpretation" id="toc-pca-used-for-heat-map-interpretation" class="nav-link" data-scroll-target="#pca-used-for-heat-map-interpretation">PCA used for heat map interpretation</a></li>
   <li><a href="#cluster-proportions-over-time" id="toc-cluster-proportions-over-time" class="nav-link" data-scroll-target="#cluster-proportions-over-time">Cluster proportions over time</a></li>
-  <li><a href="#time-lag-cross-correlation-with-ldl-cholesterol-sev" id="toc-time-lag-cross-correlation-with-ldl-cholesterol-sev" class="nav-link" data-scroll-target="#time-lag-cross-correlation-with-ldl-cholesterol-sev">Time lag cross correlation with LDL cholesterol SEV</a></li>
+  <li><a href="#time-lag-cross-correlation-function-ccf" id="toc-time-lag-cross-correlation-function-ccf" class="nav-link" data-scroll-target="#time-lag-cross-correlation-function-ccf">Time lag cross correlation function (CCF)</a></li>
   <li><a href="#correlation-validation" id="toc-correlation-validation" class="nav-link" data-scroll-target="#correlation-validation">Correlation validation</a></li>
   </ul></li>
   <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a>
@@ -450,10 +450,8 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="disease-data-global-burden-of-disease-1990-to-2023">Disease data: <br> Global Burden of Disease <br> (1990 to 2023)</h2>
 <p>Population-level disease risk rates for High LDL cholesterol and other metabolic-disease associated risk factors were acquired from the Institute for Health Metrics and Evaluation (IHME), using their <a href="https://vizhub.healthdata.org/gbd-results/">Global Burden of Disease (GBD) Results tool</a>.</p>
 <p>The specific metric chosen for disease risk rate was summary exposure value, or SEV.</p>
-<p><a href="https://www.healthdata.org/sites/default/files/files/policy_report/GBD/2016/IHME_GBD2015_Report_Glossary-of-terms_2016.pdf">The IHME defines SEV</a> as a “… measure of a population’s exposure to a risk factor that takes into account the extent of exposure by risk level and the severity of that risk’s contribution to disease burden.”</p>
-<p>SEV appeared to be the best available metric from the GBD results tool to assess risk factor prevelance.</p>
-<p>From there, the chronic disease risk factorsfor which SEV information was available included high LDL cholesterol, high body mass index, high fasting plasma glucose, high systolic blood pressure, kidney Dysfunction, low bone mineral density, and overall metabolic risks.</p>
-<p>These risk rates were hand-selected for analysis and obtained preaggregated at a population level, grouped by UK region and by year. For the scope of this project, all ages and both sexes were included in SEV information.</p>
+<p><a href="https://www.healthdata.org/sites/default/files/files/policy_report/GBD/2016/IHME_GBD2015_Report_Glossary-of-terms_2016.pdf">The IHME defines SEV</a> as a “… measure of a population’s exposure to a risk factor that takes into account the extent of exposure by risk level and the severity of that risk’s contribution to disease burden.” Upon examination of the available metrics from the GBD Results tool, SEV appeared to be the best to assess risk factor prevelance.</p>
+<p>Chronic disease risk factors for which SEV information was available included high LDL cholesterol, high body mass index, high fasting plasma glucose, high systolic blood pressure, kidney Dysfunction, low bone mineral density, and overall metabolic risks. These risk rates were hand-selected for all available years and obtained preaggregated at a population level, grouped by UK region and by year. For the scope of this project, all ages and both sexes were included in SEV information.</p>
 </section>
 <section id="dietary-data-engineering" class="level2">
 <h2 class="anchored" data-anchor-id="dietary-data-engineering">Dietary Data Engineering</h2>
@@ -570,50 +568,50 @@ nutrient\_quantity\_per\_total\_cal_{row} =  \frac{\text{total quantity per nutr
 </section>
 <section id="methods" class="level1">
 <h1>Methods</h1>
-<section id="software-and-tools" class="level2">
-<h2 class="anchored" data-anchor-id="software-and-tools">Software and Tools</h2>
+<section id="software-and-tools" class="level3">
+<h3 class="anchored" data-anchor-id="software-and-tools">Software and Tools</h3>
 <p>All data engineering, analysis, and visualization were conducted in Python 3.13.7 and R 4.5.1.</p>
 <p>Python packages that were used in the final analysis include pandas and numpy for basic data manipulation, scikit-learn for PCA and k-means clustering, and matplotlib, seaborn and geopandas for visualization. R packages that were used in the final analysis include tidyverse for data manipulation, rstatix/coin for statistical testing, and ggplot2 for visualization.</p>
 </section>
-<section id="principal-component-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="principal-component-analysis">Principal component analysis</h2>
+<section id="principal-component-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="principal-component-analysis">Principal component analysis</h3>
 <p>Z-scored household diet data was subjected to dimensionality reduction in both the food group dimension space and the nutrient dimension space using principal component analysis, or PCA. PCA finds the multi-dimensional axis of greatest variance for all the data in a dataset, and multiple iterations of PCA can cumulatively explain increasing amounts of variance in the data.</p>
 <p>For both food group and nutrients dimension spaces, PCA was successively run until 95% of the variance was explained.</p>
 <p>The top two most explanatory principal components (PC 1 and PC 2) for each analysis were plotted in order of their linear combination weights for the given dimensions, producing a human interpretable orientation for that component.</p>
 </section>
-<section id="best-k-selector-for-k-means-clustering" class="level2">
-<h2 class="anchored" data-anchor-id="best-k-selector-for-k-means-clustering">Best k selector for k-means clustering</h2>
+<section id="best-k-selector-for-k-means-clustering" class="level3">
+<h3 class="anchored" data-anchor-id="best-k-selector-for-k-means-clustering">Best k selector for k-means clustering</h3>
 <p>In k-means clustering, data points are categorized into <strong>k</strong> number of clusters, based on data point distance from moving cluster centroids across many initializations of the algorithm. Any target number of clusters could be arbitrarily selected, but rigorous analysis requires a more careful process to select the most stable number of clusters for the data.</p>
 <p>In order to select the most stable number of clusters in a rigorous manner, a cross-validation cluster stability overlap function was constructed and named <code>best-k-selector</code>. In this algorithm, a random sample of the data points is selected and subjected to k-means clustering in successive rounds with the number of clusters increasing iteratively upwards from two. Each round involves 80% of the sample being subsampled, clustered, replaced, and then a fresh 80% subsample (with many of the same data points) being clustered at the same number of clusters. The clustered subsampled data points are compared for overlapping labels. The percentage of datapoints with overlapping cluster labels between the two subsamples is called the Adjusted Rand Index, or ARI score.</p>
 <p>The <code>best-k-selector</code> repeats the process as it sweeps from two clusters upward as many times as instructed. Eventually, the ARI scores for each number of clusters is averaged, and the number of clusters with the highest average ARI amongst all repeats is considered the ‘best k’ number of clusters for that dataset.</p>
 </section>
-<section id="k-means-clustering" class="level2">
-<h2 class="anchored" data-anchor-id="k-means-clustering">k-means clustering</h2>
+<section id="k-means-clustering" class="level3">
+<h3 class="anchored" data-anchor-id="k-means-clustering">k-means clustering</h3>
 <p>Once the ‘best k’ number of clusters was consistently discovered for food group and nutrient dimensions, clustering of all households in the data could take place.</p>
 <p>The k-means clustering algorithm places the desired number of cluster centroids randomly in the data, assigns each data point a cluster label based on the nearest centroid, shifts the centroids to the average position of their respective assigned data points. This is repeated over and over until the centroids effectively stop moving. The k-means algorithm reinitializes numerous times (hundreds or more) to assess cluster label consistency before determining the final designated cluster labels for each data point.</p>
 </section>
-<section id="pca-to-visualize-clusters" class="level2">
-<h2 class="anchored" data-anchor-id="pca-to-visualize-clusters">PCA to visualize clusters</h2>
+<section id="pca-to-visualize-clusters" class="level3">
+<h3 class="anchored" data-anchor-id="pca-to-visualize-clusters">PCA to visualize clusters</h3>
 <p>In order to visualize household cluster labels from 16-dimensional food group space or 20-dimensional nutrient space, the principal components required to cumulatively explain 95% of variance of the data were put through an additional round of PCA, this time aiming for exactly two new principal components. These new components were used as the X and Y axes along which to plot all households in a 2-dimensional scatter plot projection.</p>
 <p>This double PCA approach does not directly inform the k-means clustering, but it does allow the datapoints to be visualized in human-friendly two dimensions, and along reasonably human-interpretable axes.</p>
 </section>
-<section id="pca-used-for-heat-map-interpretation" class="level2">
-<h2 class="anchored" data-anchor-id="pca-used-for-heat-map-interpretation">PCA used for heat map interpretation</h2>
+<section id="pca-used-for-heat-map-interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="pca-used-for-heat-map-interpretation">PCA used for heat map interpretation</h3>
 <p>Heatmaps are used to visualize the z-scores of cluster centroids.</p>
 <p>The most explanatory principal components (PC 1 and PC 2) from upstream analysis are used to order the axes of heatmaps for each cluster.</p>
 </section>
-<section id="cluster-proportions-over-time" class="level2">
-<h2 class="anchored" data-anchor-id="cluster-proportions-over-time">Cluster proportions over time</h2>
+<section id="cluster-proportions-over-time" class="level3">
+<h3 class="anchored" data-anchor-id="cluster-proportions-over-time">Cluster proportions over time</h3>
 <p>Analysis of changes in the proportions of clusters over time was conducted using two proportion z-tests, Cochran-Armitage tests, and Kendall Tau Trend tests. Additionally, the cluster proportions were visualized as lineplots.</p>
 </section>
-<section id="time-lag-cross-correlation-with-ldl-cholesterol-sev" class="level2">
-<h2 class="anchored" data-anchor-id="time-lag-cross-correlation-with-ldl-cholesterol-sev">Time lag cross correlation with LDL cholesterol SEV</h2>
+<section id="time-lag-cross-correlation-function-ccf" class="level3">
+<h3 class="anchored" data-anchor-id="time-lag-cross-correlation-function-ccf">Time lag cross correlation function (CCF)</h3>
 <p>After k-means clustering, each UK region’s proportion of each assigned cluster per year was exported into a parquet file, which was loaded into a new pandas dataframe. That dataframe was extended with many lag year columns onto which IHME disease SEV data could be joined on region and year, with given diet data lag years corresponding to an IHME disease SEV actual years.</p>
 <p>This enabled rate of change correlation assessment, with year-on-year changes in cluster proportions and in SEV for a given metabolic risk being assigned a Pearson correlation coefficient <em>r</em>, with high correlation being closer to 1, and no correlation being closer to zero.</p>
 <p>The main explanatory variable (changes in population-level proportion of a particularly plant-oriented nutrient cluster over time) and the main response variable (changes in SEV for High LDL cholesterol) were specifically selected based on their visual appearance in lineplots, and not based on more rigorous mathematical means. This is noted in the Methods section because an important part of this lag correlation analysis is that it was primarily informed by a visibly remarkable pair of trends in the lineplots.</p>
 </section>
-<section id="correlation-validation" class="level2">
-<h2 class="anchored" data-anchor-id="correlation-validation">Correlation validation</h2>
+<section id="correlation-validation" class="level3">
+<h3 class="anchored" data-anchor-id="correlation-validation">Correlation validation</h3>
 <p>After identifying statistically significant correlation between the explanatory and response variables at a particular time lag, the order of SEV rates by year was held constant, and tested for correlation against thousands of permutations of the pertinent diet cluster data years. If the identified correlation was actually a product of random chance, it would be expected that other permutations of the data would randomly produce similar appearance of correlation some of the time.</p>
 <p>Additionally and finally, correlation rates at the identified time lag were plotted in a choropleth of the UK, showing how consistently nutrient cluster proportion changes and metabolic risk factor SEVs are correlated at the identified time lag over the time span of the data.</p>
 </section>
@@ -629,10 +627,10 @@ nutrient\_quantity\_per\_total\_cal_{row} =  \frac{\text{total quantity per nutr
 <div id="fig-scree-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-scree-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-scree-plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Explained variance ratio by principal component for PCA of household diet data examined by food group calorie-to-total calorie ratios."><img src="capstone_files/figure-html/fig-scree-plot-1.png" class="img-fluid figure-img" width="768"></a>
+<a href="capstone_files/figure-html/fig-scree-plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Explained variance ratio by principal component for PCA of household diet data examined by food group calorie-to-total calorie ratios. The first principal component, PC 1, explains almost 11% of the variance in the data. From there, the remaining components only explain around 5% of the variance in the data. 14 total components were required to cumulatively explain 95% of the variance in the data when assessed by food group in this manner."><img src="capstone_files/figure-html/fig-scree-plot-1.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scree-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Explained variance ratio by principal component for PCA of household diet data examined by food group calorie-to-total calorie ratios.
+Figure&nbsp;1: Explained variance ratio by principal component for PCA of household diet data examined by food group calorie-to-total calorie ratios. The first principal component, PC 1, explains almost 11% of the variance in the data. From there, the remaining components only explain around 5% of the variance in the data. 14 total components were required to cumulatively explain 95% of the variance in the data when assessed by food group in this manner.
 </figcaption>
 </figure>
 </div>
@@ -654,30 +652,19 @@ Figure&nbsp;2: Orientations of the first two principal components of the food gr
 </div>
 </div>
 </div>
-<p>As seen in <a href="#fig-pca_foodgroups-plot" class="quarto-xref">Figure&nbsp;2</a>, the axis of greatest variance for all households by food group calorie ratios orients to a more plant-based pole (higher in fruits and vegetables and whole grains), and a more meat and refined-food-based pole (higher in saturated fat and refined grains). PC 2 for all households by food group calorie ratios also appears to orient to a more processed and refined foods pole, and to a whole foods pole.</p>
+<p>As seen in <a href="#fig-pca_foodgroups-plot" class="quarto-xref">Figure&nbsp;2</a>, the axis of greatest variance for all households by food-group calorie ratios orients to a more plant-based pole (higher in fruits and vegetables and whole grains), and a more meat and refined-food-based pole (higher in saturated fat and refined grains). PC 2 for all households by food group calorie ratios also appears to orient to a more processed and refined foods pole, and to a whole foods pole.</p>
 </section>
 <section id="k-means-clustering-1" class="level3">
 <h3 class="anchored" data-anchor-id="k-means-clustering-1">k-means clustering</h3>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>Number of households per cluster</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>cluster
-0    123073
-1     63732
-Name: count, dtype: int64</code></pre>
-</div>
-</div>
 <div id="cell-fig-cluster-2D-food-groups-plot" class="cell">
 <div class="cell-output-display">
 <div id="fig-cluster-2D-food-groups-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-cluster-2D-food-groups-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-cluster-2D-food-groups-plot-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: A 2-D projection of the k-means clustering of the households based on food groups. The 14 principal components required to explain 95% of the variance in the household diet data were further reduced to 2 principal components, which serve as the axes of this visualization."><img src="capstone_files/figure-html/fig-cluster-2D-food-groups-plot-6.png" class="img-fluid figure-img" width="960"></a>
+<a href="capstone_files/figure-html/fig-cluster-2D-food-groups-plot-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: A 2-D projection of k-means clustering in 16-dimensional food-group space. Each dot represents one household. The 14 principal components required to explain 95% of the variance in the food-group-profile household diet data were further reduced to 2 principal components, which serve as the axes of this visualization. The cluster assignmwnts and corresponding colors are entirely the product of k-means clustering. PCA is only used for visualization and interpretability."><img src="capstone_files/figure-html/fig-cluster-2D-food-groups-plot-6.png" class="img-fluid figure-img" width="960"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cluster-2D-food-groups-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: A 2-D projection of the k-means clustering of the households based on food groups. The 14 principal components required to explain 95% of the variance in the household diet data were further reduced to 2 principal components, which serve as the axes of this visualization.
+Figure&nbsp;3: A 2-D projection of k-means clustering in 16-dimensional food-group space. Each dot represents one household. The 14 principal components required to explain 95% of the variance in the food-group-profile household diet data were further reduced to 2 principal components, which serve as the axes of this visualization. The cluster assignmwnts and corresponding colors are entirely the product of k-means clustering. PCA is only used for visualization and interpretability.
 </figcaption>
 </figure>
 </div>
