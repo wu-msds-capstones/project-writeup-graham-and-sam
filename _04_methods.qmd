@@ -60,7 +60,7 @@ After k-means clustering, each UK region's proportion of each assigned cluster p
 
 This enabled rate of change correlation assessment, with year-on-year changes in cluster proportions and in SEV for a given metabolic risk being assigned a Pearson correlation coefficient *r*, with high correlation being closer to 1, and no correlation being closer to zero.
 
-The main explanatory variable (changes in population-level proportion of a particularly plant-oriented nutrient cluster over time) and the main response variable (changes in SEV for High LDL cholesterol) were specifically selected based on their visual appearance in lineplots (@fig-R-line and @fig-metabolic-rates-over-time), and not based on more rigorous mathematical means. 
+The main explanatory variable (changes in population-level proportion of a particularly plant-oriented nutrient cluster over time) and the main response variable (changes in SEV for High LDL cholesterol) were specifically selected based on their visual appearance in lineplots (@fig-R-line and @fig-metabolic-rates-over-time-all-region), and not based on more rigorous mathematical means. 
 
 This is noted in the Methods section because an important part of this lag correlation analysis is that it was primarily informed by a visibly remarkable pair of trends in the lineplots. 
 
