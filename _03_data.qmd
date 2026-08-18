@@ -85,10 +85,15 @@ Furthermore, variations in magnitude amongst the derived nutrient-quantity-per-t
 As described in detail below:
 
 - Diet diary data was cleaned and aggregated by food group and by nutrient profile for each household in the dataset.
+
 - This yielded a sixteen-dimensional food group vector and a twenty-dimensional nutrient vector for each household.  
+
 - Those vectors were subjected to a machine learning pipeline that assigned a food group cluster label and a nutrient cluster label to each household.  Principal component analysis was used to understand and visualize the clustering.  
+
 - Changing proportions of those clusters in the total population were assessed over time using a variety of statistical tests, in addition to visual inspection of time-based line plots.  
+
 - Population-level SEV risk rates were then joined at varying time-lags on year and region.
+
 - The year-on-year rate of change for a given cluster proportion could be correlated with year-on-year rate of change for metabolic disease risk factors at varying time lags.   
 
 ### Diet data cleaning
