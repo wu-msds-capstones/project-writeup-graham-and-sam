@@ -102,7 +102,7 @@ The NFS evolved over time, and this evolution prompted several data cleaning dec
 
 Alcohol, confectioneries, and soft drinks were added as reportable food options in 1992. It is presumed that some UK households did indeed purchase alcohol, confectioneries, and soft drinks before 1992, but the diet diaries cannot show this.  All three categories are considered high-calorie, so their sudden appearance does skew calorie-adjusted calculations. In order to maintain consistency over time, all diet diary rows from these three categories were dropped from analysis, though the related households and all their other diet diary entries were retained.
 
-Initial analysis before dropping alcohol had designated alcohol as its own food group, for 17 total food groups.  After dropping all alcohol rows, this analysis looked at 16 total foodgroups.
+Initial analysis before dropping alcohol had designated alcohol as its own food group, for 17 total food groups.  After dropping all alcohol rows, this analysis looked at 16 total food groups.
 
 Northern Ireland was only included in the survey starting in 1996. In the interest of consistency, Northern Ireland households were excluded from this analysis altogether.
 
@@ -130,7 +130,7 @@ All years of the NFS data share minor to major food code look up tables with con
 
 On a year by year basis, calorie-specific nutrient conversion information was joined to each row of the diet diary (on minor food code, `minfd`), multiplied by consumable quantity `cq`, and then summed per household to calculate total calories for that household (@eq-row-calories). The calculated total for household calories was later joined back to un-aggregated data as needed.
 
-Minor food codes were mapped to major food codes, which were then mapped to custom food group labels (see Appendix).  Then each row was grouped by household and by foodgroup, aggregating total calories for each food group and for each household.  From there, every household could be assigned a proportion of total calories that was attributable to each foodgroup (@eq-food-groups-calorie-ratio).
+Minor food codes were mapped to major food codes, which were then mapped to custom food group labels (see Appendix).  Then each row was grouped by household and by food group, aggregating total calories for each food group and for each household.  From there, every household could be assigned a proportion of total calories that was attributable to each food group (@eq-food-groups-calorie-ratio).
 
 Household information was then joined on household number (`hhno`) to obtain the correct government office region for each household. 
 
