@@ -599,3 +599,4 @@ fig.subplots_adjust(left=0.4, right=0.95, top=0.95, bottom=0.05)
 The heatmap in @fig-heat-map-food-groups-plot combines information from PCA and k-means clustering.  The two columns represent the two clusters that were assigned in k-means clustering.  The axis of the heatmap is oriented along PC 1 for food group aggregations.  Cell color and printed number inside the cell indicate cluster centroid z-score for each dimension. Blue cells are negative z-scores, white cells are neutral, cluster-colored cells are higher z-scores. 
 
 The axis of greatest variance only explained 11% of variance in the food group model, so this visualization is presented with some caution.  That said, it is notable that the axis of greater variance appears to orient along a 'healthy food' and an 'unhealthy food' pole.
+
