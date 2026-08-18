@@ -23,13 +23,13 @@ Demographic and economic information is also included with the NFS data. However
 Therefore, the only demographic information that was ultimately used in this analysis is the regional location of each household. 
 
 
-## Disease data: <br> Global Burden of Disease <br> (1990 to 2023)
+## Disease data:<br> IHME<br> Global Burden of Disease <br> (1990 to 2023)
 
-Population-level disease risk rates for High LDL cholesterol and other metabolic-disease associated risk factors were acquired from the Institute for Health Metrics and Evaluation (IHME), using their [Global Burden of Disease (GBD) Results tool](https://vizhub.healthdata.org/gbd-results/).
+Population-level disease risk rates for High LDL cholesterol and other metabolic-disease associated risk factors were acquired from the [Institute for Health Metrics and Evaluation (IHME)](https://www.healthdata.org), using their [Global Burden of Disease (GBD) Results tool](https://vizhub.healthdata.org/gbd-results/).
 
 The specific metric chosen for disease risk rate was summary exposure value, or SEV.
 
-[The IHME defines SEV](https://www.healthdata.org/sites/default/files/files/policy_report/GBD/2016/IHME_GBD2015_Report_Glossary-of-terms_2016.pdf) as a "... measure of a population’s exposure to a risk factor that takes into account the extent of exposure by risk level and the severity of that risk’s contribution to disease burden." Upon examination of the available metrics from the GBD Results tool, SEV appeared to be the best to assess risk factor prevelance.  
+The IHME [defines SEV](https://www.healthdata.org/sites/default/files/files/policy_report/GBD/2016/IHME_GBD2015_Report_Glossary-of-terms_2016.pdf) as a "... measure of a population’s exposure to a risk factor that takes into account the extent of exposure by risk level and the severity of that risk’s contribution to disease burden." Upon examination of the available metrics from the GBD Results tool, SEV appeared to be the best to assess risk factor prevelance.  
 
 Chronic disease risk factors for which SEV information was available included high LDL cholesterol, high body mass index, high fasting plasma glucose, high systolic blood pressure, kidney Dysfunction, low bone mineral density, and overall metabolic risks. These risk rates were hand-selected for all available years and obtained preaggregated at a population level, grouped by UK region and by year.  For the scope of this project, all ages and both sexes were included in SEV information. 
 
