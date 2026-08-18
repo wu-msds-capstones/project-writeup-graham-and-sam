@@ -319,7 +319,7 @@ In contrast, a choropleth of a less statistically robust correlation did not app
 ```{python}
 #| results: 'hide'
 #| label: fig-map-no-corr-blood-pressure-nute-cluster-2
-#| fig-cap: "This choropleth is included to demonstrate what a lack of correlation looks like. This figure depicts Pearson correlation coefficients between changing population proportions of nutrient-profile Cluster 2 and high systolic blood pressure SEV, at the same five-year time lag as the main analysis. Some regions are neutral, some are red, some are blue. There is no tractable signal suggested in this figure.""
+#| fig-cap: "This choropleth is included to demonstrate what a lack of correlation looks like. This figure depicts Pearson correlation coefficients between changing population proportions of nutrient-profile Cluster 2 and high systolic blood pressure SEV, at the same five-year time lag as the main analysis. Some regions are neutral, some are red, some are blue. There is no tractable signal suggested in this figure."
 fg17fg55nute = 'nute'
 cluster_type = f'{fg17fg55nute}_cluster'
 rei_name = 'High systolic blood pressure'
