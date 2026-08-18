@@ -17,7 +17,7 @@ The top two most explanatory principal components (PC 1 and PC 2) for each analy
 
 ### Best k selector for k-means clustering
 
-In k-means clustering, data points are categorized into **k**  number of clusters, based on data point distance from moving cluster centroids across many initializations of the algorithm. Any target number of clusters could be arbitrarily selected, but rigorous analysis requires a more careful process to select the most stable number of clusters for the data.
+In k-means clustering, data points are categorized into *k*  number of clusters, based on data point distance from moving cluster centroids across many initializations of the algorithm. Any target number of clusters could be arbitrarily selected, but rigorous analysis requires a more careful process to select the most stable number of clusters for the data.
 
 In order to select the most stable number of clusters in a rigorous manner, a cross-validation cluster stability overlap function was constructed and named `best-k-selector`. In this algorithm, a random sample of the data points is selected and subjected to k-means clustering in successive rounds with the number of clusters increasing iteratively upwards from two.  Each round involves 80% of the sample being subsampled, clustered, replaced, and then a fresh 80% subsample (with many of the same data points) being clustered at the same number of clusters.  The clustered subsampled data points are compared for overlapping labels. The percentage of datapoints with overlapping cluster labels between the two subsamples is called the Adjusted Rand Index, or ARI score.  
 
