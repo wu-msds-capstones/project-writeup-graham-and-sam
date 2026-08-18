@@ -18,6 +18,8 @@ The clustering methodology introduced an additional source of bias worth address
 
 Diet data can be easily connected to judgements about socioeconomic status, and other hereditary health situations. The findings from this study are presented as described trends as opposed to evaluative claims. For this reason, no causal claims can be made, only correlative suggestions can be presented. 
 
+The distinction is worth noting because food choices are often shaped substantially by structural factors such as cost, availability or policy. The choices are often not enforced by preference alone. As such, no cluster in this report should be regarded as "better" or "worse" for the set of choices made by the respective households or the regions they belong to.
+
 Additionally, no causal claim can be made linking the early 1990s recession (discussed below) to the change in the respective nutrient cluster groups. 
 
 The findings in this report work to suggest dietary trends that may introduce benefits to health at a population-wide scale. 
