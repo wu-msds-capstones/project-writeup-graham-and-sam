@@ -193,7 +193,7 @@ To visualize this finding, the five year time lag correlation between population
 ```{python}
 #| results: 'hide'
 #| label: fig-map-neg-corr-ldl-nute-cluster-2
-#| fig-cap: "Consistent negative correlation at five year lag across the UK"
+#| fig-cap: "This choropleth depicts consistent negative correlation between increasing population proportion of nutrient-profile Cluster 2 and LDL cholesterol SEV scores at five-year lag across the UK. All regions in the data are colored blue.  Insignificant or spurious correlation would be expected to color regions randomly about the 0.00 white center."
 fg17fg55nute = 'nute'
 cluster_type = f'{fg17fg55nute}_cluster'
 rei_name = 'High LDL cholesterol'
@@ -319,7 +319,7 @@ In contrast, a choropleth of a less statistically robust correlation did not app
 ```{python}
 #| results: 'hide'
 #| label: fig-map-no-corr-blood-pressure-nute-cluster-2
-#| fig-cap: "Nutrient Cluster 2 did not show a consistent correlation at a five-year time lag against blood pressure across regions of the UK."
+#| fig-cap: "This choropleth is included to demonstrate what a lack of correlation looks like. This figure depicts Pearson correlation coefficients between changing population proportions of nutrient-profile Cluster 2 and high systolic blood pressure SEV, at the same five-year time lag as the main analysis. Some regions are neutral, some are red, some are blue. There is no tractable signal suggested in this figure.""
 fg17fg55nute = 'nute'
 cluster_type = f'{fg17fg55nute}_cluster'
 rei_name = 'High systolic blood pressure'
