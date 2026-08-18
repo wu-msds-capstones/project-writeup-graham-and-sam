@@ -128,19 +128,20 @@ p_trend_line = ggplot(
     vjust = 1.5,
     color = "grey35",
     fontface = "bold",
-    size = 3.5
-  ) +
-  # 95% CI as a shaded band (uses lower/upper computed above)
-  geom_ribbon(
-    aes(ymin = lower, ymax = upper, fill = factor(.data[[cluster_col]])),
-    alpha = 0.12,
-    color = NA
+    size = 4.5
   ) +
   # Cluster trend lines
   geom_line(linewidth = 0.9) +
   # Nutrient cluster colors
-  scale_color_manual(values = cluster_colors) +
-  scale_fill_manual(values = cluster_colors, guide = "none") +
+  scale_color_manual(
+    values = c(
+      "0" = "#E69F00",
+      "1" = "#56B4E9",
+      "2" = "#009E73",
+      "3" = "#0072B2",
+      "4" = "#CC79A7"
+    )
+  ) +
   # Axes
   scale_x_continuous(
     breaks = seq(1974, 2020, by = 2),
@@ -150,26 +151,52 @@ p_trend_line = ggplot(
     labels = scales::percent_format(accuracy = 1),
     expand = expansion(mult = c(0.01, 0.04))
   ) +
+  # Labels
   labs(
-   # title = "Nutrient Cluster Proportions by Survey Year",
+    title = "Nutrient Cluster Proportions by Survey Year",
     x = "Survey Year",
     y = "Households (%)",
-    color = "Nutrient Cluster"
+    color = "Nutrient Clusters"
   ) +
-  theme_bw(base_size = 12) +
+  # Match disease graph styling
+  theme_bw(base_size = 15) +
   theme(
     legend.position = "right",
-    legend.title = element_blank(),
+    legend.title = element_text(size = 15, face = "bold"),
     legend.key = element_blank(),
     legend.key.width = unit(0.9, "cm"),
-    legend.background = element_rect(color = "grey75", linewidth = 0.3),
-    legend.text = element_text(size = 9),
+    legend.background = element_rect(
+      color = "grey75",
+      linewidth = 0.3
+    ),
+    legend.text = element_text(size = 11),
     panel.grid = element_blank(),
-    panel.border = element_rect(color = "black", fill = NA, linewidth = 0.6),
-    axis.title = element_text(face = "plain", size = 10, color = "grey30"),
-    axis.text = element_text(size = 9, color = "grey20"),
-    axis.text.x = element_text(angle = 45, hjust = 1, size = 8, color = "grey20"),
-    plot.title = element_text(face = "bold", size = 16, hjust = 0, color = "grey20"),
+    panel.border = element_rect(
+      color = "black",
+      fill = NA,
+      linewidth = 0.6
+    ),
+    axis.title = element_text(
+      face = "plain",
+      size = 12,
+      color = "grey30"
+    ),
+    axis.text = element_text(
+      size = 11,
+      color = "grey20"
+    ),
+    axis.text.x = element_text(
+      angle = 45,
+      hjust = 1,
+      size = 10,
+      color = "grey20"
+    ),
+    plot.title = element_text(
+      face = "bold",
+      size = 20,
+      hjust = 0,
+      color = "grey20"
+    ),
     plot.title.position = "plot"
   )
 print(p_trend_line)
