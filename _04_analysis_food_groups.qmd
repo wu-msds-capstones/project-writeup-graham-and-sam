@@ -515,7 +515,7 @@ pcs_2 = pca_2.fit_transform(pcs_95)
 
 ```{python}
 #| label: fig-cluster-2D-food-groups-plot
-#| fig-cap: "A 2-D projection of k-means clustering in 16-dimensional food-group space. Each dot represents one household.  The 14 principal components required to explain 95% of the variance in the food-group-profile household diet data were further reduced to 2 principal components, which serve as the axes of this visualization. The cluster assignmwnts and corresponding colors are entirely the product of k-means clustering. PCA is only used for visualization and interpretability."
+#| fig-cap: "A 2-D projection of k-means clustering in 16-dimensional food-group space. Each dot represents one household.  The 14 principal components required to explain 95% of the variance in the food-group-profile household diet data were further reduced to 2 principal components, which serve as the axes of this visualization. The cluster assignments and corresponding colors are entirely the product of k-means clustering. PCA is only used for visualization and interpretability."
 cluster_colors = {0: '#762A83', 1: '#B2182B'}
 df_hh_per_cluster = wide_df['cluster'].value_counts()
 pca_2 = PCA(n_components=2, random_state=42)
