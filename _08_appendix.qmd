@@ -24,6 +24,8 @@ food_group_csv = pd.read_csv('shared_data/food_group_reference.csv')
 
 
 ```{r}
+#| label: tbl-appendix
+#| tbl-cap: "Food group cluster assignments glossary"
 library(kableExtra)
 library(tidyverse)
 food_group_csv <- read.csv("shared_data/food_group_reference.csv")
