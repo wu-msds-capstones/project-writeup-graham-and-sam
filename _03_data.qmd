@@ -110,7 +110,7 @@ The nutrient conversion information evolved over time as well, tracking 21 nutri
 
 One of the included nutrients was Energy in MJ (megaJoules), which was collinear with Energy in kCal. Energy in MJ was dropped from nutrient analysis, resulting in 20 assessed nutrients.
 
-The NFS and IHME data have a discrepancy in UK government office regions as well: the 1974 to 2000 NFS data lists Merseyside as a distinct region, while the 1990 to 2023 IHME data includes that same geographical area as part of North West England. 
+The NFS and IHME data have a discrepancy in UK government office regions as well: the NFS data lists Merseyside as a distinct region, while the IHME data includes that same geographical area as part of North West England. 
 
 So, before aggregation, all NFS households from Merseyside were reassigned as being part of North West England, for consistency between datasets.
 
