@@ -527,7 +527,7 @@ The clusters depicted in @fig-clusteres-nutrients show most of the UK households
 ```{python}
 #| output: true
 #| label: fig-heatmaps-nutrients-1
-#| fig-cap: "Orientations along PC 1 of nutrient-profile clusters. Cluster 0 appears to be high in fats and low in plant-related nutrients, while Cluster 2 is low in fat and high in plant-related nutrients."
+#| fig-cap: "Orientations along PC 1 of nutrient-profile cluster centroids. The color and value in each cell corresponds to the cluster centroid z-score for that nutrient.  Brown cells are increasingly negative, white cells are closer to zero, and cells of the cluster's color are positively z-scored. Cluster 0 appears to be high in fats and low in plant-related nutrients, while Cluster 2 is low in fat and high in plant-related nutrients."
 ###########
 # Heat map stuff
 ###
@@ -585,7 +585,7 @@ plt.show()
 ```{python}
 #| output: true
 #| label: fig-heatmaps-nutrients-2
-#| fig-cap: "Orientations along PC 2 of nutrient-profile clusters. Cluster 3 appears to be animal-related nutrients, and low in carbohydrates, while Cluster 4 is high in carbohydrates and low in all other nutrients."
+#| fig-cap: "Orientations along PC 2 of nutrient-profile clusters. The color and value in each cell corresponds to the cluster centroid z-score for that nutrient.  Brown cells are increasingly negative, white cells are closer to zero, and cells of the cluster's color are positively z-scored. Cluster 3 appears to be animal-related nutrients, and low in carbohydrates, while Cluster 4 is high in carbohydrates and low in all other nutrients."
 fig2 = plot_all_heatmaps_faceted(heat_by_cluster_pc2, cluster_ids, "PC2 order")
 plt.show()
 
