@@ -89,13 +89,13 @@ As described in detail below:
 - Those vectors were subjected to a machine learning pipeline that assigned a food group cluster label and a nutrient cluster label to each household.  Principal component analysis was used to understand and visualize the clustering.  
 - Changing proportions of those clusters in the total population were assessed over time using a variety of statistical tests, in addition to visual inspection of time-based line plots.  
 - Population-level SEV risk rates were then joined at varying time-lags on year and region.
-- The year-on-year rate of change for a given cluster proportion was correlated with year-on-year rate of change for metabolic disease risk factors at varying time lags.   
+- The year-on-year rate of change for a given cluster proportion could be correlated with year-on-year rate of change for metabolic disease risk factors at varying time lags.   
 
 ### Diet data cleaning
 
 The NFS evolved over time, and this evolution prompted several data cleaning decisions for this analysis.  
 
-Alcohol, confectioneries, and soft drinks were added as reportable food options in 1992. It is presumed that some UK households did purchase alcohol, confectioneries, and soft drinks before 1992, but the diet diaries cannot show this.  All three categories are considered high-calorie, so their sudden appearance does skew calorie-adjusted calculations. In order to maintain consistency over time, all diet diary rows from these three categories were dropped from analysis, though the related households and all their other diet diary entries were retained.
+Alcohol, confectioneries, and soft drinks were added as reportable food options in 1992. It is presumed that some UK households did indeed purchase alcohol, confectioneries, and soft drinks before 1992, but the diet diaries cannot show this.  All three categories are considered high-calorie, so their sudden appearance does skew calorie-adjusted calculations. In order to maintain consistency over time, all diet diary rows from these three categories were dropped from analysis, though the related households and all their other diet diary entries were retained.
 
 Initial analysis before dropping alcohol had designated alcohol as its own food group, for 17 total food groups.  After dropping all alcohol rows, this analysis looked at 16 total foodgroups.
 
@@ -105,9 +105,13 @@ The nutrient conversion information evolved over time as well, tracking 21 nutri
 
 One of the included nutrients was Energy in MJ (megaJoules), which was collinear with Energy in kCal. Energy in MJ was dropped from nutrient analysis, resulting in 20 assessed nutrients.
 
-The NFS and IHME data have a discrepancy in UK government office regions as well: the 1974 to 2000 NFS data list Merseyside as a distinct region, while the 1990 to 2023 IHME data includes that same geographical area as part of North West England.  So, before aggregation, all NFS households from Merseyside were reassigned as being part of North West England, for consistency between datasets.
+The NFS and IHME data have a discrepancy in UK government office regions as well: the 1974 to 2000 NFS data list Merseyside as a distinct region, while the 1990 to 2023 IHME data includes that same geographical area as part of North West England. 
 
-A final cleaning step was to prune households that reported a physiologically unrealistic amount of calories, below a threshold that people require to live.  These households were considered to have provided unreliable data and were excluded from analysis.  The caloric floor threshold was set to two standard deviations below the mean of log-space per capita calorie intake, inspired by similar approaches in the literature [@black_critical_2000].  While the overall analysis does not rely on per capita calculations, this pruning step does. Per capita per household calculations were adjusted for age and sex (adult males = 1, adult females = 0.8, children = 0.5, elderly adults = 0.85), consistent with the literature [@noauthor_sacn_nodate].
+So, before aggregation, all NFS households from Merseyside were reassigned as being part of North West England, for consistency between datasets.
+
+A final cleaning step was to prune households that reported a physiologically unrealistic amount of calories, below a threshold that people require to live.  These households were considered to have provided unreliable data and were excluded from analysis.  
+
+The caloric floor threshold was set to two standard deviations below the mean of log-space per capita calorie intake, inspired by similar approaches in the literature [@black_critical_2000].  While the overall analysis does not rely on per capita calculations, this pruning step does. Per capita per household calculations were adjusted for age and sex (adult males = 1, adult females = 0.8, children = 0.5, elderly adults = 0.85), consistent with the literature [@noauthor_sacn_nodate].
 
 ### Diet data aggregation
 
@@ -137,11 +141,11 @@ Finally, each year's processed aggregated nutrient profile data was appended to 
 
 #### Machine Learning Pipeline
 
-The data for both food group and nutrient profiles were pivoted to a wide format, with each household retaining a row, and each column becoming one of the foodgroups or nutrients.  The values in the wide pivot table were the household's calorie ratio or quantity-per-total-calorie for that food group or nutrient, respectively. The wide tables were then z-score normalized.
+The data for both food group and nutrient profiles were pivoted to a wide format, with each household retaining a row, and each column becoming one of the food groups or nutrients.  The values in the wide pivot table were the household's calorie ratio or quantity-per-total-calorie for that food group or nutrient, respectively. The wide tables were then z-score normalized using scikit-learn Standard Scaler.
 
 The machine learning pipeline (described in detail in the Analysis section) assigned food group profile cluster labels and nutrient profile cluster labels to each household.  
 
-Proportions of each cluster type amongst all households were then plotted and assessed over time,  nationally and regionally.  Changes in these proportions over time are the fundamental explanatory variable of this analysis.
+Proportions of each cluster type amongst all households were then plotted and assessed over time,  nationally and regionally.  Change in one of these cluster proportions over time is the fundamental explanatory variable of this analysis.
 
 
 #### Joining disease data
