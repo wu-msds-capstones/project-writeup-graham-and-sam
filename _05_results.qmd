@@ -27,7 +27,7 @@ disease_colors = {
 ```
 
 
-While exploratory analysis ranged beyond the final figures included above in this report, time-lag correlation studies were focused on population-level changes in the proportion of nutrient cluster 2, and on population-level LDL cholesterol SEV scores. The results reported below are in reference to the correlative association between those two selected variables.  
+While exploratory analysis ranged beyond the final figures included above in this report, time-lag correlation studies were focused on population-level changes in the proportion of nutrient-profile Cluster 2, and on population-level LDL cholesterol SEV scores. The results reported below are in reference to the correlative association between those two selected variables.  
 
 ## Diet and Disease time-lag correlation
 
@@ -47,7 +47,7 @@ $$ {#eq-sig-band-99}
 
 ```{python}
 #| label: fig-correlation-sweep-vs-LDL
-#| fig-cap: "Lag correlation sweeps for cluster 2 against High LDL cholesterol"
+#| fig-cap: "Lag correlation sweeps for nutrient-profile Cluster 2 against High LDL cholesterol from 0 to 20 years lag.  The orange line represents the cross correlation function (CCF) Pearson correlation coefficient 'r' at each tested lag time. Significance thresholds based on sample size of lag years (n = 21) were calculated and added as a dotted red line and dotted blue line for 95% and 99% significance, respectively. There is a sustained correlation above 95% significance from 2.5 to 7.5 years, and a peak above 99% significance at 5 years exactly."
 
 fg17fg55nute = 'nute'
 cluster_type = f'{fg17fg55nute}_cluster'
@@ -98,10 +98,10 @@ plt.axhline(band2, color='blue', linestyle='--', linewidth=1, label='99% signifi
 plt.axhline(-band1, color='red', linestyle='--', linewidth=1)
 plt.axhline(-band2, color='blue', linestyle='--', linewidth=1)
 plt.axhline(0, color='black', linewidth=0.5)
-plt.xlabel('lag')
-plt.ylabel('Pearson correlation coefficient r')
-#plt.title(f'{diet_label} vs {disease_label}: cross-correlation by lag')
-plt.legend()
+plt.xlabel('Lag (years)', fontsize=13)
+plt.ylabel('Pearson correlation coefficient (r)', fontsize=13)
+plt.tick_params(axis='both', labelsize=11)
+plt.legend(fontsize=11, loc='lower center')
 plt.show()
 #plt.close()
 
