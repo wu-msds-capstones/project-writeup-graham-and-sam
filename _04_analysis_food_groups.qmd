@@ -540,7 +540,7 @@ ax.set_ylabel('PC 2 of PCA (95%)', fontsize = 16)
 plt.show()
 ```
 
-A 2-dimensional projection of the household clustering from 16-dimensional food group calorie ratio space is presented in @fig-cluster-2D-food-groups-plot. The principal components that were required to explain 95% variance in the aggregated foodgroup data were fed into an additional round of PCA to produce two derivative principal components.  These two components serve as the x and y axes in @fig-cluster-2D-food-groups-plot.  There are twice as many households assigned to Cluster 0.  The data is continuous, so the clusters appear adjacent, though the boundary between the two is rather distinct.
+A 2-dimensional projection of the household clustering from 16-dimensional food group calorie ratio space is presented in @fig-cluster-2D-food-groups-plot. The principal components that were required to explain 95% variance in the aggregated food group data were fed into an additional round of PCA to produce two derivative principal components.  These two components serve as the x and y axes in @fig-cluster-2D-food-groups-plot.  There are twice as many households assigned to Cluster 0.  The data is continuous, so the clusters appear adjacent, though the boundary between the two is rather distinct.
 
 
 ```{python}
