@@ -510,8 +510,7 @@ p_trend_line = ggplot(
   ) +
   # Labels
   labs(
-    title = "Food Group Proportions by Survey Year",
-    x = "Survey Year",
+    x = "Year",
     y = "Households (%)",
     color = label_name1
   ) +
@@ -533,11 +532,6 @@ p_trend_line = ggplot(
       fill = NA,
       linewidth = 0.6
     ),
-    axis.title = element_text(
-      face = "plain",
-      size = 12,
-      color = "grey30"
-    ),
     axis.text = element_text(
       size = 11,
       color = "grey20"
@@ -548,13 +542,6 @@ p_trend_line = ggplot(
       size = 10,
       color = "grey20"
     ),
-    plot.title = element_text(
-      face = "bold",
-      size = 20,
-      hjust = 0,
-      color = "grey20"
-    ),
-    plot.title.position = "plot"
   )
 
 print(p_trend_line)
