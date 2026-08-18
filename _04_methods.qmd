@@ -48,6 +48,8 @@ The most explanatory principal components (PC 1 and PC 2) from upstream analysis
 
 Analysis of changes in the proportions of clusters over time was conducted using two proportion z-tests, Cochran-Armitage tests, and Kendall Tau Trend tests.  Additionally, the cluster proportions were visualized as lineplots. 
 
+The two-proportion z-test was applied to each pair of consecutive years survey years  for every cluster. This provided a localized check of significant changes from one year to next next. This test was chosen because it made no assumption about the change of the shape overtime. It was able to catch short-term shifts that a braoder trend test may miss or average out. It was also leveraged to identify and validate statistical changes over the course of the time span which could then be addressed later.
+
 ### Time lag cross correlation function (CCF)
 
 After k-means clustering, each UK region's proportion of each assigned cluster per year was exported into a parquet file, which was loaded into a new pandas dataframe. That dataframe was extended with many lag year columns onto which IHME disease SEV data could be joined on region and year, with given diet data lag years corresponding to an IHME disease SEV actual years. 
