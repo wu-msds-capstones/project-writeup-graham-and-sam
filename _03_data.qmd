@@ -23,7 +23,7 @@ Demographic and economic information is also included with the NFS data. However
 Therefore, the only demographic information that was ultimately used in this analysis is the regional location of each household. 
 
 
-## Disease data:<br> IHME<br> Global Burden of Disease <br> (1990 to 2023)
+## Disease data:<br> Institute for Health Metrics and Evaluation <br> Global Burden of Disease survey<br> (1990 to 2023)
 
 Population-level disease risk rates for High LDL cholesterol and other metabolic-disease associated risk factors were acquired from the [Institute for Health Metrics and Evaluation (IHME)](https://www.healthdata.org), using their [Global Burden of Disease (GBD) Results tool](https://vizhub.healthdata.org/gbd-results/).
 
