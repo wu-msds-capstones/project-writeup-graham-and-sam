@@ -29,9 +29,11 @@ Population-level disease risk rates for High LDL cholesterol and other metabolic
 
 The specific metric chosen for disease risk rate was summary exposure value, or SEV.
 
-The IHME [defines SEV](https://www.healthdata.org/sites/default/files/files/policy_report/GBD/2016/IHME_GBD2015_Report_Glossary-of-terms_2016.pdf) as a "... measure of a population’s exposure to a risk factor that takes into account the extent of exposure by risk level and the severity of that risk’s contribution to disease burden." Upon examination of the available metrics from the GBD Results tool, SEV appeared to be the best to assess risk factor prevelance.  
+The IHME [defines SEV](https://www.healthdata.org/sites/default/files/files/policy_report/GBD/2016/IHME_GBD2015_Report_Glossary-of-terms_2016.pdf) as a "... measure of a population’s exposure to a risk factor that takes into account the extent of exposure by risk level and the severity of that risk’s contribution to disease burden." 
 
-Chronic disease risk factors for which SEV information was available included high LDL cholesterol, high body mass index, high fasting plasma glucose, high systolic blood pressure, kidney Dysfunction, low bone mineral density, and overall metabolic risks. These risk rates were hand-selected for all available years and obtained preaggregated at a population level, grouped by UK region and by year.  For the scope of this project, all ages and both sexes were included in SEV information. 
+Upon examination of the available metrics from the GBD Results tool, SEV appeared to be the best metric to assess risk factor prevelance.  
+
+Chronic disease risk factors for which SEV information was available included high LDL cholesterol, high body mass index, high fasting plasma glucose, high systolic blood pressure, kidney Dysfunction, low bone mineral density, and overall metabolic risks. All of risk rates were selected for all available years and obtained preaggregated at a population level, grouped by UK region and by year.  For the scope of this project, all ages and both sexes were included in SEV information. 
 
 
 ## Dietary Data Engineering
@@ -52,7 +54,7 @@ $$
 $$ {#eq-food-groups-calorie-ratio}
 
 
-This resulted in a 'calorie ratio' for each food group for that household for that week.  This normalized metric cancels out quantity, and purely examines the qualitative composition of each household's reported food acquisition for the week.  Therefore, the number of people in the household do not factor into this metric, and further demographic considerations did not need to be calculated.
+This resulted in a `calorie ratio` for each food group for that household for that week.  This normalized metric cancels out quantity, and purely examines the qualitative composition of each household's reported food acquisition for the week.  Therefore, the number of people in the household do not factor into this metric, and further demographic considerations did not need to be calculated.
 
 Finally, calorie ratios for all food groups were normalized by Standard Scaler and z-scored, with the means set to 0 and the standard deviations set to plus or minus 1.
 
@@ -71,9 +73,10 @@ $$ {#eq-nutrient-calorie-ratio-3}
 $$
 nutrient\_quantity\_per\_total\_cal_{row} = \frac{\text{total quantity per nutrient}_{row}}{\text{total calories per household}_{row}}
 $$ {#eq-nutrient-quantity-calorie-ratio-4}
-The resultant nutrient-profile metric, 'quantity per total calories,' is similar in spirit to the 'calorie-ratio' metric from the food groups. 
 
-However, a pure calorie comparison for nutrients would not be viable, as certain nutrients (carbohydrates, fats) have abundant calories while other nutrients (vitamins) have essentially zero calories. Hence, native nutrient units were maintained and divided by the common total calories.  This might preclude comparison amongst nutrients, but this analysis assesses household nutrient profiles, so the variation in fundamental units was not problematic.
+The resultant nutrient-profile metric, `quantity per total calories` is similar in spirit to the `calorie-ratio` metric from the food groups. It is quantity-agnostic and expresses diet composition.
+
+A pure calorie comparison for nutrients would not be viable, as certain nutrients (carbohydrates, fats) have abundant calories while other nutrients (vitamins) have essentially zero calories. Hence, native nutrient units were maintained and divided by the common total calories.  This might preclude comparison amongst nutrients, but this analysis assesses household nutrient profiles, so the variation in fundamental units was not problematic.
 
 Furthermore, variations in magnitude amongst the derived nutrient-quantity-per-total-calorie units were standardized as a z-score, with the mean for each dimension set to 0 and a single standard deviation set to plus or minus 1.
 
