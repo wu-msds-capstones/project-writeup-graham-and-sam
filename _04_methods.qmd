@@ -10,7 +10,7 @@ Python packages that were used in the final analysis include pandas and numpy fo
 
 Z-scored household diet data was subjected to dimensionality reduction in both the food group dimension space and the nutrient dimension space using principal component analysis, or PCA.  PCA finds the multi-dimensional axis of greatest variance for all the data in a dataset, and multiple iterations of PCA can cumulatively explain increasing amounts of variance in the data.  
 
-For both food group and nutrients dimensionspace, PCA was successively run until 95% of the variance was explained.  
+For both food group and nutrients dimension spaces, PCA was successively run until 95% of the variance was explained.  
 
 The top two most explanatory principal components (PC 1 and PC 2) for each analysis were plotted in order of their linear combination weights for the given dimensions, producing a human interpretable orientation for that component.
 
@@ -19,7 +19,7 @@ The top two most explanatory principal components (PC 1 and PC 2) for each analy
 
 In k-means clustering, data points are categorized into **k**  number of clusters, based on data point distance from moving cluster centroids across many initializations of the algorithm. Any target number of clusters could be arbitrarily selected, but rigorous analysis requires a more careful process to select the most stable number of clusters for the data.
 
-In order to select the most stable number of clusters in a rigorous manner, a cross-validation cluster stability overlap function was constructed and named `best-k-selector`. In this algorithm, a random sample of the data points are selected and subjected to k-means clustering in successive rounds with the number of clusters increasing iteratively upwards from two.  Each round involves 80% of the sample being subsampled, clustered, replaced, and then a fresh 80% subsample (with many of the same data points) being clustered at the same number of clusters.  The clustered subsampled data points are compared for overlapping labels. The percentage of datapoints with overlapping cluster labels between the two subsamples is called the Adjusted Rand Index, or ARI score.  
+In order to select the most stable number of clusters in a rigorous manner, a cross-validation cluster stability overlap function was constructed and named `best-k-selector`. In this algorithm, a random sample of the data points is selected and subjected to k-means clustering in successive rounds with the number of clusters increasing iteratively upwards from two.  Each round involves 80% of the sample being subsampled, clustered, replaced, and then a fresh 80% subsample (with many of the same data points) being clustered at the same number of clusters.  The clustered subsampled data points are compared for overlapping labels. The percentage of datapoints with overlapping cluster labels between the two subsamples is called the Adjusted Rand Index, or ARI score.  
 
 The `best-k-selector` repeats the process as it sweeps from two clusters upward as many times as instructed.  Eventually, the ARI scores for each number of clusters is averaged, and the number of clusters with the highest average ARI amongst all repeats is considered the 'best k' number of clusters for that dataset.
 
@@ -28,7 +28,7 @@ The `best-k-selector` repeats the process as it sweeps from two clusters upward 
 
 Once the 'best k' number of clusters was consistently discovered for food group and nutrient dimensions, clustering of all households in the data could take place.  
 
-The k-means clustering algorithm places the desired number of cluster centroids randomly in the data, assigns each data point a cluster label based on the nearest centroid, shifts the centroids to average position of their respective assigned data points.  This is repeated over and over until the centroids effectively stop moving. The k-means algorithm reinitializes numerous times (hundreds or more) to assess cluster label consistency before determining the final designated cluster labels for each data point.
+The k-means clustering algorithm places the desired number of cluster centroids randomly in the data, assigns each data point a cluster label based on the nearest centroid, shifts the centroids to the average position of their respective assigned data points.  This is repeated over and over until the centroids effectively stop moving. The k-means algorithm reinitializes numerous times (hundreds or more) to assess cluster label consistency before determining the final designated cluster labels for each data point.
 
 
 ## PCA to visualize clusters
@@ -50,7 +50,7 @@ Analysis of changes in the proportions of clusters over time was conducted using
 
 ## Correlation with LDL rates over time
 
-After k-means clustering, each UK region's proportion of each assigned cluster per year were exported into a parquet file which was loaded into a new pandas dataframe. That dataframe was extended with many lag year columns onto which IHME disease SEV data could be joined on region and year, with given diet lag year corresponding to actual IHME disease SEV year. 
+After k-means clustering, each UK region's proportion of each assigned cluster per year was exported into a parquet file, which was loaded into a new pandas dataframe. That dataframe was extended with many lag year columns onto which IHME disease SEV data could be joined on region and year, with given diet data lag years corresponding to an IHME disease SEV actual years. 
 
 This enabled rate of change correlation assessment, with year-on-year changes in cluster proportions and in SEV for a given metabolic risk being assigned a Pearson correlation coefficient *r*, with high correlation being closer to 1, and no correlation being closer to zero.
 

@@ -11,7 +11,7 @@ Of course, this is consistent with years of literature and medical advice.  The 
 
 The most significant limitation of this study is that it is not longitudinal.  It would be ideal to track high numbers of individual people in a scientifically controlled manner, over many years of analysis. In that case, varying dietary habits and health outcomes could be mapped to individual people and then aggregated for statistical power.  Unfortunately, longitudinal data like this is rare and hard to obtain.  So, the best option for this realm of investigation was to find aggregatable data with large numbers of subjects, and to make statistically cautious population level claims from there.  Future investigation in this direction would be buoyed by access to longitudinal diet and health data.
 
-It might be expected that this five year time lag finding would apply to any population, not just the UK.  That said, there are certainly many confounding variables involved in human health outcomes - genetics, poverty, food access, education, environmental exposures, other lifestyle factors, and more - so a strong proclamation about the universal applicability of this finding is not warranted.  
+It might be expected that this five year time lag finding would apply to any population, not just the UK.  That said, there are certainly many confounding variables involved in human health outcomes —-- genetics, poverty, food access, education, environmental exposures, other lifestyle factors, and more --- so a strong proclamation about the universal applicability of this finding is not warranted.  
  
 Even looking at the UK only, there are many caveats to consider in this data. The food diaries were self-reported, so the information might be of varying reliability.  
  
