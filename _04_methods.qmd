@@ -17,7 +17,7 @@ The top two most explanatory principal components (PC 1 and PC 2) for each analy
 
 ### Best k selector for k-means clustering
 
-In k-means clustering, data points are categorized into **k**  number of clusters, based on data point distance from moving cluster centroids across many initializations of the algorithm. Any target number of clusters could be arbitrarily selected, but rigorous analysis requires a more careful process to select the most stable number of clusters for the data.
+In k-means clustering, data points are categorized into *k*  number of clusters, based on data point distance from moving cluster centroids across many initializations of the algorithm. Any target number of clusters could be arbitrarily selected, but rigorous analysis requires a more careful process to select the most stable number of clusters for the data.
 
 In order to select the most stable number of clusters in a rigorous manner, a cross-validation cluster stability overlap function was constructed and named `best-k-selector`. In this algorithm, a random sample of the data points is selected and subjected to k-means clustering in successive rounds with the number of clusters increasing iteratively upwards from two.  Each round involves 80% of the sample being subsampled, clustered, replaced, and then a fresh 80% subsample (with many of the same data points) being clustered at the same number of clusters.  The clustered subsampled data points are compared for overlapping labels. The percentage of datapoints with overlapping cluster labels between the two subsamples is called the Adjusted Rand Index, or ARI score.  
 
@@ -28,12 +28,12 @@ The `best-k-selector` repeats the process as it sweeps from two clusters upward 
 
 Once the 'best k' number of clusters was consistently discovered for food group and nutrient dimensions, clustering of all households in the data could take place.  
 
-The k-means clustering algorithm places the desired number of cluster centroids randomly in the data, assigns each data point a cluster label based on the nearest centroid, shifts the centroids to the average position of their respective assigned data points.  This is repeated over and over until the centroids effectively stop moving. The k-means algorithm reinitializes numerous times (hundreds or more) to assess cluster label consistency before determining the final designated cluster labels for each data point.
+The k-means clustering algorithm places the desired number of cluster centroids randomly in the data, assigns each data point a cluster label based on the nearest centroid, and then shifts the centroids to the average position of their respective assigned data points.  This is repeated over and over until the centroids effectively stop moving. The k-means algorithm reinitializes numerous times (hundreds or more) to assess cluster label consistency before determining the final designated cluster labels for each data point.
 
 
 ### PCA to visualize clusters
 
-In order to visualize household cluster labels from 16-dimensional food group space or 20-dimensional nutrient space, the principal components required to cumulatively explain 95% of variance of the data were put through an additional round of PCA, this time aiming for exactly two new principal components. These new components were used as the X and Y axes along which to plot all households in a 2-dimensional scatter plot projection.  
+In order to visualize household cluster labels from 16-dimensional food group space or 20-dimensional nutrient space, the principal components required to cumulatively explain 95% of variance of the data were put through an additional round of PCA, this time aiming for exactly two new principal components. These new components were used as the x and y axes for a 2-D scatterplot of all households, colored by cluster label.
 
 This double PCA approach does not directly inform the k-means clustering, but it does allow the datapoints to be visualized in human-friendly two dimensions, and along reasonably human-interpretable axes.
 
