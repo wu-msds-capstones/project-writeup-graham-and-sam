@@ -8,7 +8,7 @@ execute:
 ---
 ## Nutrient cluster proportions over time
 
-The most striking finding from k-means clustering paired with PCA for interpretability was that nutrient Cluster 2, the more plant-oriented cluster, increased its proportional share of the UK population dramatically from 1974 to 2000.  Insofar as this analysis was seeking a strong diet-cluster signal to serve as the explanatory variable, nutrient cluster 2 seemed to be the best candidate. 
+The most striking finding from k-means clustering (paired with PCA for interpretability) was that nutrient-profile Cluster 2, the more plant-oriented cluster, increased its proportional share of the UK population dramatically from 1974 to 2000.  Insofar as this analysis was seeking a strong diet-cluster signal to serve as the explanatory variable, nutrient-profile Cluster 2 seemed to be the best candidate. 
 
 Therefore, the rest of this analysis focuses on nutrient-profile clustering, and not food-group clustering. 
 
