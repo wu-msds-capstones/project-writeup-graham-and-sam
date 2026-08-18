@@ -14,15 +14,13 @@ Consenting households tracked all food purchases for one week, recording the con
 
 There are several native food group mappings included with the NFS data, but those food groupings tend to focus on economic details more than nutrition oriented details. 
 
-An iterative manual review of all reported foods in the data was conducted, and a custom set of sixteen foodgroups was designated based on literature [@schulz_advances_2021; @perraud_plant_2022; @gaesser_whole_2020] in order to assess the data from a nutritional perspective. 
+An iterative manual review of all reported foods in the data was conducted, and a custom set of sixteen food groups was designated based on literature [@schulz_advances_2021; @perraud_plant_2022; @gaesser_whole_2020] in order to assess the data from a nutritional perspective. Each row in the diet diaries was assigned one of these custom food group labels, enabling food group profiling of each household. A full printout of the custom food group mappings is included in the Appendix .
 
-Each row in the diet diaries was assigned one of these custom food group labels, enabling food group profiling of each household. A full printout of the custom food group mappings is included in the Appendix .
-
-Additionally, the NFS included annually adjusted nutrient conversion information for each of the minor food codes, allowing the recorded type and quantity to be converted into a nutrient profile for that purchase, and in turn aggregated to an overall nutrient profile for each household.
+Additionally, the NFS included annually adjusted nutrient conversion information for each of the minor food codes, allowing the recorded type and quantity to be converted into a nutrient profile for that purchase. This information could in turn be aggregated into an overall nutrient profile for each household.
 
 Demographic and economic information is also included with the NFS data. However, this analysis assesses diet composition per calorie, not diet quantity per capita.  While calorie-per-person-per-day was used to cull data-devoid households in the data cleaning (discussed below), the food group and nutrient profile metrics carried forward into the analysis are quantity-agnostic.
 
-So, the only demographic information that was ultimately used in this analysis is the regional location of each household. 
+Therefore, the only demographic information that was ultimately used in this analysis is the regional location of each household. 
 
 
 ## Disease data: <br> Global Burden of Disease <br> (1990 to 2023)
