@@ -28,7 +28,7 @@ The `best-k-selector` repeats the process as it sweeps from two clusters upward 
 
 Once the 'best k' number of clusters was consistently discovered for food group and nutrient dimensions, clustering of all households in the data could take place.  
 
-The k-means clustering algorithm places the desired number of cluster centroids randomly in the data, assigns each data point a cluster label based on the nearest centroid, shifts the centroids to the average position of their respective assigned data points.  This is repeated over and over until the centroids effectively stop moving. The k-means algorithm reinitializes numerous times (hundreds or more) to assess cluster label consistency before determining the final designated cluster labels for each data point.
+The k-means clustering algorithm places the desired number of cluster centroids randomly in the data, assigns each data point a cluster label based on the nearest centroid, and then shifts the centroids to the average position of their respective assigned data points.  This is repeated over and over until the centroids effectively stop moving. The k-means algorithm reinitializes numerous times (hundreds or more) to assess cluster label consistency before determining the final designated cluster labels for each data point.
 
 
 ### PCA to visualize clusters
