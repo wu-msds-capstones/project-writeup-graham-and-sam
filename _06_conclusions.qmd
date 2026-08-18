@@ -21,9 +21,11 @@ Relatedly though, some households might be bulk shoppers who buy a lot of food e
 
 ### Final thoughts
 
-Human health is complex, the association with diet, while well studied, is also complex.  Any additional insight into connections between food and health can bolster individuals and society in general to improve their longevity and reduce their risk of chronic disease.  While there are mixed messages from online influencers about these food health connections, this analysis suggests that the mainstream medical messaging is likely right: a more plant-based diet might help lower LDL cholesterol. 
+Human health and its association with diet are complex.
+
+Any additional insight into connections between food and health can bolster individuals and society to improve their longevity and reduce their risk of chronic disease.  While there are mixed messages from online influencers about these food-health connections, this analysis suggests that mainstream medical messaging is likely right: a more plant-based diet might help lower LDL cholesterol. 
  
 To be very clear, this study makes no claims about diet and health for individual people. 
 
-That said, this study does conclude that at least in the UK from 1985 to 2000, there was a statistically significant correlation between the year-on-year rate of change of the population proportion of nutrient-profile Cluster 2 (as designated by k-means clustering) and the year-on-year rate of change for high LDL cholesterol SEV score. 
+That said, this study does conclude that, at least in the UK from 1985 to 2000, there was a statistically significant correlation between the year-on-year change of population proportion of nutrient-profile Cluster 2 (as designated by k-means clustering) and the year-on-year change for high LDL cholesterol SEV score. 
 
