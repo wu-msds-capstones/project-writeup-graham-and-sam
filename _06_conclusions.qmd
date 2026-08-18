@@ -17,7 +17,9 @@ Beyond that, there is the fact that the diet diaries were self-reported.  There 
  
 Additionaly, the diet diaries tracked quantities of consumable food that was purchased. It is assumed that all of this purchased food was actually consumed, but that could be inaccurate.  People might have bought food and not eaten it, meaning the inferred correlation between diet and disease might be somewhat miscalculated.  While this cannot be ruled out, it does bear suggestion that many people are budget conscious, and might actively avoiding wasting money on food they will not eat.
  
-Relatedly though, some households might be bulk shoppers who buy a lot of food every other week, or every month. For such a bulk shopping household, the timing of the diet diary week could make them appear to consume way too much or way too little. Those who reported buying nothing might have been pruned by the calorie filter, but those who reported buying a large amount might erroneously seem to be gluttons, skewing calculated aggregations. 
+Relatedly though, some households might be bulk shoppers who buy a lot of food every other week, or every month. For such a bulk shopping household, the timing of the diet diary week could make them appear to consume way too much or way too little. Those who reported buying nothing might have been pruned by the calorie filter, but those who reported buying a large amount might erroneously seem to be gluttons, skewing calculated aggregations.
+
+A final limitation of this correlative analysis is that, based on the timeframes of the available diet and disease data, there were a limited number of overlapping years to assess.  Based on the five-year-time lag, there were only 15 analyzable years, and n = 15 is not ideal.  However, compared on the lack of any apparent correlation when other clusters and disease risk factors were analyzed in a similar manner, the discovered correlation reported herein is not entirely discountable.
 
 ### Final thoughts
 
