@@ -31,7 +31,7 @@ The specific metric chosen for disease risk rate was summary exposure value, or 
 
 The IHME [defines SEV](https://www.healthdata.org/sites/default/files/files/policy_report/GBD/2016/IHME_GBD2015_Report_Glossary-of-terms_2016.pdf) as a "... measure of a population’s exposure to a risk factor that takes into account the extent of exposure by risk level and the severity of that risk’s contribution to disease burden." 
 
-Upon examination of the available metrics from the GBD Results tool, SEV appeared to be the best metric to assess risk factor prevelance.  
+Upon examination of the available metrics from the GBD Results tool, SEV appeared to be the best metric to assess risk factor prevalence.  
 
 Chronic disease risk factors for which SEV information was available included high LDL cholesterol, high body mass index, high fasting plasma glucose, high systolic blood pressure, kidney Dysfunction, low bone mineral density, and overall metabolic risks. All of risk rates were selected for all available years and obtained preaggregated at a population level, grouped by UK region and by year.  For the scope of this project, all ages and both sexes were included in SEV information. 
 
@@ -122,7 +122,9 @@ The caloric floor threshold was set to two standard deviations below the mean of
 
 Dietary data aggregation was undertaken to generate the features described with @eq-row-calories, @eq-food-groups-calorie-ratio, @eq-nutrient-calorie-ratio-3, and @eq-nutrient-quantity-calorie-ratio-4 above.
 
-The raw download from the UK Data Service has a folder for each year between 1974 and 2000, with space separated text files for diet diary, household information, and nutrient conversion factors.  All years of the NFS data share minor to major food code look up tables with consistent food code descriptions.
+The raw download from the UK Data Service has a folder for each year between 1974 and 2000, with space separated text files for diet diary, household information, and nutrient conversion factors.  
+
+All years of the NFS data share minor to major food code look up tables with consistent food code descriptions.
 
 #### Household food group profile aggregation
 
