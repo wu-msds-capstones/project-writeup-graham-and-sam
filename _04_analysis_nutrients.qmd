@@ -565,10 +565,10 @@ def plot_all_heatmaps_faceted(data_dict, cluster_ids, pc_label):
         # z-score labels
         values = data_dict[cid][cid].values
         for row_idx, val in enumerate(values):
-            ax.text(0, row_idx, f'{val:.1f}', ha='center', va='center', fontsize=9, color='black')
+            ax.text(0, row_idx, f'{val:.1f}', ha='center', va='center', fontsize=12, color='black')
 
     axes[0].set_yticks(range(len(data_dict[cluster_ids[0]].index)))
-    axes[0].set_yticklabels(data_dict[cluster_ids[0]].index)
+    axes[0].set_yticklabels(data_dict[cluster_ids[0]].index, fontsize=14)
 
     fig.suptitle(pc_label, fontsize=14)
     plt.tight_layout()
