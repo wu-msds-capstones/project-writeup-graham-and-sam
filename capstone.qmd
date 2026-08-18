@@ -1,6 +1,6 @@
 ---
 title: "Diet and Disease in the UK"
-subtitle: Population-level plant-based dietary trends correlate <br> with time-lagged population-level LDL cholesterol decrease
+subtitle: Population-level plant-based dietary cluster increase correlates <br> with time-lagged population-level LDL cholesterol risk rate decrease
 authors:
   - Graham Blechschmidt
   - Sam Cooper
