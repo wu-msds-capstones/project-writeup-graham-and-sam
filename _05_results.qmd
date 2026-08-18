@@ -300,7 +300,7 @@ gdf_merged = gdf_uk.merge(df_region_lag5, on='location', how='left')
 
 
 
-fig, ax = plt.subplots(figsize=(8, 10))
+fig, ax = plt.subplots(figsize=(4, 6))
 gdf_merged.plot(column='r', cmap='RdBu_r', vmin=-1, vmax=1, legend=True, ax=ax, edgecolor='black', linewidth=0.3)
 #ax.set_title(f'{cluster_type}_{cluster_number} vs {rei_name}: lag-5 correlation by region')
 ax.axis('off')
@@ -426,7 +426,7 @@ gdf_merged = gdf_uk.merge(df_region_lag5, on='location', how='left')
 
 
 
-fig, ax = plt.subplots(figsize=(8, 10))
+fig, ax = plt.subplots(figsize=(4,6))
 gdf_merged.plot(column='r', cmap='RdBu_r', vmin=-1, vmax=1, legend=True, ax=ax, edgecolor='black', linewidth=0.3)
 #ax.set_title(f'{cluster_type}_{cluster_number} vs {rei_name}: lag-5 correlation by region')
 ax.axis('off')

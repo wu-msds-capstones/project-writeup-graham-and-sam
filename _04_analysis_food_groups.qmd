@@ -240,7 +240,7 @@ The other components only explained about 5% variance each, leading to 14 compon
 
 ```{python}
 #| label: fig-pca_foodgroups-plot
-#| fig-cap: "Orientations of the first two principal components of the food group oriented diet data. PC 1 appears to orient to a 'healthy foods' pole with fruits and vegetables and whole grains, and an 'unhealthy foods' pole with saturated fat and refined grains. PC 2 has a similar set of poles, but with general 'whole foods' at one end and 'refined foods' at the other. "
+#| fig-cap: "Orientations of the first two principal components of the food group oriented diet data, ordered by PCA loading value. Amber bars indicate positive loadings, dark blue bars indicate negative loadings.  PC 1 appears to orient to a 'healthy foods' pole with fruits and vegetables and whole grains, and an 'unhealthy foods' pole with saturated fat and refined grains. PC 2 has a similar set of poles, but with general 'whole foods' at one end and 'refined foods' at the other. "
 
 ##############
 # This is the "what does PC1 mean figure"
@@ -259,7 +259,8 @@ fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 10))
 #fig, ax = plt.subplots(figsize=(6, 8))
 loadings_sorted1 = loadings_df1.sort_values('PC1_loading', ascending=True)  # ascending so most-positive plots at top
 
-colors = ['#B2182B' if v >= 0 else 'steelblue' for v in loadings_sorted1['PC1_loading']]
+
+colors = ['#C1440E' if v >= 0 else '#1B3A5C'  for v in loadings_sorted1['PC1_loading']]
 ax1.barh(loadings_sorted1['feature'], loadings_sorted1['PC1_loading'], color=colors)
 ax1.set_xlabel('PC1 Orientation')
 #ax1.set_title('PC1 Orientation — Food groups')
@@ -280,7 +281,7 @@ loadings_df2.to_parquet(f"{run_folder}/pc2_loadings_{run_name}.parquet", index=F
 
 #fig, ax = plt.subplots(figsize=(6, 8))
 loadings_sorted2 = loadings_df2.sort_values('PC2_loading', ascending=True)  # ascending so most-positive plots at top
-colors = ['#B2182B' if v >= 0 else 'steelblue' for v in loadings_sorted2['PC2_loading']]
+colors = ['#C1440E' if v >= 0 else '#1B3A5C'for v in loadings_sorted2['PC2_loading']]
 ax2.barh(loadings_sorted2['feature'], loadings_sorted2['PC2_loading'], color=colors)
 ax2.set_xlabel('PC2 Orientation')
 #ax2.set_title('PC2 Orientation — Food groups')

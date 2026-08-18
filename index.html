@@ -606,6 +606,8 @@ nutrient\_quantity\_per\_total\_cal_{row} =  \frac{\text{total quantity per nutr
 <section id="cluster-proportions-over-time" class="level3">
 <h3 class="anchored" data-anchor-id="cluster-proportions-over-time">Cluster proportions over time</h3>
 <p>Analysis of changes in the proportions of clusters over time was conducted using two proportion z-tests, Cochran-Armitage tests, and Kendall Tau Trend tests. Additionally, the cluster proportions were visualized as lineplots.</p>
+<p>The two proportion z-test was applied to each pair of consecutive years survey years for every cluster. This provided a localized check of significant changes from one year to next next. This test was chosen because it made no assumption about the change of the shape overtime. It was able to catch short-term shifts that a braoder trend test may miss or average out. It was also leveraged to identify and validate statistical changes over the course of the time span which could then be addressed later.</p>
+<p>Because the two proportion z-tests are not meant to characterize a trend across the 27 year period, the Cochran-Armitage test was applied to cover this shortfall. It was applied to each cluster’s proportion change over the full time frame. The test was specifically selected because cluster membership was effectively binary at each point in time and the survey years followed a chronological order so the conditions were optimal for this test. Once more, it was used to determine if a cluster’s proportion moved consistently in one direction across the study as opposed to looking at noise driven changes.</p>
 </section>
 <section id="time-lag-cross-correlation-function-ccf" class="level3">
 <h3 class="anchored" data-anchor-id="time-lag-cross-correlation-function-ccf">Time lag cross correlation function (CCF)</h3>
@@ -646,10 +648,10 @@ Figure&nbsp;1: Explained variance ratio by principal component for PCA of househ
 <div id="fig-pca_foodgroups-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pca_foodgroups-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-pca_foodgroups-plot-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Orientations of the first two principal components of the food group oriented diet data. PC 1 appears to orient to a ‘healthy foods’ pole with fruits and vegetables and whole grains, and an ‘unhealthy foods’ pole with saturated fat and refined grains. PC 2 has a similar set of poles, but with general ‘whole foods’ at one end and ‘refined foods’ at the other."><img src="capstone_files/figure-html/fig-pca_foodgroups-plot-4.png" class="img-fluid figure-img" width="1344"></a>
+<a href="capstone_files/figure-html/fig-pca_foodgroups-plot-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Orientations of the first two principal components of the food group oriented diet data, ordered by PCA loading value. Amber bars indicate positive loadings, dark blue bars indicate negative loadings. PC 1 appears to orient to a ‘healthy foods’ pole with fruits and vegetables and whole grains, and an ‘unhealthy foods’ pole with saturated fat and refined grains. PC 2 has a similar set of poles, but with general ‘whole foods’ at one end and ‘refined foods’ at the other."><img src="capstone_files/figure-html/fig-pca_foodgroups-plot-4.png" class="img-fluid figure-img" width="1344"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pca_foodgroups-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Orientations of the first two principal components of the food group oriented diet data. PC 1 appears to orient to a ‘healthy foods’ pole with fruits and vegetables and whole grains, and an ‘unhealthy foods’ pole with saturated fat and refined grains. PC 2 has a similar set of poles, but with general ‘whole foods’ at one end and ‘refined foods’ at the other.
+Figure&nbsp;2: Orientations of the first two principal components of the food group oriented diet data, ordered by PCA loading value. Amber bars indicate positive loadings, dark blue bars indicate negative loadings. PC 1 appears to orient to a ‘healthy foods’ pole with fruits and vegetables and whole grains, and an ‘unhealthy foods’ pole with saturated fat and refined grains. PC 2 has a similar set of poles, but with general ‘whole foods’ at one end and ‘refined foods’ at the other.
 </figcaption>
 </figure>
 </div>
@@ -716,10 +718,10 @@ Figure&nbsp;5: Explained variance ratio by principal component for PCA of househ
 <div id="fig-pca-orientations-nutrients" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pca-orientations-nutrients-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-pca-orientations-nutrients-12.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;6: Orientations of the first two principal components of the diet data by nutrient profile. PC 1 has a high fat pole juxtaposed with a pole higher in plant-associated nutrients. PC 2 has a high carbohydrate and vegetable protein pole, juxtaposed against a pole with high animal protein and associated nutrients."><img src="capstone_files/figure-html/fig-pca-orientations-nutrients-12.png" class="img-fluid figure-img" width="1344"></a>
+<a href="capstone_files/figure-html/fig-pca-orientations-nutrients-12.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;6: Orientations of the first two principal components of the diet data by nutrient profile, ordered by PCA loading value. Amber bars indicate positive loadings, dark blue bars indicate negative loadings. PC 1 has a high fat pole juxtaposed with a pole higher in plant-associated nutrients. PC 2 has a high carbohydrate and vegetable protein pole, juxtaposed against a pole with high animal protein and associated nutrients."><img src="capstone_files/figure-html/fig-pca-orientations-nutrients-12.png" class="img-fluid figure-img" width="1344"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pca-orientations-nutrients-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6: Orientations of the first two principal components of the diet data by nutrient profile. PC 1 has a high fat pole juxtaposed with a pole higher in plant-associated nutrients. PC 2 has a high carbohydrate and vegetable protein pole, juxtaposed against a pole with high animal protein and associated nutrients.
+Figure&nbsp;6: Orientations of the first two principal components of the diet data by nutrient profile, ordered by PCA loading value. Amber bars indicate positive loadings, dark blue bars indicate negative loadings. PC 1 has a high fat pole juxtaposed with a pole higher in plant-associated nutrients. PC 2 has a high carbohydrate and vegetable protein pole, juxtaposed against a pole with high animal protein and associated nutrients.
 </figcaption>
 </figure>
 </div>
@@ -1090,7 +1092,7 @@ Figure&nbsp;12: Lag correlation sweeps for nutrient-profile Cluster 2 against Hi
 <div id="fig-map-neg-corr-ldl-nute-cluster-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-map-neg-corr-ldl-nute-cluster-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-map-neg-corr-ldl-nute-cluster-2-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Figure&nbsp;13: Consistent negative correlation at five year lag across the UK"><img src="capstone_files/figure-html/fig-map-neg-corr-ldl-nute-cluster-2-5.png" class="img-fluid figure-img" width="768"></a>
+<a href="capstone_files/figure-html/fig-map-neg-corr-ldl-nute-cluster-2-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Figure&nbsp;13: Consistent negative correlation at five year lag across the UK"><img src="capstone_files/figure-html/fig-map-neg-corr-ldl-nute-cluster-2-5.png" class="img-fluid figure-img" width="384"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-map-neg-corr-ldl-nute-cluster-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;13: Consistent negative correlation at five year lag across the UK
@@ -1106,7 +1108,7 @@ Figure&nbsp;13: Consistent negative correlation at five year lag across the UK
 <div id="fig-map-no-corr-blood-pressure-nute-cluster-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-map-no-corr-blood-pressure-nute-cluster-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-map-no-corr-blood-pressure-nute-cluster-2-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Figure&nbsp;14: Nutrient Cluster 2 did not show a consistent correlation at a five-year time lag against blood pressure across regions of the UK."><img src="capstone_files/figure-html/fig-map-no-corr-blood-pressure-nute-cluster-2-7.png" class="img-fluid figure-img" width="768"></a>
+<a href="capstone_files/figure-html/fig-map-no-corr-blood-pressure-nute-cluster-2-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Figure&nbsp;14: Nutrient Cluster 2 did not show a consistent correlation at a five-year time lag against blood pressure across regions of the UK."><img src="capstone_files/figure-html/fig-map-no-corr-blood-pressure-nute-cluster-2-7.png" class="img-fluid figure-img" width="384"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-map-no-corr-blood-pressure-nute-cluster-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;14: Nutrient Cluster 2 did not show a consistent correlation at a five-year time lag against blood pressure across regions of the UK.
