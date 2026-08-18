@@ -236,7 +236,7 @@ As seen in @fig-scree-nutrients-plot, PC 1 and PC 2 for household nutrient-quant
 
 ```{python}
 #| label: fig-pca-orientations-nutrients
-#| fig-cap: "Orientations of the first two principal components of the diet data by nutrient profile. PC 1 has a high fat pole juxtaposed with a pole higher in plant-associated nutrients. PC 2 has a high carbohydrate and vegetable protein pole, juxtaposed against a pole with high animal protein and associated nutrients."
+#| fig-cap: "Orientations of the first two principal components of the diet data by nutrient profile, ordered by PCA loading value. Amber bars indicate positive loadings, dark blue bars indicate negative loadings. PC 1 has a high fat pole juxtaposed with a pole higher in plant-associated nutrients. PC 2 has a high carbohydrate and vegetable protein pole, juxtaposed against a pole with high animal protein and associated nutrients."
 ##############
 # This is the "what does PC1 mean figure"
 loadings_df1 = pd.DataFrame({
@@ -251,7 +251,7 @@ fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 10))
 
 loadings_sorted1 = loadings_df1.sort_values('PC1_loading', ascending=True)  # ascending so most-positive plots at top
 
-colors = ['#B2182B' if v >= 0 else 'steelblue' for v in loadings_sorted1['PC1_loading']]
+colors = ['#C1440E' if v >= 0 else '#1B3A5C'  for v in loadings_sorted1['PC1_loading']]
 ax1.barh(loadings_sorted1['feature'], loadings_sorted1['PC1_loading'], color=colors)
 ax1.set_xlabel('PC1 Orientation')
 #ax1.set_title('PC1 Orientation — Nutrients')
@@ -275,7 +275,7 @@ loadings_df2.to_parquet(f"{run_folder}/pc2_loadings_{run_name}.parquet", index=F
 
 #fig, ax = plt.subplots(figsize=(6, 8))
 loadings_sorted2 = loadings_df2.sort_values('PC2_loading', ascending=True)  # ascending so most-positive plots at top
-colors = ['#B2182B' if v >= 0 else 'steelblue' for v in loadings_sorted2['PC2_loading']]
+colors = ['#C1440E' if v >= 0 else '#1B3A5C' for v in loadings_sorted2['PC2_loading']]
 ax2.barh(loadings_sorted2['feature'], loadings_sorted2['PC2_loading'], color=colors)
 ax2.set_xlabel('PC2 Orientation')
 #ax2.set_title('PC2 Orientation — Nutrients')
