@@ -75,6 +75,136 @@ region_col    = "ihme_gor"  # part of the uk # needed for by region plots
 ```
 
 ```{r}
+#| label: fig-R-line-fg
+#| fig-cap: "Food group proportions over time. Food Group 0, represented by the purple line, declines steadily from over 90% of households in 1974 to just under 40% by 2000. Food Group 1, represented by the red line, shows the inverse trend, rising from under 5% in 1974 to over 60% in 2000. The two groups cross over around 1991–1992, coinciding with an economic recession in the UK, indicated by the gray band."
+
+fg_data = read_parquet("shared_data/cluster_pca_map_2_clusters_no_alcohol_foodgroup17_household_calorie_ratio_234_inits.parquet")
+
+fg_data = fg_data %>%
+  mutate(
+    ihme_region = gor_to_ihme[as.character(gor)]
+  )
+
+data_source1   = fg_data         # dataset with hhno, styr, gor, cluster, PC1_score, PC2_score, PC3_score
+cluster_col1   = "cluster"       # fixed column name in this dataset # used for stacked bar, gif and ridge/boxplot
+label_name1    = "Food Groups"   # used in titles/filenames # used in all
+analysis_type1 = "Composition"   # used in all
+year_col1      = "styr"          # used in all
+value_cols1    = c("PC1_score", "PC2_score")  # loop through PC1 and PC2 # needed for ridge/boxplot
+region_col1    = "ihme_gor"
+
+# ------------------------------------------------------------
+# Food group proportions by year
+
+cluster_data2 = data_source1 %>%
+  select(hhno, all_of(year_col1), all_of(cluster_col1)) %>%
+  filter(!is.na(.data[[cluster_col1]]))
+
+cluster_props2 = cluster_data2 %>%
+  group_by(.data[[year_col1]], .data[[cluster_col1]]) %>%
+  summarise(n = n(), .groups = "drop") %>%
+  group_by(.data[[year_col1]]) %>%
+  mutate(
+    total = sum(n),
+    proportion = n / total
+  ) %>%
+  ungroup() %>%
+  arrange(.data[[year_col1]], .data[[cluster_col1]])
+
+
+food_group_colors = c(
+  "0" = "#762A83",
+  "1" = "#B2182B"
+)
+
+
+# Plot
+
+p_trend_line = ggplot(
+  cluster_props2,
+  aes(
+    x = .data[[year_col1]],
+    y = proportion,
+    color = factor(.data[[cluster_col1]])
+  )
+) +
+  # Recession period around 1992
+  annotate(
+    "rect",
+    xmin = 1991,
+    xmax = 1992,
+    ymin = -Inf,
+    ymax = Inf,
+    fill = "grey60",
+    alpha = 0.15
+  ) +
+  annotate(
+    "text",
+    x = 1992,
+    y = Inf,
+    label = "Recession",
+    vjust = 1.5,
+    color = "grey35",
+    fontface = "bold",
+    size = 5
+  ) +
+  # Food group trend lines
+  geom_line(linewidth = 0.9) +
+  # Food group colors
+  scale_color_manual(values = food_group_colors) +
+  # Axes
+  scale_x_continuous(
+    breaks = seq(
+      min(cluster_props2[[year_col1]], na.rm = TRUE),
+      max(cluster_props2[[year_col1]], na.rm = TRUE),
+      by = 2
+    ),
+    expand = expansion(mult = c(0.015, 0.015))
+  ) +
+  scale_y_continuous(
+    labels = scales::percent_format(accuracy = 1),
+    expand = expansion(mult = c(0.01, 0.04))
+  ) +
+  # Labels
+  labs(
+    x = "Year",
+    y = "Households (%)",
+    color = label_name1
+  ) +
+  # Match disease graph styling
+  theme_bw(base_size = 15) +
+  theme(
+    legend.position = "right",
+    legend.title = element_text(size = 12, face = "bold"),
+    legend.key = element_blank(),
+    legend.key.width = unit(0.9, "cm"),
+    legend.background = element_rect(
+      color = "grey75",
+      linewidth = 0.3
+    ),
+    legend.text = element_text(size = 11),
+    panel.grid = element_blank(),
+    panel.border = element_rect(
+      color = "black",
+      fill = NA,
+      linewidth = 0.6
+    ),
+    axis.text = element_text(
+      size = 11,
+      color = "grey20"
+    ),
+    axis.text.x = element_text(
+      angle = 45,
+      hjust = 1,
+      size = 10,
+      color = "grey20"
+    ),
+  )
+
+print(p_trend_line)
+```
+
+```{r}
 #| label: fig-R-line
 #| fig-cap: "Nutrient cluster proportions over time. The main cluster of interest, Cluster 2, is represented by the green line. It ascends from under 5% in 1974 to over 40% in 2000.  The notable discontinuity of clusters 3 and 4 in 1992 is suspected to be related to an economic recession in the UK in 1992, indicated by the gray band.  Cluster 3 is higher in meat-related nutrients, while Cluster 4 is higher in carbohydrates.  It is speculated that many UK households started purchasing less meat and more simple staples like potatoes in response to the recession."
 
@@ -276,136 +406,6 @@ for (clust in clusters) {
     )}}
 
 pairwise_table = bind_rows(pairwise_results) %>% arrange(cluster, year_prev)
-```
-
-```{r}
-#| label: fig-R-line-fg
-#| fig-cap: "Food group proportions over time. Food Group 0, represented by the purple line, declines steadily from over 90% of households in 1974 to just under 40% by 2000. Food Group 1, represented by the red line, shows the inverse trend, rising from under 5% in 1974 to over 60% in 2000. The two groups cross over around 1991–1992, coinciding with an economic recession in the UK, indicated by the gray band."
-
-fg_data = read_parquet("shared_data/cluster_pca_map_2_clusters_no_alcohol_foodgroup17_household_calorie_ratio_234_inits.parquet")
-
-fg_data = fg_data %>%
-  mutate(
-    ihme_region = gor_to_ihme[as.character(gor)]
-  )
-
-data_source1   = fg_data         # dataset with hhno, styr, gor, cluster, PC1_score, PC2_score, PC3_score
-cluster_col1   = "cluster"       # fixed column name in this dataset # used for stacked bar, gif and ridge/boxplot
-label_name1    = "Food Groups"   # used in titles/filenames # used in all
-analysis_type1 = "Composition"   # used in all
-year_col1      = "styr"          # used in all
-value_cols1    = c("PC1_score", "PC2_score")  # loop through PC1 and PC2 # needed for ridge/boxplot
-region_col1    = "ihme_gor"
-
-# ------------------------------------------------------------
-# Food group proportions by year
-
-cluster_data2 = data_source1 %>%
-  select(hhno, all_of(year_col1), all_of(cluster_col1)) %>%
-  filter(!is.na(.data[[cluster_col1]]))
-
-cluster_props2 = cluster_data2 %>%
-  group_by(.data[[year_col1]], .data[[cluster_col1]]) %>%
-  summarise(n = n(), .groups = "drop") %>%
-  group_by(.data[[year_col1]]) %>%
-  mutate(
-    total = sum(n),
-    proportion = n / total
-  ) %>%
-  ungroup() %>%
-  arrange(.data[[year_col1]], .data[[cluster_col1]])
-
-
-food_group_colors = c(
-  "0" = "#762A83",
-  "1" = "#B2182B"
-)
-
-
-# Plot
-
-p_trend_line = ggplot(
-  cluster_props2,
-  aes(
-    x = .data[[year_col1]],
-    y = proportion,
-    color = factor(.data[[cluster_col1]])
-  )
-) +
-  # Recession period around 1992
-  annotate(
-    "rect",
-    xmin = 1991,
-    xmax = 1992,
-    ymin = -Inf,
-    ymax = Inf,
-    fill = "grey60",
-    alpha = 0.15
-  ) +
-  annotate(
-    "text",
-    x = 1992,
-    y = Inf,
-    label = "Recession",
-    vjust = 1.5,
-    color = "grey35",
-    fontface = "bold",
-    size = 5
-  ) +
-  # Food group trend lines
-  geom_line(linewidth = 0.9) +
-  # Food group colors
-  scale_color_manual(values = food_group_colors) +
-  # Axes
-  scale_x_continuous(
-    breaks = seq(
-      min(cluster_props2[[year_col1]], na.rm = TRUE),
-      max(cluster_props2[[year_col1]], na.rm = TRUE),
-      by = 2
-    ),
-    expand = expansion(mult = c(0.015, 0.015))
-  ) +
-  scale_y_continuous(
-    labels = scales::percent_format(accuracy = 1),
-    expand = expansion(mult = c(0.01, 0.04))
-  ) +
-  # Labels
-  labs(
-    x = "Year",
-    y = "Households (%)",
-    color = label_name1
-  ) +
-  # Match disease graph styling
-  theme_bw(base_size = 15) +
-  theme(
-    legend.position = "right",
-    legend.title = element_text(size = 12, face = "bold"),
-    legend.key = element_blank(),
-    legend.key.width = unit(0.9, "cm"),
-    legend.background = element_rect(
-      color = "grey75",
-      linewidth = 0.3
-    ),
-    legend.text = element_text(size = 11),
-    panel.grid = element_blank(),
-    panel.border = element_rect(
-      color = "black",
-      fill = NA,
-      linewidth = 0.6
-    ),
-    axis.text = element_text(
-      size = 11,
-      color = "grey20"
-    ),
-    axis.text.x = element_text(
-      angle = 45,
-      hjust = 1,
-      size = 10,
-      color = "grey20"
-    ),
-  )
-
-print(p_trend_line)
 ```
 
 ## Statistics
