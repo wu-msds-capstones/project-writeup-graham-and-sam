@@ -33,7 +33,7 @@ While exploratory analysis ranged beyond the final figures included above in thi
 
 With population-level year-on-year changes in nutrient cluster 2 selected to be the explanatory variable, and with population-level year-on-year changes in high LDL cholesterol SEV selected to be the response variable, a correlation analysis was conducted from 0 to 20 years of time lag using a cross correlation function (CCF).  For each lag year pair, a Pearson correlation coefficient *r* was generated. 
 
-A perfect correlation would have a Pearson correlation coefficient *r* of 1.0, whereas a non-correlation would be expected to have a coefficient *r* closer to 0.0.  The CCF swept through 20 years of lag options, resulting in n = 21 year-lag year pairs for the CCF.  Based on this number of assessed year-lag year pairs, the 95% significance threshold was calculated to be approximately *r* = 0.43, and the 99% significant threshold was calculated to be approximately *r* = 0.562.
+A perfect correlation would have a Pearson correlation coefficient *r* of 1.0, whereas a non-correlation would be expected to have a coefficient *r* closer to 0.0.  The CCF swept through 20 years of lag options, resulting in n = 21 year-lag year pairs for the CCF.  Based on this number of assessed year-lag year pairs, the 95% significance threshold was calculated to be approximately *r* = 0.43 (@eq-sig-band-95), and the 99% significant threshold was calculated to be approximately *r* = 0.562 (@eq-sig-band-99).
 
 $$
 r_{crit,\,95\%} = \frac{1.96}{\sqrt{n}}

@@ -289,7 +289,7 @@ window.Quarto = {
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
       <h1 class="title">Diet and Disease in the UK</h1>
-            <p class="subtitle lead">Population-level plant-based dietary trends correlate <br> with time-lagged population-level LDL cholesterol decrease</p>
+            <p class="subtitle lead">Population-level plant-based dietary cluster increase correlates <br> with time-lagged population-level LDL cholesterol risk rate decrease</p>
           </div>
 
     
@@ -1067,7 +1067,7 @@ Figure&nbsp;12: Summary Exposure Value (SEV) is plotted against time for several
 <section id="diet-and-disease-time-lag-correlation" class="level2">
 <h2 class="anchored" data-anchor-id="diet-and-disease-time-lag-correlation">Diet and Disease time-lag correlation</h2>
 <p>With population-level year-on-year changes in nutrient cluster 2 selected to be the explanatory variable, and with population-level year-on-year changes in high LDL cholesterol SEV selected to be the response variable, a correlation analysis was conducted from 0 to 20 years of time lag using a cross correlation function (CCF). For each lag year pair, a Pearson correlation coefficient <em>r</em> was generated.</p>
-<p>A perfect correlation would have a Pearson correlation coefficient <em>r</em> of 1.0, whereas a non-correlation would be expected to have a coefficient <em>r</em> closer to 0.0. The CCF swept through 20 years of lag options, resulting in n = 21 year-lag year pairs for the CCF. Based on this number of assessed year-lag year pairs, the 95% significance threshold was calculated to be approximately <em>r</em> = 0.43, and the 99% significant threshold was calculated to be approximately <em>r</em> = 0.562.</p>
+<p>A perfect correlation would have a Pearson correlation coefficient <em>r</em> of 1.0, whereas a non-correlation would be expected to have a coefficient <em>r</em> closer to 0.0. The CCF swept through 20 years of lag options, resulting in n = 21 year-lag year pairs for the CCF. Based on this number of assessed year-lag year pairs, the 95% significance threshold was calculated to be approximately <em>r</em> = 0.43 (<a href="#eq-sig-band-95" class="quarto-xref">Equation&nbsp;5</a>), and the 99% significant threshold was calculated to be approximately <em>r</em> = 0.562 (<a href="#eq-sig-band-99" class="quarto-xref">Equation&nbsp;6</a>).</p>
 <p><span id="eq-sig-band-95"><span class="math display">\[
 r_{crit,\,95\%} = \frac{1.96}{\sqrt{n}}
 \tag{5}\]</span></span></p>
@@ -1146,15 +1146,17 @@ Figure&nbsp;15: This choropleth is included to demonstrate what a lack of correl
 <section id="limitations" class="level3">
 <h3 class="anchored" data-anchor-id="limitations">Limitations</h3>
 <p>The most significant limitation of this study is that it is not longitudinal. It would be ideal to track high numbers of individual people in a scientifically controlled manner, over many years of analysis. In that case, varying dietary habits and health outcomes could be mapped to individual people and then aggregated for statistical power. Unfortunately, longitudinal data like this is rare and hard to obtain. So, the best option for this realm of investigation was to find aggregatable data with large numbers of subjects, and to make statistically cautious population level claims from there. Future investigation in this direction would be buoyed by access to longitudinal diet and health data.</p>
-<p>It might be expected that this five year time lag finding would apply to any population, not just the UK. That said, there are certainly many confounding variables involved in human health outcomes —– genetics, poverty, food access, education, environmental exposures, other lifestyle factors, and more — so a strong proclamation about the universal applicability of this finding is not warranted.</p>
-<p>Even looking at the UK only, there are many caveats to consider in this data. The food diaries were self-reported, so the information might be of varying reliability.</p>
-<p>Also, the diet diaries tracked quantities of consumable food that was purchased. It is assumed that all of this purchased food was actually consumed, but that could be inaccurate.</p>
-<p>Relatedly, some households might be bulk shoppers who buy a lot of food every other week. For such a bulk shopping household, the timing of the diet diary week could make them appear to consume way too much or way too little.</p>
+<p>Another limitation is that there are many confounding variables involved in human health outcomes: genetics, poverty, food access, education, environmental exposures, other lifestyle factors, and more. A strong proclamation about the universal applicability of this finding is not warranted.</p>
+<p>Beyond that, there is the fact that the diet diaries were self-reported. There could be inconsistencies, inaccuracies, and intentional misrepresentations included in the data. The impact of this limitation might be mitigated in our study by the fact that such potential data unreliability would likely have been consistent, if existent. That is to say that if people are bad at being accurate about tracking what they bought to eat, they probably used to be bad at that in the past as well. If so, that unreliability is consistent, and so an analysis based on relative changes over time might still be viable.</p>
+<p>Additionaly, the diet diaries tracked quantities of consumable food that was purchased. It is assumed that all of this purchased food was actually consumed, but that could be inaccurate. People might have bought food and not eaten it, meaning the inferred correlation between diet and disease might be somewhat miscalculated. While this cannot be ruled out, it does bear suggestion that many people are budget conscious, and might actively avoiding wasting money on food they will not eat.</p>
+<p>Relatedly though, some households might be bulk shoppers who buy a lot of food every other week, or every month. For such a bulk shopping household, the timing of the diet diary week could make them appear to consume way too much or way too little. Those who reported buying nothing might have been pruned by the calorie filter, but those who reported buying a large amount might erroneously seem to be gluttons, skewing calculated aggregations.</p>
 </section>
 <section id="final-thoughts" class="level3">
 <h3 class="anchored" data-anchor-id="final-thoughts">Final thoughts</h3>
-<p>Human health is complex, the association with diet, while well studied, is also complex. Any additional insight into connections between food and health can bolster individuals and society in general to improve their longevity and reduce their risk of chronic disease. While there are mixed messages from online influencers about these food health connections, this analysis suggests that the mainstream medical messaging is right: a more plant-based diet might help lower LDL cholesterol.</p>
-<p>To be very clear, this study makes no claims about diet and health for individual people. That said, this study does conclude that at least in the UK from 1985 to 2000, there was a statistically significant correlation between the year-on-year rate of change of the population proportion of nutrient-profile Cluster 2 (as designated by k-means clustering) and the year-on-year rate of change for high LDL cholesterol SEV score.</p>
+<p>Human health and its association with diet are complex.</p>
+<p>Any additional insight into connections between food and health can bolster individuals and society to improve their longevity and reduce their risk of chronic disease. While there are mixed messages from online influencers about these food-health connections, this analysis suggests that mainstream medical messaging is likely right: a more plant-based diet might help lower LDL cholesterol.</p>
+<p>To be very clear, this study makes no claims about diet and health for individual people.</p>
+<p>That said, this study does conclude that, at least in the UK from 1985 to 2000, there was a statistically significant correlation between the year-on-year change of population proportion of nutrient-profile Cluster 2 (as designated by k-means clustering) and the year-on-year change for high LDL cholesterol SEV score.</p>
 </section>
 </section>
 <section id="appendix" class="level1">
