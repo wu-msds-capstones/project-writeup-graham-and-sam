@@ -60,25 +60,25 @@ $$ {#eq-food-groups-calorie-ratio}
 
 This resulted in a 'calorie ratio' for each food group for that household for that week.  This normalized metric cancels out quantity, and purely examines the qualitative composition of each household's reported food acquisition for the week.  Therefore, the number of people in the household do not factor into this metric, and further demographic considerations did not need to be calculated.
 
-Finally, calorie ratios for all food groups were normalized by Standard Scaler and z-scored, with the means set to zero and the standard deviations set to plus or minus one.
+Finally, calorie ratios for all food groups were normalized by Standard Scaler and z-scored, with the means set to 0 and the standard deviations set to plus or minus 1.
 
 #### Household nutrient profiles
 
 Total calories were calculated for each household as with the food group feature engineering.
 
-Then, each minor food code `minfd` was converted to the nutrient profile for that food multiplied by the quantity reported `cq`. This effectively expanded each diary entry row into twenty rows, one for each of the twenty nutrients tracked throughout the data, with the appropriate unit quantity for each nutrient reported (@eq-nutrient-calorie-ratio-3).  
+Then, each minor food code `minfd` was converted to the nutrient-profile for that food multiplied by the quantity reported `cq`. This effectively expanded each diary entry row into twenty rows, one for each of the twenty nutrients tracked throughout the data, with the appropriate unit quantity for each nutrient reported (@eq-nutrient-calorie-ratio-3).  
 
 $$
 nutrient\_quantity_{row} = cq_{row} \times \text{nutrient conversion factor}_{row}
 $$ {#eq-nutrient-calorie-ratio-3}
 
- Maintaining each nutrient's native unit (grams, milligrams, micrograms, etc.), the total quantity of each nutrient across all food purchases was aggregated for each household. Those quantities were then divided by total calories for that household(@eq-nutrient-quantity-calorie-ratio-4).
+ Maintaining each nutrient's native unit (grams, milligrams, micrograms, etc.), the total quantity of each nutrient across all food purchases was aggregated for each household. Those quantities were then divided by total calories for that household (@eq-nutrient-quantity-calorie-ratio-4).
 
 $$
 nutrient\_quantity\_per\_total\_cal_{row} =  \frac{\text{total quantity per nutrient}}{\text{total calories per household}}
 $$ {#eq-nutrient-quantity-calorie-ratio-4}
 
-The resultant nutrient profile metric, 'quantity per total calories,' is similar in spirit to the 'calorie-ratio' metric from the food groups. 
+The resultant nutrient-profile metric, 'quantity per total calories,' is similar in spirit to the 'calorie-ratio' metric from the food groups. 
 
 However, a pure calorie comparison for nutrients would not be viable, as certain nutrients (carbohydrates, fats) have abundant calories while other nutrients (vitamins) have essentially zero calories. Hence, native nutrient units were maintained and divided by the common total calories.  This might preclude comparison amongst nutrients, but this analysis assesses household nutrient profiles, so the variation in fundamental units was not problematic.
 

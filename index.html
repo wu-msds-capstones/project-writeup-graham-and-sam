@@ -353,7 +353,7 @@ window.Quarto = {
   <li><a href="#pca-to-visualize-clusters" id="toc-pca-to-visualize-clusters" class="nav-link" data-scroll-target="#pca-to-visualize-clusters">PCA to visualize clusters</a></li>
   <li><a href="#pca-used-for-heat-map-interpretation" id="toc-pca-used-for-heat-map-interpretation" class="nav-link" data-scroll-target="#pca-used-for-heat-map-interpretation">PCA used for heat map interpretation</a></li>
   <li><a href="#cluster-proportions-over-time" id="toc-cluster-proportions-over-time" class="nav-link" data-scroll-target="#cluster-proportions-over-time">Cluster proportions over time</a></li>
-  <li><a href="#correlation-with-ldl-rates-over-time" id="toc-correlation-with-ldl-rates-over-time" class="nav-link" data-scroll-target="#correlation-with-ldl-rates-over-time">Correlation with LDL rates over time</a></li>
+  <li><a href="#time-lag-cross-correlation-with-ldl-cholesterol-sev" id="toc-time-lag-cross-correlation-with-ldl-cholesterol-sev" class="nav-link" data-scroll-target="#time-lag-cross-correlation-with-ldl-cholesterol-sev">Time lag cross correlation with LDL cholesterol SEV</a></li>
   <li><a href="#correlation-validation" id="toc-correlation-validation" class="nav-link" data-scroll-target="#correlation-validation">Correlation validation</a></li>
   </ul></li>
   <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a>
@@ -468,20 +468,20 @@ calories_{row} = cq_{row} \times \text{energy conversion factor}_{row}
 {calorie\_ratio}_{food group} = \frac{\text{total calories per food group}}{\text{total calories per household}}
 \tag{2}\]</span></span></p>
 <p>This resulted in a ‘calorie ratio’ for each food group for that household for that week. This normalized metric cancels out quantity, and purely examines the qualitative composition of each household’s reported food acquisition for the week. Therefore, the number of people in the household do not factor into this metric, and further demographic considerations did not need to be calculated.</p>
-<p>Finally, calorie ratios for all food groups were normalized by Standard Scaler and z-scored, with the means set to zero and the standard deviations set to plus or minus one.</p>
+<p>Finally, calorie ratios for all food groups were normalized by Standard Scaler and z-scored, with the means set to 0 and the standard deviations set to plus or minus 1.</p>
 </section>
 <section id="household-nutrient-profiles" class="level4">
 <h4 class="anchored" data-anchor-id="household-nutrient-profiles">Household nutrient profiles</h4>
 <p>Total calories were calculated for each household as with the food group feature engineering.</p>
-<p>Then, each minor food code <code>minfd</code> was converted to the nutrient profile for that food multiplied by the quantity reported <code>cq</code>. This effectively expanded each diary entry row into twenty rows, one for each of the twenty nutrients tracked throughout the data, with the appropriate unit quantity for each nutrient reported (<a href="#eq-nutrient-calorie-ratio-3" class="quarto-xref">Equation&nbsp;3</a>).</p>
+<p>Then, each minor food code <code>minfd</code> was converted to the nutrient-profile for that food multiplied by the quantity reported <code>cq</code>. This effectively expanded each diary entry row into twenty rows, one for each of the twenty nutrients tracked throughout the data, with the appropriate unit quantity for each nutrient reported (<a href="#eq-nutrient-calorie-ratio-3" class="quarto-xref">Equation&nbsp;3</a>).</p>
 <p><span id="eq-nutrient-calorie-ratio-3"><span class="math display">\[
 nutrient\_quantity_{row} = cq_{row} \times \text{nutrient conversion factor}_{row}
 \tag{3}\]</span></span></p>
-<p>Maintaining each nutrient’s native unit (grams, milligrams, micrograms, etc.), the total quantity of each nutrient across all food purchases was aggregated for each household. Those quantities were then divided by total calories for that household(<a href="#eq-nutrient-quantity-calorie-ratio-4" class="quarto-xref">Equation&nbsp;4</a>).</p>
+<p>Maintaining each nutrient’s native unit (grams, milligrams, micrograms, etc.), the total quantity of each nutrient across all food purchases was aggregated for each household. Those quantities were then divided by total calories for that household (<a href="#eq-nutrient-quantity-calorie-ratio-4" class="quarto-xref">Equation&nbsp;4</a>).</p>
 <p><span id="eq-nutrient-quantity-calorie-ratio-4"><span class="math display">\[
 nutrient\_quantity\_per\_total\_cal_{row} =  \frac{\text{total quantity per nutrient}}{\text{total calories per household}}
 \tag{4}\]</span></span></p>
-<p>The resultant nutrient profile metric, ‘quantity per total calories,’ is similar in spirit to the ‘calorie-ratio’ metric from the food groups.</p>
+<p>The resultant nutrient-profile metric, ‘quantity per total calories,’ is similar in spirit to the ‘calorie-ratio’ metric from the food groups.</p>
 <p>However, a pure calorie comparison for nutrients would not be viable, as certain nutrients (carbohydrates, fats) have abundant calories while other nutrients (vitamins) have essentially zero calories. Hence, native nutrient units were maintained and divided by the common total calories. This might preclude comparison amongst nutrients, but this analysis assesses household nutrient profiles, so the variation in fundamental units was not problematic.</p>
 <p>Furthermore, variations in magnitude amongst the derived nutrient-quantity-per-total-calorie units were standardized as a z-score, with the mean for each dimension set to 0 and a single standard deviation set to plus or minus 1.</p>
 </section>
@@ -606,8 +606,8 @@ nutrient\_quantity\_per\_total\_cal_{row} =  \frac{\text{total quantity per nutr
 <h2 class="anchored" data-anchor-id="cluster-proportions-over-time">Cluster proportions over time</h2>
 <p>Analysis of changes in the proportions of clusters over time was conducted using two proportion z-tests, Cochran-Armitage tests, and Kendall Tau Trend tests. Additionally, the cluster proportions were visualized as lineplots.</p>
 </section>
-<section id="correlation-with-ldl-rates-over-time" class="level2">
-<h2 class="anchored" data-anchor-id="correlation-with-ldl-rates-over-time">Correlation with LDL rates over time</h2>
+<section id="time-lag-cross-correlation-with-ldl-cholesterol-sev" class="level2">
+<h2 class="anchored" data-anchor-id="time-lag-cross-correlation-with-ldl-cholesterol-sev">Time lag cross correlation with LDL cholesterol SEV</h2>
 <p>After k-means clustering, each UK region’s proportion of each assigned cluster per year was exported into a parquet file, which was loaded into a new pandas dataframe. That dataframe was extended with many lag year columns onto which IHME disease SEV data could be joined on region and year, with given diet data lag years corresponding to an IHME disease SEV actual years.</p>
 <p>This enabled rate of change correlation assessment, with year-on-year changes in cluster proportions and in SEV for a given metabolic risk being assigned a Pearson correlation coefficient <em>r</em>, with high correlation being closer to 1, and no correlation being closer to zero.</p>
 <p>The main explanatory variable (changes in population-level proportion of a particularly plant-oriented nutrient cluster over time) and the main response variable (changes in SEV for High LDL cholesterol) were specifically selected based on their visual appearance in lineplots, and not based on more rigorous mathematical means. This is noted in the Methods section because an important part of this lag correlation analysis is that it was primarily informed by a visibly remarkable pair of trends in the lineplots.</p>
