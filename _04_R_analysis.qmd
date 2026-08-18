@@ -419,7 +419,7 @@ pairwise_table = bind_rows(pairwise_results) %>% arrange(cluster, year_prev)
 
 ```{r}
 #| label: fig-R-line
-#| fig-cap:
+#| fig-cap: "Food group proportions over time. Food Group 0, represented by the purple line, declines steadily from over 90% of households in 1974 to just under 40% by 2000. Food Group 1, represented by the red line, shows the inverse trend, rising from under 5% in 1974 to over 60% in 2000. The two groups cross over around 1991–1992, coinciding with an economic recession in the UK, indicated by the gray band."
 
 fg_data = read_parquet("cluster_pca_map_2_clusters_no_alcohol_foodgroup17_household_calorie_ratio_234_inits.parquet")
 
