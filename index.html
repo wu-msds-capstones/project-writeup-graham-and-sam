@@ -453,7 +453,7 @@ window.Quarto = {
 <p><a href="https://www.healthdata.org/sites/default/files/files/policy_report/GBD/2016/IHME_GBD2015_Report_Glossary-of-terms_2016.pdf">The IHME defines SEV</a> as a “… measure of a population’s exposure to a risk factor that takes into account the extent of exposure by risk level and the severity of that risk’s contribution to disease burden.”</p>
 <p>SEV appeared to be the best available metric from the GBD results tool to assess risk factor prevalance.</p>
 <p>From there, the chronic disease risk factors and conditions for which SEV information were metabolic risks: High LDL Cholesterol, High Body Mass Index, High Fasting Plasma Glucose Systolic Blood Pressure, Kidney Dysfunction, Low Bone Mineral Density, and overall Metabolic Risks.</p>
-<p>These risk rates were hand-selected and obtained preaggregted at a population level, grouped by UK region and by year. For the scope of this project, all ages and both sexes were included in SEV information.</p>
+<p>These risk rates were hand-selected and obtained preaggregated at a population level, grouped by UK region and by year. For the scope of this project, all ages and both sexes were included in SEV information.</p>
 </section>
 <section id="dietary-data-engineering" class="level2">
 <h2 class="anchored" data-anchor-id="dietary-data-engineering">Dietary Data Engineering</h2>
@@ -726,10 +726,10 @@ Figure&nbsp;5: Explained variance ratio by principal component for PCA of househ
 <div id="fig-pca-orientations-nutrients" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pca-orientations-nutrients-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-pca-orientations-nutrients-12.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;6: Orientations of the first two principal components of the diet data by nutrient profile. PC 1 has a high fat pole juxtaposed with a pole higher in plant-associated nutrients. PC 2 has a high carbohydrate and vegetable protein pole, juxtoposed against a pole with high animal protein and associated nutrients."><img src="capstone_files/figure-html/fig-pca-orientations-nutrients-12.png" class="img-fluid figure-img" width="1344"></a>
+<a href="capstone_files/figure-html/fig-pca-orientations-nutrients-12.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;6: Orientations of the first two principal components of the diet data by nutrient profile. PC 1 has a high fat pole juxtaposed with a pole higher in plant-associated nutrients. PC 2 has a high carbohydrate and vegetable protein pole, juxtaposed against a pole with high animal protein and associated nutrients."><img src="capstone_files/figure-html/fig-pca-orientations-nutrients-12.png" class="img-fluid figure-img" width="1344"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pca-orientations-nutrients-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6: Orientations of the first two principal components of the diet data by nutrient profile. PC 1 has a high fat pole juxtaposed with a pole higher in plant-associated nutrients. PC 2 has a high carbohydrate and vegetable protein pole, juxtoposed against a pole with high animal protein and associated nutrients.
+Figure&nbsp;6: Orientations of the first two principal components of the diet data by nutrient profile. PC 1 has a high fat pole juxtaposed with a pole higher in plant-associated nutrients. PC 2 has a high carbohydrate and vegetable protein pole, juxtaposed against a pole with high animal protein and associated nutrients.
 </figcaption>
 </figure>
 </div>
@@ -1088,7 +1088,7 @@ Figure&nbsp;12: Lag correlation sweeps for cluster 2 against High LDL cholestero
 </section>
 <section id="correlation-validation-1" class="level3">
 <h3 class="anchored" data-anchor-id="correlation-validation-1">Correlation validation</h3>
-<p>This finding was tested against thousands of random permutations to investigate if the apparent correlation might just be conincidence. The order of SEV scores for the 15 years of time-lagged GBD disease data was held constant, and the corresponding 15 years of nutrient cluster 2 proportions were randomly shuffled. Correlation was assessed with each permutation, and the observed <em>r</em> from <a href="#fig-correlation-sweep-vs-LDL" class="quarto-xref">Figure&nbsp;12</a> of 0.679 was found to be a more extreme result than over 99% of correlations.</p>
+<p>This finding was tested against thousands of random permutations to investigate if the apparent correlation might just be coincidence. The order of SEV scores for the 15 years of time-lagged GBD disease data was held constant, and the corresponding 15 years of nutrient cluster 2 proportions were randomly shuffled. Correlation was assessed with each permutation, and the observed <em>r</em> from <a href="#fig-correlation-sweep-vs-LDL" class="quarto-xref">Figure&nbsp;12</a> of 0.679 was found to be a more extreme result than over 99% of correlations.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Observed r = 0.679, n = 15, permutation p-value = 0.0065</code></pre>
@@ -1116,10 +1116,10 @@ Figure&nbsp;13: Consistent negative correlation at five year lag across the UK
 <div id="fig-map-no-corr-blood-pressure-nute-cluster-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-map-no-corr-blood-pressure-nute-cluster-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-map-no-corr-blood-pressure-nute-cluster-2-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Figure&nbsp;14: Nutrient Cluster 2 did not show a consistent correlation at a five-year time lag against blood proessure across regions of the UK."><img src="capstone_files/figure-html/fig-map-no-corr-blood-pressure-nute-cluster-2-7.png" class="img-fluid figure-img" width="768"></a>
+<a href="capstone_files/figure-html/fig-map-no-corr-blood-pressure-nute-cluster-2-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Figure&nbsp;14: Nutrient Cluster 2 did not show a consistent correlation at a five-year time lag against blood pressure across regions of the UK."><img src="capstone_files/figure-html/fig-map-no-corr-blood-pressure-nute-cluster-2-7.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-map-no-corr-blood-pressure-nute-cluster-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;14: Nutrient Cluster 2 did not show a consistent correlation at a five-year time lag against blood proessure across regions of the UK.
+Figure&nbsp;14: Nutrient Cluster 2 did not show a consistent correlation at a five-year time lag against blood pressure across regions of the UK.
 </figcaption>
 </figure>
 </div>

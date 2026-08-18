@@ -235,7 +235,7 @@ As seen in @fig-scree-nutrients-plot, PC 1 and PC 2 for household nutrient-quant
 
 ```{python}
 #| label: fig-pca-orientations-nutrients
-#| fig-cap: "Orientations of the first two principal components of the diet data by nutrient profile. PC 1 has a high fat pole juxtaposed with a pole higher in plant-associated nutrients. PC 2 has a high carbohydrate and vegetable protein pole, juxtoposed against a pole with high animal protein and associated nutrients."
+#| fig-cap: "Orientations of the first two principal components of the diet data by nutrient profile. PC 1 has a high fat pole juxtaposed with a pole higher in plant-associated nutrients. PC 2 has a high carbohydrate and vegetable protein pole, juxtaposed against a pole with high animal protein and associated nutrients."
 ##############
 # This is the "what does PC1 mean figure"
 loadings_df1 = pd.DataFrame({
