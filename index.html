@@ -613,7 +613,7 @@ nutrient\_quantity\_per\_total\_cal_{row} = \frac{\text{total quantity per nutri
 <h3 class="anchored" data-anchor-id="cross-correlation-function-ccf-for-time-lag">Cross correlation function (CCF) for time lag</h3>
 <p>After k-means clustering, each UK region’s proportion of each assigned cluster per year was exported into a parquet file, which was loaded into a new pandas dataframe. That dataframe was extended with many lag year columns onto which IHME disease SEV data could be joined on region and year, with given diet data lag years corresponding to an IHME disease SEV actual years.</p>
 <p>This enabled rate of change correlation assessment, with year-on-year changes in cluster proportions and in SEV for a given metabolic risk being assigned a Pearson correlation coefficient <em>r</em>, with high correlation being closer to 1, and no correlation being closer to zero.</p>
-<p>The main explanatory variable (changes in population-level proportion of a particularly plant-oriented nutrient cluster over time) and the main response variable (changes in SEV for High LDL cholesterol) were specifically selected based on their visual appearance in lineplots (<a href="#fig-R-line" class="quarto-xref">Figure&nbsp;10</a> and <a href="#fig-metabolic-rates-over-time-all-region" class="quarto-xref">Figure&nbsp;12</a>), and not based on more rigorous mathematical means.</p>
+<p>The main explanatory variable (changes in population-level proportion of a particularly plant-oriented nutrient cluster over time) and the main response variable (changes in SEV for High LDL cholesterol) were specifically selected based on their visual appearance in lineplots (<a href="#fig-R-line" class="quarto-xref">Figure&nbsp;11</a> and <a href="#fig-metabolic-rates-over-time-all-region" class="quarto-xref">Figure&nbsp;12</a>), and not based on more rigorous mathematical means.</p>
 <p>This is noted in the Methods section because an important part of this lag correlation analysis is that it was primarily informed by a visibly remarkable pair of trends in the lineplots.</p>
 </section>
 <section id="correlation-validation" class="level3">
@@ -784,38 +784,38 @@ Figure&nbsp;9: Orientations along PC 2 of nutrient-profile clusters. The color a
 <h2 class="anchored" data-anchor-id="nutrient-cluster-proportions-over-time">Nutrient cluster proportions over time</h2>
 <p>The most striking finding from k-means clustering (paired with PCA for interpretability) was that nutrient-profile Cluster 2, the more plant-oriented cluster, increased its proportional share of the UK population dramatically from 1974 to 2000. Insofar as this analysis was seeking a strong diet-cluster signal to serve as the explanatory variable, nutrient-profile Cluster 2 seemed to be the best candidate.</p>
 <p>Therefore, the rest of this analysis focuses on nutrient-profile clustering, and not food-group clustering.</p>
-<div id="cell-fig-R-line" class="cell">
-<div class="cell-output-display">
-<div id="fig-R-line" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-R-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-R-line-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Figure&nbsp;10: Nutrient cluster proportions over time. The main cluster of interest, Cluster 2, is represented by the green line. It ascends from under 5% in 1974 to over 40% in 2000. The notable discontinuity of clusters 3 and 4 in 1992 is suspected to be related to an economic recession in the UK in 1992, indicated by the gray band. Cluster 3 is higher in meat-related nutrients, while Cluster 4 is higher in carbohydrates. It is speculated that many UK households started purchasing less meat and more simple staples like potatoes in response to the recession."><img src="capstone_files/figure-html/fig-R-line-1.png" class="img-fluid figure-img" width="672"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-R-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;10: Nutrient cluster proportions over time. The main cluster of interest, Cluster 2, is represented by the green line. It ascends from under 5% in 1974 to over 40% in 2000. The notable discontinuity of clusters 3 and 4 in 1992 is suspected to be related to an economic recession in the UK in 1992, indicated by the gray band. Cluster 3 is higher in meat-related nutrients, while Cluster 4 is higher in carbohydrates. It is speculated that many UK households started purchasing less meat and more simple staples like potatoes in response to the recession.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p><a href="#fig-R-line" class="quarto-xref">Figure&nbsp;10</a> details the change in proportion of each nutrient cluster over time.</p>
-<p>There is a slight decrease for Cluster 0 from around 25% to 15%. Cluster 1 was relatively stable at around 3%. Cluster 2 showed an increase in proportion from around 3% to 40% with a relatively steep slope. Cluster 3 remained around the 20% proportion area, starting a few points above and then ending at a value right around 15%. Lastly, cluster 4 starts as the highest proportion, nearly 50%, and slowly reduces to 30%.</p>
-<p>This suggests that as time continued, the trends mapped to cluster 2 became more prevalent as proportions of clusters 0, 3, and 4 fell.</p>
-<p>This initial model motivated statistical checks to ensure the changes in proportion over time (1974-2000) were statistically significant and not simply attributed to random noise.</p>
 <div id="cell-fig-R-line-fg" class="cell">
 <div class="cell-output-display">
 <div id="fig-R-line-fg" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-R-line-fg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-R-line-fg-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Figure&nbsp;11: Food group proportions over time. Food Group 0, represented by the purple line, declines steadily from over 90% of households in 1974 to just under 40% by 2000. Food Group 1, represented by the red line, shows the inverse trend, rising from under 5% in 1974 to over 60% in 2000. The two groups cross over around 1991–1992, coinciding with an economic recession in the UK, indicated by the gray band."><img src="capstone_files/figure-html/fig-R-line-fg-1.png" class="img-fluid figure-img" width="672"></a>
+<a href="capstone_files/figure-html/fig-R-line-fg-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Figure&nbsp;10: Food group proportions over time. Food Group 0, represented by the purple line, declines steadily from over 90% of households in 1974 to just under 40% by 2000. Food Group 1, represented by the red line, shows the inverse trend, rising from under 5% in 1974 to over 60% in 2000. The two groups cross over around 1991–1992, coinciding with an economic recession in the UK, indicated by the gray band."><img src="capstone_files/figure-html/fig-R-line-fg-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-R-line-fg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;11: Food group proportions over time. Food Group 0, represented by the purple line, declines steadily from over 90% of households in 1974 to just under 40% by 2000. Food Group 1, represented by the red line, shows the inverse trend, rising from under 5% in 1974 to over 60% in 2000. The two groups cross over around 1991–1992, coinciding with an economic recession in the UK, indicated by the gray band.
+Figure&nbsp;10: Food group proportions over time. Food Group 0, represented by the purple line, declines steadily from over 90% of households in 1974 to just under 40% by 2000. Food Group 1, represented by the red line, shows the inverse trend, rising from under 5% in 1974 to over 60% in 2000. The two groups cross over around 1991–1992, coinciding with an economic recession in the UK, indicated by the gray band.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
+<div id="cell-fig-R-line" class="cell">
+<div class="cell-output-display">
+<div id="fig-R-line" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-R-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="capstone_files/figure-html/fig-R-line-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Figure&nbsp;11: Nutrient cluster proportions over time. The main cluster of interest, Cluster 2, is represented by the green line. It ascends from under 5% in 1974 to over 40% in 2000. The notable discontinuity of clusters 3 and 4 in 1992 is suspected to be related to an economic recession in the UK in 1992, indicated by the gray band. Cluster 3 is higher in meat-related nutrients, while Cluster 4 is higher in carbohydrates. It is speculated that many UK households started purchasing less meat and more simple staples like potatoes in response to the recession."><img src="capstone_files/figure-html/fig-R-line-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-R-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11: Nutrient cluster proportions over time. The main cluster of interest, Cluster 2, is represented by the green line. It ascends from under 5% in 1974 to over 40% in 2000. The notable discontinuity of clusters 3 and 4 in 1992 is suspected to be related to an economic recession in the UK in 1992, indicated by the gray band. Cluster 3 is higher in meat-related nutrients, while Cluster 4 is higher in carbohydrates. It is speculated that many UK households started purchasing less meat and more simple staples like potatoes in response to the recession.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-R-line" class="quarto-xref">Figure&nbsp;11</a> details the change in proportion of each nutrient cluster over time.</p>
+<p>There is a slight decrease for Cluster 0 from around 25% to 15%. Cluster 1 was relatively stable at around 3%. Cluster 2 showed an increase in proportion from around 3% to 40% with a relatively steep slope. Cluster 3 remained around the 20% proportion area, starting a few points above and then ending at a value right around 15%. Lastly, cluster 4 starts as the highest proportion, nearly 50%, and slowly reduces to 30%.</p>
+<p>This suggests that as time continued, the trends mapped to cluster 2 became more prevalent as proportions of clusters 0, 3, and 4 fell.</p>
+<p>This initial model motivated statistical checks to ensure the changes in proportion over time (1974-2000) were statistically significant and not simply attributed to random noise.</p>
 </section>
 <section id="statistics" class="level2">
 <h2 class="anchored" data-anchor-id="statistics">Statistics</h2>
@@ -1063,7 +1063,7 @@ Figure&nbsp;12: Summary Exposure Value (SEV) is plotted against time for several
 </section>
 <section id="results" class="level1">
 <h1>Results</h1>
-<p>While exploratory analysis ranged beyond the final figures included above in this report, time-lag correlation studies were focused on population-level changes in the proportion of nutrient-profile Cluster 2 <a href="#fig-R-line" class="quarto-xref">Figure&nbsp;10</a>, and on population-level LDL cholesterol SEV scores <a href="#fig-metabolic-rates-over-time-all-region" class="quarto-xref">Figure&nbsp;12</a>. The results reported below are in reference to the correlative association between those two selected variables.</p>
+<p>While exploratory analysis ranged beyond the final figures included above in this report, time-lag correlation studies were focused on population-level changes in the proportion of nutrient-profile Cluster 2 <a href="#fig-R-line" class="quarto-xref">Figure&nbsp;11</a>, and on population-level LDL cholesterol SEV scores <a href="#fig-metabolic-rates-over-time-all-region" class="quarto-xref">Figure&nbsp;12</a>. The results reported below are in reference to the correlative association between those two selected variables.</p>
 <section id="diet-and-disease-time-lag-correlation" class="level2">
 <h2 class="anchored" data-anchor-id="diet-and-disease-time-lag-correlation">Diet and Disease time-lag correlation</h2>
 <p>With population-level year-on-year changes in nutrient cluster 2 selected to be the explanatory variable, and with population-level year-on-year changes in high LDL cholesterol SEV selected to be the response variable, a correlation analysis was conducted from 0 to 20 years of time lag using a cross correlation function (CCF). For each lag year pair, a Pearson correlation coefficient <em>r</em> was generated.</p>
