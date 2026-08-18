@@ -171,11 +171,11 @@ evr_table.to_parquet(f"{run_folder}/evr_{run_name}.parquet", index=False)
 fig, ax = plt.subplots(figsize=(8,5))
 ax.plot(range(1, len(evr)+1), evr, marker='o')
 ax.set_xlabel('Principal Component', fontsize=13)
-ax.set_ylabel('Explained variance ratio', fontsize=13)
+ax.set_ylabel('Explained Variance Ratio', fontsize=13)
 ax.tick_params(axis='both', labelsize=11)
 ax.set_ylim(0, 0.30)
-ax.set_xlabel('Principal Component')
-ax.set_ylabel('Explained variance ratio')
+#ax.set_xlabel('Principal Component')
+#ax.set_ylabel('Explained variance ratio')
 #ax.set_title(f'{title_name}\nScree plot')
 fig.savefig(f"{run_folder}/scree_{run_name}.png",  dpi=300, bbox_inches='tight')
 
@@ -530,8 +530,8 @@ handles = [Line2D([0], [0], marker='o', linestyle='', color=cluster_colors[i],
 ax.legend(handles=handles, loc='upper right', title='Cluster',
           fontsize=16, title_fontsize=18, framealpha=0.9)
 
-ax.set_xlabel('PC 1 of PCA (95%)',  fontsize = 14)
-ax.set_ylabel('P C2 of PCA (95%)', fontsize = 14)
+ax.set_xlabel('PC 1 of PCA (95%)',  fontsize = 16)
+ax.set_ylabel('PC 2 of PCA (95%)', fontsize = 16)
 #ax.set_title(f'{title_name}\nPCA(95%) → PCA(2), colored by k-means cluster')
 
 plt.show()
@@ -579,7 +579,7 @@ for row_idx, food_group in enumerate(heat_map_data_ordered.index):
     for col_idx, cid in enumerate([0, 1]):
         value = heat_map_data_ordered.loc[food_group, cid]
         ax_heat.text(col_idx, row_idx, f'{value:.1f}',
-                     ha='center', va='center', fontsize=8, color='black')
+                     ha='center', va='center', fontsize=12, color='black')
 
 for i, cid in enumerate([0, 1]):
     ax_heat.add_patch(plt.Rectangle((i - 0.5, -1.5), 1, 1,

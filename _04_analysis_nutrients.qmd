@@ -137,7 +137,7 @@ scaled_df = pd.DataFrame(
 ```{python}
 #| results: 'hide'
 #| label: fig-scree-nutrients-plot
-#| fig-cap: "Explained variance ratio by principal component for PCA of household diet data examined by nutrient quantity per total household calories."
+#| fig-cap: "Explained variance ratio by principal component for PCA of household diet data examined by nutrient quantity per total household calories. The first two principal componenets, PC 1 and PC 2, each explain over 20% of the variance in the data. A total of 11 components were required to cumulatively explain 95% of the variance in the data."
 #######
 ### PCA TIME!
 
@@ -167,8 +167,9 @@ evr_table.to_parquet(f"{run_folder}/evr_{run_name}.parquet", index=False)
 fig, ax = plt.subplots(figsize=(8,5))
 ax.plot(range(1, len(evr)+1), evr, marker='o')
 ax.set_ylim(0, 0.30)
-ax.set_xlabel('Principal Component')
-ax.set_ylabel('Explained variance ratio')
+ax.set_xlabel('Principal Component', fontsize=13)
+ax.set_ylabel('Explained Variance Ratio', fontsize=13)
+ax.tick_params(axis='both', labelsize=11)
 #ax.set_title(f'{title_name}\nScree plot')
 fig.savefig(f"{run_folder}/scree_{run_name}.png",  dpi=300, bbox_inches='tight')
 
@@ -510,10 +511,11 @@ sc = ax.scatter(pcs_2[:, 0], pcs_2[:, 1], c=point_colors, s=4, alpha=0.5)
 handles = [Line2D([0], [0], marker='o', linestyle='', color=cluster_colors[i],
                    label=f'{i} (n={df_hh_per_cluster[i]})')
            for i in sorted(cluster_colors)]
-ax.legend(handles=handles, bbox_to_anchor=(1.02, 1), loc='upper left', title='Cluster')
+ax.legend(handles=handles, loc='upper right', title='Cluster',
+          fontsize=16, title_fontsize=18, framealpha=0.9)
 
-ax.set_xlabel('PC1 of PCA(95%)')
-ax.set_ylabel('PC2 of PCA(95%)')
+ax.set_xlabel('PC 1 of PCA (95%)',  fontsize = 16)
+ax.set_ylabel('PC 2 of PCA (95%)', fontsize = 16)
 #ax.set_title(f'{title_name}\nPCA(95%) → PCA(2), colored by k-means cluster')
 
 plt.show()
