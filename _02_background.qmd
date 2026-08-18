@@ -9,7 +9,7 @@ Looking at the UK and beyond, chronic metabolic disease is responsible for some 
 
 Chronic disease is complex, and of the many factors that influence chronic disease risk, most (genetics, poverty, care access, luck) are not really controllable.  
 
-Disease management through medication is and has been an increasingly relied upon strategy in many places including the United Kingdom [@zhang_increasing_2016], but that strategy is expensive, and access can be limited. Additionally, pharmaceutical management of chronic disease requires long-term medication consumption, which can have its own set of undesireable physiological side effects.
+Disease management through medication is and has been an increasingly relied upon strategy in many places including the United Kingdom [@zhang_increasing_2016], but that strategy is expensive, and access can be limited. Additionally, pharmaceutical management of chronic disease requires long-term medication consumption, which can have its own set of undesirable physiological side effects.
 
 However, one chronic disease risk factor that individual people can take some control over is their diet. Specific to this report, diet is known to impact LDL cholesterol levels and other chronic disease risk factors [@schoeneck_effects_2021]. 
 
