@@ -11,7 +11,7 @@ Chronic disease is complex, and of the many factors that influence chronic disea
 
 Disease management through medication is and has been an increasingly relied upon strategy in many places including the United Kingdom [@zhang_increasing_2016], but that strategy is expensive, and access can be limited. Additionally, pharmaceutical management of chronic disease requires long-term medication consumption, which can have its own set of undesireable physiological side effects.
 
-However, one chronic disease risk factor that individual people can take some control over is their food choices. Specific to this report, diet is known to impact LDL cholesterol levels and other chronic disease risk factors [@schoeneck_effects_2021]. 
+However, one chronic disease risk factor that individual people can take some control over is their diet. Specific to this report, diet is known to impact LDL cholesterol levels and other chronic disease risk factors [@schoeneck_effects_2021]. 
 
 Dietary factors have been found to influence chronic disease risk factors through various physiological pathways: diets high in saturated fats or refined carbohydrates tend to increase LDL cholesterol levels and promote chronic inflammation [@kumar_reconsidering_nodate]. Conversely, diets richer in fruits, vegetables, and whole grains have been associated with reduced cardiovascular risk and improved lipid profiles [@kahleova_cardio-metabolic_2017]. 
 
