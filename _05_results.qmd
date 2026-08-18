@@ -101,7 +101,7 @@ plt.axhline(0, color='black', linewidth=0.5)
 plt.xlabel('Lag (years)', fontsize=13)
 plt.ylabel('Pearson correlation coefficient (r)', fontsize=13)
 plt.tick_params(axis='both', labelsize=11)
-plt.legend(fontsize=11, loc='lower center')
+plt.legend(fontsize=11, loc='center right')
 plt.show()
 #plt.close()
 
