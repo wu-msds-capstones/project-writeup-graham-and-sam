@@ -175,8 +175,11 @@ df_plot = df_metabolic_5yr[
 fig, ax = plt.subplots(figsize=(10, 7), constrained_layout=True)
 ax = sns.lineplot(df_plot, x='year', y='val', hue='rei', palette=disease_colors)
 ax.xaxis.set_major_locator(plt.MaxNLocator(integer=True))
-ax.set_ylabel("Summary Exposure Value")
-ax.legend(bbox_to_anchor=(1.02, 1), loc='upper left', borderaxespad=0)
+ax.set_xlabel("Year", fontsize = 14)
+ax.set_ylabel("Summary Exposure Value", fontsize = 14)
+ax.tick_params(axis='both', labelsize=12)
+ax.legend(bbox_to_anchor=(1.02, 1), loc='upper left', title='Disease Risk Factor',
+          fontsize=13, title_fontsize=15, framealpha=0.9)
 plt.show()
 ```
 
