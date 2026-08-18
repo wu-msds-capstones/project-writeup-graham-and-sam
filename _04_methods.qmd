@@ -52,15 +52,17 @@ The two proportion z-test was applied to each pair of consecutive years survey y
 
 Because the two proportion z-tests are not meant to characterize a trend across the 27 year period, the Cochran-Armitage test was applied to cover this shortfall. It was applied to each cluster's proportion change over the full time frame. The test was specifically selected because cluster membership was effectively binary at each point in time and the survey years followed a chronological order so the conditions were optimal for this test. Once more, it was used to determine if a cluster's proportion moved consistently in one direction across the study as opposed to looking at noise driven changes.
 
+The Kendall's tau rank correlation was introduced as a distribution-free companion check for the Cochran-Armitage test which relies on a count-based and approximately linear structure. When these two tests agree on the direction and significance of a trend, that agreement acts as strengthened confidence that such a pattern is genuine.
 
-
-### Time lag cross correlation function (CCF)
+### Cross correlation function (CCF) for time lag
 
 After k-means clustering, each UK region's proportion of each assigned cluster per year was exported into a parquet file, which was loaded into a new pandas dataframe. That dataframe was extended with many lag year columns onto which IHME disease SEV data could be joined on region and year, with given diet data lag years corresponding to an IHME disease SEV actual years. 
 
 This enabled rate of change correlation assessment, with year-on-year changes in cluster proportions and in SEV for a given metabolic risk being assigned a Pearson correlation coefficient *r*, with high correlation being closer to 1, and no correlation being closer to zero.
 
-The main explanatory variable (changes in population-level proportion of a particularly plant-oriented nutrient cluster over time) and the main response variable (changes in SEV for High LDL cholesterol) were specifically selected based on their visual appearance in lineplots, and not based on more rigorous mathematical means.  This is noted in the Methods section because an important part of this lag correlation analysis is that it was primarily informed by a visibly remarkable pair of trends in the lineplots. 
+The main explanatory variable (changes in population-level proportion of a particularly plant-oriented nutrient cluster over time) and the main response variable (changes in SEV for High LDL cholesterol) were specifically selected based on their visual appearance in lineplots (@fig-R-line and @fig-metabolic-rates-over-time), and not based on more rigorous mathematical means. 
+
+This is noted in the Methods section because an important part of this lag correlation analysis is that it was primarily informed by a visibly remarkable pair of trends in the lineplots. 
 
 ### Correlation validation
 

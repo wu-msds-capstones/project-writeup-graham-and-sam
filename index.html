@@ -353,7 +353,7 @@ window.Quarto = {
   <li><a href="#pca-to-visualize-clusters" id="toc-pca-to-visualize-clusters" class="nav-link" data-scroll-target="#pca-to-visualize-clusters">PCA to visualize clusters</a></li>
   <li><a href="#pca-used-for-heat-map-interpretation" id="toc-pca-used-for-heat-map-interpretation" class="nav-link" data-scroll-target="#pca-used-for-heat-map-interpretation">PCA used for heat map interpretation</a></li>
   <li><a href="#cluster-proportions-over-time" id="toc-cluster-proportions-over-time" class="nav-link" data-scroll-target="#cluster-proportions-over-time">Cluster proportions over time</a></li>
-  <li><a href="#time-lag-cross-correlation-function-ccf" id="toc-time-lag-cross-correlation-function-ccf" class="nav-link" data-scroll-target="#time-lag-cross-correlation-function-ccf">Time lag cross correlation function (CCF)</a></li>
+  <li><a href="#cross-correlation-function-ccf-for-time-lag" id="toc-cross-correlation-function-ccf-for-time-lag" class="nav-link" data-scroll-target="#cross-correlation-function-ccf-for-time-lag">Cross correlation function (CCF) for time lag</a></li>
   <li><a href="#correlation-validation" id="toc-correlation-validation" class="nav-link" data-scroll-target="#correlation-validation">Correlation validation</a></li>
   </ul></li>
   <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a>
@@ -477,9 +477,8 @@ nutrient\_quantity_{row} = cq_{row} \times \text{nutrient conversion factor}_{ro
 \tag{3}\]</span></span></p>
 <p>Maintaining each nutrient’s native unit (grams, milligrams, micrograms, etc.), the total quantity of each nutrient across all food purchases was aggregated for each household. Those quantities were then divided by total calories for that household (<a href="#eq-nutrient-quantity-calorie-ratio-4" class="quarto-xref">Equation&nbsp;4</a>).</p>
 <p><span id="eq-nutrient-quantity-calorie-ratio-4"><span class="math display">\[
-nutrient\_quantity\_per\_total\_cal_{row} =  \frac{\text{total quantity per nutrient}}{\text{total calories per household}}
-\tag{4}\]</span></span></p>
-<p>The resultant nutrient-profile metric, ‘quantity per total calories,’ is similar in spirit to the ‘calorie-ratio’ metric from the food groups.</p>
+nutrient\_quantity\_per\_total\_cal_{row} = \frac{\text{total quantity per nutrient}_{row}}{\text{total calories per household}_{row}}
+\tag{4}\]</span></span> The resultant nutrient-profile metric, ‘quantity per total calories,’ is similar in spirit to the ‘calorie-ratio’ metric from the food groups.</p>
 <p>However, a pure calorie comparison for nutrients would not be viable, as certain nutrients (carbohydrates, fats) have abundant calories while other nutrients (vitamins) have essentially zero calories. Hence, native nutrient units were maintained and divided by the common total calories. This might preclude comparison amongst nutrients, but this analysis assesses household nutrient profiles, so the variation in fundamental units was not problematic.</p>
 <p>Furthermore, variations in magnitude amongst the derived nutrient-quantity-per-total-calorie units were standardized as a z-score, with the mean for each dimension set to 0 and a single standard deviation set to plus or minus 1.</p>
 </section>
@@ -608,12 +607,14 @@ nutrient\_quantity\_per\_total\_cal_{row} =  \frac{\text{total quantity per nutr
 <p>Analysis of changes in the proportions of clusters over time was conducted using two proportion z-tests, Cochran-Armitage tests, and Kendall Tau Trend tests. Additionally, the cluster proportions were visualized as lineplots.</p>
 <p>The two proportion z-test was applied to each pair of consecutive years survey years for every cluster. This provided a localized check of significant changes from one year to next next. This test was chosen because it made no assumption about the change of the shape overtime. It was able to catch short-term shifts that a braoder trend test may miss or average out. It was also leveraged to identify and validate statistical changes over the course of the time span which could then be addressed later.</p>
 <p>Because the two proportion z-tests are not meant to characterize a trend across the 27 year period, the Cochran-Armitage test was applied to cover this shortfall. It was applied to each cluster’s proportion change over the full time frame. The test was specifically selected because cluster membership was effectively binary at each point in time and the survey years followed a chronological order so the conditions were optimal for this test. Once more, it was used to determine if a cluster’s proportion moved consistently in one direction across the study as opposed to looking at noise driven changes.</p>
+<p>The Kendall’s tau rank correlation was introduced as a distribution-free companion check for the Cochran-Armitage test which relies on a count-based and approximately linear structure. When these two tests agree on the direction and significance of a trend, that agreement acts as strengthened confidence that such a pattern is genuine.</p>
 </section>
-<section id="time-lag-cross-correlation-function-ccf" class="level3">
-<h3 class="anchored" data-anchor-id="time-lag-cross-correlation-function-ccf">Time lag cross correlation function (CCF)</h3>
+<section id="cross-correlation-function-ccf-for-time-lag" class="level3">
+<h3 class="anchored" data-anchor-id="cross-correlation-function-ccf-for-time-lag">Cross correlation function (CCF) for time lag</h3>
 <p>After k-means clustering, each UK region’s proportion of each assigned cluster per year was exported into a parquet file, which was loaded into a new pandas dataframe. That dataframe was extended with many lag year columns onto which IHME disease SEV data could be joined on region and year, with given diet data lag years corresponding to an IHME disease SEV actual years.</p>
 <p>This enabled rate of change correlation assessment, with year-on-year changes in cluster proportions and in SEV for a given metabolic risk being assigned a Pearson correlation coefficient <em>r</em>, with high correlation being closer to 1, and no correlation being closer to zero.</p>
-<p>The main explanatory variable (changes in population-level proportion of a particularly plant-oriented nutrient cluster over time) and the main response variable (changes in SEV for High LDL cholesterol) were specifically selected based on their visual appearance in lineplots, and not based on more rigorous mathematical means. This is noted in the Methods section because an important part of this lag correlation analysis is that it was primarily informed by a visibly remarkable pair of trends in the lineplots.</p>
+<p>The main explanatory variable (changes in population-level proportion of a particularly plant-oriented nutrient cluster over time) and the main response variable (changes in SEV for High LDL cholesterol) were specifically selected based on their visual appearance in lineplots (<a href="#fig-R-line" class="quarto-xref">Figure&nbsp;10</a> and <strong>?@fig-metabolic-rates-over-time</strong>), and not based on more rigorous mathematical means.</p>
+<p>This is noted in the Methods section because an important part of this lag correlation analysis is that it was primarily informed by a visibly remarkable pair of trends in the lineplots.</p>
 </section>
 <section id="correlation-validation" class="level3">
 <h3 class="anchored" data-anchor-id="correlation-validation">Correlation validation</h3>
@@ -1048,7 +1049,7 @@ Figure&nbsp;11: High LDL cholesterol declined between 1990 and 2023, although it
 </section>
 <section id="results" class="level1">
 <h1>Results</h1>
-<p>While exploratory analysis ranged beyond the final figures included above in this report, time-lag correlation studies were focused on population-level changes in the proportion of nutrient-profile Cluster 2, and on population-level LDL cholesterol SEV scores. The results reported below are in reference to the correlative association between those two selected variables.</p>
+<p>While exploratory analysis ranged beyond the final figures included above in this report, time-lag correlation studies were focused on population-level changes in the proportion of nutrient-profile Cluster 2 <a href="#fig-R-line" class="quarto-xref">Figure&nbsp;10</a>, and on population-level LDL cholesterol SEV scores <strong>?@fig-metabolic-rates-over-time</strong>. The results reported below are in reference to the correlative association between those two selected variables.</p>
 <section id="diet-and-disease-time-lag-correlation" class="level2">
 <h2 class="anchored" data-anchor-id="diet-and-disease-time-lag-correlation">Diet and Disease time-lag correlation</h2>
 <p>With population-level year-on-year changes in nutrient cluster 2 selected to be the explanatory variable, and with population-level year-on-year changes in high LDL cholesterol SEV selected to be the response variable, a correlation analysis was conducted from 0 to 20 years of time lag using a cross correlation function (CCF). For each lag year pair, a Pearson correlation coefficient <em>r</em> was generated.</p>
