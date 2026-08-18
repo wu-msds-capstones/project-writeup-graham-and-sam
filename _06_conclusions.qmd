@@ -27,5 +27,5 @@ Any additional insight into connections between food and health can bolster indi
  
 To be very clear, this study makes no claims about diet and health for individual people. 
 
-That said, this study does conclude that, at least in the UK from 1985 to 2000, there was a statistically significant correlation between the year-on-year change of population proportion of nutrient-profile Cluster 2 (as designated by k-means clustering) and the year-on-year change for high LDL cholesterol SEV score. 
+That said, this study does conclude that, at least in the UK from 1985 to 2000, there was a statistically significant correlation between the year-on-year change in population proportion of a relatively plant-based nutrient-profile cluster (as designated by k-means clustering) and the year-on-year change in population-level high LDL cholesterol SEV score. 
 

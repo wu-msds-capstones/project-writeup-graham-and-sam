@@ -7,12 +7,6 @@ execute:
   message: false
 ---
 
-## Nutrient cluster proportions over time
-
-The most striking finding from k-means clustering (paired with PCA for interpretability) was that nutrient-profile Cluster 2, the more plant-oriented cluster, increased its proportional share of the UK population dramatically from 1974 to 2000. Insofar as this analysis was seeking a strong diet-cluster signal to serve as the explanatory variable, nutrient-profile Cluster 2 seemed to be the best candidate.
-
-Therefore, the rest of this analysis focuses on nutrient-profile clustering, and not food-group clustering.
-
 ```{r}
 library(tidyverse)
 library(arrow)
@@ -56,7 +50,7 @@ qual_pca_nute = qual_pca_nute %>%
     ihme_region = gor_to_ihme[as.character(gor)])
 
 
- 
+
 ```
 
 ```{r}
@@ -73,6 +67,8 @@ value_cols    = c("PC1_score", "PC2_score")   # loop through PC1 and PC2 # neede
 region_col    = "ihme_gor"  # part of the uk # needed for by region plots
 
 ```
+
+### Food group proportions over time
 
 ```{r}
 #| label: fig-R-line-fg
@@ -203,6 +199,18 @@ p_trend_line = ggplot(
 
 print(p_trend_line)
 ```
+
+@fig-R-line-fg details the change in proportion of each food group over time.
+
+There is a steep decline for Food Group 0 from around 90% in 1974 to roughly 55% by 1991, followed by a more gradual decline down to around 37% by 2000. Food Group 1 shows the opposite pattern, starting under 5% in 1974 and rising steeply through the late 1980s before leveling off around 55-63% between 1992 and 2000. The two groups cross over around 1991-1992, coinciding with the gray-shaded recession period. This suggests that as time continued, the trends mapped to Food Group 1 became increasingly prevalent, overtaking Food Group 0 as the dominant pattern among UK households by the early 1990s.
+
+This visualization marks the end of the exploratory analysis of the food group variables. It is necessary to address a key limitation stunting the progression of this segments analysis: the PCA for food group explains little variance (at most 11% for the strongest component, PC1). Thus, this two group structure shows a modest, rather than dominant, axis of variation in household diet composition. Given this limit, the expansion and inclusion of statistical tests will be less effective. Therefore, the statistical tests that will follow will exclude the food group clusters and focus on the nutrient clusters, where a larger amount of variance was captured.
+
+## Nutrient cluster proportions over time
+
+The most striking finding from k-means clustering (paired with PCA for interpretability) was that nutrient-profile Cluster 2, the more plant-oriented cluster, increased its proportional share of the UK population dramatically from 1974 to 2000. Insofar as this analysis was seeking a strong diet-cluster signal to serve as the explanatory variable, nutrient-profile Cluster 2 seemed to be the best candidate.
+
+Therefore, the rest of this analysis focuses on nutrient-profile clustering, and not food-group clustering.
 
 ```{r}
 #| label: fig-R-line
