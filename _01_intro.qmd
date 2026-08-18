@@ -2,7 +2,7 @@
 
 Can changes in population-level dietary trends track with downstream changes in population-level health outcomes? 
 
-Specifically, can a population's increase in a relatively plant-based dietary pattern be correlated with a time-lagged decrease in that population's elevated LDL cholesterol risk level? If so, at how long a time lag? 
+Specifically, can a population's increase in a relatively plant-based dietary pattern be correlated with a time-lagged decrease in that population's low-density lipoprotein (LDL) cholesterol risk level? If so, at how long a time lag? 
 
 This study examines the population of the United Kingdom (UK), drawing on diet diary data from a representative sample of nearly 190,000 UK households from 1974 to 2000, and population-level chronic disease risk factor rates (especially high LDL cholesterol) from 1990 to 2023. 
 

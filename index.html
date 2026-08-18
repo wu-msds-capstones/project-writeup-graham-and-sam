@@ -409,7 +409,7 @@ window.Quarto = {
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
 <p>Can changes in population-level dietary trends track with downstream changes in population-level health outcomes?</p>
-<p>Specifically, can a population’s increase in a relatively plant-based dietary pattern be correlated with a time-lagged decrease in that population’s elevated LDL cholesterol risk level? If so, at how long a time lag?</p>
+<p>Specifically, can a population’s increase in a relatively plant-based dietary pattern be correlated with a time-lagged decrease in that population’s low-density lipoprotein (LDL) cholesterol risk level? If so, at how long a time lag?</p>
 <p>This study examines the population of the United Kingdom (UK), drawing on diet diary data from a representative sample of nearly 190,000 UK households from 1974 to 2000, and population-level chronic disease risk factor rates (especially high LDL cholesterol) from 1990 to 2023.</p>
 <p>Diet diary data is assessed by both food group profile and nutrient profile. Each household’s reported food acquisition is aggregated and normalized against that household’s total calories, painting a quantity-agnostic picture of that household’s diet composition.</p>
 <p>A machine-learning pipeline is then applied to the household-level data, with a cross-validated stability optimized k-means clustering algorithm designating a cluster identity for each household, and with principal component analysis being used to orient and characterize the clustering.</p>
@@ -515,13 +515,13 @@ nutrient\_quantity\_per\_total\_cal_{row} = \frac{\text{total quantity per nutri
 <section id="household-food-group-profile-aggregation" class="level4">
 <h4 class="anchored" data-anchor-id="household-food-group-profile-aggregation">Household food group profile aggregation</h4>
 <p>On a year by year basis, calorie-specific nutrient conversion information was joined to each row of the diet diary (on minor food code, <code>minfd</code>), multiplied by consumable quantity <code>cq</code>, and then summed per household to calculate total calories for that household (<a href="#eq-row-calories" class="quarto-xref">Equation&nbsp;1</a>). The calculated total for household calories was later joined back to un-aggregated data as needed.</p>
-<p>Minor food codes were mapped to major food codes, which were then mapped to custom food group labels (see Appendix). Then each row was grouped by household and by foodgroup, aggregating total calories for each food group and for each household. From there, every household could be assigned a proportion of total calories that was attributable to each foodgroup <a href="#eq-food-groups-calorie-ratio" class="quarto-xref">Equation&nbsp;2</a>.</p>
+<p>Minor food codes were mapped to major food codes, which were then mapped to custom food group labels (see Appendix). Then each row was grouped by household and by foodgroup, aggregating total calories for each food group and for each household. From there, every household could be assigned a proportion of total calories that was attributable to each foodgroup (<a href="#eq-food-groups-calorie-ratio" class="quarto-xref">Equation&nbsp;2</a>).</p>
 <p>Household information was then joined on household number (<code>hhno</code>) to obtain the correct government office region for each household.</p>
 <p>Finally, each year’s processed aggregated food group profile data was appended to a list of dataframes and vertically concatenated.</p>
 </section>
 <section id="household-nutrient-profile-aggregation" class="level4">
 <h4 class="anchored" data-anchor-id="household-nutrient-profile-aggregation">Household nutrient profile aggregation</h4>
-<p>Year by year, nutrient conversion information for all included nutrients was joined to each row of the diet diary (on minor food code, <code>minfd</code>), multiplied by consumable quantity <code>cq</code>, and then summed by household to calculate quantity of that nutrient for that household (<a href="#eq-nutrient-calorie-ratio-3" class="quarto-xref">Equation&nbsp;3</a>). This automatically included total calories for that household, which was then used to create quantity-per-total-calorie metrics for each household and each nutrient <a href="#eq-nutrient-quantity-calorie-ratio-4" class="quarto-xref">Equation&nbsp;4</a>.</p>
+<p>Year by year, nutrient conversion information for all included nutrients was joined to each row of the diet diary (on minor food code, <code>minfd</code>), multiplied by consumable quantity <code>cq</code>, and then summed by household to calculate quantity of that nutrient for that household (<a href="#eq-nutrient-calorie-ratio-3" class="quarto-xref">Equation&nbsp;3</a>). This automatically included total calories for that household, which was then used to create quantity-per-total-calorie metrics for each household and each nutrient (<a href="#eq-nutrient-quantity-calorie-ratio-4" class="quarto-xref">Equation&nbsp;4</a>).</p>
 <p>Household information was then joined on household number <code>hhno</code> to obtain the correct government office region <code>gor</code> for each household.</p>
 <p>Finally, each year’s processed aggregated nutrient profile data was appended to a list of dataframes and vertically concatenated.</p>
 </section>
@@ -613,7 +613,7 @@ nutrient\_quantity\_per\_total\_cal_{row} = \frac{\text{total quantity per nutri
 <h3 class="anchored" data-anchor-id="cross-correlation-function-ccf-for-time-lag">Cross correlation function (CCF) for time lag</h3>
 <p>After k-means clustering, each UK region’s proportion of each assigned cluster per year was exported into a parquet file, which was loaded into a new pandas dataframe. That dataframe was extended with many lag year columns onto which IHME disease SEV data could be joined on region and year, with given diet data lag years corresponding to an IHME disease SEV actual years.</p>
 <p>This enabled rate of change correlation assessment, with year-on-year changes in cluster proportions and in SEV for a given metabolic risk being assigned a Pearson correlation coefficient <em>r</em>, with high correlation being closer to 1, and no correlation being closer to zero.</p>
-<p>The main explanatory variable (changes in population-level proportion of a particularly plant-oriented nutrient cluster over time) and the main response variable (changes in SEV for High LDL cholesterol) were specifically selected based on their visual appearance in lineplots (<a href="#fig-R-line" class="quarto-xref">Figure&nbsp;10</a> and <strong>?@fig-metabolic-rates-over-time</strong>), and not based on more rigorous mathematical means.</p>
+<p>The main explanatory variable (changes in population-level proportion of a particularly plant-oriented nutrient cluster over time) and the main response variable (changes in SEV for High LDL cholesterol) were specifically selected based on their visual appearance in lineplots (<a href="#fig-R-line" class="quarto-xref">Figure&nbsp;10</a> and <a href="#fig-metabolic-rates-over-time-all-region" class="quarto-xref">Figure&nbsp;12</a>), and not based on more rigorous mathematical means.</p>
 <p>This is noted in the Methods section because an important part of this lag correlation analysis is that it was primarily informed by a visibly remarkable pair of trends in the lineplots.</p>
 </section>
 <section id="correlation-validation" class="level3">
@@ -802,6 +802,20 @@ Figure&nbsp;10: Nutrient cluster proportions over time. The main cluster of inte
 <p>There is a slight decrease for Cluster 0 from around 25% to 15%. Cluster 1 was relatively stable at around 3%. Cluster 2 showed an increase in proportion from around 3% to 40% with a relatively steep slope. Cluster 3 remained around the 20% proportion area, starting a few points above and then ending at a value right around 15%. Lastly, cluster 4 starts as the highest proportion, nearly 50%, and slowly reduces to 30%.</p>
 <p>This suggests that as time continued, the trends mapped to cluster 2 became more prevalent as proportions of clusters 0, 3, and 4 fell.</p>
 <p>This initial model motivated statistical checks to ensure the changes in proportion over time (1974-2000) were statistically significant and not simply attributed to random noise.</p>
+<div id="cell-fig-R-line-fg" class="cell">
+<div class="cell-output-display">
+<div id="fig-R-line-fg" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-R-line-fg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="capstone_files/figure-html/fig-R-line-fg-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Figure&nbsp;11: Food group proportions over time. Food Group 0, represented by the purple line, declines steadily from over 90% of households in 1974 to just under 40% by 2000. Food Group 1, represented by the red line, shows the inverse trend, rising from under 5% in 1974 to over 60% in 2000. The two groups cross over around 1991–1992, coinciding with an economic recession in the UK, indicated by the gray band."><img src="capstone_files/figure-html/fig-R-line-fg-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-R-line-fg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11: Food group proportions over time. Food Group 0, represented by the purple line, declines steadily from over 90% of households in 1974 to just under 40% by 2000. Food Group 1, represented by the red line, shows the inverse trend, rising from under 5% in 1974 to over 60% in 2000. The two groups cross over around 1991–1992, coinciding with an economic recession in the UK, indicated by the gray band.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="statistics" class="level2">
 <h2 class="anchored" data-anchor-id="statistics">Statistics</h2>
@@ -1034,22 +1048,22 @@ Table&nbsp;3: Kendall’s tau rank-correlation trend test, by nutrient cluster
 <div id="fig-metabolic-rates-over-time-all-region" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-metabolic-rates-over-time-all-region-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-metabolic-rates-over-time-all-region-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Figure&nbsp;11: High LDL cholesterol declined between 1990 and 2023, although it still remains the biggest metabolic disease risk factor for the UK population."><img src="capstone_files/figure-html/fig-metabolic-rates-over-time-all-region-1.png" class="img-fluid figure-img" width="960"></a>
+<a href="capstone_files/figure-html/fig-metabolic-rates-over-time-all-region-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Figure&nbsp;12: Summary Exposure Value (SEV) is plotted against time for several chronic metabolic disease risk factors for the UK population from 1974-2000. SEV scores express prevalance and severity of the risk factor. Of greatest interest to this report, SEV for high LDL cholesterol appears to go down over time However, metabolic risks in general have risen overall nonetheless."><img src="capstone_files/figure-html/fig-metabolic-rates-over-time-all-region-1.png" class="img-fluid figure-img" width="960"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-metabolic-rates-over-time-all-region-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;11: High LDL cholesterol declined between 1990 and 2023, although it still remains the biggest metabolic disease risk factor for the UK population.
+Figure&nbsp;12: Summary Exposure Value (SEV) is plotted against time for several chronic metabolic disease risk factors for the UK population from 1974-2000. SEV scores express prevalance and severity of the risk factor. Of greatest interest to this report, SEV for high LDL cholesterol appears to go down over time However, metabolic risks in general have risen overall nonetheless.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>As seen in <a href="#fig-metabolic-rates-over-time-all-region" class="quarto-xref">Figure&nbsp;11</a>, high LDL cholesterol decreased between 1990 and 2023. Based on this visualization, year-on-year change in population-level high LDL cholesterol SEV was selected as the response variable for analysis. Population-level SEV for high systolic blood pressure also went down from 1990 to 2010, but then started increasing again afterward, suggesting confounding factors and ruling it out for further exploration in this study.</p>
+<p>As seen in <a href="#fig-metabolic-rates-over-time-all-region" class="quarto-xref">Figure&nbsp;12</a>, high LDL cholesterol decreased between 1990 and 2023. Based on this visualization, year-on-year change in population-level high LDL cholesterol SEV was selected as the response variable for analysis. Population-level SEV for high systolic blood pressure also went down from 1990 to 2010, but then started increasing again afterward, suggesting confounding factors and ruling it out for further exploration in this study.</p>
 <p>Notably, despite the decrease in population SEV for high LDL cholesterol, overall metabolic risk in the UK has steadily climbed over this timespan.</p>
 </section>
 </section>
 <section id="results" class="level1">
 <h1>Results</h1>
-<p>While exploratory analysis ranged beyond the final figures included above in this report, time-lag correlation studies were focused on population-level changes in the proportion of nutrient-profile Cluster 2 <a href="#fig-R-line" class="quarto-xref">Figure&nbsp;10</a>, and on population-level LDL cholesterol SEV scores <strong>?@fig-metabolic-rates-over-time</strong>. The results reported below are in reference to the correlative association between those two selected variables.</p>
+<p>While exploratory analysis ranged beyond the final figures included above in this report, time-lag correlation studies were focused on population-level changes in the proportion of nutrient-profile Cluster 2 <a href="#fig-R-line" class="quarto-xref">Figure&nbsp;10</a>, and on population-level LDL cholesterol SEV scores <a href="#fig-metabolic-rates-over-time-all-region" class="quarto-xref">Figure&nbsp;12</a>. The results reported below are in reference to the correlative association between those two selected variables.</p>
 <section id="diet-and-disease-time-lag-correlation" class="level2">
 <h2 class="anchored" data-anchor-id="diet-and-disease-time-lag-correlation">Diet and Disease time-lag correlation</h2>
 <p>With population-level year-on-year changes in nutrient cluster 2 selected to be the explanatory variable, and with population-level year-on-year changes in high LDL cholesterol SEV selected to be the response variable, a correlation analysis was conducted from 0 to 20 years of time lag using a cross correlation function (CCF). For each lag year pair, a Pearson correlation coefficient <em>r</em> was generated.</p>
@@ -1067,21 +1081,21 @@ r_{crit,\,99\%} = \frac{5.67}{\sqrt{n}}
 <div id="fig-correlation-sweep-vs-LDL" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-correlation-sweep-vs-LDL-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-correlation-sweep-vs-LDL-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Figure&nbsp;12: Lag correlation sweeps for nutrient-profile Cluster 2 against High LDL cholesterol from 0 to 20 years lag. The orange line represents the cross correlation function (CCF) Pearson correlation coefficient ‘r’ at each tested lag time. Significance thresholds based on sample size of lag years (n = 21) were calculated and added as a dotted red line and dotted blue line for 95% and 99% significance, respectively. There is a sustained correlation above 95% significance from 2.5 to 7.5 years, and a peak above 99% significance at 5 years exactly."><img src="capstone_files/figure-html/fig-correlation-sweep-vs-LDL-3.png" class="img-fluid figure-img" width="672"></a>
+<a href="capstone_files/figure-html/fig-correlation-sweep-vs-LDL-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Figure&nbsp;13: Lag correlation sweeps for nutrient-profile Cluster 2 against High LDL cholesterol from 0 to 20 years lag. The orange line represents the cross correlation function (CCF) Pearson correlation coefficient ‘r’ at each tested lag time. Significance thresholds based on sample size of lag years (n = 21) were calculated and added as a dotted red line and dotted blue line for 95% and 99% significance, respectively. There is a sustained correlation above 95% significance from 2.5 to 7.5 years, and a peak above 99% significance at 5 years exactly."><img src="capstone_files/figure-html/fig-correlation-sweep-vs-LDL-3.png" class="img-fluid figure-img" width="672"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-correlation-sweep-vs-LDL-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;12: Lag correlation sweeps for nutrient-profile Cluster 2 against High LDL cholesterol from 0 to 20 years lag. The orange line represents the cross correlation function (CCF) Pearson correlation coefficient ‘r’ at each tested lag time. Significance thresholds based on sample size of lag years (n = 21) were calculated and added as a dotted red line and dotted blue line for 95% and 99% significance, respectively. There is a sustained correlation above 95% significance from 2.5 to 7.5 years, and a peak above 99% significance at 5 years exactly.
+Figure&nbsp;13: Lag correlation sweeps for nutrient-profile Cluster 2 against High LDL cholesterol from 0 to 20 years lag. The orange line represents the cross correlation function (CCF) Pearson correlation coefficient ‘r’ at each tested lag time. Significance thresholds based on sample size of lag years (n = 21) were calculated and added as a dotted red line and dotted blue line for 95% and 99% significance, respectively. There is a sustained correlation above 95% significance from 2.5 to 7.5 years, and a peak above 99% significance at 5 years exactly.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>As seen in <a href="#fig-correlation-sweep-vs-LDL" class="quarto-xref">Figure&nbsp;12</a>, there was a sustained correlation above the 95% significance threshold between 2.5 and 7.5 years, and a distinct peak above the 99% significance threshold at 5 years.</p>
+<p>As seen in <a href="#fig-correlation-sweep-vs-LDL" class="quarto-xref">Figure&nbsp;13</a>, there was a sustained correlation above the 95% significance threshold between 2.5 and 7.5 years, and a distinct peak above the 99% significance threshold at 5 years.</p>
 <p>Proceeding with a 5 year time-lag, there are 15 possible years of overlap between the diet and disease data sets: NFS diet data from 1985 to 2000 corresponds at a five year time lag with GBD disease data from 1990 to 2005.</p>
 </section>
 <section id="correlation-validation-1" class="level3">
 <h3 class="anchored" data-anchor-id="correlation-validation-1">Correlation validation</h3>
-<p>This finding was tested against thousands of random permutations to investigate if the apparent correlation might just be coincidence. The order of SEV scores for the 15 years of time-lagged GBD disease data was held constant, and the corresponding 15 years of nutrient cluster 2 proportions were randomly shuffled. Correlation was assessed with each permutation, and the observed <em>r</em> from <a href="#fig-correlation-sweep-vs-LDL" class="quarto-xref">Figure&nbsp;12</a> of 0.679 was found to be a more extreme result than over 99% of correlations.</p>
+<p>This finding was tested against thousands of random permutations to investigate if the apparent correlation might just be coincidence. The order of SEV scores for the 15 years of time-lagged GBD disease data was held constant, and the corresponding 15 years of nutrient cluster 2 proportions were randomly shuffled. Correlation was assessed with each permutation, and the observed <em>r</em> from <a href="#fig-correlation-sweep-vs-LDL" class="quarto-xref">Figure&nbsp;13</a> of 0.679 was found to be a more extreme result than over 99% of correlations.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Observed r = 0.679, n = 15, permutation p-value = 0.0065</code></pre>
@@ -1093,32 +1107,32 @@ Figure&nbsp;12: Lag correlation sweeps for nutrient-profile Cluster 2 against Hi
 <div id="fig-map-neg-corr-ldl-nute-cluster-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-map-neg-corr-ldl-nute-cluster-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-map-neg-corr-ldl-nute-cluster-2-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Figure&nbsp;13: This choropleth depicts consistent negative correlation between increasing population proportion of nutrient-profile Cluster 2 and LDL cholesterol SEV scores at five-year lag across the UK. All regions in the data are colored blue. Insignificant or spurious correlation would be expected to color regions randomly about the 0.00 white center."><img src="capstone_files/figure-html/fig-map-neg-corr-ldl-nute-cluster-2-5.png" class="img-fluid figure-img" width="384"></a>
+<a href="capstone_files/figure-html/fig-map-neg-corr-ldl-nute-cluster-2-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Figure&nbsp;14: This choropleth depicts consistent negative correlation between increasing population proportion of nutrient-profile Cluster 2 and LDL cholesterol SEV scores at five-year lag across the UK. All regions in the data are colored blue. Insignificant or spurious correlation would be expected to color regions randomly about the 0.00 white center."><img src="capstone_files/figure-html/fig-map-neg-corr-ldl-nute-cluster-2-5.png" class="img-fluid figure-img" width="384"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-map-neg-corr-ldl-nute-cluster-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;13: This choropleth depicts consistent negative correlation between increasing population proportion of nutrient-profile Cluster 2 and LDL cholesterol SEV scores at five-year lag across the UK. All regions in the data are colored blue. Insignificant or spurious correlation would be expected to color regions randomly about the 0.00 white center.
+Figure&nbsp;14: This choropleth depicts consistent negative correlation between increasing population proportion of nutrient-profile Cluster 2 and LDL cholesterol SEV scores at five-year lag across the UK. All regions in the data are colored blue. Insignificant or spurious correlation would be expected to color regions randomly about the 0.00 white center.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>As seen in <a href="#fig-map-neg-corr-ldl-nute-cluster-2" class="quarto-xref">Figure&nbsp;13</a>, the five-year time lag correlation between population-level nutrient cluster 2 and the decrease in population-level LDL cholesterol SEV score is consistent across the UK.</p>
+<p>As seen in <a href="#fig-map-neg-corr-ldl-nute-cluster-2" class="quarto-xref">Figure&nbsp;14</a>, the five-year time lag correlation between population-level nutrient cluster 2 and the decrease in population-level LDL cholesterol SEV score is consistent across the UK.</p>
 <p>In contrast, a choropleth of a less statistically robust correlation did not appear consistent across the UK.</p>
 <div id="cell-fig-map-no-corr-blood-pressure-nute-cluster-2" class="cell">
 <div class="cell-output-display">
 <div id="fig-map-no-corr-blood-pressure-nute-cluster-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-map-no-corr-blood-pressure-nute-cluster-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="capstone_files/figure-html/fig-map-no-corr-blood-pressure-nute-cluster-2-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Figure&nbsp;14: This choropleth is included to demonstrate what a lack of correlation looks like. This figure depicts Pearson correlation coefficients between changing population proportions of nutrient-profile Cluster 2 and high systolic blood pressure SEV, at the same five-year time lag as the main analysis. Some regions are neutral, some are red, some are blue. There is no tractable signal suggested in this figure."><img src="capstone_files/figure-html/fig-map-no-corr-blood-pressure-nute-cluster-2-7.png" class="img-fluid figure-img" width="384"></a>
+<a href="capstone_files/figure-html/fig-map-no-corr-blood-pressure-nute-cluster-2-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="Figure&nbsp;15: This choropleth is included to demonstrate what a lack of correlation looks like. This figure depicts Pearson correlation coefficients between changing population proportions of nutrient-profile Cluster 2 and high systolic blood pressure SEV, at the same five-year time lag as the main analysis. Some regions are neutral, some are red, some are blue. There is no tractable signal suggested in this figure."><img src="capstone_files/figure-html/fig-map-no-corr-blood-pressure-nute-cluster-2-7.png" class="img-fluid figure-img" width="384"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-map-no-corr-blood-pressure-nute-cluster-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;14: This choropleth is included to demonstrate what a lack of correlation looks like. This figure depicts Pearson correlation coefficients between changing population proportions of nutrient-profile Cluster 2 and high systolic blood pressure SEV, at the same five-year time lag as the main analysis. Some regions are neutral, some are red, some are blue. There is no tractable signal suggested in this figure.
+Figure&nbsp;15: This choropleth is included to demonstrate what a lack of correlation looks like. This figure depicts Pearson correlation coefficients between changing population proportions of nutrient-profile Cluster 2 and high systolic blood pressure SEV, at the same five-year time lag as the main analysis. Some regions are neutral, some are red, some are blue. There is no tractable signal suggested in this figure.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>The five-year-time-lag correlation between population-level increase in proportion of nutrient cluster 2 and population-level high systolic blood pressure as depicted in <a href="#fig-map-no-corr-blood-pressure-nute-cluster-2" class="quarto-xref">Figure&nbsp;14</a> shows a much more varied and much less consistent correlation. All such choropleths looked about the same, with correlative scores hovering near zero, except <a href="#fig-map-neg-corr-ldl-nute-cluster-2" class="quarto-xref">Figure&nbsp;13</a>.</p>
+<p>The five-year-time-lag correlation between population-level increase in proportion of nutrient cluster 2 and population-level high systolic blood pressure as depicted in <a href="#fig-map-no-corr-blood-pressure-nute-cluster-2" class="quarto-xref">Figure&nbsp;15</a> shows a much more varied and much less consistent correlation. All such choropleths looked about the same, with correlative scores hovering near zero, except <a href="#fig-map-neg-corr-ldl-nute-cluster-2" class="quarto-xref">Figure&nbsp;14</a>.</p>
 </section>
 </section>
 </section>

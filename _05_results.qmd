@@ -27,7 +27,7 @@ disease_colors = {
 ```
 
 
-While exploratory analysis ranged beyond the final figures included above in this report, time-lag correlation studies were focused on population-level changes in the proportion of nutrient-profile Cluster 2 @fig-R-line, and on population-level LDL cholesterol SEV scores @fig-metabolic-rates-over-time. The results reported below are in reference to the correlative association between those two selected variables.  
+While exploratory analysis ranged beyond the final figures included above in this report, time-lag correlation studies were focused on population-level changes in the proportion of nutrient-profile Cluster 2 @fig-R-line, and on population-level LDL cholesterol SEV scores @fig-metabolic-rates-over-time-all-region. The results reported below are in reference to the correlative association between those two selected variables.  
 
 ## Diet and Disease time-lag correlation
 
